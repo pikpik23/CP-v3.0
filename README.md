@@ -15,6 +15,24 @@
     * SPREADSHEET_ID
     * spreadSheetRange (The dimensions of the entire spreadsheet, there is you want to read all)
     * value_input_option (only there for if we want to change it later)
+    
+* ReadWrite.py
+  * Contains
+    * readSheet
+    * printValues
+    * editTable
+* Common.py
+  * Contains
+    * SCOPES
+      * The permissions of the API
+    * SPREADSHEET_ID
+      * The ID of the spreadsheet (found in url)
+    * value_input_option
+      * Ignore (Just tells api how to handle input)
+    * totalRange
+    	* The default Range
+    * service
+      * The Var where temp auth is stored (Hopefully this makes it faster if calling multiple functions)
 
 **Functions**
 * readSheet(range = '')
@@ -41,7 +59,7 @@
 
 	* record is required
 	  * must be a 2d list object
-	  * eg: data = [["fred",123],["john",453]]
+	  * eg: *data = [["fred",123],["john",453]]*
 
 	* range is optional
 	  * describes where it writes the record
