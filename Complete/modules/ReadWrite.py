@@ -43,12 +43,12 @@ def readSheet(range = ''):
 # Print
 #
 
-def printValues(table = '', header=["Names", "Number"]):
-    if not table:
-        table = readSheet()
+def printValues(list = '', header=["Names", "Number"]):
+    if not list:
+        list = readSheet()
 
     print(", ".join(header),end=":\n")
-    for row in table:
+    for row in list:
         try:
             print(", ".join(row))
             #print(u'%s, %s' % (row[0], row[1]))
