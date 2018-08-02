@@ -14,7 +14,6 @@
     * should have complete abstraction
     * contains a small description of the linked functions
     * this is the file that you use to start the program
-    * value_input_option (only there for if we want to change it later)
     
 * ReadWrite.py
   * Contains
