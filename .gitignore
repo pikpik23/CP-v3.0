@@ -103,3 +103,7 @@ venv.bak/
 
 #Google auth files (affects all json cause im lazy)
 *.json
+
+#Anoying mac files
+.DS_Store
+*.DS_Store
