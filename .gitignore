@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+#Google auth files (affects all json cause im lazy)
+*.json
