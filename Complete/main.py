@@ -1,19 +1,14 @@
-from __future__ import print_function
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file as oauth_file, client, tools
+# main.py
 
-# for the modules
+# Import the modules 
 import sys
-sys.path.append("./modules")
-
-from ReadWrite import readSheet, printValues, editRecord
+sys.path.append("./modules") # Add the sub folder
 from common import init
-
-
+from ReadWrite import readSheet, printValues, editRecord
 
 
 if __name__ == '__main__':
 	init()
+	printValues()
 
 	# Do something
