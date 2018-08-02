@@ -4,7 +4,7 @@
 import sys
 sys.path.append("./modules") # Add the sub folder
 from common import init # must be before everything else
-from ReadWrite import readSheet, printValues, editRecord
+from ReadWrite import readSheet, printValues, editTable
 
 '''
 Description of functions:
@@ -26,12 +26,14 @@ printValues(list = '', header=["Names", "Number"])
 	header optional
 	effects the column headings that get printed
 
-editRecord(record, range = '')
+editTable(record, range = '')
 
-	changes a record
+	Rewrites the table
+	IMPORTANT: This overwrites cells if range is wrong
 
 	record is required
-	must be a list object
+	must be a 2d list object
+	eg: data = [["fred",123],["john",453]]
 
 	range is optional
 	describes where it writes the record
@@ -43,7 +45,11 @@ editRecord(record, range = '')
 
 def main():
 
-	printValues() # Baisic action
+	data = [["fred",123],["john",453]]
+
+	editTable(data)
+	printValues()
+
 
 	# Do something
 

@@ -9,7 +9,7 @@ from oauth2client import file as oauth_file, client, tools
 def init():
 	
 	global SCOPES, SPREADSHEET_ID, value_input_option, totalRange
-	
+
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
 	# The ID and range of a sample spreadsheet.
@@ -17,7 +17,7 @@ def init():
 
 	value_input_option = 'USER_ENTERED' #Leave this as is (it makes life easier)
 
-	totalRange = 'Names!A1:B'
+	totalRange = 'Names!A2:B'
 
 
 

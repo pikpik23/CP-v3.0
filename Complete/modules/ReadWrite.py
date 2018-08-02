@@ -22,15 +22,6 @@ import common
 def readSheet(range = ''):
     if not range:
         range = common.totalRange
-
-    '''
-    store = oauth_file.Storage('sheetsToken.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', common.SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('sheets', 'v4', http=creds.authorize(Http()))
-    '''
     
     # Call the Sheets API
     result = common.service.spreadsheets().values().get(
@@ -61,21 +52,12 @@ def printValues(list = '', header=["Names", "Number"]):
                 print("Blank")
 
 #
-# Edit Record
+# Edit table
 #
 
-def editRecord(record, range = ''):
+def editTable(record, range = ''):
     if not range:
         range = common.totalRange
-
-    '''
-    store = oauth_file.Storage('sheetsToken.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', common.SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('sheets', 'v4', http=creds.authorize(Http()))
-    '''
 
     table = {
         'values': record
