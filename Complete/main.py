@@ -45,7 +45,9 @@ editTable(record, range = '')
 
 def main():
 
-	data = [["fred",123],["john",453]]
+	data = [["fred",123],
+			["john",453],
+			["Bob", 567]]
 
 	editTable(data)
 	printValues()
