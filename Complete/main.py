@@ -7,11 +7,8 @@ from oauth2client import file as oauth_file, client, tools
 import sys
 sys.path.append("./modules")
 
-from ReadWrite import readSheet, printValues, editRecord, ex_Read_Print
+from ReadWrite import readSheet, printValues, editRecord
 from common import init
-
-
-
 
 
 
@@ -19,5 +16,4 @@ from common import init
 if __name__ == '__main__':
 	init()
 
-	ex_Read_Print()
-	#ex_editRecord()
+	# Do something

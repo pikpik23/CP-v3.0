@@ -19,7 +19,7 @@ import common
 # Read
 #
 
-def readSheet(range):
+def readSheet(range = commmon.spreadSheetRange):
 
     store = oauth_file.Storage('sheetsToken.json')
     creds = store.get()
@@ -58,12 +58,12 @@ def printValues(values, header=["Names", "Number"]):
 # Edit Record
 #
 
-def editRecord(range, values):
+def editRecord(range = commmon.spreadSheetRange, values):
 
     store = oauth_file.Storage('sheetsToken.json')
     creds = store.get()
     if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
+        flow = client.flow_from_clientsecrets('credentials.json', common.SCOPES)
         creds = tools.run_flow(flow, store)
     service = build('sheets', 'v4', http=creds.authorize(Http()))
 
@@ -73,9 +73,9 @@ def editRecord(range, values):
 
     # Call the Sheets API
     result = service.spreadsheets().values().update(
-        spreadsheetId=SPREADSHEET_ID,
+        spreadsheetId=common.SPREADSHEET_ID,
         range=range,
-        valueInputOption=value_input_option,
+        valueInputOption=common.value_input_option,
         body=body
         ).execute()
 
