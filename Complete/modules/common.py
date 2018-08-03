@@ -7,8 +7,8 @@ from oauth2client import file as oauth_file, client, tools
 # remember to init from main otherwise values won't exist
 
 def init():
-	
-	global SCOPES, SPREADSHEET_ID, value_input_option, totalRange
+
+	global SCOPES, SPREADSHEET_ID, value_input_option, totalRange, DataOption
 
 	SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
@@ -19,6 +19,8 @@ def init():
 
 	totalRange = 'Names!A2:B'
 
+	DataOption='INSERT_ROWS'
+
 
 
 
@@ -28,6 +30,6 @@ def init():
 	store = oauth_file.Storage('sheetsToken.json')
 	creds = store.get()
 	if not creds or creds.invalid:
-		flow = client.flow_from_clientsecrets('credentials.json', common.SCOPES)
+		flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
 		creds = tools.run_flow(flow, store)
 	service = build('sheets', 'v4', http=creds.authorize(Http()))

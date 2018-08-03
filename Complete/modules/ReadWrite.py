@@ -1,11 +1,6 @@
 # Read Write function
 # dependant on main.py function
 
-from __future__ import print_function
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file as oauth_file, client, tools
-
 # for the modules
 import sys
 sys.path.append("./modules")
@@ -22,7 +17,7 @@ import common
 def readSheet(range = ''):
     if not range:
         range = common.totalRange
-    
+
     # Call the Sheets API
     result = common.service.spreadsheets().values().get(
         spreadsheetId=common.SPREADSHEET_ID,
@@ -43,7 +38,7 @@ def printValues(list = '', header=["Names", "Number"]):
         try:
             print(", ".join(row))
             #print(u'%s, %s' % (row[0], row[1]))
-        
+
         # should not be needed but just for incase
         except IndexError:
             if len(row) == 1:
@@ -68,5 +63,27 @@ def editTable(record, range = ''):
         spreadsheetId=common.SPREADSHEET_ID,
         range=range,
         valueInputOption=common.value_input_option,
+        body=table
+        ).execute()
+
+#
+# append function
+#
+def append(record, range = '', insert=''):
+    if not range:
+        range = common.totalRange
+    if not insert:
+        insert = common
+
+    table = {
+        'values': record
+    }
+
+    # Call the Sheets API
+    result = common.service.spreadsheets().values().append(
+        spreadsheetId=common.SPREADSHEET_ID,
+        range=range,
+        valueInputOption=common.value_input_option,
+        insertDataOption= common.DataOption,
         body=table
         ).execute()

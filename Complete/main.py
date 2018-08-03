@@ -1,25 +1,25 @@
 # main.py
 
-# Import the modules 
+# Import the modules
 import sys
 sys.path.append("./modules") # Add the sub folder
 from common import init # must be before everything else
-from ReadWrite import readSheet, printValues, editTable
+from ReadWrite import *
 
 '''
 Description of functions:
 
 readSheet(range = '')
-	
+
 	returns a list of items in provided range
-	
+
 	range is optional
 	if no range is provided it reads the default range
 
 printValues(list = '', header=["Names", "Number"])
 
 	prints the list provided
-	
+
 	list optional
 	if no list is provided it prints the default range (see readSheet)
 
@@ -49,7 +49,8 @@ def main():
 			["john",453],
 			["Bob", 567]]
 
-	editTable(data)
+	#editTable(data)
+	append(data)
 	printValues()
 
 
