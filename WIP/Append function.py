@@ -1,2 +1,21 @@
-request = service.spreadsheets().values().append(spreadsheetId=spreadsheet_id, range=range_, valueInputOption=value_input_option, insertDataOption=insert_data_option, body=value_range_body)
-response = request.execute()
+#
+# append function
+#
+def append(record, range = '', insert=''):
+    if not range:
+        range = common.totalRange
+    if not insert:
+        insert = common
+
+    table = {
+        'values': record
+    }
+
+    # Call the Sheets API
+    result = common.service.spreadsheets().values().append(
+        spreadsheetId=common.SPREADSHEET_ID,
+        range=range,
+        valueInputOption=common.value_input_option,
+        insertDataOption= common.DataOption,
+        body=table
+        ).execute()
