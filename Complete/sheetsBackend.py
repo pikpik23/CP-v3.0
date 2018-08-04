@@ -112,7 +112,7 @@ def editTable(record, CellRange=''):
 
 
 def append(record, CellRange='', insert=''):
-    '''Adds data to bottom of CellRange'''
+    '''Add data to bottom of CellRange'''
 
     if not CellRange:
         CellRange = DEFAULT_RANGE

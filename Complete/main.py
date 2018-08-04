@@ -3,7 +3,7 @@ from sheetsBackend import init, editTable, append, printValues
 
 
 def main():
-
+    '''Edit this to change the program.'''
     data = [["fred", 123],
             ["john", 453],
             ["Bob", 567]]
