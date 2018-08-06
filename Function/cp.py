@@ -1,16 +1,21 @@
 """The Main Section for the CP replacement"""
 import datetime
-from sheetsBackend import init, editTable, append, printValues
+from sheetsBackend import Sheet
 
 
-def send_message(msg_type, msg):
+def send_message(msg_type, sender, msg, time):
     '''Edit this to change the program.'''
     print("-------------------------\n" +
           "Sending data to server...\n" +
           "-------------------------")
-    # ["Time", "Type", "Message"]
-    data = [[str(datetime.datetime.now()), msg_type, msg], ]
-    rtrn = append(data, CellRange=(msg_type+'!A2:Z'))
+
+    new_msg = []
+    for serial in msg:
+        new_msg.append(msg[serial])
+
+    data = [[str(datetime.datetime.now()), sender,
+             msg_type, ", ".join(new_msg)], ]
+    rtrn = SHEET.append(data, CellRange=('CP!A2:Z'))
 
     print("\n\n\n-------------------------\n" +
           "Updated\n\n" +
@@ -53,15 +58,23 @@ class admin_return:
             "C": "Time"
         }
 
-        def __init__(self, lst):
+        def __init__(self, sender, lst, time='', send=True):
+            self.time = ''
+            if time:
+                self.time = time
+            else:
+                self.time = datetime.datetime.now()
+            self.sender = sender
             self.serials = {
                 "A": lst[0],
                 "B": lst[1],
                 "C": lst[2]
             }
+            if send:
+                self.send_message()
 
         def send_message(self):
-            send_message(self.name, self.serials)
+            send_message(self.name, self.sender, self.serials, self.time)
 
     class maintdem:
         name = 'MAINTDEM'
@@ -76,41 +89,54 @@ class admin_return:
             "D2": "Time",
             "D3": "Time",
             "E": "Time"
-
         }
 
 
-'''
-def cp_reset():
-    """Resets the table"""
-    editTable(record=['', '', ''])
+def print_sheets():
+    data = SHEET.readSheet()
+    for record in data:
+        if record[2] == 'LOCSTAT':
+            print('-----------------------------')
+            print(admin_return.locstat.name)
+            print(' '.join(record[0:2]))
+            print('-----------------------------')
+            record = record[3].split(', ')
+            i = 0
+            for serial in admin_return.locstat.definition:
+                print(serial + ': '+record[i])
+                i += 1
+            print('-----------------------------')
+            print('')
 
-def assign_dictionary():
-    """Defines the dictonary of serials"""
-    availible_types = {
-        "Locstat": {
-            "A": "Location",
-            "B": "Moving / Stationary",
-            "C": "Time"
-        },
-        "Test": {
-            "A": "Meme",
-            "B": "Meme2",
-            "C": "mem3",
-        }
-    }
-    print(availible_types)
-'''
+
+def import_sheets():
+    data = SHEET.readSheet()
+
+    new_data = []
+
+    for record in data:
+        if record[2] == 'LOCSTAT':
+            x = admin_return.locstat(
+                record[1], record[3].split(', '), time=record[0], send=False)
+            new_data.append(x)
+    return new_data
+
 
 if __name__ == '__main__':
-    # init()  # Must always be run first
 
-    x = admin_return.locstat
+    SHEET = Sheet(
+        '12T7Ub21E-gAlwtJRZdsu3cww-wwIOvdjP_plhMxUn-0', 'CP!A2:Z')
 
-    define(x)
+    data = import_sheets()
 
-    x = admin_return.locstat(["Teest", "twe", "sure"])
-    recall(x)
+    for record in data:
+        print(record.time)
+
+    # send = "3-0"
+    # data = ["GR123456", "Moving", "South"]
+
+    # x = admin_return.locstat(send, data)
+
     # print(admin_return.locstat.definition)
     # x.send_message()
 

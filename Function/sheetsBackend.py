@@ -1,4 +1,4 @@
-'''sheetsBackend'''
+'''sheets_Backend'''
 # dependant on main.py function
 from __future__ import print_function
 from googleapiclient.discovery import build
@@ -9,126 +9,122 @@ from oauth2client import file as oauth_file, client, tools
 # remember to init from main otherwise values won't exist
 
 
-#
-# init
-#
+class Sheet:
 
-def init():
-    '''To be run at startup'''
+    oauth = 'sheetsToken.json'
+    client_secret = 'credentials.json'
+    data_option = 'INSERT_ROWS'
+    scopes = 'https://www.googleapis.com/auth/spreadsheets'
+    input_option = 'USER_ENTERED'
 
-    global SCOPES, SPREADSHEET_ID, INPUT_OPTION, DEFAULT_RANGE, DATA_OPTION
+    #
+    # init
+    #
 
-    SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
+    def __init__(self, spread_sheet_id, default_range):
+        '''To be run at startup'''
 
-    # The ID and range of a sample spreadsheet.
-    SPREADSHEET_ID = '12T7Ub21E-gAlwtJRZdsu3cww-wwIOvdjP_plhMxUn-0'
+        # The ID and range of a sample spreadsheet.
+        self.spreadsheet_id = spread_sheet_id
 
-    INPUT_OPTION = 'USER_ENTERED'  # Leave this as is (it makes life easier)
+        self.default_range = default_range
 
-    DEFAULT_RANGE = 'CP!A2:F'
+        # Auth with google
 
-    DATA_OPTION = 'INSERT_ROWS'
+        store = oauth_file.Storage(self.oauth)
+        creds = store.get()
+        if not creds or creds.invalid:
+            flow = client.flow_from_clientsecrets(
+                self.client_secret, self.scopes)
+            creds = tools.run_flow(flow, store)
+        self.service = build('sheets', 'v4', http=creds.authorize(Http()))
 
-    # Auth with google
-    global SERVICE
+    #
+    # Read
+    #
 
-    store = oauth_file.Storage('sheetsToken.json')
-    creds = store.get()
-    if not creds or creds.invalid:
-        flow = client.flow_from_clientsecrets('credentials.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    SERVICE = build('sheets', 'v4', http=creds.authorize(Http()))
+    def readSheet(self, CellRange=''):
+        ''' Reads the sheet'''
 
+        if not CellRange:
+            CellRange = self.default_range
 
-#
-# Read
-#
+        # Call the Sheets API
+        result = self.service.spreadsheets().values().get(
+            spreadsheetId=self.spreadsheet_id,
+            range=CellRange).execute()
+        return result.get('values', [])
 
-def readSheet(CellRange=''):
-    ''' Reads the sheet'''
+    #
+    # Print
+    #
 
-    if not CellRange:
-        CellRange = DEFAULT_RANGE
+    def printValues(self, data='', header=["Time", "Type", "Message"]):
+        '''Prints the sheet'''
 
-    # Call the Sheets API
-    result = SERVICE.spreadsheets().values().get(
-        spreadsheetId=SPREADSHEET_ID,
-        range=CellRange).execute()
-    return result.get('values', [])
+        if not data:
+            data = self.readSheet()
 
+        print(", ".join(header), end=":\n")
+        for row in data:
+            try:
+                print(", ".join(row))
+                # print(u'%s, %s' % (row[0], row[1]))
 
-#
-# Print
-#
+            # should not be needed but just for incase
+            except IndexError:
+                if len(row) == 1:
+                    print(row[0])
+                else:
+                    print("Blank")
 
-def printValues(data='', header=["Time", "Type", "Message"]):
-    '''Prints the sheet'''
+    #
+    # Edit table
+    #
 
-    if not data:
-        data = readSheet()
+    def editTable(self, record, CellRange=''):
+        '''Edits table at given range'''
 
-    print(", ".join(header), end=":\n")
-    for row in data:
-        try:
-            print(", ".join(row))
-            # print(u'%s, %s' % (row[0], row[1]))
+        if not CellRange:
+            CellRange = self.default_range
 
-        # should not be needed but just for incase
-        except IndexError:
-            if len(row) == 1:
-                print(row[0])
-            else:
-                print("Blank")
+        table = {
+            'values': record
+        }
 
-#
-# Edit table
-#
+        # Call the Sheets API
+        result = self.service.spreadsheets().values().update(
+            spreadsheetId=self.spreadsheet_id,
+            range=CellRange,
+            valueInputOption=self.input_option,
+            body=table
+        ).execute()
 
+        return result
 
-def editTable(record, CellRange=''):
-    '''Edits table at given range'''
+    #
+    # append function
+    #
 
-    if not CellRange:
-        CellRange = DEFAULT_RANGE
+    def append(self, record, CellRange='', insert=''):
+        '''Add data to bottom of CellRange'''
 
-    table = {
-        'values': record
-    }
+        if not CellRange:
+            CellRange = self.default_range
+        if not insert:
+            insert = self.data_option
 
-    # Call the Sheets API
-    result = SERVICE.spreadsheets().values().update(
-        spreadsheetId=SPREADSHEET_ID,
-        range=CellRange,
-        valueInputOption=INPUT_OPTION,
-        body=table
-    ).execute()
+        table = {
+            'values': record
+        }
 
-    return result
+        # Call the Sheets API
+        result = self.service.spreadsheets().values().append(
+            spreadsheetId=self.spreadsheet_id,
+            range=CellRange,
+            valueInputOption=self.input_option,
+            insertDataOption=insert,
+            body=table
+        ).execute()
 
-#
-# append function
-#
-
-
-def append(record, CellRange='', insert=''):
-    '''Add data to bottom of CellRange'''
-
-    if not CellRange:
-        CellRange = DEFAULT_RANGE
-    if not insert:
-        insert = DATA_OPTION
-
-    table = {
-        'values': record
-    }
-
-    # Call the Sheets API
-    result = SERVICE.spreadsheets().values().append(
-        spreadsheetId=SPREADSHEET_ID,
-        range=CellRange,
-        valueInputOption=INPUT_OPTION,
-        insertDataOption=insert,
-        body=table
-    ).execute()
-
-    return result
+        return result
