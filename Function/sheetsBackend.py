@@ -13,7 +13,6 @@ from oauth2client import file as oauth_file, client, tools
 # init
 #
 
-
 def init():
     '''To be run at startup'''
 
@@ -26,7 +25,7 @@ def init():
 
     INPUT_OPTION = 'USER_ENTERED'  # Leave this as is (it makes life easier)
 
-    DEFAULT_RANGE = 'Names!A2:B'
+    DEFAULT_RANGE = 'CP!A2:F'
 
     DATA_OPTION = 'INSERT_ROWS'
 
@@ -62,14 +61,14 @@ def readSheet(CellRange=''):
 # Print
 #
 
-def printValues(list='', header=["Names", "Number"]):
+def printValues(data='', header=["Time", "Type", "Message"]):
     '''Prints the sheet'''
 
-    if not list:
-        list = readSheet()
+    if not data:
+        data = readSheet()
 
     print(", ".join(header), end=":\n")
-    for row in list:
+    for row in data:
         try:
             print(", ".join(row))
             # print(u'%s, %s' % (row[0], row[1]))

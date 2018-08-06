@@ -4,11 +4,10 @@ from sheetsBackend import init, editTable, append, printValues
 
 def main():
     '''Edit this to change the program.'''
-    data = [["fred", 123],
-            ["john", 453],
-            ["Bob", 567]]
+    data = [["fred", 1],
+            ["john", 2],
+            ["Bob", 3]]
 
-    editTable(data)
     append(data)
     printValues()
 
