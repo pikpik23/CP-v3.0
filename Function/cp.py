@@ -129,8 +129,7 @@ if __name__ == '__main__':
 
     data = import_sheets()
 
-    for record in data:
-        print(record.time)
+    print(data[0].serials['A'])
 
     # send = "3-0"
     # data = ["GR123456", "Moving", "South"]
