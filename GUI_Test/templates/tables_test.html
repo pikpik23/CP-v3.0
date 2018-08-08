@@ -1,0 +1,14 @@
+{% extends 'layout.html' %} {% block body %}
+<p>
+    <b>{{return_type}}</b>
+</p>
+{% endblock %}
+
+<p>
+    {% for serial in serials_def[return_type]: %}
+    <tr>
+        <td>{{serial}}</td>
+        <td>{{serials_def[return_type][serial]|tojson|safe}}</td>
+    </tr>
+    {% endfor %}
+</p>
