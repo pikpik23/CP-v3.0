@@ -1,4 +1,4 @@
-"""The Main Section for the CP replacement"""
+"""The backend Section for the CP replacement"""
 import datetime
 from sheetsBackend import Sheet
 from read_dictionary import dictionary
@@ -15,7 +15,7 @@ def send_message(sender, msg, time):
         if serial != 'name':
             new_msg.append(msg[serial])
 
-    data = [[str(datetime.datetime.now()), sender,
+    data = [[str(time), sender,
              msg['name'], ", ".join(new_msg)], ]
     rtrn = SHEET.append(data, CellRange=('CP!A2:Z'))
 
@@ -119,21 +119,6 @@ class admin_returns:
         def send_message(self):
             send_message(self.name, self.sender, self.serials, self.time)
 
-    class maintdem:
-        name = 'MAINTDEM'
-
-        definition = {
-            "A": "Location",
-            "B": "Moving / Stationary",
-            "C1": "Time",
-            "C2": "Time",
-            "C3": "Time",
-            "D1": "Time",
-            "D2": "Time",
-            "D3": "Time",
-            "E": "Time"
-        }
-
 
 def print_sheets():
     data = SHEET.readSheet()
@@ -171,7 +156,7 @@ if __name__ == '__main__':
         '12T7Ub21E-gAlwtJRZdsu3cww-wwIOvdjP_plhMxUn-0', 'CP!A2:Z')
 
     '''
-    needs updating
+    needs updating to new serial format
     # reading sheet
     # read data
     data = import_sheets()
