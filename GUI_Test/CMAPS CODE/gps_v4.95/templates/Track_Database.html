@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>CMAPS Database</title>
+<link rel="stylesheet" type="text/css" href="/static/new/cmaps_css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="/static/js/jquery-1.11.3.min.js"></script>
+		<script src="/static/js/date.min.js"></script>
+<link rel="icon" type="image/png" href="/static/new/images/favicon.ico">
+<style>
+tr:nth-child(even){background-color: #2f3036}
+
+/* all bellow is css styling for login bar (plz forgive me its messy and inefficient)*/
+::-webkit-input-placeholder { /* Chrome */
+  color: #007DC3;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+  color: #007DC3;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #007DC3;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #007DC3;
+  opacity: 1;
+}
+
+#loginbutton {
+    border: 1.5px solid white ;/*#000000*/
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  width: 250px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: white;
+  cursor: pointer;
+  width: 90px; 
+  font-weight: bold;
+  background-color:white ; /*#999B9E*/
+}
+
+#username {
+     border: 2px solid white;/*#000000*/
+  font-size: 16px;
+  padding: 9px;
+  outline: none;
+  width: 250px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: white;
+  width: 200px;
+}
+
+#password {
+  border: 2px solid white;/*#000000*/
+  font-size: 16px;
+  padding: 11.3px;
+  outline: none;
+  width: 250px;
+  border-top: 10px;
+  border-bottom: 10px;
+  background: white;
+  width: 200px;
+}
+
+#droplist {
+  width: 284px !important;
+}
+
+#mainContainer {
+}
+
+#datatitle {
+  font-family: universalstd;
+}
+/* all above is css styling for login bar (plz forgive me its messy and inefficient)*/
+</style>
+</head>
+
+<body background="/static/new/images/patterBG.jpg">
+<div align="center">
+   <header>
+    <a href="/">
+      <img src="/static/new/images/headerv5.png" width="80%" >	<label for="show-menu" class="show-menu">Show Menu</label>
+    </a>
+   </header>
+</div>
+<div  align="center" id="menu">
+	<input type="checkbox" id="show-menu" role="button">
+    	<ul>
+		<li><a href="/">Home</a></li>
+		<li>
+			<a href="#">Tracking</a>
+			<ul class="hidden">
+				<li id="droplist"><a href="/track_map/dyn">View Map</a></li>
+                <li id="droplist"><a href="/track_database">View Database</a></li>
+				<li id="droplist"><a href="/assignments">Assignments</a></li>
+			</ul>
+		</li>
+		<li><a href="https://cmaps-wiki.000webhostapp.com/">Wiki</a></li>
+		<li><a href="http://cmaps.knox.nsw.edu.au/training/cadets">Training</a>
+		<ul class="hidden">
+			<li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/signalers">Signals</a></li>
+			<li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/operations">Operations</a></li>
+			<li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/q-store">Q-Store</a></li>
+			<li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/admin">Admin</a></li>
+		</li>
+	</ul>
+</div>
+
+    
+    <div style="text-align:center;">   
+		<h1 style="color:white;font-family:universltstd;">Database</h1>
+        <form method="post" action="/track_database" autocomplete="off" style="color:white;font-family:universltstd;margin-bottom:30px;" >
+            
+            <input id="username" type="text" name="name" placeholder="Username" style="color:#007DC3;;font-family:universltstd;font-size: 15px;"> <!--style="background-color:white;color:black;font-family:universltstd;"-->
+            
+            
+            <input id="password" type="password" name="password" placeholder="Password" style="color:#007DC3;;font-family:universltstd;font-size: 15px;">
+            
+            <input id="loginbutton" type="submit" value="Login" style="color:black;font-family:universltstd;font-size: 15px;color: #007DC3;">
+        </form>
+        
+        
+        {% if is_Valid == True %}
+        <div id="mainContainer" style="text-align: center;">
+                <span id="updateStatus" style="text-align: left; color: white;font-family:universltstd">Updating Please Hold</span>
+            <table style="color: white;width: 100%;">
+                <thead>
+                    <tr style="font-weight: bold; font-family:universltstd">
+                        <td>UUID</td>
+                        <td>Assigned To</td>
+                        <td>Assignment Type</td>
+                        <td>Latitude</td>
+                        <td>Longitude</td>
+                        <td>Time (AEST)</td>
+                    </tr>
+                </thead>
+                <tbody id="infotable" style="font-family:universltstd; width: 100% !important;letter-spacing: 1px">
+                </tbody>
+            </table>
+        </div>
+        {% end if %}
+
+
+  	<script type="text/javascript">
+
+    function round(value, decimals) {
+      return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+    }
+
+  		var up = function(){
+  			$("#updateStatus").html("Updating NOW");
+  			$("#updateStatus").css("visibility", 'visible');
+  			$.ajax({
+  			  url: "/location/get/all",
+  			  context: document.body
+  			}).done(function(data) {
+  			  var data = JSON.parse(data);
+
+  		
+
+                            var tablehtml = '';
+                            for (var i = 0; i < data.length; i++) {
+  				var formattedDate = new Date (data[i][3] * 1000);
+
+  				tablehtml += '<tr>';
+  				tablehtml += '<td>' + data[i][0] + '</td>';
+  				tablehtml += '<td>' + data[i][4] + '</td>';
+  				if (data[i][5] == '1') {
+  					tablehtml += '<td>Vehicle</td>';
+  				} else {
+  					tablehtml += '<td>Platoon</td>';
+  				}
+  				tablehtml += '<td>' + round(data[i][1], 5) + '</td>';
+  				tablehtml += '<td>' + round(data[i][2], 5) + '</td>';
+  				tablehtml += '<td>' + formattedDate.format('H:i M jS, Y') + '</td>';
+  				tablehtml += '</tr>';
+  			  }
+
+  			  $("#infotable").html(tablehtml);
+  			  $("#updateStatus").html("Updating Soon");
+  			  $("#updateStatus").css("visibility", 'hidden');
+  			});
+
+  		};
+  		setInterval("up()", 15000);
+  		up();		
+  	</script>
+    <div style="margin-bottom: 80px;"></div>
+</body>
+</html>
+
