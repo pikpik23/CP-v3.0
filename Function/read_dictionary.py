@@ -81,8 +81,8 @@ class dictionary:
                     "C1": "Number of persons to be transported",
                     "C2": "Configuration of troops", #Boolean marching or patrol 
                     "D1": "Description of cargo", 
-                    "D2": "Estimated number of vehicles,
-                    "D3": "Is a loading/unloading pary available at Loc", #is this obsolete????
+                    "D2": "Estimated number of vehicles",
+                    "D3": "Is a loading/unloading pary available at Loc",
                     "E": "Time of pickup" #DTG
                 }, 
 
