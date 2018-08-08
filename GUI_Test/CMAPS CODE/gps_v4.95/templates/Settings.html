@@ -1,0 +1,160 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="/static/new/cmaps_css.css">
+<link rel="icon" type="image/png" href="/static/new/images/favicon.ico">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/static/js/jquery-1.11.3.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDKx2N9pcck27OYw7z4j--nr6wfHN1M6SM	">"></script>
+
+<style>
+.customBox {
+      background: yellow;
+      border: 1px solid black;
+      position: absolute;
+    }
+/* all bellow is css styling for login bar (plz forgive me its messy and inefficient)*/
+::-webkit-input-placeholder { /* Chrome */
+  color: #007DC3;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+  color: #007DC3;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #007DC3;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #007DC3;
+  opacity: 1;
+}
+
+#loginbutton {
+    border: 1.5px solid white ;/*#000000*/
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
+  width: 250px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: white;
+  cursor: pointer;
+  width: 90px; 
+  font-weight: bold;
+  background-color:white ; /*#999B9E*/
+}
+
+#username {
+     border: 2px solid white;/*#000000*/
+  font-size: 16px;
+  padding: 9px;
+  outline: none;
+  width: 250px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: white;
+  width: 200px;
+}
+
+#password {
+  border: 2px solid white;/*#000000*/
+  font-size: 16px;
+  padding: 11.3px;
+  outline: none;
+  width: 250px;
+  border-top: 10px;
+  border-bottom: 10px;
+  background: white;
+  width: 200px;
+}
+/* all above is css styling for login bar (plz forgive me its messy and inefficient)*/
+
+#droplist {
+  margin-left: 0px;
+  /*border-left: 40px solid white;
+  border-right: 100px solid white;*/
+  width: 284px !important;
+}
+
+#
+
+
+
+
+
+</style>
+<title>CMAPS Map Settings</title>
+</head>
+    <body background="/static/new/images/patterBG.jpg">        
+        
+<div  align="center">
+   <header>
+   <a href="/">
+      <img src="/static/new/images/headerv5.png" width="80%" >   <label for="show-menu" class="show-menu">Show Menu</label>
+    </a>
+   </header>
+</div>
+<div  align="center" id="menu">
+  <input type="checkbox" id="show-menu" role="button">
+      <ul>
+    <li><a href="/">Home</a></li>
+    <li>
+      <a href="#">Tracking</a>
+      <ul class="hidden">
+        <li id="droplist"><a href="/track_map/dyn">View Map</a></li>
+                <li id="droplist"><a href="/track_database">View Database</a></li>
+        <li id="droplist"><a href="/assignments">Assignments</a></li>
+      </ul>
+    </li>
+    <li><a href="https://cmaps-wiki.000webhostapp.com/">Wiki</a></li>
+    <li><a href="http://cmaps.knox.nsw.edu.au/about">Training</a>
+    <ul class="hidden">
+      <li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/cadets">Cadets</a></li>
+      <li id="droplist"><a href="http://cmaps.knox.nsw.edu.au/training/cmaps">Cmaps</a></li>
+    </li>
+  </ul>
+</div>
+
+        
+        <div style="text-align:center;">   
+	    <h1 style="color:white;font-family:universltstd;">Map</h1>
+        <form method="post" action="/settings" autocomplete="off" style="color:white;font-family:universltstd;margin-bottom:30px;" >
+            
+            <input id="username" type="text" name="name" placeholder="Username" style="color:#007DC3;;font-family:universltstd;font-size: 15px;"> <!--style="background-color:white;color:black;font-family:universltstd;"-->
+            
+            
+            <input id="password" type="password" name="password" placeholder="Password" style="color:#007DC3;;font-family:universltstd;font-size: 15px;">
+            
+            <input id="loginbutton" type="submit" value="Login" style="color:black;font-family:universltstd;font-size: 15px;color: #007DC3;">
+        </form>
+        
+        
+        {% if is_Valid == True %}
+        <form method="post" action="/set" autocomplete="off" style="color:white;font-family:universltstd;margin-bottom:30px;" >
+            
+            <input id="uuid" type="text" name="uuid" placeholder="Please input a list of UUIDs, separated by commas." style="color:#007DC3;;font-family:universltstd;font-size: 15px;height: 45px; width: 800px;"> <!--style="background-color:white;color:black;font-family:universltstd;"-->
+            <br></br>
+            
+            <input id="trailtime" type="text" name="time" placeholder="Please input the length of the trail in hours. Type 0.5 for half an hour and etc." style="color:#007DC3;;font-family:universltstd;font-size: 15px;height: 45px; width: 800px;">
+            <br></br>
+            <input id="setbutton" type="submit" value="Submit" style="color:black;font-family:universltstd;font-size: 15px;color: #007DC3;text-align: center;">
+        </form>
+        {% end if %}
+        
+
+        
+        
+        
+        
+        
+        
+
+	
+</div>
+
+    </body>
+	
+	
+</html>
