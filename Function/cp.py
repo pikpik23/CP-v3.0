@@ -1,6 +1,7 @@
 """The Main Section for the CP replacement"""
 import datetime
 from sheetsBackend import Sheet
+from read_dictionary import dictionary
 
 
 def send_message(msg_type, sender, msg, time):
@@ -48,6 +49,13 @@ def recall(return_type):
 
 
 class admin_return:
+
+    def init(self):
+        self.serials_def = dictionary.read()
+
+    def new():
+        pass
+
     class locstat:
 
         name = 'LOCSTAT'

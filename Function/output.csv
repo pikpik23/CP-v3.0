@@ -1,0 +1,3 @@
+Return Name,Serials
+LOCSTAT,"A:Location, B:Moving / Stationary, C:Time"
+MAINTDEM,"A:Location, B:Moving / Stationary, C1:Time, C2:Time, C3:Time, D1:Time, D2:Time, D3:Time, E:Time"
