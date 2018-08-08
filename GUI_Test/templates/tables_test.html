@@ -2,13 +2,15 @@
 <p>
     <b>{{return_type}}</b>
 </p>
-{% endblock %}
+
 
 <p>
-    {% for serial in serials_def[return_type]: %}
+    {% for k, v in serials_def[return_type].items() %}
     <tr>
-        <td>{{serial}}</td>
-        <td>{{serials_def[return_type][serial]|tojson|safe}}</td>
+        <td>{{k}}</td>
+        <td>{{v}}</td>
+
     </tr>
     {% endfor %}
 </p>
+{% endblock %}

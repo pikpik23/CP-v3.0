@@ -12,7 +12,8 @@ def index():
 @app.route('/table')
 def display_table():
     lel = "LOCSTAT"
-    return render_template('tables_test.html', serials_def=dictionary.read(), return_type=lel)
+    x = dictionary.read()
+    return render_template('tables_test.html', serials_def=x, return_type=lel)
 
 
 if __name__ == '__main__':
