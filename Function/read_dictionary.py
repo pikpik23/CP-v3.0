@@ -28,7 +28,14 @@ class dictionary:
                     "D2": "Time",
                     "D3": "Time",
                     "E": "Time"
-                }
+                },
+
+                'MOVEREQ': {
+                    "A": "Location",
+                    "B": "Moving / Stationary",
+                    "C": "Time"
+                },    
+
             }
         w = csv.writer(open("output.csv", "w"))
 
@@ -61,8 +68,9 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    meme = dictionary.read()
+    #meme = dictionary.read()
 
+    dictionary.save
 
 """
 class admin_return:
