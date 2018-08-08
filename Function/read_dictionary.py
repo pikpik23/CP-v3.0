@@ -13,28 +13,95 @@ class dictionary:
                 'Return Name': 'Serials',
 
                 'LOCSTAT': {
-                    "A": "Location",
-                    "B": "Moving / Stationary",
-                    "C": "Time"
+                    "A": "Location", #GR
+                    "B": "Moving / Stationary", #boolean
+                    "C": "Direction of Movement or Length of Halt" 
                 },
 
                 'MAINTDEM': {
-                    "A": "Location",
-                    "B": "Moving / Stationary",
-                    "C1": "Time",
-                    "C2": "Time",
-                    "C3": "Time",
-                    "D1": "Time",
-                    "D2": "Time",
-                    "D3": "Time",
-                    "E": "Time"
+                    "A": "Demand Number",
+                    "B": "Priority", #PRI
+                    "C1": "Quantity of Ration Packs",
+                    "C2": "Quantity of Water Jerries",
+                    "C3": "Other Items and Quantity",
+                    "D1": "Location of Delivery", #GR or NL 
+                    "D2": "Time of Delivery", #Date/Time Group
+                    "D3": "Mode of Delivery", #boolean Playtime/Pickup
+                    "E": "Remarks"
                 },
 
-                'MOVEREQ': {
-                    "A": "Location",
-                    "B": "Moving / Stationary",
-                    "C": "Time"
+                'STRENGTHSTATE': {
+                    "A1": "No. of Own Cadets",
+                    "A2": "No. of Attachments",
+                    "A3": "No. of Staff",
+                    "B1": "No. of expected attachments in next 24 hours",
+                    "B2": "No. of expected detachments in next 24 hours",
+                    "C": "Total Personnel"
+                },  
+                
+                'CASEVAC': {
+                    "A": "Patient ID",
+                    "B1": "No. of Stretcher Cases",
+                    "B2": "No. of Sitting Cases",
+                    "C": "Requirements for special equipment",
+                    "D1": "Location of RV", #GR or NL
+                    "D2": "Callsign and Channel at RV",
+                    "E": "Remarks"
                 },    
+
+                'NOTICAS': {
+                    "A": "Patient ID",
+                    "B": "Rank",
+                    "C": "Name",
+                    "D": "Details of injury or illness",
+                    "E": "Location of injury", #GR or NL
+                    "F": "Time of injury", #DTG
+                    "G": "Treatment administered",
+                    "H": "Remarks and Present Location" #GR or NL
+                },    
+
+                'SITREP': {
+                    "A": "Time", #DTG
+                    "B": "Own Situation",
+                    "C": "Situation with Regard to third parties",
+                    "D": "Future intentions and relevant general information"
+                }, 
+
+                'INTREP': {
+                    "A": "Time of incident", #DTG
+                    "B": "Location of incident", #GR or NL
+                    "C": "Brief description of incident",
+                    "D": "Commanders evaluation"
+                }, 
+
+                'MOVEREQ': {
+                    "A": "Callsign of person at pick-up location",
+                    "B1": "Location of pick up", #GR AND LOC
+                    "B2": "Location of Destination", #GR and LOC
+                    "C1": "Number of persons to be transported",
+                    "C2": "Configuration of troops", #Boolean marching or patrol 
+                    "D1": "Description of cargo", 
+                    "D2": "Estimated number of vehicles,
+                    "D3": "Is a loading/unloading pary available at Loc", #is this obsolete????
+                    "E": "Time of pickup" #DTG
+                }, 
+
+                'STARLIGHTREQ': {
+                    "A": "Callsign of person at location",
+                    "B": "Location", #GR or NL
+                    "C": "Nature of illness or injury",
+                    "D": "Any RV details",
+                    "E": "Remarks"
+                }, 
+
+                'SENTRYREP': {
+                    "A": "Vehicle Number Plate",
+                    "B": "Status", #boolean returning/leaving
+                    "C": "Passengers",
+                    "D": "Destination",
+                    "E": "Estimated time of return", 
+                    "F": "Remarks"
+                }, 
 
             }
         w = csv.writer(open("output.csv", "w"))
