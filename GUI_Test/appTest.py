@@ -13,6 +13,10 @@ def index():
 def display_table():
     return render_template('tables_test.html', serials_def=dictionary.read())
 
+@app.route('/testIndex')
+def display_index():
+    return render_template('index_test.html', serials_def=dictionary.read())
+
 
 @app.route('/return')
 def return_page():

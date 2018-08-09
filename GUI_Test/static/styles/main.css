@@ -1,23 +1,21 @@
-/*!
- * Bootstrap v4.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2018 The Bootstrap Authors
- * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)*/
 
- .index_nav {
+
+/* Create two columns/boxes that floats next to each other */
+#test nav {
     float: left;
     width: 30%;
+    height: 300px; /* only for demonstration, should be removed */
     background: #ccc;
     padding: 20px;
 }
 
 /* Style the list inside the menu */
-.index_nav ul {
+#test nav ul {
     list-style-type: none;
     padding: 0;
 }
 
-.index_article {
+#test article {
     float: left;
     padding: 20px;
     width: 70%;
@@ -26,8 +24,12 @@
 }
 
 /* Clear floats after the columns */
-.index_body:after {
+#test:after {
     content: "";
     display: table;
     clear: both;
+}
+#mainNav{
+    width:100%;
+
 }

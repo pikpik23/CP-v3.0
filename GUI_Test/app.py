@@ -12,7 +12,7 @@ def index():
 def display_table():
     return render_template('tables_test.html', serials_def=dictionary.read())
 
-@app.route('/mainIndex')
+@app.route('/testIndex')
 def display_main():
     return render_template('index_test.html', serials_def=dictionary.read())
 
