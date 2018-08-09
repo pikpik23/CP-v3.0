@@ -39,8 +39,6 @@ def maint_test_return():
     ret = {}
     for serial in dictionary.read()["MAINTDEM"]:
         ret.update({serial: request.form[serial]})
-    print(ret)
-
     return render_template('return_display_test.html', serials_def=ret)
 
 
