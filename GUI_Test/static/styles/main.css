@@ -53,6 +53,15 @@ footer {
     color: white;
 }
 
+nav a {
+    display: block; /* Make the links appear below each other */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+}
+nav a.selected {
+    background-color: #666;
+}
+
 /*------------------------------------- Nav bar --------------------------------------*/
 
 .topnav {
