@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="cssMaintdem.css">
+  <title>
+    MAINTDEM Input Test
+  </title>
+</head>
+
+<body>
+  <div id="banner">
+    <div id="wrapper" style="width:100%; overflow:hidden;">
+      <div id="container" style="width:100%; margin-right:auto;">
+        <img style="width: 100%;" src="maintdemAFX2018.png" />
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="image">
+    </div>
+
+    <div class="wrapper">
+
+      <form method="POST">
+        <!-- SINGLE LINE TEXT FIELD -->
+        <h1> GENERAL </h1>
+
+        <table>
+          <tr>
+            <td>
+              <label class="stext" for="A">A. Demand Number</label>
+              <input class="itext" name="A" type="text" id="A" />
+            </td>
+            <td class="space"></td>
+
+            <td>
+              <p>B. Priority</p>
+              <div class="input-wrap select-box">
+                <select name="B">
+                  <option value="3">Priority 3</option>
+                  <option value="2">Priority 2</option>
+                  <option value="1">Priority 1</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>C1. Quantity of Ration Packs</p>
+              <div class="input-wrap select-box">
+                <select name="C1">
+                  <option value="0">0</option>
+                  <option value="As Per Ration Plan">As Per Ration Plan</option>
+                </select>
+              </div>
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="stext" for="C2">C2. Quantity of Water Jerries</label>
+              <input class="itext" name="C2" type="text" id="C2" />
+            </td>
+            <td>
+              <label class="stext" for="C3">C3. Remarks</label>
+              <input class="itext" name="C3" type="text" id="C3" />
+            </td>
+
+
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <td>
+              <label class="stext" for="D">D Location</label>
+              <input class="itext" name="D1" type="text" id="" list="locs" />
+              <datalist id="locs">
+                <option selected disabled>Choose</option>
+                <option value="POE">POE</option>
+                <option value="EXCON">EXCON</option>
+                <option value="ECH B">ECH B</option>
+                <option value="High Ropes">High Ropes</option>
+                <option value="NL Hammer">NL Hammer</option>
+                <option value="PNR/ENG">PNR/ENG</option>
+                <option value="Bullock Track (Top)">Bullock Track (Top)</option>
+                <option value="Calf Pen (Start)">Calf Pen (Start)</option>
+                <option value="NL Broke">NL Broke</option>
+                <option value="NL Hill Top">NL Hill Top</option>
+                <option value="NL Wallaby">NL Wallaby</option>
+                <option value="NL Sleeper">NL Sleeper</option>
+                <option value="NL Oakley">NL Oakley</option>
+                <option value="NL Pine">NL Pine</option>
+                <option value="NL Alpha Niner">NL Alpha Niner</option>
+                <option value="NL Spanner">NL Spanner</option>
+                <option value="NL Comms">NL Comms</option>
+                <option value="NL Summit">NL Summit</option>
+              </datalist>
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="stext" for="D2">D2. Date / Time</label>
+              <input class="itext" name="D2" type="text" id="D2" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <p>D3. Playtime / Pickup</p>
+              <div class="input-wrap select-box">
+                <select name="D3">
+                  <option value="Playtime">Playtime</option>
+                  <option value="Pickup">Pickup</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+
+        <h1> SPECIAL MAINTDEMS </h1>
+
+        <table class="specialM">
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 1
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S1">Item</label>
+              <input class="specialInput" name="entry.412665897" type="text" id="S1" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" class="special" for="S1Q">Quantity</label>
+              <input class="specialInput" name="entry.1610270219" type="text" id="S1Q" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <h3>SPECIAL 2
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S2">Item</label>
+              <input class="specialInput" name="entry.358685753" type="text" id="S2" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S2Q">Quantity</label>
+              <input class="specialInput" name="entry.1326991150" type="text" id="S2Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 3
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S3">Item</label>
+              <input class="specialInput" name="C3" type="text" id="S3" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S3Q">Quantity</label>
+              <input class="specialInput" name="entry.903960154" type="text" id="S3Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 4
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S4">Item</label>
+              <input class="specialInput" name="entry.2039813108" type="text" id="S4" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S4Q">Quantity</label>
+              <input class="specialInput" name="entry.1994708952" type="text" id="S4Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 5
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S5">Item</label>
+              <input class="specialInput" name="entry.171657020" type="text" id="S5" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S5Q">Quantity</label>
+              <input class="specialInput" name="entry.460002473" type="text" id="S5Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 6
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S6">Item</label>
+              <input class="specialInput" name="entry.1781966636" type="text" id="S6" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S6Q">Quantity</label>
+              <input class="specialInput" name="entry.1606885827" type="text" id="S6Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 7
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S7">Item</label>
+              <input class="specialInput" name="entry.1371219769" type="text" id="S7" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S7Q">Quantity</label>
+              <input class="specialInput" name="entry.283158892" type="text" id="S7Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 8
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S8">Item</label>
+              <input class="specialInput" name="entry.1984957877" type="text" id="S8" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S8Q">Quantity</label>
+              <input class="specialInput" name="entry.2048163235" type="text" id="S8Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 9
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S9">Item</label>
+              <input class="specialInput" name="entry.1698127957" type="text" id="S9" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S9Q">Quantity</label>
+              <input class="specialInput" name="entry.733715877" type="text" id="S9Q" />
+            </td>
+          </tr>
+          <tr class="sTitle">
+            <td colspan="3">
+              <h3>SPECIAL 10
+                <h3>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label class="special" for="S10">Item</label>
+              <input class="specialInput" name="entry.1476097160" type="text" id="S10" />
+            </td>
+            <td class="space"></td>
+            <td>
+              <label class="special" for="S10Q">Quantity</label>
+              <input class="specialInput" name="entry.1067385529" type="text" id="S10Q" />
+            </td>
+          </tr>
+        </table>
+
+
+        <h1>REMARKS</h1>
+
+        <!-- MULTI-LINE TEXT FIELD -->
+        <label class="stext" for="E">E. Remarks</label>
+        <textarea name="E" id="E" /></textarea>
+
+        <label class="stext" for="Q">Q-Store Remarks</label>
+        <textarea name="C3" id="Q" />Please return all spare hexitabs and ration packs. </textarea>
+
+        <!-- SUBMIT BUTTON -->
+        <input class="button" type="submit" value="Submit">
+    </div>
+  </section>
+  </form>
+</body>
+
+</html>
