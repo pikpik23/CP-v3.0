@@ -4,12 +4,12 @@
   $(document).ready(function () {
     {% for return_type in serials_def %}
     var {{ return_type }} = "<h2>{{return_type}}</h2><table>{% for k, v in serials_def[return_type].items() %}<tr><td class='serial'>{{k}}</td><td class='serial Des'>{{v}}</td></tr>{% endfor %}</table>";
-  
-  $("# {{return_type}}").click(function () {
+    {% endfor %}
+    {% for return_type in serials_def %}
+  $("#{{return_type}}").click(function () {
     $(".container-right").html({{return_type}});
-  });
-  });
-  {% endfor %}
+    });
+    {% endfor %}
   });
 </script>
 
