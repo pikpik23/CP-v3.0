@@ -1,16 +1,23 @@
 {% extends 'layout.html' %} {% block body %}
 <p>
-    <b>{{return_type}}</b>
-</p>
-
-
-<p>
-    {% for k, v in serials_def[return_type].items() %}
-    <tr>
-        <td>{{k}}</td>
-        <td>{{v}}</td>
-
-    </tr>
-    {% endfor %}
+    <table>
+        {% for return_type in serials_def %}
+        <tr>
+            <td>
+                <b>{{return_type}}</b>
+            </td>
+        </tr>
+        {% for k, v in serials_def[return_type].items() %}
+        <tr>
+            <td class='serial'>{{k}}</td>
+            <td class='serial Des'>{{v}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <br>
+            </td>
+        </tr> {% endfor %}
+    </table>
 </p>
 {% endblock %}

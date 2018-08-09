@@ -13,7 +13,7 @@ def index():
 def display_table():
     lel = "LOCSTAT"
     x = dictionary.read()
-    return render_template('tables_test.html', serials_def=x, return_type=lel)
+    return render_template('tables_test.html', serials_def=x)
 
 
 if __name__ == '__main__':
