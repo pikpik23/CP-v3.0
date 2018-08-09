@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from read_dictionary import dictionary
 
-app = Flask(__name__, template_folder='test_templates')
+app = Flask(__name__, template_folder='test_templates',
+            static_folder='test_templates/test_static', static_url_path='')
 
 
 @app.route('/')
