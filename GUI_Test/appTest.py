@@ -13,9 +13,6 @@ def index():
 def display_table():
     lel = "LOCSTAT"
     x = dictionary.read()
-    for k, v in x[lel].items():
-        print(k)
-        print(v)
     return render_template('tables_test.html', serials_def=x)
 
 
