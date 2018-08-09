@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from read_dictionary import dictionary
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='test_templates')
 
 
 @app.route('/')
