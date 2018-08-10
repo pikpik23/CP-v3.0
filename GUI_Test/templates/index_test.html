@@ -5,7 +5,10 @@
     {% for return_type in serials_def %}
       $("#{{return_type}}").click(function () {
       $(".container-right").attr("src","testIndex/{{ return_type }}");
-      $(this).addClass("selected");
+      {% for return_type in serials_def %}
+        $("#{{return_type}}").attr("class","off")
+      {% endfor %}
+      $(this).attr("class","selected");
        });
     {% endfor %}
 });
@@ -17,6 +20,13 @@
 <section>
   <nav>
     <ul>
+      <li>
+        <a>Transmissions</a>
+      </li>
+      <li>  
+        <button>MESSAGE</button>
+      </li>
+
       {% for return_type in serials_def %}
       <li>
         <button href="#" id={{return_type}}>{{ return_type }}</button>

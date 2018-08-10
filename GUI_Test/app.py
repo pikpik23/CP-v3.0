@@ -23,13 +23,14 @@ def abstracted_return(rtrn_type):
     return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
 
 
-@app.route('/testIndex/<rtrn_type>', methods=['POST'])
+@app.route('/textIndex/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
 
     ret = {}
     for serial in dictionary.read()[rtrn_type]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=ret)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
