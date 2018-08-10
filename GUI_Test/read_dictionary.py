@@ -6,7 +6,7 @@ class dictionary:
     def init():
         pass
 
-    def save(self, dic=None):
+    def save(dic=None):
         if not dic:
             dic = {
 
@@ -28,64 +28,57 @@ class dictionary:
                         "desc": "Direction of Movement or Length of Halt",
                         "data_type": "string"
                     }
-                }
-                
+                },
+
 
                 'MAINTDEM': {
                     "A": {
                         "desc": "Demand Number",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Priority",
                         "data_type": "choice",
                         "options": ["Pri 1", "Pri 2", "Pri 3"]
-                    },  
+                    },
 
                     "C1": {
                         "desc": "Quantity of Ration Packs",
                         "data_type": "string"
-                    }
+                    },
 
                     "C2": {
                         "desc": "Quantity of Water Jerries",
                         "data_type": "string"
-                    }
+                    },
 
                     "C3": {
                         "desc": "Other Items and Quantity",
                         "data_type": "long"
-                    }
+                    },
 
                     "D1": {
                         "desc": "Location of Delivery",
                         "data_type": "location"
-                    }
+                    },
 
                     "D2": {
                         "desc": "Time of Delivery",
                         "data_type": "string"
-                    }
+                    },
 
                     "D3": {
                         "desc": "Mode of delivery",
-                        "data_type": "choice"
+                        "data_type": "choice",
                         "options": ["Playtime", "Pickup"]
-                    }
+                    },
 
                     "E": {
                         "desc": "Remarks",
                         "data_type": "long"
-                    }    
+                    }
                 }
-
-
-
-
-
-
-
 
             }
 
@@ -274,8 +267,7 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    meme = dictionary.read_legacy()
-    print(meme)
+    dictionary.save()
 
     # x = dictionary()
     # x.save()
