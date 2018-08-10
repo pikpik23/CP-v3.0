@@ -136,19 +136,32 @@ class dictionary:
 
         for name, serials in dic.items():
             lst = []
-            try:
+            if name == "Return Name":
+                lst.append(name)
+                lst.append(serials)
+            else:
                 for serial in serials:
-                    inner_lst = []
-                    for cont in serials[serial]:
-                        if cont == "data_type" and serials[serial][cont] == "choice":
-                            inner_lst.append(
-                                serials[serial][cont] + "/".join(serials[serial]["options"]))
-                        else:
-                            inner_lst.append(serials[serial][cont])
-                    lst.append(serial+':'+inner_lst)
+                    if serial == "Return Name":
+                        lst.append(serials)
+                    else:
+                        inner_lst = []
+                        for cont in serials[serial]:
+                            if cont == "options":
+                                inner_lst.append(
+                                    "#".join(serials[serial]["options"]))
+                            else:
+                                #print(cont + "    " + serials[serial][cont])
+                                print(cont)
+                                print("serials cont")
+                                print(serials[serial][cont])
+                                inner_lst.append(
+                                    cont+"@"+serials[serial][cont])
+                        print("inner_lst")
+                        print(inner_lst)
+                        lst.append(serial+':'+"!".join(inner_lst))
+                        print("lst")
+                        print(lst)
 
-            except:  # error is due to title column
-                lst = [serials]
             print(lst)
             w.writerow([(name), (', '.join(lst))])
 
