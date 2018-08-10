@@ -12,28 +12,30 @@ def index():
 
 @app.route('/table')
 def display_table():
-    return render_template('tables_test.html', serials_def=dictionary.read_legacy_old_file())
+    return render_template('tables_test.html', serials_def=legacy_dictionary)
 
 
 @app.route('/testIndex')
 def display_main():
-    return render_template('index_test.html', serials_def=dictionary.read_legacy_old_file())
+    return render_template('index_test.html', serials_def=legacy_dictionary)
 
 
 @app.route('/testIndex/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    serials = dictionary.read_legacy_old_file()
-    return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
+    return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=legacy_dictionary)
 
 
 @app.route('/textIndex/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
 
     ret = {}
-    for serial in dictionary.read_legacy_old_file()[rtrn_type]:
+    for serial in legacy_dictionary[rtrn_type]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=ret)
 
 
 if __name__ == '__main__':
+    global legacy_dictionary, detailed_dictionary
+    legacy_dictionary = dictionary.read_legacy()
+    detailed_dictionary = dictionary.read()
     app.run(debug=True)

@@ -6,7 +6,7 @@ class dictionary:
     def init():
         pass
 
-    def save(self, dic=None):
+    def save(dic=None):
         if not dic:
             dic = {
 
@@ -28,58 +28,59 @@ class dictionary:
                         "desc": "Direction of Movement or Length of Halt",
                         "data_type": "string"
                     }
-                }
-                
+                },
+
 
                 'MAINTDEM': {
                     "A": {
                         "desc": "Demand Number",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Priority",
                         "data_type": "choice",
                         "options": ["Pri 1", "Pri 2", "Pri 3"]
-                    },  
+                    },
 
                     "C1": {
                         "desc": "Quantity of Ration Packs",
                         "data_type": "string"
-                    }
+                    },
 
                     "C2": {
                         "desc": "Quantity of Water Jerries",
                         "data_type": "string"
-                    }
+                    },
 
                     "C3": {
                         "desc": "Other Items and Quantity",
                         "data_type": "long"
-                    }
+                    },
 
                     "D1": {
                         "desc": "Location of Delivery",
                         "data_type": "location"
-                    }
+                    },
 
                     "D2": {
                         "desc": "Time of Delivery",
                         "data_type": "string"
-                    }
+                    },
 
                     "D3": {
                         "desc": "Mode of delivery",
-                        "data_type": "choice"
+                        "data_type": "choice",
                         "options": ["Playtime", "Pickup"]
-                    }
+                    },
 
                     "E": {
                         "desc": "Remarks",
                         "data_type": "long"
-                    }    
+                    }
                 }
 
+<<<<<<< HEAD
 
 
                 'STRENGTHSTATE': {
@@ -353,6 +354,8 @@ class dictionary:
                     }
                 }
 
+=======
+>>>>>>> 028f79df0f9eb29d91c60afa4255a4f2a1bd706c
             }
 
         """ =========OLD VERSION=============
@@ -471,8 +474,8 @@ class dictionary:
                         inner_lst = []
                         for cont in serials[serial]:
                             if cont == "options":
-                                inner_lst.append(
-                                    "#".join(serials[serial]["options"]))
+                                inner_lst.append(cont+"@" +
+                                                 "#".join(serials[serial]["options"]))
                             else:
                                 inner_lst.append(
                                     cont+"@"+serials[serial][cont])
@@ -490,14 +493,14 @@ class dictionary:
                 for serial in row[1].split(', '):
                     serial = serial.split(':')
                     sub_dic = {}
-                    print()
-                    print(serial)
                     for sub_serial in serial[1].split('!'):
-                        print(sub_serial)
                         sub_serial = sub_serial.split("@")
-                        print(sub_serial)
-                        sub_dic.update(
-                            {sub_serial[0]: sub_serial[1]})
+                        if sub_serial[0] == 'options':
+                            options = sub_serial[1].split("#")
+                            sub_dic.update({sub_serial[0]: options})
+                        else:
+                            sub_dic.update(
+                                {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
                 lst = row[1].split(': ')
                 dic.update({row[0]: inner_dic})
@@ -506,7 +509,14 @@ class dictionary:
         return dic
 
     def read_legacy():
-        pass
+        serials = dictionary.read()
+        final_dic = {}
+        for name, dic in serials.items():
+            inner_dic = {}
+            for serial in dic:
+                inner_dic.update({serial: dic[serial]['desc']})
+            final_dic.update({name: inner_dic})
+        return final_dic
         # wip
 
         # should return only this format
@@ -537,11 +547,11 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    meme = dictionary.read()
-    # print(meme)
+    # dictionary.save()
+    dictionary.read()
 
-    #x = dictionary()
-    # x.save()()
+    # x = dictionary()
+    # x.save()
 
 
 '''
@@ -557,7 +567,7 @@ radio_button (list of possible options)
 
 """
 class admin_return:
-    
+
     def init(self):
         self.serials_def = dictionary.read()
 
