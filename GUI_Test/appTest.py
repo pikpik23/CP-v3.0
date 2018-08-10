@@ -58,7 +58,7 @@ def abstracted_return_body():
 
 @app.route('/return/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    serials = dictionary.read_legacy()
+    serials = dictionary.read()
     return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
 
 

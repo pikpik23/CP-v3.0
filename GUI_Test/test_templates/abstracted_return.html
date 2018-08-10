@@ -5,13 +5,14 @@
         <td style="padding-right: 125px">Value</td>
         <td class='serial Des'>Description</td>
     </tr>
-    {% for k, v in serials_def[return_type].items() %}
+    {% for serial, info in serials_def[return_type].items() %}
     <tr>
-        <td class='serial'>{{k}}</td>
+        <td class='serial'>{{serial}}</td>
         <td>
-            <input class="itext" name="{{k}}" type="text" id="A" />
+            {% if info['data_type'] == 'string' %}
+            <input class="itext" name="{{serial}}" type="text" id="A" /> {% elif info['data_type'] == ''} {% endif %}
         </td>
-        <td class='serial Des'>{{v}}</td>
+        <td class='serial Des'>{{info['desc']}}</td>
     </tr>
     {% endfor %}
 </table>
