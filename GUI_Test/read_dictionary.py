@@ -31,7 +31,7 @@ class dictionary:
                 }
             }
 
-        """ OLD VERSION
+        """ =========OLD VERSION=============
         def save(self, dic=''):
             if not dic:
                 dic = {
@@ -150,23 +150,51 @@ class dictionary:
                                 inner_lst.append(
                                     "#".join(serials[serial]["options"]))
                             else:
-                                #print(cont + "    " + serials[serial][cont])
-                                print(cont)
-                                print("serials cont")
-                                print(serials[serial][cont])
                                 inner_lst.append(
                                     cont+"@"+serials[serial][cont])
-                        print("inner_lst")
-                        print(inner_lst)
                         lst.append(serial+':'+"!".join(inner_lst))
-                        print("lst")
-                        print(lst)
-
-            print(lst)
             w.writerow([(name), (', '.join(lst))])
 
     def read():
+        # should return the original format
+        dic = {}
+        r = csv.reader(open("new_serials.csv", "r"))
+        i = 0
+        for row in r:
+            if i:
+                inner_dic = {}
+                for serial in row[1].split(', '):
+                    serial = serial.split(':')
+                    sub_dic = {}
+                    print()
+                    print(serial)
+                    for sub_serial in serial[1].split('!'):
+                        print(sub_serial)
+                        sub_serial = sub_serial.split("@")
+                        print(sub_serial)
+                        sub_dic.update(
+                            {sub_serial[0]: sub_serial[1]})
+                    inner_dic.update({serial[0]: sub_dic})
+                lst = row[1].split(': ')
+                dic.update({row[0]: inner_dic})
+            else:
+                i += 1
+        return dic
+
+    def read_legacy():
+        pass
         # wip
+
+        # should return only this format
+        '''
+            'LOCSTAT': {
+            "A": "Location",  # GR
+            "B": "Moving / Stationary",  # boolean
+            "C": "Direction of Movement or Length of Halt"
+        },
+        '''
+
+    def read_legacy_old_file():
         dic = {}
         r = csv.reader(open("serials.csv", "r"))
         i = 0
@@ -185,10 +213,11 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    # meme = dictionary.read()
+    meme = dictionary.read()
+    # print(meme)
 
-    x = dictionary()
-    x.save()
+    #x = dictionary()
+    # x.save()()
 
 
 '''

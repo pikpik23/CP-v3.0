@@ -12,12 +12,12 @@ def index():
 
 @app.route('/table')
 def display_table():
-    return render_template('tables_test.html', serials_def=dictionary.read())
+    return render_template('tables_test.html', serials_def=dictionary.read_legacy_old_file())
 
 
 @app.route('/testIndex')
 def display_index():
-    return render_template('index_test.html', serials_def=dictionary.read())
+    return render_template('index_test.html', serials_def=dictionary.read_legacy_old_file())
 
 
 '''
@@ -45,20 +45,20 @@ def maint_test():
 def maint_test_return():
 
     ret = {}
-    for serial in dictionary.read()["MAINTDEM"]:
+    for serial in dictionary.read_legacy_old_file()["MAINTDEM"]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=ret)
 
 
 @app.route('/return')
 def abstracted_return_body():
-    serials = dictionary.read()
+    serials = dictionary.read_legacy_old_file()
     return render_template('return_test.html', serials_def=serials)
 
 
 @app.route('/return/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    serials = dictionary.read()
+    serials = dictionary.read_legacy_old_file()
     return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
 
 
@@ -66,7 +66,7 @@ def abstracted_return(rtrn_type):
 def abstracted_return_return(rtrn_type):
 
     ret = {}
-    for serial in dictionary.read()[rtrn_type]:
+    for serial in dictionary.read_legacy_old_file()[rtrn_type]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=ret)
 
