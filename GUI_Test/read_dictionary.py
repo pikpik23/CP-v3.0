@@ -147,8 +147,8 @@ class dictionary:
                         inner_lst = []
                         for cont in serials[serial]:
                             if cont == "options":
-                                inner_lst.append(
-                                    "#".join(serials[serial]["options"]))
+                                inner_lst.append(cont+"@"
+                                                 "#".join(serials[serial]["options"]))
                             else:
                                 inner_lst.append(
                                     cont+"@"+serials[serial][cont])
@@ -166,12 +166,8 @@ class dictionary:
                 for serial in row[1].split(', '):
                     serial = serial.split(':')
                     sub_dic = {}
-                    print()
-                    print(serial)
                     for sub_serial in serial[1].split('!'):
-                        print(sub_serial)
                         sub_serial = sub_serial.split("@")
-                        print(sub_serial)
                         sub_dic.update(
                             {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
@@ -182,7 +178,14 @@ class dictionary:
         return dic
 
     def read_legacy():
-        pass
+        serials = dictionary.read()
+        final_dic = {}
+        for name, dic in serials.items():
+            inner_dic = {}
+            for serial in dic:
+                inner_dic.update({serial: dic[serial]['desc']})
+            final_dic.update({name: inner_dic})
+        return final_dic
         # wip
 
         # should return only this format
@@ -213,11 +216,11 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    meme = dictionary.read()
-    # print(meme)
+    meme = dictionary.read_legacy()
+    print(meme)
 
-    #x = dictionary()
-    # x.save()()
+    # x = dictionary()
+    # x.save()
 
 
 '''
@@ -233,7 +236,7 @@ radio_button (list of possible options)
 
 """
 class admin_return:
-    
+
     def init(self):
         self.serials_def = dictionary.read()
 
