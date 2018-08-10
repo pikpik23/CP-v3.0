@@ -18,11 +18,16 @@ header {
 
 /* Create two columns/boxes that floats next to each other */
 nav {
-    float: left;
     width: 200px;
     background: #ccc;
     padding: 20px;
     height: 100%;
+
+    position: fixed;
+    z-index: 1;
+    top: 56px;
+    left: 0;
+    overflow-x: hidden;
 }
 
 /* Style the list inside the menu */
@@ -31,11 +36,9 @@ nav ul {
     padding: 0;
 }
 
-article {
-    float: left;
-    padding: 20px;
-    width: 50%;
-    background-color: #f1f1f1;
+section{
+    width:100%;
+
 }
 
 /* Clear floats after the columns */
@@ -51,14 +54,15 @@ footer {
     padding: 10px;
     text-align: center;
     color: white;
+    margin-left: 200px;
 }
 
-nav a {
+nav button {
     display: block; /* Make the links appear below each other */
-    padding: 12px; /* Add some padding */
+    padding: 12px; 
     text-decoration: none; /* Remove underline from links */
 }
-nav a.selected {
+nav button.selected {
     background-color: #666;
 }
 
@@ -67,6 +71,14 @@ nav a.selected {
 .topnav {
     overflow: hidden;
     background-color: #666;
+
+    width: 100%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+
   }
   
   .topnav a {
@@ -88,3 +100,16 @@ nav a.selected {
     color: black;
     
   }
+
+/* ------------- iframe --------------------*/
+
+#data_entry{
+    height:500px;
+    width:100%;
+}
+
+.container-right-main{
+    padding-left:200px;
+    width:100%;
+    margin-top: 56px;
+}
