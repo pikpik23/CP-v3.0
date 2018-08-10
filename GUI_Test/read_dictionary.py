@@ -6,113 +6,150 @@ class dictionary:
     def init():
         pass
 
-    def save(self, dic=''):
+    def save(self, dic=None):
         if not dic:
             dic = {
 
                 'Return Name': 'Serials',
 
                 'LOCSTAT': {
-                    "A": "Location",  # GR
-                    "B": "Moving / Stationary",  # boolean
-                    "C": "Direction of Movement or Length of Halt"
-                },
+                    "A": {
+                        "desc": "Location",
+                        "data_type": "string"
+                    },  # GR
 
-                'MAINTDEM': {
-                    "A": "Demand Number",
-                    "B": "Priority",  # PRI
-                    "C1": "Quantity of Ration Packs",
-                    "C2": "Quantity of Water Jerries",
-                    "C3": "Other Items and Quantity",
-                    "D1": "Location of Delivery",  # GR or NL
-                    "D2": "Time of Delivery",  # Date/Time Group
-                    "D3": "Mode of Delivery",  # boolean Playtime/Pickup
-                    "E": "Remarks"
-                },
+                    "B": {
+                        "desc": "Moving / Stationary",
+                        "data_type": "choice",
+                        "options": ["Moving", "Stationary"]
+                    },  # boolean
 
-                'STRENGTHSTATE': {
-                    "A1": "No. of Own Cadets",
-                    "A2": "No. of Attachments",
-                    "A3": "No. of Staff",
-                    "B1": "No. of expected attachments in next 24 hours",
-                    "B2": "No. of expected detachments in next 24 hours",
-                    "C": "Total Personnel"
-                },
-
-                'CASEVAC': {
-                    "A": "Patient ID",
-                    "B1": "No. of Stretcher Cases",
-                    "B2": "No. of Sitting Cases",
-                    "C": "Requirements for special equipment",
-                    "D1": "Location of RV",  # GR or NL
-                    "D2": "Callsign and Channel at RV",
-                    "E": "Remarks"
-                },
-
-                'NOTICAS': {
-                    "A": "Patient ID",
-                    "B": "Rank",
-                    "C": "Name",
-                    "D": "Details of injury or illness",
-                    "E": "Location of injury",  # GR or NL
-                    "F": "Time of injury",  # DTG
-                    "G": "Treatment administered",
-                    "H": "Remarks and Present Location"  # GR or NL
-                },
-
-                'SITREP': {
-                    "A": "Time",  # DTG
-                    "B": "Own Situation",
-                    "C": "Situation with Regard to third parties",
-                    "D": "Future intentions and relevant general information"
-                },
-
-                'INTREP': {
-                    "A": "Time of incident",  # DTG
-                    "B": "Location of incident",  # GR or NL
-                    "C": "Brief description of incident",
-                    "D": "Commanders evaluation"
-                },
-
-                'MOVEREQ': {
-                    "A": "Callsign of person at pick-up location",
-                    "B1": "Location of pick up",  # GR AND LOC
-                    "B2": "Location of Destination",  # GR and LOC
-                    "C1": "Number of persons to be transported",
-                    "C2": "Configuration of troops",  # Boolean marching or patrol
-                    "D1": "Description of cargo",
-                    "D2": "Estimated number of vehicles",
-                    "D3": "Is a loading/unloading pary available at Loc",
-                    "E": "Time of pickup"  # DTG
-                },
-
-                'STARLIGHTREQ': {
-                    "A": "Callsign of person at location",
-                    "B": "Location",  # GR or NL
-                    "C": "Nature of illness or injury",
-                    "D": "Any RV details",
-                    "E": "Remarks"
-                },
-
-                'SENTRYREP': {
-                    "A": "Vehicle Number Plate",
-                    "B": "Status",  # boolean returning/leaving
-                    "C": "Passengers",
-                    "D": "Destination",
-                    "E": "Estimated time of return",
-                    "F": "Remarks"
-                },
-
+                    "C": {
+                        "desc": "Direction of Movement or Length of Halt",
+                        "data_type": "string"
+                    }
+                }
             }
-        w = csv.writer(open("serials.csv", "w"))
+
+        """ OLD VERSION
+        def save(self, dic=''):
+            if not dic:
+                dic = {
+
+                    'Return Name': 'Serials',
+
+                    'LOCSTAT': {
+                        "A": "Location",  # GR
+                        "B": "Moving / Stationary",  # boolean
+                        "C": "Direction of Movement or Length of Halt"
+                    },
+
+                    'MAINTDEM': {
+                        "A": "Demand Number",
+                        "B": "Priority",  # PRI
+                        "C1": "Quantity of Ration Packs",
+                        "C2": "Quantity of Water Jerries",
+                        "C3": "Other Items and Quantity",
+                        "D1": "Location of Delivery",  # GR or NL
+                        "D2": "Time of Delivery",  # Date/Time Group
+                        "D3": "Mode of Delivery",  # boolean Playtime/Pickup
+                        "E": "Remarks"
+                    },
+
+                    'STRENGTHSTATE': {
+                        "A1": "No. of Own Cadets",
+                        "A2": "No. of Attachments",
+                        "A3": "No. of Staff",
+                        "B1": "No. of expected attachments in next 24 hours",
+                        "B2": "No. of expected detachments in next 24 hours",
+                        "C": "Total Personnel"
+                    },
+
+                    'CASEVAC': {
+                        "A": "Patient ID",
+                        "B1": "No. of Stretcher Cases",
+                        "B2": "No. of Sitting Cases",
+                        "C": "Requirements for special equipment",
+                        "D1": "Location of RV",  # GR or NL
+                        "D2": "Callsign and Channel at RV",
+                        "E": "Remarks"
+                    },
+
+                    'NOTICAS': {
+                        "A": "Patient ID",
+                        "B": "Rank",
+                        "C": "Name",
+                        "D": "Details of injury or illness",
+                        "E": "Location of injury",  # GR or NL
+                        "F": "Time of injury",  # DTG
+                        "G": "Treatment administered",
+                        "H": "Remarks and Present Location"  # GR or NL
+                    },
+
+                    'SITREP': {
+                        "A": "Time",  # DTG
+                        "B": "Own Situation",
+                        "C": "Situation with Regard to third parties",
+                        "D": "Future intentions and relevant general information"
+                    },
+
+                    'INTREP': {
+                        "A": "Time of incident",  # DTG
+                        "B": "Location of incident",  # GR or NL
+                        "C": "Brief description of incident",
+                        "D": "Commanders evaluation"
+                    },
+
+                    'MOVEREQ': {
+                        "A": "Callsign of person at pick-up location",
+                        "B1": "Location of pick up",  # GR AND LOC
+                        "B2": "Location of Destination",  # GR and LOC
+                        "C1": "Number of persons to be transported",
+                        "C2": "Configuration of troops",  # Boolean marching or patrol
+                        "D1": "Description of cargo",
+                        "D2": "Estimated number of vehicles",
+                        "D3": "Is a loading/unloading pary available at Loc",
+                        "E": "Time of pickup"  # DTG
+                    },
+
+                    'STARLIGHTREQ': {
+                        "A": "Callsign of person at location",
+                        "B": "Location",  # GR or NL
+                        "C": "Nature of illness or injury",
+                        "D": "Any RV details",
+                        "E": "Remarks"
+                    },
+
+                    'SENTRYREP': {
+                        "A": "Vehicle Number Plate",
+                        "B": "Status",  # boolean returning/leaving
+                        "C": "Passengers",
+                        "D": "Destination",
+                        "E": "Estimated time of return",
+                        "F": "Remarks"
+                    },
+
+                }
+            """
+
+        w = csv.writer(open("new_serials.csv", "w"))
 
         for name, serials in dic.items():
             lst = []
             try:
-                for serial, des in serials.items():
-                    lst.append(serial+':'+des)
-            except:
+                for serial in serials:
+                    inner_lst = []
+                    for cont in serials[serial]:
+                        if cont == "data_type" and serials[serial][cont] == "choice":
+                            inner_lst.append(
+                                serials[serial][cont] + "/".join(serials[serial]["options"]))
+                        else:
+                            inner_lst.append(serials[serial][cont])
+                    lst.append(serial+':'+inner_lst)
+
+            except:  # error is due to title column
                 lst = [serials]
+            print(lst)
             w.writerow([(name), (', '.join(lst))])
 
     def read():
@@ -135,10 +172,22 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    #meme = dictionary.read()
+    # meme = dictionary.read()
 
     x = dictionary()
     x.save()
+
+
+'''
+INPUT TYPES
+
+short text
+location (contain a list of possible location)
+long text
+radio_button (list of possible options)
+
+'''
+
 
 """
 class admin_return:
