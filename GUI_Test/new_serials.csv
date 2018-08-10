@@ -1,0 +1,2 @@
+Return Name,"Return Name, Serials"
+LOCSTAT,"A:desc@Location!data_type@string, B:desc@Moving / Stationary!data_type@choice!Moving#Stationary, C:desc@Direction of Movement or Length of Halt!data_type@string"
