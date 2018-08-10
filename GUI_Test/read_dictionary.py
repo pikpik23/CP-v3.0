@@ -198,7 +198,7 @@ class dictionary:
                         inner_lst = []
                         for cont in serials[serial]:
                             if cont == "options":
-                                inner_lst.append(cont+"@"
+                                inner_lst.append(cont+"@" +
                                                  "#".join(serials[serial]["options"]))
                             else:
                                 inner_lst.append(
@@ -219,8 +219,12 @@ class dictionary:
                     sub_dic = {}
                     for sub_serial in serial[1].split('!'):
                         sub_serial = sub_serial.split("@")
-                        sub_dic.update(
-                            {sub_serial[0]: sub_serial[1]})
+                        if sub_serial[0] == 'options':
+                            options = sub_serial[1].split("#")
+                            sub_dic.update({sub_serial[0]: options})
+                        else:
+                            sub_dic.update(
+                                {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
                 lst = row[1].split(': ')
                 dic.update({row[0]: inner_dic})
@@ -267,7 +271,8 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    dictionary.save()
+    # dictionary.save()
+    dictionary.read()
 
     # x = dictionary()
     # x.save()
