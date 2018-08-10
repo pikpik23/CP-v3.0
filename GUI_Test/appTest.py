@@ -20,6 +20,7 @@ def display_index():
     return render_template('index_test.html', serials_def=dictionary.read())
 
 
+'''
 @app.route('/return')
 def return_page():
     return render_template('return.html')
@@ -32,6 +33,7 @@ def get_data():
     print(text)
     processed_text = text.upper()
     return processed_text
+'''
 
 
 @app.route('/maintdem')
@@ -48,18 +50,23 @@ def maint_test_return():
     return render_template('return_display_test.html', serials_def=ret)
 
 
-@app.route('/abret')
-def abstracted_return():
-    rtrn_type = "MAINTDEM"
+@app.route('/return')
+def abstracted_return_body():
+    serials = dictionary.read()
+    return render_template('return_test.html', serials_def=serials)
+
+
+@app.route('/return/<rtrn_type>')
+def abstracted_return(rtrn_type):
     serials = dictionary.read()
     return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
 
 
-@app.route('/abret', methods=['POST'])
-def abstracted_return_return():
+@app.route('/return/<rtrn_type>', methods=['POST'])
+def abstracted_return_return(rtrn_type):
 
     ret = {}
-    for serial in dictionary.read()["MAINTDEM"]:
+    for serial in dictionary.read()[rtrn_type]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=ret)
 

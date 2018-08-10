@@ -2,15 +2,13 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
+
     {% for return_type in serials_def %}
-    var {{ return_type }
-  } = "<h2>{{return_type}}</h2><table>{% for k, v in serials_def[return_type].items() %}<tr><td class='serial'>{{k}}</td><td class='serial Des'>{{v}}</td></tr>{% endfor %}</table>";
-  {% endfor %}
-  {% for return_type in serials_def %}
-  $("#{{return_type}}").click(function () {
-    $(".container-right").html({{ return_type }});
-    });
-  {% endfor %}
+    $("#{{return_type}}").click(function () {
+      $(".container-right").attr("src","return/{{ return_type }}");
+       });
+    {% endfor %}
+
   });
 </script>
 
@@ -28,8 +26,8 @@
     </ul>
   </nav>
 
-  <div class="container-right">
-    <frame src="index_test">
+  <div class="container-right-main">
+    <iframe id="change_me" class="container-right" src="return/LOCSTAT"></iframe>
   </div>
 </section>
 
