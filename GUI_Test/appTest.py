@@ -14,6 +14,7 @@ def index():
 def display_table():
     return render_template('tables_test.html', serials_def=dictionary.read())
 
+
 @app.route('/testIndex')
 def display_index():
     return render_template('index_test.html', serials_def=dictionary.read())
@@ -40,6 +41,22 @@ def maint_test():
 
 @app.route('/maintdem', methods=['POST'])
 def maint_test_return():
+
+    ret = {}
+    for serial in dictionary.read()["MAINTDEM"]:
+        ret.update({serial: request.form[serial]})
+    return render_template('return_display_test.html', serials_def=ret)
+
+
+@app.route('/abret')
+def abstracted_return():
+    rtrn_type = "MAINTDEM"
+    serials = dictionary.read()
+    return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=serials)
+
+
+@app.route('/abret', methods=['POST'])
+def abstracted_return_return():
 
     ret = {}
     for serial in dictionary.read()["MAINTDEM"]:
