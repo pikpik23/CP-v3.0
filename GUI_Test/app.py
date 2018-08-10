@@ -18,4 +18,4 @@ def display_main():
     return render_template('index_test.html', serials_def=dictionary.read())
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
