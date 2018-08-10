@@ -78,10 +78,7 @@ class dictionary:
                         "desc": "Remarks",
                         "data_type": "long"
                     }
-                }
-
-<<<<<<< HEAD
-
+                },
 
                 'STRENGTHSTATE': {
                     "A1": {
@@ -97,22 +94,22 @@ class dictionary:
                     "A3": {
                         "desc": "No. of Staff",
                         "data_type": "string"
-                    }
+                    },
 
                     "B1": {
                         "desc": "No. of expected attachments in next 24 hours",
                         "data_type": "string"
-                    }
+                    },
 
                     "B2": {
                         "desc": "No. of expected detachments in next 24 hours",
                         "data_type": "string"
-                    }
+                    },
 
                     "C": {
                         "desc": "Total Personnel",
                         "data_type": "string"
-                    }
+                    },
 
 
 
@@ -121,6 +118,7 @@ class dictionary:
                         "desc": "Priority",
                         "data_type": "choice",
                         "options": ["Pri 1", "Pri 2", "Pri 3"]
+                    },
 
                     "A": {
                         "desc": "Patient ID",
@@ -135,28 +133,28 @@ class dictionary:
                     "B2": {
                         "desc": "No. of Sitting Cases",
                         "data_type": "string"
-                    }
+                    },
 
                     "C": {
                         "desc": "Requirements for special equipment",
                         "data_type": "long"
-                    }
+                    },
 
                     "D1": {
                         "desc": "Location of RV",
                         "data_type": "location"
-                    }
+                    },
 
                     "D2": {
                         "desc": "Callsign and Channel at RV",
                         "data_type": "string"
-                    }
+                    },
 
                     "E": {
                         "desc": "Remarks",
                         "data_type": "long"
-                    }    
-                }
+                    } ,   
+                },
 
 
                 'NOTICAS': {
@@ -173,34 +171,34 @@ class dictionary:
                     "C": {
                         "desc": "Name",
                         "data_type": "string"
-                    }
+                    },
 
                     "D": {
                         "desc": "Details of injury or illness",
                         "data_type": "long"
-                    }
+                    },
 
                     "E": {
                         "desc": "Location of injury",
                         "data_type": "location"
-                    }
+                    },
 
                     "F": {
                         "desc": "Time of injury",
                         "data_type": "string"
-                    }
+                    },
 
                     "G": {
                         "desc": "Treatment administered",
                         "data_type": "long"
-                    }
+                    },
 
                     "H": {
                         "desc": "Remarks and Present Location",
                         "data_type": "long"
-                    }
+                    },
 
-                }
+                },
 
                 'SITREP': {
                     "A": {
@@ -216,13 +214,13 @@ class dictionary:
                     "C": {
                         "desc": "Situation with regards to third parties",
                         "data_type": "long"
-                    }
+                    },
 
                     "D": {
                         "desc": "Future intentions and relevant general information",
                         "data_type": "long"
-                    }
-                }
+                    },
+                },
 
                 'INTREP': {
                     "A": {
@@ -238,13 +236,13 @@ class dictionary:
                     "C": {
                         "desc": "Brief description of incident",
                         "data_type": "long"
-                    }
+                    },
 
                     "D": {
                         "desc": "Commanders evaluation",
                         "data_type": "long"
-                    }
-                }
+                    },
+                },
 
                 'MOVEREQ': {
                     "A": {
@@ -260,39 +258,39 @@ class dictionary:
                     "B2": {
                         "desc": "Location of destination",
                         "data_type": "location"
-                    }
+                    },
 
                     "C1": {
                         "desc": "Number of persons to be transported",
                         "data_type": "string"
-                    }
+                    },
 
                     "C2": {
                         "desc": "Configuration of troops",
-                        "data_type": "choice"
-                        "options": ["Marching Order 1", "Patrol Order"]
-                    }
+                        "data_type": "choice",
+                        "options": ["Marching Order", "Patrol Order"]
+                    },
 
                     "D1": {
                         "desc": "Description of cargo",
                         "data_type": "string"
-                    }
+                    },
 
                     "D2": {
                         "desc": "Estimated number of vehicles",
                         "data_type": "string"
-                    }
+                    },
 
                     "D3": {
                         "desc": "Is a loading/unloading pary available at Loc",
                         "data_type": "string"
-                    }
+                    },
 
                     "E": {
                         "desc": "Time of pickup",
                         "data_type": "string"
-                    }    
-                }
+                    },    
+                },
 
                 'STARLIGHTREQ': {
                     "A": {
@@ -308,18 +306,18 @@ class dictionary:
                     "C": {
                         "desc": "Nature of illness or injury",
                         "data_type": "long"
-                    }
+                    },
 
                     "D": {
                         "desc": "Any RV details",
                         "data_type": "long"
-                    }
+                    },
 
                     "E": {
                         "desc": "Remarks",
                         "data_type": "long"
-                    }
-                }
+                    },
+                },
 
                 'SENTRYREP': {
                     "A": {
@@ -336,27 +334,25 @@ class dictionary:
                     "C": {
                         "desc": "Passengers",
                         "data_type": "string"
-                    }
+                    },
 
                     "D": {
                         "desc": "Destination",
                         "data_type": "location"
-                    }
+                    },
 
                     "E": {
                         "desc": "Estimated time of return",
                         "data_type": "string"
-                    }
+                    },
 
                     "F": {
                         "desc": "Remarksl",
                         "data_type": "long"
-                    }
+                    },
                 }
 
-=======
->>>>>>> 028f79df0f9eb29d91c60afa4255a4f2a1bd706c
-            }
+            },
 
         """ =========OLD VERSION=============
         def save(self, dic=''):
@@ -456,7 +452,8 @@ class dictionary:
                         "F": "Remarks"
                     },
 
-                }
+                },
+
             """
 
         w = csv.writer(open("new_serials.csv", "w"))
