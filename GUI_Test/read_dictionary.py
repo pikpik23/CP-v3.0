@@ -325,7 +325,7 @@ class dictionary:
                     "B": {
                         "desc": "Status",
                         "data_type": "choice",
-                        "options": ["Entering 1", "Leaving"]
+                        "options": ["Entering", "Leaving"]
                     },  
 
                     "C": {

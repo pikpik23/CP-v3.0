@@ -4,6 +4,7 @@
 }
 
 body {
+    padding-top: 90px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -17,17 +18,21 @@ header {
 }
 
 /* Create two columns/boxes that floats next to each other */
+div.scrollmenu {
+    position: fixed;
+    z-index: 1;
+    top: 145px;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
 nav {
+    
     width: 200px;
     background: #ccc;
     padding: 10px 20px;
     height: 100%;
-
-    position: fixed;
-    z-index: 1;
-    top: 56px;
-    left: 0;
-    overflow-x: hidden;
+    overflow-y: scroll;
 
     border-color: rgb(145, 145, 145);
     border-style: solid;
@@ -37,6 +42,7 @@ nav {
 /* Style the list inside the menu */
 nav ul {
     list-style-type: none;
+    overflow-y: scroll;
     padding: 0;
 }
 

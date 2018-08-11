@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask CP</title>
+    <link rel="stylesheet" href="//styles/main.css">
+</head>
+
+<body>
+    <h2>{{return_type}}</h2>
+    <table>
+        <tr>
+            <td class='serial' style="padding-right: 20px">Serial</td>
+            <td style="padding-right: 125px">Value</td>
+            <td class='serial Des'>Description</td>
+        </tr>
+        {% for serial, info in serials_def[return_type].items() %}
+        <tr>
+            <td class='serial'>{{serial}}</td>
+            <td>
+                {% if info['data_type'] == 'string' %}
+                <input class="itext" name="{{serial}}" type="text" id="A" /> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
+                <input class="itext" name="{{serial}}" type="radio" id="A">{{option}}</input>
+                {% endfor %} {% elif info['data_type'] == 'long'%}
+                <textarea class="itext" name="{{serial}}" rows="10" id="A"></textarea> {% elif info['data_type'] == 'location'%}
+                <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
+                <datalist id="locs">
+                    <option selected disabled>Choose</option>
+                    <option value="POE">POE</option>
+                    <option value="EXCON">EXCON</option>
+                    <option value="ECH B">ECH B</option>
+                    <option value="High Ropes">High Ropes</option>
+                    <option value="NL Hammer">NL Hammer</option>
+                    <option value="PNR/ENG">PNR/ENG</option>
+                    <option value="Bullock Track (Top)">Bullock Track (Top)</option>
+                    <option value="Calf Pen (Start)">Calf Pen (Start)</option>
+                    <option value="NL Broke">NL Broke</option>
+                    <option value="NL Hill Top">NL Hill Top</option>
+                    <option value="NL Wallaby">NL Wallaby</option>
+                    <option value="NL Sleeper">NL Sleeper</option>
+                    <option value="NL Oakley">NL Oakley</option>
+                    <option value="NL Pine">NL Pine</option>
+                    <option value="NL Alpha Niner">NL Alpha Niner</option>
+                    <option value="NL Spanner">NL Spanner</option>
+                    <option value="NL Comms">NL Comms</option>
+                    <option value="NL Summit">NL Summit</option>
+                </datalist>
+                {% endif %}
+            </td>
+            <td class='serial Des'>{{info['desc']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

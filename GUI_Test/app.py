@@ -22,7 +22,7 @@ def display_main():
 
 @app.route('/testIndex/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    return render_template('abstracted_return.html', return_type=rtrn_type, serials_def=legacy_dictionary)
+    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=detailed_dictionary)
 
 
 @app.route('/textIndex/<rtrn_type>', methods=['POST'])
