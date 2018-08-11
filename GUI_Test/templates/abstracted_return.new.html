@@ -5,26 +5,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask CP</title>
-    <link rel="stylesheet" href="//styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
 
 <body>
     <h2>{{return_type}}</h2>
-    <table>
-        <tr>
-            <td class='serial' style="padding-right: 20px">Serial</td>
-            <td style="padding-right: 125px">Value</td>
-            <td class='serial Des'>Description</td>
+    <table class='return_table'>
+        <tr class="head">
+            <td class='serial'>Serial</td>
+            <td class="value">Value</td>
+            <td class='serialDes'>Description</td>
         </tr>
         {% for serial, info in serials_def[return_type].items() %}
         <tr>
             <td class='serial'>{{serial}}</td>
             <td>
                 {% if info['data_type'] == 'string' %}
-                <input class="itext" name="{{serial}}" type="text" id="A" /> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
-                <input class="itext" name="{{serial}}" type="radio" id="A">{{option}}</input>
+                <input class="itext" name="{{serial}}" type="text"/> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
+                <input class="itext" name="{{serial}}" type="radio">{{option}}</input>
                 {% endfor %} {% elif info['data_type'] == 'long'%}
-                <textarea class="itext" name="{{serial}}" rows="10" id="A"></textarea> {% elif info['data_type'] == 'location'%}
+                <textarea class="itext" name="{{serial}}" rows="6" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
                 <datalist id="locs">
                     <option selected disabled>Choose</option>
@@ -49,7 +49,7 @@
                 </datalist>
                 {% endif %}
             </td>
-            <td class='serial Des'>{{info['desc']}}</td>
+            <td class='serialDes'>{{info['desc']}}</td>
         </tr>
         {% endfor %}
     </table>
