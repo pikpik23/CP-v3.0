@@ -30,7 +30,6 @@ class dictionary:
                     }
                 },
 
-
                 'MAINTDEM': {
                     "A": {
                         "desc": "Demand Number",
@@ -111,8 +110,6 @@ class dictionary:
                         "data_type": "string"
                     },
 
-
-
                 'CASEVAC': {
                     "PRI": {
                         "desc": "Priority",
@@ -155,7 +152,6 @@ class dictionary:
                         "data_type": "long"
                     } ,   
                 },
-
 
                 'NOTICAS': {
                     "A": {
@@ -349,10 +345,8 @@ class dictionary:
                     "F": {
                         "desc": "Remarksl",
                         "data_type": "long"
-                    },
+                    }
                 }
-
-            },
 
         """ =========OLD VERSION=============
         def save(self, dic=''):
@@ -450,11 +444,11 @@ class dictionary:
                         "D": "Destination",
                         "E": "Estimated time of return",
                         "F": "Remarks"
-                    },
+                    }
 
-                },
+                }
 
-            """
+            """"
 
         w = csv.writer(open("new_serials.csv", "w"))
 
