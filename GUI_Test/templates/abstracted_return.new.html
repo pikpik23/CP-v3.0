@@ -23,33 +23,26 @@
 <body>
     <table class="toFrom">
         <tr>
-<<<<<<< HEAD
             <td class="serial">To:</td>    
             <td class="toFromInput"><input id="inputTo" class="itext" type="text"/></td>
-            <td><button class="toButton">{{own_cs}}</button></td> 
+            <td><button class="toButton">{{settings['callsign']}}</button></td> 
             <td><button class="toButton">KGS</button></td> 
         </tr>
         <tr>
             <td class="serial">From:</td>    
             <td class="toFromInput"><input id="inputFrom" class="itext" type="text"/></td>
-            <td><button class="fromButton">{{own_cs}}</button></td> 
-=======
-            <td class="toFrom">To:</td>    
-            <td><input id="inputTo" class="itext" type="text"/></td>
-            <td><button class="toButton">{{settings['callsign']}}</button></td> 
-            <td><button class="toButton">All</button></td> 
-        </tr>
-        <tr>
-            <td class="toFrom">From:</td>    
-            <td><input id="inputFrom" class="itext" type="text"/></td>
             <td><button class="fromButton">{{settings['callsign']}}</button></td> 
->>>>>>> cd3d21087e5efbaab965081e92dd17b175303025
         </tr>
     </table>
     
 
 
     <h2>{{return_type}}</h2>
+
+    {% if return_type == 'MESSAGE' %}
+        <b>MESSAGE</b>
+    {% else %}
+
     <table class='return_table'>
         <tr class="head">
             <td class='serial'>Serial</td>
@@ -78,6 +71,8 @@
         </tr>
         {% endfor %}
     </table>
+
+    {% endif %}
     <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
 </body>
 

@@ -9,6 +9,9 @@ class dictionary:
 
                 'Return Name': 'Serials',
 
+                'MESSAGE': {
+                },
+
                 'LOCSTAT': {
                     "A": {
                         "desc": "Location",
