@@ -15,17 +15,21 @@ SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
 SETTINGS = dictionary.read_settings()
 
+
 @APP.route('/')
 def direct():
     return redirect("/transmission", code=302)
+
 
 @APP.route('/table')
 def display_table():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
+
 @APP.route('/notes')
 def display_notes():
     return render_template('notes.html')
+
 
 @APP.route('/transmission')
 def display_main():
@@ -43,6 +47,20 @@ def abstracted_return_return(rtrn_type):
     for serial in LEGACY_DIC[rtrn_type]:
         ret.update({serial: request.form[serial]})
     return render_template('return_display_test.html', serials_def=LEGACY_DIC)
+
+
+@APP.route('/settings/cs/', methods=['POST'])
+def update_callsign():
+    print('updating callsign to: ' + request.form['name'])
+    SETTINGS['callsign'] = request.form['name']
+    return abstracted_return('MESSAGE')
+
+
+@APP.route('/settings/duty/', methods=['POST'])
+def update_duty():
+    print('updating duty officer to: ' + request.form['name'])
+    SETTINGS['Duty'] = request.form['name']
+    return abstracted_return('MESSAGE')
 
 
 if __name__ == '__main__':
