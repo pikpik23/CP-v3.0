@@ -1,4 +1,5 @@
 Return Name,"Return Name, Serials"
+MESSAGE,MSG:desc@Message!data_type@long
 LOCSTAT,"A:desc@Location!data_type@location, B:desc@Moving / Stationary!data_type@choice!options@Moving#Stationary, C:desc@Direction of Movement or Length of Halt!data_type@string"
 MAINTDEM,"A:desc@Demand Number!data_type@string, B:desc@Priority!data_type@choice!options@Pri 1#Pri 2#Pri 3, C1:desc@Quantity of Ration Packs!data_type@string, C2:desc@Quantity of Water Jerries!data_type@string, C3:desc@Other Items and Quantity!data_type@long, D1:desc@Location of Delivery!data_type@location, D2:desc@Time of Delivery!data_type@string, D3:desc@Mode of delivery!data_type@choice!options@Playtime#Pickup, E:desc@Remarks!data_type@long"
 STRENGTHSTATE,"A1:desc@No. of Own Cadets!data_type@string, A2:desc@No. of Attachments!data_type@string, A3:desc@No. of Staff!data_type@string, B1:desc@No. of expected attachments in next 24 hours!data_type@string, B2:desc@No. of expected detachments in next 24 hours!data_type@string, C:desc@Total Personnel!data_type@string"
