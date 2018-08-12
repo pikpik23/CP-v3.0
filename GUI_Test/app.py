@@ -53,11 +53,11 @@ def abstracted_return_return(rtrn_type):
 def abstracted_updating_settings(setting):
     print('updating '+setting+' officer to: ' + request.form['name'])
     SETTINGS[setting] = request.form['name']
+    update_setting()
     return abstracted_return('MESSAGE')
 
 
-def update_setting(setting, value):
-    SETTINGS.update({setting: value})
+def update_setting():
     dictionary.save_settings(SETTINGS)
 
 

@@ -432,8 +432,11 @@ class dictionary:
         r = open("settings.txt", "r")
         settings = {}
         for option in r.read().split('\n'):
-            option = option.split(': ')
-            settings.update({option[0]: option[1]})
+            try:
+                option = option.split(': ')
+                settings.update({option[0]: option[1]})
+            except IndexError:
+                pass
         return settings
 
     def read_legacy_old_file():
@@ -455,12 +458,13 @@ class dictionary:
     def save_settings(dic):
         w = open("settings.txt", "w")
         for sett, val in dic.items():
-            w.write(sett+': '+val)
+            w.write(sett+': '+val+'\n')
 
 
 if __name__ == '__main__':
 
-    dictionary.read_settings()
+    dic = dictionary.read_settings()
+    dictionary.save_settings(dic)
     dictionary.read_locations()
     dictionary.save()
     dictionary.read()
