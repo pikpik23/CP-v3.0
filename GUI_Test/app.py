@@ -32,8 +32,12 @@ def display_main():
 
 @APP.route('/testIndex/<rtrn_type>')
 def abstracted_return(rtrn_type):
+<<<<<<< HEAD
     return render_template('abstracted_return.new.html',
                     return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS)
+=======
+    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=detailed_dictionary, locs=locations, own_cs=callsign, duty=duty_officer)
+>>>>>>> f12eecc6be5320297fda4eab970015fa93f2100a
 
 
 @APP.route('/textIndex/<rtrn_type>', methods=['POST'])
@@ -46,5 +50,14 @@ def abstracted_return_return(rtrn_type):
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
 
     APP.run(debug=True)
+=======
+    global legacy_dictionary, detailed_dictionary, locations, callsign, duty_officer
+    legacy_dictionary = dictionary.read_legacy()
+    detailed_dictionary = dictionary.read()
+    locations = dictionary.read_locations()
+    callsign, duty_officer = dictionary.read_settings()
+    app.run(debug=True)
+>>>>>>> f12eecc6be5320297fda4eab970015fa93f2100a
