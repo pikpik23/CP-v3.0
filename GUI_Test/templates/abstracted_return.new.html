@@ -15,23 +15,49 @@
         $(".fromButton").click(function(){
              $("#inputFrom").val(this.innerHTML);
         });
+        $("#btnDuty").click(function(){
+            var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}" );
+        });
+        $("#btnCallsign").click(function(){
+            var cs = prompt("Enter your Callsign", "{{settings['callsign']}}" );
+        });
+        $(".checkbox").click(function(){
+            $("#printCheck").click
+        });
+        $(".lblRadio").click(function(){
+            var radio = (this.id);
+            (radio + "Radio").click()
+        });
     });
+
     </script>
 
 </head>
 
 <body>
+    <div class="banner" id="transmission">
+        <a>Record Transmission</a>    
+    </div>
+
+
     <table class="toFrom">
         <tr>
             <td class="serial">To:</td>    
-            <td class="toFromInput"><input id="inputTo" class="itext" type="text"/></td>
-            <td><button class="toButton">{{settings['callsign']}}</button></td> 
-            <td><button class="toButton">KGS</button></td> 
+            <td class="toFromStandard"><input id="inputTo" class="itext" type="text"/></td>
+            <td class="toFromStandard"><button class="toButton">{{settings['callsign']}}</button></td> 
+            <td class="toFromStandard"><button class="toButton">KGS</button></td> 
+            <td></td>
+            <td class="settings top left" align="right"><button id="btnCallsign">This Callsign</button></td>
+            <td class="settings top right" align="right">{{settings['callsign']}}</td>
+
         </tr>
         <tr>
             <td class="serial">From:</td>    
-            <td class="toFromInput"><input id="inputFrom" class="itext" type="text"/></td>
-            <td><button class="fromButton">{{settings['callsign']}}</button></td> 
+            <td class="toFromStandard"><input id="inputFrom" class="itext" type="text"/></td>
+            <td class="toFromStandard"colspan="2"><button class="fromButton">{{settings['callsign']}}</button></td>
+            <td></td> 
+            <td class="settings bottom left" align="right"><button id="btnDuty">Duty Officer</button></td>
+            <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
         </tr>
     </table>
     
@@ -51,9 +77,9 @@
             <td>
                 {% if info['data_type'] == 'string' %}
                 <input class="itext" name="{{serial}}" type="text"/> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
-                <input class="itext" name="{{serial}}" type="radio">{{option}}</input>
+                <label class="lblRadio" id="{{option}}"><input class="itext" id="{{option}}Radio" name="{{serial}}" type="radio">{{option}}</input></label>
                 {% endfor %} {% elif info['data_type'] == 'long'%}
-                <textarea class="itext" name="{{serial}}" rows="5" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
+                <textarea class="itext return" name="{{serial}}" rows="4" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
                 <datalist id="locs">
                     <option selected disabled>Choose</option>
@@ -67,7 +93,16 @@
         </tr>
         {% endfor %}
     </table>
-    <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
+
+    <footer>
+        <table class="footTable">
+            <tr class=submit>
+                <td><label class=checkbox><input type="checkbox" id="printCheck"> Print</label></td>
+                <td><button id="record">Record</button></td>
+                <td><button id="cancel">Cancel</button></td>
+            </tr>
+        </table>
+    </footer>
 </body>
 
 </html>

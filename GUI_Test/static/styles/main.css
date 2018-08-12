@@ -11,11 +11,12 @@ body {
     /*padding-top: 90px;*/
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
+    font-size: 11pt;
 }
 
 /* Style the header */
 header {
-    background-color: #666;
+    background-color: #67747c;
     padding: 30px;
     text-align: center;
     font-size: 35px;
@@ -69,20 +70,6 @@ section:after {
     clear: both;
 }*/
 
-/* Style the footer */
-footer {
-    background-color: #777;
-    padding: 10px;
-    text-align: center;
-    color: white;
-    margin-left: 200px;
-   
-    position: fixed;
-    bottom: 6px;
-    left:6px;
-    right: 6px;
-    
-}
 
 nav button {
     display: block; /* Make the links appear below each other */
@@ -93,8 +80,14 @@ nav button {
     font-weight: bold;
     font-size:14px;
 }
+
+nav button:hover{
+    cursor: pointer;
+}
+
 nav button.selected {
-    background-color: #666;
+    background-color: #67747c;
+    color:white;
 }
 
 nav button.off {
@@ -109,7 +102,7 @@ nav a {
     margin: 12px 0;
     font-weight: bold;
     font-size:14px;
-    background-color: dodgerblue;
+    background-color: #288ad6;
     border-color: rgb(186, 186, 186);
     border-style: solid;
     border-width: 1px;
@@ -121,7 +114,7 @@ nav a {
 
 .topnav {
     overflow: hidden;
-    background-color: #666;
+    background-color: #67747c;
 
     width: 100%;
 
@@ -134,7 +127,7 @@ nav a {
   
   .topnav a {
     float: left;
-    color: #f2f2f2;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -179,8 +172,8 @@ nav a {
     left:6px;
     right: 6px;
 
-    padding-left:200px;
-    padding-top: 56px;
+    margin-left:200px;
+    margin-top: 56px;
 }
 
 
@@ -192,7 +185,7 @@ nav a {
 }
 
 .return_table td{
-    padding:8px;
+    padding:6px 12px;
     vertical-align: top;
 }
 
@@ -216,10 +209,10 @@ nav a {
     font-weight:bold;
 }
 
-textarea {
+textarea.return {
     resize: none;
     font-size: 10pt;
-    
+
     border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
@@ -238,11 +231,148 @@ input{
     border-width: 1px;
 }
 
-.toFrom button{
+.toFrom{
+    width:100%;
+    border-spacing:0;
+    border-collapse: collapse;
+}
+
+.toFromStandard button{
     width:75px;
     font-size: 10pt;
 }
 
 .toFrom td {
     padding:4px 4px;
+}
+
+.banner {
+    overflow: hidden;
+    background-color: #288ad6;
+    width: 100%;
+  }
+  
+  #transmission{
+    margin-bottom:8px;
+  }
+
+  .banner a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight:bold;
+  }
+
+.toFromStandard{
+    width: 79px
+}
+
+.settings {
+    width:100px;
+    text-align: left;
+    font-size: 11pt;
+}
+
+.settings button {
+    width:100px;
+    font-size: 10pt;
+/* Night mode only
+    display: block; 
+    text-decoration: none; 
+    border: 1px solid #288ad6;
+    background-color: transparent;
+    color: #288ad6;
+    border-radius: 5px 
+    */
+    
+}
+
+
+.left{
+    border-left:1px solid rgb(187, 187, 187);
+}
+.right{
+    border-right:1px solid rgb(187, 187, 187);
+}
+.top{
+    border-top:1px solid rgb(187, 187, 187);
+}
+.bottom{
+    border-bottom:1px solid rgb(187, 187, 187);
+}
+
+/* ----------------------- Footer ---------------------*/
+
+footer {
+    padding: 10px;
+    text-align: center;
+    font-size:10pt;
+    position: fixed;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+    background-color:white;
+}
+
+.footTable {
+    border-spacing:0;
+    border-collapse: collapse;
+}
+
+.submit button{
+    font-size:10pt;
+    border-radius: 5px;
+    text-align: center;
+    width: 75px;
+}
+
+.submit td {
+    border-top: 1px solid rgb(187, 187, 187);
+    padding:8px 4px;
+    vertical-align: middle;
+}
+
+label:hover{
+    cursor: pointer;
+}
+
+
+/* ----------------- Notes -----------------------------*/
+.main {
+    position: fixed;
+    top:0;
+    bottom: 6px;
+    left:6px;
+    right: 6px;
+    margin-top:56px;
+    border: 2px solid rgb(187, 187, 187);
+}
+
+
+.notes{
+    position: absolute;
+    top:36px;
+    bottom: 0px;
+    left:0px;
+    right: 8px;
+
+
+    font-size: 12pt;
+    padding:8px;
+    width:100%;
+    border:none;
+    outline:none;
+    resize: none;
+}
+
+.notes:focus{
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }

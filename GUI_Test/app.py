@@ -4,7 +4,7 @@ The main file for the CP site
 All request handling is done from here
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from read_dictionary import dictionary
 
 APP = Flask(__name__, template_folder='templates',
@@ -15,28 +15,29 @@ SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
 SETTINGS = dictionary.read_settings()
 
-
 @APP.route('/')
-def index():
-    return render_template('home.html', test_var='\nHi from python')
-
+def direct():
+    return redirect("/transmission", code=302)
 
 @APP.route('/table')
 def display_table():
-    return render_template('tables_test.html', serials_def=LEGACY_DIC)
+    return render_template('index_test.html', serials_def=LEGACY_DIC)
 
+@APP.route('/notes')
+def display_notes():
+    return render_template('notes.html')
 
-@APP.route('/testIndex')
+@APP.route('/transmission')
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
 
-@APP.route('/testIndex/<rtrn_type>')
+@APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
     return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 
-@APP.route('/textIndex/<rtrn_type>', methods=['POST'])
+@APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
     ret = {}
     for serial in LEGACY_DIC[rtrn_type]:
