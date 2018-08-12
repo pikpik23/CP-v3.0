@@ -16,13 +16,19 @@ LOCATIONS = dictionary.read_locations()
 SETTINGS = dictionary.read_settings()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> parent of caf39e3... way too much css
 
 @APP.route('/')
 def index():
     return render_template('home.html', test_var='\nHi from python')
 
+<<<<<<< HEAD
 =======
 >>>>>>> c29cc6e58a0230501216b12b2f39e9efba8e52ff
+=======
+>>>>>>> parent of caf39e3... way too much css
 
 @APP.route('/table')
 def display_table():
@@ -30,11 +36,15 @@ def display_table():
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @APP.route('/testIndex')
 =======
 @APP.route('/')
 @APP.route('/transmission')
 >>>>>>> c29cc6e58a0230501216b12b2f39e9efba8e52ff
+=======
+@APP.route('/testIndex')
+>>>>>>> parent of caf39e3... way too much css
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
