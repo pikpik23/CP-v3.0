@@ -86,12 +86,14 @@
             <td class="value">Value</td>
             <td class='serialDes'>Description</td>
         </tr>
+        <form>
         {% for serial, info in serials_def[return_type].items() %}
         <tr>
             <td class='serial'>{{serial}}</td>
             <td>
                 {% if info['data_type'] == 'string' %}
                 <input class="itext" name="{{serial}}" type="text"/> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <label class="lblRadio" id="{{option}}"><input class="itext" id="{{option}}Radio" name="{{serial}}" type="radio">{{option}}</input></label>
 =======
@@ -101,6 +103,9 @@
                 <input class="itext" name="{{serial}}" type="radio">{{option}}</input>
 >>>>>>> parent of caf39e3... way too much css
 >>>>>>> aee70d4255300e420997f4415bce6eb757e44c0d
+=======
+                <label class="lblRadio" id="{{option}}"><input class="itext" id="{{option}}Radio" name="{{option}}" type="radio">{{option}}</input></label>
+>>>>>>> parent of 4cc4ac5... Revert "form"
                 {% endfor %} {% elif info['data_type'] == 'long'%}
                 <textarea class="itext" name="{{serial}}" rows="5" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
@@ -122,10 +127,11 @@
         <table class="footTable">
             <tr class=submit>
                 <td><label class=checkbox><input type="checkbox" id="printCheck"> Print</label></td>
-                <td><button id="record">Record</button></td>
+                <td><button class="record" type="submit" id="record">Record</button></td>
                 <td><button id="cancel">Cancel</button></td>
             </tr>
         </table>
+    </form>
     </footer>
 =======
     <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
