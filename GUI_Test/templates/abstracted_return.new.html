@@ -39,6 +39,7 @@
         $(".fromButton").click(function(){
              $("#inputFrom").val(this.innerHTML);
         });
+<<<<<<< HEAD
         $("#btnDuty").click(function(){
             var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}" );
         });
@@ -53,36 +54,25 @@
             var radio = (this.id);
             (radio + "Radio").click()
         });
+=======
+>>>>>>> parent of caf39e3... way too much css
     });
-
     </script>
 
 </head>
 
 <body>
-    <div class="banner" id="transmission">
-        <a>Record Transmission</a>    
-    </div>
-
-
     <table class="toFrom">
         <tr>
             <td class="serial">To:</td>    
-            <td class="toFromStandard"><input id="inputTo" class="itext" type="text"/></td>
-            <td class="toFromStandard"><button class="toButton">{{settings['callsign']}}</button></td> 
-            <td class="toFromStandard"><button class="toButton">KGS</button></td> 
-            <td></td>
-            <td class="settings top left" align="right"><button id="btnCallsign">This Callsign</button></td>
-            <td class="settings top right" align="right">{{settings['callsign']}}</td>
-
+            <td class="toFromInput"><input id="inputTo" class="itext" type="text"/></td>
+            <td><button class="toButton">{{settings['callsign']}}</button></td> 
+            <td><button class="toButton">KGS</button></td> 
         </tr>
         <tr>
             <td class="serial">From:</td>    
-            <td class="toFromStandard"><input id="inputFrom" class="itext" type="text"/></td>
-            <td class="toFromStandard"colspan="2"><button class="fromButton">{{settings['callsign']}}</button></td>
-            <td></td> 
-            <td class="settings bottom left" align="right"><button id="btnDuty">Duty Officer</button></td>
-            <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
+            <td class="toFromInput"><input id="inputFrom" class="itext" type="text"/></td>
+            <td><button class="fromButton">{{settings['callsign']}}</button></td> 
         </tr>
     </table>
     
@@ -103,9 +93,13 @@
             <td>
                 {% if info['data_type'] == 'string' %}
                 <input class="itext" name="{{serial}}" type="text"/> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
+<<<<<<< HEAD
                 <label class="lblRadio" id="{{option}}"><input class="itext" id="{{option}}Radio" name="{{option}}" type="radio">{{option}}</input></label>
+=======
+                <input class="itext" name="{{serial}}" type="radio">{{option}}</input>
+>>>>>>> parent of caf39e3... way too much css
                 {% endfor %} {% elif info['data_type'] == 'long'%}
-                <textarea class="itext return" name="{{serial}}" rows="4" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
+                <textarea class="itext" name="{{serial}}" rows="5" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
                 <datalist id="locs">
                     <option selected disabled>Choose</option>
@@ -119,6 +113,7 @@
         </tr>
         {% endfor %}
     </table>
+<<<<<<< HEAD
 
     <footer>
         <table class="footTable">
@@ -130,6 +125,9 @@
         </table>
     </form>
     </footer>
+=======
+    <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
+>>>>>>> parent of caf39e3... way too much css
 </body>
 
 </html>

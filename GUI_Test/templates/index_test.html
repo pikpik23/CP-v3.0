@@ -4,14 +4,13 @@
   $(document).ready(function () {
     {% for return_type in serials_def %}
       $("#{{return_type}}").click(function () {
-        $(".container-right").attr("src","transmission/{{ return_type }}");
+        $(".container-right").attr("src","testIndex/{{ return_type }}");
         {% for return_type in serials_def %}
           $("#{{return_type}}").attr("class","off")
         {% endfor %}
         $(this).attr("class","selected");
        });
     {% endfor %}
-    $("#MESSAGE").click()
 });
 </script>
 
@@ -36,8 +35,13 @@
   </div>
 
   <div class="container-right-main">
-      <iframe id="data_entry" class="container-right" src="transmission/MESSAGE" scrolling="yes"></iframe>
+      <iframe id="data_entry" class="container-right" src="testIndex/LOCSTAT" scrolling="yes"></iframe>
   </div>
 </section>
+
+<!---<footer>
+  <p>Footer</p>
+</footer> -->
+
 
 {% endblock %}
