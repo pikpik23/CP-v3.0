@@ -38,7 +38,6 @@ def abstracted_return(rtrn_type):
 
 @APP.route('/textIndex/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
-
     ret = {}
     for serial in LEGACY_DIC[rtrn_type]:
         ret.update({serial: request.form[serial]})

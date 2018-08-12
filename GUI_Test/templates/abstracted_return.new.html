@@ -25,13 +25,13 @@
         <tr>
             <td class="toFrom">To:</td>    
             <td><input id="inputTo" class="itext" type="text"/></td>
-            <td><button class="toButton">{{own_cs}}</button></td> 
+            <td><button class="toButton">{{settings['callsign']}}</button></td> 
             <td><button class="toButton">All</button></td> 
         </tr>
         <tr>
             <td class="toFrom">From:</td>    
             <td><input id="inputFrom" class="itext" type="text"/></td>
-            <td><button class="fromButton">{{own_cs}}</button></td> 
+            <td><button class="fromButton">{{settings['callsign']}}</button></td> 
         </tr>
     </table>
     
@@ -66,7 +66,7 @@
         </tr>
         {% endfor %}
     </table>
-    <p> {{duty}}</p>
+    <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
 </body>
 
 </html>
