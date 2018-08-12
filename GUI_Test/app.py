@@ -4,7 +4,7 @@ The main file for the CP site
 All request handling is done from here
 """
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 from read_dictionary import dictionary
 
 APP = Flask(__name__, template_folder='templates',
@@ -15,9 +15,6 @@ SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
 SETTINGS = dictionary.read_settings()
 
-@APP.route('/')
-def direct():
-    return redirect("/transmission", code=302)
 
 @APP.route('/table')
 def display_table():
@@ -27,6 +24,7 @@ def display_table():
 def display_notes():
     return render_template('notes.html')
 
+@APP.route('/')
 @APP.route('/transmission')
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
