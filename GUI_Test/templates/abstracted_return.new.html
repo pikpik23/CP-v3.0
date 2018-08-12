@@ -6,9 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask CP</title>
     <link rel="stylesheet" href="/styles/main.css">
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript"> 
+    $(document).ready(function () { 
+        $(".toButton").click(function(){
+             $("#inputTo").val(this.innerHTML);
+        });
+        $(".fromButton").click(function(){
+             $("#inputFrom").val(this.innerHTML);
+        });
+    });
+    </script>
+
 </head>
 
 <body>
+    <table>
+        <tr>
+            <td class="toFrom">To:</td>    
+            <td><input id="inputTo" class="itext" type="text"/></td>
+            <td><button class="toButton">{{own_cs}}</button></td> 
+            <td><button class="toButton">All</button></td> 
+        </tr>
+        <tr>
+            <td class="toFrom">From:</td>    
+            <td><input id="inputFrom" class="itext" type="text"/></td>
+            <td><button class="fromButton">{{own_cs}}</button></td> 
+        </tr>
+    </table>
+    
+
+
     <h2>{{return_type}}</h2>
     <table class='return_table'>
         <tr class="head">

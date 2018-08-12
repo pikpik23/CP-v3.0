@@ -4,11 +4,11 @@
   $(document).ready(function () {
     {% for return_type in serials_def %}
       $("#{{return_type}}").click(function () {
-      $(".container-right").attr("src","testIndex/{{ return_type }}");
-      {% for return_type in serials_def %}
-        $("#{{return_type}}").attr("class","off")
-      {% endfor %}
-      $(this).attr("class","selected");
+        $(".container-right").attr("src","testIndex/{{ return_type }}");
+        {% for return_type in serials_def %}
+          $("#{{return_type}}").attr("class","off")
+        {% endfor %}
+        $(this).attr("class","selected");
        });
     {% endfor %}
 });

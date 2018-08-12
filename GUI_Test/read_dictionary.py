@@ -421,6 +421,11 @@ class dictionary:
         locations = r.read().split("\n")
         return locations
 
+    def read_settings():
+        r = open("settings.txt", "r")
+        callsign = r.readline()
+        return callsign
+
     def read_legacy_old_file():
         dic = {}
         r = csv.reader(open("serials.csv", "r"))

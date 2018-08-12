@@ -22,7 +22,7 @@ def display_main():
 
 @app.route('/testIndex/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=detailed_dictionary, locs=locations)
+    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=detailed_dictionary, locs=locations, own_cs=callsign)
 
 
 @app.route('/textIndex/<rtrn_type>', methods=['POST'])
@@ -35,8 +35,9 @@ def abstracted_return_return(rtrn_type):
 
 
 if __name__ == '__main__':
-    global legacy_dictionary, detailed_dictionary, locations
+    global legacy_dictionary, detailed_dictionary, locations, callsign
     legacy_dictionary = dictionary.read_legacy()
     detailed_dictionary = dictionary.read()
     locations = dictionary.read_locations()
+    callsign = dictionary.read_settings()
     app.run(debug=True)

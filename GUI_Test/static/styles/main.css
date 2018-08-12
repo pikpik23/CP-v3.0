@@ -215,4 +215,24 @@ nav a {
 
 textarea {
     resize: none;
+
+    border-color: rgb(145, 145, 145);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.toFrom {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 150px;
+    border
+}
+
+input{
+    font-size: 10pt;
+    border-color: rgb(145, 145, 145);
+    border-style: solid;
+    border-width: 1px;
 }
