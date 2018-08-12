@@ -3,9 +3,6 @@ import csv
 
 class dictionary:
 
-    def init():
-        pass
-
     def save(dic=None):
         if not dic:
             dic = {
@@ -15,7 +12,7 @@ class dictionary:
                 'LOCSTAT': {
                     "A": {
                         "desc": "Location",
-                        "data_type": "string"
+                        "data_type": "location"
                     },  # GR
 
                     "B": {
@@ -419,6 +416,11 @@ class dictionary:
         },
         '''
 
+    def read_locations():
+        r = open("locations.txt", "r")
+        locations = r.read().split("\n")
+        return locations
+
     def read_legacy_old_file():
         dic = {}
         r = csv.reader(open("serials.csv", "r"))
@@ -438,6 +440,7 @@ class dictionary:
 
 if __name__ == '__main__':
 
+    dictionary.read_locations()()
     dictionary.save()
     dictionary.read()
 

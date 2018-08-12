@@ -28,24 +28,9 @@
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
                 <datalist id="locs">
                     <option selected disabled>Choose</option>
-                    <option value="POE">POE</option>
-                    <option value="EXCON">EXCON</option>
-                    <option value="ECH B">ECH B</option>
-                    <option value="High Ropes">High Ropes</option>
-                    <option value="NL Hammer">NL Hammer</option>
-                    <option value="PNR/ENG">PNR/ENG</option>
-                    <option value="Bullock Track (Top)">Bullock Track (Top)</option>
-                    <option value="Calf Pen (Start)">Calf Pen (Start)</option>
-                    <option value="NL Broke">NL Broke</option>
-                    <option value="NL Hill Top">NL Hill Top</option>
-                    <option value="NL Wallaby">NL Wallaby</option>
-                    <option value="NL Sleeper">NL Sleeper</option>
-                    <option value="NL Oakley">NL Oakley</option>
-                    <option value="NL Pine">NL Pine</option>
-                    <option value="NL Alpha Niner">NL Alpha Niner</option>
-                    <option value="NL Spanner">NL Spanner</option>
-                    <option value="NL Comms">NL Comms</option>
-                    <option value="NL Summit">NL Summit</option>
+                    {% for location in locs %}
+                    <option value="{{location}}">{{location}}</option>
+                    {% endfor %}
                 </datalist>
                 {% endif %}
             </td>
