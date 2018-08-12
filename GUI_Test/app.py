@@ -56,5 +56,10 @@ def abstracted_updating_settings(setting):
     return abstracted_return('MESSAGE')
 
 
+def update_setting(setting, value):
+    SETTINGS.update({setting: value})
+    dictionary.save_settings(SETTINGS)
+
+
 if __name__ == '__main__':
     APP.run(debug=True)

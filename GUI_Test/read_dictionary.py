@@ -87,12 +87,12 @@ class dictionary:
                     "A1": {
                         "desc": "No. of Own Cadets",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "A2": {
                         "desc": "No. of Attachments",
                         "data_type": "string"
-                    },  
+                    },
 
                     "A3": {
                         "desc": "No. of Staff",
@@ -125,12 +125,12 @@ class dictionary:
                     "A": {
                         "desc": "Patient ID",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B1": {
                         "desc": "No. of Stretcher Cases",
                         "data_type": "string",
-                    },  
+                    },
 
                     "B2": {
                         "desc": "No. of Sitting Cases",
@@ -155,19 +155,19 @@ class dictionary:
                     "E": {
                         "desc": "Remarks",
                         "data_type": "long"
-                    } ,   
+                    },
                 },
 
                 'NOTICAS': {
                     "A": {
                         "desc": "Patient ID",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Rank",
                         "data_type": "string",
-                    },  
+                    },
 
                     "C": {
                         "desc": "Name",
@@ -205,12 +205,12 @@ class dictionary:
                     "A": {
                         "desc": "Time",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Own Situation",
                         "data_type": "long",
-                    },  
+                    },
 
                     "C": {
                         "desc": "Situation with regards to third parties",
@@ -227,12 +227,12 @@ class dictionary:
                     "A": {
                         "desc": "Time of incident",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Location of incident",
                         "data_type": "location",
-                    },  
+                    },
 
                     "C": {
                         "desc": "Brief description of incident",
@@ -249,12 +249,12 @@ class dictionary:
                     "A": {
                         "desc": "Callsign of person at pick-up location",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B1": {
                         "desc": "Location of pick up",
                         "data_type": "location",
-                    },  
+                    },
 
                     "B2": {
                         "desc": "Location of destination",
@@ -290,19 +290,19 @@ class dictionary:
                     "E": {
                         "desc": "Time of pickup",
                         "data_type": "string"
-                    },    
+                    },
                 },
 
                 'STARLIGHTREQ': {
                     "A": {
                         "desc": "Callsign of person at location",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Location",
                         "data_type": "location",
-                    },  
+                    },
 
                     "C": {
                         "desc": "Nature of illness or injury",
@@ -324,13 +324,13 @@ class dictionary:
                     "A": {
                         "desc": "Vehicle Number Plate",
                         "data_type": "string"
-                    }, 
+                    },
 
                     "B": {
                         "desc": "Status",
                         "data_type": "choice",
                         "options": ["Entering", "Leaving"]
-                    },  
+                    },
 
                     "C": {
                         "desc": "Passengers",
@@ -370,7 +370,7 @@ class dictionary:
                         for cont in serials[serial]:
                             if cont == "options":
                                 inner_lst.append(cont+"@" +
-                                                "#".join(serials[serial]["options"]))
+                                                 "#".join(serials[serial]["options"]))
                             else:
                                 inner_lst.append(
                                     cont+"@"+serials[serial][cont])
@@ -433,7 +433,7 @@ class dictionary:
         settings = {}
         for option in r.read().split('\n'):
             option = option.split(': ')
-            settings.update({option[0]:option[1]})
+            settings.update({option[0]: option[1]})
         return settings
 
     def read_legacy_old_file():
@@ -451,6 +451,11 @@ class dictionary:
             else:
                 i += 1
         return dic
+
+    def save_settings(dic):
+        w = open("settings.txt", "w")
+        for sett, val in dic.items():
+            w.write(sett+': '+val)
 
 
 if __name__ == '__main__':
