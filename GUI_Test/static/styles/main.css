@@ -218,7 +218,8 @@ nav a {
 
 textarea {
     resize: none;
-
+    font-size: 10pt;
+    
     border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;

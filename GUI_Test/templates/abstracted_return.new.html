@@ -57,7 +57,7 @@
                 <input class="itext" name="{{serial}}" type="text"/> {% elif info['data_type'] == 'choice'%} {% for option in info['options'] %}
                 <input class="itext" name="{{serial}}" type="radio">{{option}}</input>
                 {% endfor %} {% elif info['data_type'] == 'long'%}
-                <textarea class="itext" name="{{serial}}" rows="6" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
+                <textarea class="itext" name="{{serial}}" rows="5" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
                 <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
                 <datalist id="locs">
                     <option selected disabled>Choose</option>
