@@ -40,11 +40,11 @@
             });
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-                post('/settings/duty/', { name: duty });
+                post('/settings/Duty/', { name: duty });
             });
             $("#btnCallsign").click(function () {
                 var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-                post('/settings/cs/', { name: cs });
+                post('/settings/callsign/', { name: cs });
             });
             $(".checkbox").click(function () {
                 $("#printCheck").click

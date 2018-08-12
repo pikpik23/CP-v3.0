@@ -49,17 +49,10 @@ def abstracted_return_return(rtrn_type):
     return render_template('return_display_test.html', serials_def=LEGACY_DIC)
 
 
-@APP.route('/settings/cs/', methods=['POST'])
-def update_callsign():
-    print('updating callsign to: ' + request.form['name'])
-    SETTINGS['callsign'] = request.form['name']
-    return abstracted_return('MESSAGE')
-
-
-@APP.route('/settings/duty/', methods=['POST'])
-def update_duty():
-    print('updating duty officer to: ' + request.form['name'])
-    SETTINGS['Duty'] = request.form['name']
+@APP.route('/settings/<setting>/', methods=['POST'])
+def abstracted_updating_settings(setting):
+    print('updating '+setting+' officer to: ' + request.form['name'])
+    SETTINGS[setting] = request.form['name']
     return abstracted_return('MESSAGE')
 
 
