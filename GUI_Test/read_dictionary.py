@@ -424,7 +424,8 @@ class dictionary:
     def read_settings():
         r = open("settings.txt", "r")
         callsign = r.readline()
-        return callsign
+        duty_officer = r.readline()
+        return callsign, duty_officer
 
     def read_legacy_old_file():
         dic = {}
