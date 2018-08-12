@@ -13,6 +13,7 @@ APP = Flask(__name__, template_folder='templates',
 LEGACY_DIC = dictionary.read_legacy()
 SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
+SETTINGS = dictionary.read_settings()
 
 
 @APP.route('/')
@@ -32,22 +33,16 @@ def display_main():
 
 @APP.route('/testIndex/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=detailed_dictionary, locs=locations, own_cs=callsign, duty=duty_officer)
+    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 
 @APP.route('/textIndex/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
-
     ret = {}
     for serial in LEGACY_DIC[rtrn_type]:
         ret.update({serial: request.form[serial]})
-    return render_template('return_display_test.html', serials_def=ret)
+    return render_template('return_display_test.html', serials_def=LEGACY_DIC)
 
 
 if __name__ == '__main__':
-    global legacy_dictionary, detailed_dictionary, locations, callsign, duty_officer
-    legacy_dictionary = dictionary.read_legacy()
-    detailed_dictionary = dictionary.read()
-    locations = dictionary.read_locations()
-    callsign, duty_officer = dictionary.read_settings()
     APP.run(debug=True)

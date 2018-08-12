@@ -423,9 +423,11 @@ class dictionary:
 
     def read_settings():
         r = open("settings.txt", "r")
-        callsign = r.readline()
-        duty_officer = r.readline()
-        return callsign, duty_officer
+        settings = {}
+        for option in r.read().split('\n'):
+            option = option.split(': ')
+            settings.update({option[0]:option[1]})
+        return settings
 
     def read_legacy_old_file():
         dic = {}
@@ -446,7 +448,8 @@ class dictionary:
 
 if __name__ == '__main__':
 
-    dictionary.read_locations()()
+    dictionary.read_settings()
+    dictionary.read_locations()
     dictionary.save()
     dictionary.read()
 
