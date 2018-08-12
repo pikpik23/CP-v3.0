@@ -39,10 +39,6 @@
 
     <h2>{{return_type}}</h2>
 
-    {% if return_type == 'MESSAGE' %}
-        <b>MESSAGE</b>
-    {% else %}
-
     <table class='return_table'>
         <tr class="head">
             <td class='serial'>Serial</td>
@@ -71,8 +67,6 @@
         </tr>
         {% endfor %}
     </table>
-
-    {% endif %}
     <p> <b>Duty Officer: </b>{{settings['Duty']}}</p>
 </body>
 
