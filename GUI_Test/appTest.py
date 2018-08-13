@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 from flask import Flask, render_template, request
 from read_dictionary import dictionary
 
@@ -7,7 +8,7 @@ app = Flask(__name__, template_folder='test_templates',
 
 @app.route('/')
 def index():
-    return render_template('home.html', test_var='\nHi from python')
+    return render_template('test.html', test_var='\nHi from python')
 
 
 @app.route('/table')
