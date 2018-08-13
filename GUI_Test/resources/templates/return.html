@@ -17,6 +17,7 @@
                 var form = document.createElement("form");
                 form.setAttribute("method", method);
                 form.setAttribute("action", path);
+                
 
                 for (var key in params) {
                     if (params.hasOwnProperty(key)) {
@@ -24,6 +25,7 @@
                         hiddenField.setAttribute("type", "hidden");
                         hiddenField.setAttribute("name", key);
                         hiddenField.setAttribute("value", params[key]);
+                        hiddenField.setAttribute("page",window.location.pathname);
 
                         form.appendChild(hiddenField);
                     }
@@ -56,11 +58,14 @@
             });
             $(".checkbox").click(function () {
                 $("#printCheck").click
+
             });
             $(".lblRadio").click(function () {
                 var radio = (this.id);
                 (radio + "Radio").click()
             });
+            
+            
         });
 
     </script>
@@ -111,7 +116,7 @@
     {% block table %}
     {% endblock %}
 
-
+    <p id="pageloc"> test </p>
 
     <footer>
             <table class="footTable">

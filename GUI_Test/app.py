@@ -69,7 +69,8 @@ def abstracted_updating_settings(setting):
     print('updating '+setting+' officer to: ' + request.form['name'])
     SETTINGS[setting] = request.form['name']
     update_setting()
-    return abstracted_return('MESSAGE')
+    print(request.form['page'])
+    return abstracted_return(request.form['page'])
 
 
 def update_setting():

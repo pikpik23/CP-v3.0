@@ -1,2 +1,2 @@
-callsign: 0A
+callsign: 0B
 Duty: Muskens
