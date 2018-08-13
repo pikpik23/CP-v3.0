@@ -1,5 +1,5 @@
 TODO:
-Curren Date Time Group in corner
+Current Date Time Group in corner
 Create Logs page
 Create submit for admin returns
 Create standard message page
