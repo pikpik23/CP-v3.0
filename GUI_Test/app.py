@@ -40,6 +40,9 @@ def display_text():
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
+@APP.route('/transmission/Message')
+def display_message():
+    return render_template('Message.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):

@@ -218,6 +218,17 @@ textarea.return {
     border-width: 1px;
 }
 
+textarea.message {
+    resize: none;
+    font-size: 10pt;
+
+    border-color: rgb(187, 187, 187);
+    border-style: solid;
+    border-width: 1px;
+
+    width:100%;
+    height: 400px;
+}
 
 input[type="text"] {
     padding: 2px 6px;

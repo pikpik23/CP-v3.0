@@ -9,13 +9,6 @@ class dictionary:
 
                 'Return Name': 'Serials',
 
-                'MESSAGE': {
-                    "MSG": {
-                        "desc": "Message",
-                        "data_type": "long"
-                    }
-                },
-
                 'LOCSTAT': {
                     "A": {
                         "desc": "Location",
