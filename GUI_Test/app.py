@@ -30,6 +30,10 @@ def display_table():
 def display_notes():
     return render_template('notes.html')
 
+@APP.route('/text')
+def display_text():
+    return render_template('texttest.html')
+
 
 @APP.route('/transmission')
 def display_main():
