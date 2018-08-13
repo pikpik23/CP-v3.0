@@ -354,7 +354,7 @@ class dictionary:
                 }
             }
 
-        w = csv.writer(open("new_serials.csv", "w"))
+        w = csv.writer(open("resources/files/new_serials.csv", "w"))
 
         for name, serials in dic.items():
             lst = []
@@ -380,7 +380,7 @@ class dictionary:
     def read():
         # should return the original format
         dic = {}
-        r = csv.reader(open("new_serials.csv", "r"))
+        r = csv.reader(open("resources/files/new_serials.csv", "r"))
         i = 0
         for row in r:
             if i:
@@ -424,12 +424,12 @@ class dictionary:
         '''
 
     def read_locations():
-        r = open("locations.txt", "r")
+        r = open("resources/files/locations.txt", "r")
         locations = r.read().split("\n")
         return locations
 
     def read_settings():
-        r = open("settings.txt", "r")
+        r = open("resources/files/settings.txt", "r")
         settings = {}
         for option in r.read().split('\n'):
             try:
@@ -441,7 +441,7 @@ class dictionary:
 
     def read_legacy_old_file():
         dic = {}
-        r = csv.reader(open("serials.csv", "r"))
+        r = csv.reader(open("resources/files/serials.csv", "r"))
         i = 0
         for row in r:
             if i:
@@ -456,7 +456,7 @@ class dictionary:
         return dic
 
     def save_settings(dic):
-        w = open("settings.txt", "w")
+        w = open("resources/files/settings.txt", "w")
         for sett, val in dic.items():
             w.write(sett+': '+val+'\n')
 

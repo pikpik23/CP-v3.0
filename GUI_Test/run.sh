@@ -12,7 +12,8 @@
 ./app.py &
 P1=$!
 sleep 3
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=http://127.0.0.1:5000/ &
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --kiosk http://127.0.0.1:5000/ &
+osascript - e 'tell application "Google Chrome" to activate'
 P2=$!
 wait $P2
-kill $P1
+$! = $P1

@@ -8,8 +8,8 @@ All request handling is done from here
 from flask import Flask, render_template, request, redirect
 from read_dictionary import dictionary
 
-APP = Flask(__name__, template_folder='templates',
-            static_folder='static', static_url_path='')
+APP = Flask(__name__, template_folder='resources/templates',
+            static_folder='resources/templates/static', static_url_path='')
 
 LEGACY_DIC = dictionary.read_legacy()
 SERIALS = dictionary.read()
@@ -30,6 +30,7 @@ def display_table():
 @APP.route('/notes')
 def display_notes():
     return render_template('notes.html')
+
 
 @APP.route('/text')
 def display_text():
