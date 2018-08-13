@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 """
 The main file for the CP site
 
@@ -38,7 +39,8 @@ def display_main():
 
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    return render_template('abstracted_return.new.html', return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+    return render_template('abstracted_return.new.html',
+                           return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
