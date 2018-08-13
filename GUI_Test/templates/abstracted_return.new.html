@@ -40,11 +40,19 @@
             });
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-                post('/settings/Duty/', { name: duty });
+                if (duty == null || duty == "") {   
+                }
+                else {
+                    post('/settings/Duty/', { name: duty });
+                }
             });
             $("#btnCallsign").click(function () {
                 var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-                post('/settings/callsign/', { name: cs });
+                if (cs == null || cs == "") {   
+                }
+                else {
+                    post('/settings/callsign/', { name: cs });
+                }
             });
             $(".checkbox").click(function () {
                 $("#printCheck").click
