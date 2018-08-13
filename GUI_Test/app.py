@@ -9,7 +9,7 @@ from flask import Flask, render_template, request, redirect
 from read_dictionary import dictionary
 
 APP = Flask(__name__, template_folder='resources/templates',
-            static_folder='resources/templates/static', static_url_path='')
+            static_folder='resources/static', static_url_path='')
 
 LEGACY_DIC = dictionary.read_legacy()
 SERIALS = dictionary.read()
@@ -41,9 +41,11 @@ def display_text():
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
+
 @APP.route('/transmission/Message')
 def display_message():
     return render_template('Message.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+
 
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
