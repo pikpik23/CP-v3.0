@@ -1,0 +1,79 @@
+{% extends 'layout.html' %} {% block body %}
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">  
+  $(document).ready(function () {
+    function post(path, params, method) {
+                method = method || "POST"; // Set method to post by default if not specified.
+
+                // The rest of this code assumes you are not using a library.
+                // It can be made less wordy if you use one.
+                var form = document.createElement("form");
+                form.setAttribute("method", method);
+                form.setAttribute("action", path);
+
+                for (var key in params) {
+                    if (params.hasOwnProperty(key)) {
+                        var hiddenField = document.createElement("input");
+                        hiddenField.setAttribute("type", "hidden");
+                        hiddenField.setAttribute("name", key);
+                        hiddenField.setAttribute("value", params[key]);
+
+                        form.appendChild(hiddenField);
+                    }
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+    }
+    $("#btnDuty").click(function () {
+        var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
+        if (duty == null || duty == "") {   
+        }
+        else {
+            post('/settings/Duty/', { name: duty });
+        }
+    });
+    $("#btnCallsign").click(function () {
+        var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
+        if (cs == null || cs == "") {   
+        }
+        else {
+            post('/settings/callsign/', { name: cs });
+        }
+    });
+});
+</script>
+
+<div class="mainSetting">
+    <div class="divLeft">
+        <div class="banner">
+            <a>Settings</a>
+        </div>
+        <div class="inner">
+            <table class="settingsTable">
+                <tr>
+                    <td>Duty Officer</td>
+                    <td>{{settings['Duty']}}</td>
+                    <td><button id="btnDuty">Duty Officer</button></td>
+                </tr>
+                <tr>
+                        <td>Callsign</td>
+                        <td>{{settings['callsign']}}</td>
+                        <td><button id="btnCallsign">This Callsign</button></td>
+                </tr>
+                
+            </table>
+        </div>
+    </div>
+    <div class="divRight">
+        <div class="banner">
+            <a>Product Details</a>
+        </div>
+        <div class="inner">
+
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

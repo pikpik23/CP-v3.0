@@ -1,0 +1,35 @@
+{% extends 'layout.html' %} {% block body %}
+
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">  
+  $(document).ready(function () {
+      $("#btnPrint").click(function(){
+          $("#logPrint").print();
+      })
+  });
+</script>
+
+<div class="main">
+    <div class="banner">
+        <a>Log</a>
+    </div>
+    <div class="logTable">
+
+    </div>
+    <div class="logPrint">
+       <!-- Print Fields - should probably use ifram in this class
+        <h2>{{return_type}}</h2>
+        <p>To: {{}}</p>
+        <p>From: {{}}</p>
+        <p>Time: {{}}</p>
+        <p>Duty Officer: {{}}</p>
+        {% for serial, info in serials_def[return_type].items() %}
+            <p>{{serial}}: {{value}}</p>
+        {% endfor %} -->
+
+    </div>
+    <button id="btnPrint">Print</button>
+
+</div>
+
+{% endblock %}

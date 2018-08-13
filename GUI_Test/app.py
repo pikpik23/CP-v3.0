@@ -22,10 +22,13 @@ def direct():
     return redirect("/transmission", code=302)
 
 
-@APP.route('/table')
-def display_table():
-    return render_template('index_test.html', serials_def=LEGACY_DIC)
+@APP.route('/log')
+def display_log():
+    return render_template('log.html')
 
+@APP.route('/settings')
+def display_settings():
+    return render_template('settings_page.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 @APP.route('/notes')
 def display_notes():

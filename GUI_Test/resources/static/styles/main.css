@@ -374,6 +374,8 @@ label:hover{
     font-size: 12pt;
     padding:8px;
     width:100%;
+    line-height: 22px;
+
     border:none;
     outline:none;
     resize: none;
@@ -386,4 +388,35 @@ label:hover{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+}
+
+
+.mainSetting {
+    position: fixed;
+    top:0;
+    bottom: 6px;
+    left:6px;
+    right: 6px;
+    margin-top:56px;
+}
+
+.divLeft{
+    border: 2px solid rgb(187, 187, 187);
+    float: left;
+    height: 100%;
+    width:49.5%;
+
+}
+
+.divRight{
+    border: 2px solid rgb(187, 187, 187);
+    float: right;
+    height: 100%;
+    width:49.5%;
+
+}
+
+.inner{
+    padding:12px;
+    line-height: 24px;
 }
