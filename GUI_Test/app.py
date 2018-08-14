@@ -20,7 +20,7 @@ LOG = []
 
 @APP.route('/log')
 def display_log():
-    return render_template('log.html')
+    return render_template("log_test.html", log=LOG)
 
 
 @APP.route('/settings')
@@ -58,11 +58,15 @@ def abstracted_return(rtrn_type):
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
     ret = {}
+    ret.update({'name': rtrn_type})
+    ret.update({'sender': request.form['sender']})
+    ret.update({'reciver': request.form['reciver']})
+
     for serial in LEGACY_DIC[rtrn_type]:
         ret.update({serial: request.form[serial]})
     LOG.append(ret)
-    print(LOG)
-    return ("Recorded...")
+
+    return render_template("log_frame.html", ret=ret)
 
 
 @APP.route('/settings/<setting>/', methods=['POST'])

@@ -86,42 +86,43 @@
     </div>
 
 
-    <table class="toFrom">
-        <tr>
-            <td class="serial">To:</td>
-            <td class="toFromStandard">
-                <input id="inputTo" class="itext" type="text" />
-            </td>
-            <td class="toFromStandard">
-                <button class="toButton">{{settings['callsign']}}</button>
-            </td>
-            <td class="toFromStandard">
-                <button class="toButton">KGS</button>
-            </td>
-            <td></td>
-            <td class="settings top left" align="right">
-                <button id="btnCallsign">This Callsign</button>
-            </td>
-            <td class="settings top right" align="right">{{settings['callsign']}}</td>
-
-        </tr>
-        <tr>
-            <td class="serial">From:</td>
-            <td class="toFromStandard">
-                <input id="inputFrom" class="itext" type="text" />
-            </td>
-            <td class="toFromStandard" colspan="2">
-                <button class="fromButton">{{settings['callsign']}}</button>
-            </td>
-            <td></td>
-            <td class="settings bottom left" align="right">
-                <button id="btnDuty">Duty Officer</button>
-            </td>
-            <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
-        </tr>
-    </table>
-
     <form method="POST">
+        <table class="toFrom">
+            <tr>
+                <td class="serial">To:</td>
+                <td class="toFromStandard">
+                    <input id="inputTo" name="reciver" class="itext" type="text" />
+                </td>
+                <td class="toFromStandard">
+                    <button type="button" class="toButton">{{settings['callsign']}}</button>
+                </td>
+                <td class="toFromStandard">
+                    <button type="button" class="toButton">KGS</button>
+                </td>
+                <td></td>
+                <td class="settings top left" align="right">
+                    <button type="button" id="btnCallsign">This Callsign</button>
+                </td>
+                <td class="settings top right" align="right">{{settings['callsign']}}</td>
+
+            </tr>
+            <tr>
+                <td class="serial">From:</td>
+                <td class="toFromStandard">
+                    <input name="sender" id="inputFrom" class="itext" type="text" />
+                </td>
+                <td class="toFromStandard" colspan="2">
+                    <button type="button" class="fromButton">{{settings['callsign']}}</button>
+                </td>
+                <td></td>
+                <td class="settings bottom left" align="right">
+                    <button type="button" id="btnDuty">Duty Officer</button>
+                </td>
+                <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
+            </tr>
+        </table>
+
+
         {% block table %} {% endblock %}
 
 
@@ -136,7 +137,7 @@
                         <button id="record" class="button" type="submit" value="Submit">Record</button>
                     </td>
                     <td>
-                        <button id="cancel">Cancel</button>
+                        <button type="button" id="cancel">Cancel</button>
                     </td>
                 </tr>
 

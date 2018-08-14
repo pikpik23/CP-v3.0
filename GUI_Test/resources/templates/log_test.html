@@ -1,0 +1,40 @@
+{% extends 'layout.html' %} {% block body %}
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">  
+  $(document).ready(function () {
+    {% for entry in log %}
+    $("#{{entry}}").click(function () {
+      $(".container-right").attr("src", "transmission/{{ entry }}");
+      {% for entry in log %}
+      $("#{{entry}}").attr("class", "off")
+      {% endfor %}
+      $("#MESSAGE").attr("class", "off");
+      $(this).attr("class", "selected");
+    });
+    {% endfor %}
+  });
+</script>
+
+
+<section>
+  <div class="scrollmenu">
+    <nav>
+      <ul>
+        <li>
+          <a>Entries</a>
+        </li>
+        {% for entry in log %}
+        <li>
+          <button href="#" id={{entry}}><h2>{{ entry['name'] }}</h2> <br> Sender: {{entry['sender']}} <br> Revicer: {{entry['reciver']}}</button>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container-right-main">
+    <iframe id="data_entry" class="container-right" src="transmission/MESSAGE" scrolling="yes"></iframe>
+  </div>
+</section>
+
+{% endblock %}
