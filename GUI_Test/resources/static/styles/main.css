@@ -423,12 +423,12 @@ label:hover{
 
 /*---------------------------- LOG --------------------*/
 .logLeft{
-    height: 100%;
     position: fixed;
     z-index: 1;
     top: 56px;
-    left: 0;
+    left: 6px;
     right:0;
+    bottom: 6px;
     margin-right:612px;
     
     overflow-x: hidden;
@@ -459,6 +459,7 @@ label:hover{
 #logPrint{
     height:100%;
     width:100%;
+    margin-bottom:100px;
 }
 
 .tableLog{
@@ -499,4 +500,22 @@ label:hover{
 }
 .printTable tr{
     height:20px;
+}
+
+.head2 td{
+    font-weight:bold;
+}
+
+.foot {
+    position: absolute;
+    text-align: center;
+    font-size:10pt;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+    background-color:white;
+}
+
+.fill{
+    width:100%;
 }
