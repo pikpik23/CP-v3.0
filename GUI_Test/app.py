@@ -69,7 +69,8 @@ def abstracted_return_return(rtrn_type):
     ret = {}
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
-    ret.update({'reciver': request.form['reciver']})
+    ret.update({'receiver': request.form['receiver']})
+    ret.update({'duty': request.form['Duty']})
     ret.update({'time': datetime.today().strftime('%d%H%M')})
 
     if rtrn_type == "MESSAGE":

@@ -12,7 +12,7 @@
         <td class='serial'>{{serial}}</td>
         <td>
             {% if info['data_type'] == 'string' %}
-            <input class="itext" name="{{serial}}" type="text" /> {% elif info['data_type'] == 'choice'%}
+            <input class="itext" name="{{serial}}" type="text"  autocomplete="off"/> {% elif info['data_type'] == 'choice'%}
             <div id="{{serial}}">{% for option in info['options'] %}
                 <label class="lblRadio" id="{{option}}">
                     <input class="itext" id="{{option}}Radio" name="{{serial}}" type="radio">{{option}}</input>
@@ -20,7 +20,7 @@
                 {% endfor %} </div>{% elif info['data_type'] == 'long'%}
             <textarea class="itext return" name="{{serial}}" rows="4" cols="40"></textarea> {% elif info['data_type'] ==
             'location'%}
-            <input class="itext" name="{{serial}}" type="text" id="" list="locs" />
+            <input class="itext" name="{{serial}}" type="text" id="" list="locs" autocomplete="off"/>
             <datalist id="locs">
                 <option selected disabled>Choose</option>
                 {% for location in locs %}

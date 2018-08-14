@@ -422,30 +422,36 @@ label:hover{
 }
 
 /*---------------------------- LOG --------------------*/
-.logTable{
-    width:500px;
-    padding: 10px 20px;
+.logLeft{
     height: 100%;
-
     position: fixed;
     z-index: 1;
     top: 56px;
     left: 0;
+    right:0;
+    margin-right:612px;
+    
     overflow-x: hidden;
-
     border-color: rgb(145, 145, 145);
     border-style: solid;
     border-width: 1px;
 }
 
+.logTable{
+    position:absolute;
+    top:36px;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+    padding: 10px 20px;
+}
+
 .logDisplay{
+    width:600px;
     position: fixed;
     top:0;
     bottom: 6px;
-    left:6px;
     right: 6px;
-
-    margin-left:500px;
     margin-top: 56px;
 
 }
@@ -458,6 +464,7 @@ label:hover{
 .tableLog{
     border:1px solid black;
     border-collapse: collapse;
+    width:100%;
 }
 
 .tableLog td{
@@ -474,4 +481,22 @@ label:hover{
     cursor: pointer;
 }
 
+/*.tdTime{
+    width:100px
+}
+.tdTo{
+    width:75px
+}
+.tdFrom{
+    width:75px
+}
+.tdType{
+    width:150px
+}*/
 
+.printTable td{
+    font-weight: bold;
+}
+.printTable tr{
+    height:20px;
+}

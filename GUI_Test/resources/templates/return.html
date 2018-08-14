@@ -91,7 +91,7 @@
             <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
-                    <input id="inputTo" name="reciver" class="itext" type="text" />
+                    <input id="inputTo" name="receiver" class="itext" type="text" autocomplete="off"/>
                 </td>
                 <td class="toFromStandard">
                     <button type="button" class="toButton">{{settings['callsign']}}</button>
@@ -109,7 +109,7 @@
             <tr>
                 <td class="serial">From:</td>
                 <td class="toFromStandard">
-                    <input name="sender" id="inputFrom" class="itext" type="text" />
+                    <input name="sender" id="inputFrom" class="itext" type="text" autocomplete="off"/>
                 </td>
                 <td class="toFromStandard" colspan="2">
                     <button type="button" class="fromButton">{{settings['callsign']}}</button>
@@ -122,6 +122,7 @@
             </tr>
         </table>
 
+        <input type="hidden" name="Duty" value="{{settings['Duty']}}"/>
 
         {% block table %} {% endblock %}
 

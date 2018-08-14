@@ -16,25 +16,31 @@
 
 
 <section>
-  <div class="logTable">
-    <table class="tableLog">
-      <tr>
-        <td>Time</td>
-        <td>From</td>
-        <td>To</td>
-        <td>Type</td>
-      </tr>
-      {% for entry in log %}
-      <div class="entryRow">
-        <tr class="rowOff" id={{loop.index0}}>
-          <td>{{ entry['time'] }}</td>
-          <td>{{entry['sender']}}</td>
-          <td>{{entry['reciver']}}</td>
-          <td>{{ entry['name'] }}</td>
+
+  <div class="logLeft">
+    <div class="banner">
+        <a>Log</a>
+    </div>
+    <div class="logTable">
+      <table class="tableLog">
+        <tr>
+          <td class="tdTime">Time</td>
+          <td class="tdFrom">From</td>
+          <td class="tdTo">To</td>
+          <td class="tdType">Type</td>
         </tr>
-      </div>
-      {% endfor %}
-    </table>
+        {% for entry in log %}
+        <div class="entryRow">
+          <tr class="rowOff" id={{loop.index0}}>
+            <td>{{entry['time'] }}</td>
+            <td>{{entry['sender']}}</td>
+            <td>{{entry['receiver']}}</td>
+            <td>{{entry['name'] }}</td>
+          </tr>
+        </div>
+        {% endfor %}
+      </table>
+    </div>
   </div>
 
   <div class="logDisplay">

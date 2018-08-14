@@ -9,17 +9,51 @@
 </head>
 
 <body>
-    <table>
         {% if ret %} {% for name, val in ret.items() %}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{val}}</td>
-        </tr>
-        {% endfor %} {% elif log %}
+            {% if name == 'name' %}
+                <h2>{{val}}</h2>
+            {% endif %}
+        {% endfor %} 
+        {% for name, val in ret.items() %}
+            <table class="printTable">
+            {% if name == 'sender' %}
+                <tr>
+                    <td>From:</td>
+                    <td>{{val}}</td>
+                </tr>
+            {% elif name == 'time' %}
+                <tr>
+                    <td>Time Sent:</td>
+                    <td>{{val}}</td>
+                </tr>
+            {% elif name == 'receiver' %}
+                <tr>
+                    <td>To:</td>
+                    <td>{{val}}</td>
+                </tr>
+            {% elif name == 'duty' %}
+                <tr>
+                    <td>Duty Officer:</td>
+                    <td>{{val}}</td>
+                </tr>
+            {% endif %}
+            </table>
+        {% endfor %}
+        {% for name, val in ret.items() %}
+            {% if name == 'msg' %}
+                <p>Message: {{val}}</p>
+            {% endif %}
+        {% endfor %}
+        {% for name, val in ret.items() %}
+            {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
+                <p>{{name}}: {{val}}</p>
+            {% endif %}
+        {% endfor %}
+        {% elif log %}
         <p>{{ log }}</p>
         <p>Log</p> {% else %}
         <p>ERROR</p> {% endif %}
-    </table>
+
 </body>
 
 </html>
