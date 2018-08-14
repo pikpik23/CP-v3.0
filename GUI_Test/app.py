@@ -62,7 +62,7 @@ def abstracted_return_return(rtrn_type):
         ret.update({serial: request.form[serial]})
     LOG.append(ret)
     print(LOG)
-    return render_template('return_display_test.html', serials_def=LEGACY_DIC)
+    return ("Recorded...")
 
 
 @APP.route('/settings/<setting>/', methods=['POST'])
