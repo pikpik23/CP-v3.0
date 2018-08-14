@@ -1,2 +1,2 @@
-callsign: 0B
-Duty: Muskens
+callsign: 0A
+Duty: Lambinon

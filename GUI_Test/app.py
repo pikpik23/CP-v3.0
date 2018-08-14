@@ -26,9 +26,11 @@ def direct():
 def display_log():
     return render_template('log.html')
 
+
 @APP.route('/settings')
 def display_settings():
     return render_template('settings_page.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+
 
 @APP.route('/notes')
 def display_notes():
@@ -66,11 +68,9 @@ def abstracted_return_return(rtrn_type):
 
 @APP.route('/settings/<setting>/', methods=['POST'])
 def abstracted_updating_settings(setting):
-    print('updating '+setting+' officer to: ' + request.form['name'])
     SETTINGS[setting] = request.form['name']
     update_setting()
-    print(request.form['page'])
-    return abstracted_return(request.form['page'])
+    return redirect(request.form['page'])
 
 
 def update_setting():

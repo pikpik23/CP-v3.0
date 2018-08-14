@@ -17,17 +17,27 @@
                 var form = document.createElement("form");
                 form.setAttribute("method", method);
                 form.setAttribute("action", path);
-                
+
 
                 for (var key in params) {
                     if (params.hasOwnProperty(key)) {
+                        // make fields
                         var hiddenField = document.createElement("input");
+                        var hiddenField2 = document.createElement("input");
+
                         hiddenField.setAttribute("type", "hidden");
                         hiddenField.setAttribute("name", key);
                         hiddenField.setAttribute("value", params[key]);
-                        hiddenField.setAttribute("page",window.location.pathname);
-
                         form.appendChild(hiddenField);
+
+                        var hiddenField2 = document.createElement("input");
+                        hiddenField2.setAttribute("type", "hidden");
+                        hiddenField2.setAttribute("name", "page");
+                        hiddenField2.setAttribute("value", window.location.pathname);
+
+
+                        form.appendChild(hiddenField2);
+
                     }
                 }
 
@@ -42,7 +52,7 @@
             });
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-                if (duty == null || duty == "") {   
+                if (duty == null || duty == "") {
                 }
                 else {
                     post('/settings/Duty/', { name: duty });
@@ -50,7 +60,7 @@
             });
             $("#btnCallsign").click(function () {
                 var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-                if (cs == null || cs == "") {   
+                if (cs == null || cs == "") {
                 }
                 else {
                     post('/settings/callsign/', { name: cs });
@@ -64,8 +74,8 @@
                 var radio = (this.id);
                 (radio + "Radio").click()
             });
-            
-            
+
+
         });
 
     </script>
@@ -113,27 +123,26 @@
         </tr>
     </table>
 
-    {% block table %}
-    {% endblock %}
+    {% block table %} {% endblock %}
 
     <p id="pageloc"> test </p>
 
     <footer>
-            <table class="footTable">
-                <tr class=submit>
-                    <td>
-                        <label class=checkbox>
-                            <input type="checkbox" id="printCheck"> Print</label>
-                    </td>
-                    <td>
-                        <button id="record">Record</button>
-                    </td>
-                    <td>
-                        <button id="cancel">Cancel</button>
-                    </td>
-                </tr>
-            </table>
-        </footer>
-    </body>
-    
-    </html>
+        <table class="footTable">
+            <tr class=submit>
+                <td>
+                    <label class=checkbox>
+                        <input type="checkbox" id="printCheck"> Print</label>
+                </td>
+                <td>
+                    <button id="record">Record</button>
+                </td>
+                <td>
+                    <button id="cancel">Cancel</button>
+                </td>
+            </tr>
+        </table>
+    </footer>
+</body>
+
+</html>
