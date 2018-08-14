@@ -4,9 +4,11 @@
   $(document).ready(function () {
     {% for entry in log %}
     $("#{{loop.index0}}").click(function () {
-      $(".container-right").attr("src", "log/{{loop.index0}}");
-      $("#{{loop.index0}}").attr("class", "off")
-      $(this).attr("class", "selected");
+      $("#logPrint").attr("src", "log/{{loop.index0}}");
+      {% for entry in log %}
+      $("#{{loop.index0}}").attr("class", "rowOff")
+      {% endfor %}
+      $(this).attr("class", "rowSelected");
     });
     {% endfor %}
   });
@@ -14,25 +16,29 @@
 
 
 <section>
-  <div class="scrollmenu">
-    <nav>
-      <ul>
-        <li>
-          <a>Entries</a>
-        </li>
-        {% for entry in log %}
-        <li>
-          <button href="#" id={{loop.index0}}><h2>{{ entry['name'] }}</h2> <br> Sender: {{entry['sender']}} <br> Revicer:
-            {{entry['reciver']}}
-          </button>
-        </li>
-        {% endfor %}
-      </ul>
-    </nav>
+  <div class="logTable">
+    <table class="tableLog">
+      <tr>
+        <td>Time</td>
+        <td>From</td>
+        <td>To</td>
+        <td>Type</td>
+      </tr>
+      {% for entry in log %}
+      <div class="entryRow">
+        <tr class="rowOff" id={{loop.index0}}>
+          <td>{{ entry['time'] }}</td>
+          <td>{{entry['sender']}}</td>
+          <td>{{entry['reciver']}}</td>
+          <td>{{ entry['name'] }}</td>
+        </tr>
+      </div>
+      {% endfor %}
+    </table>
   </div>
 
-  <div class="container-right-main">
-    <iframe id="data_entry" class="container-right" src="log/0" scrolling="yes"></iframe>
+  <div class="logDisplay">
+    <iframe id="logPrint" src="log/0" scrolling="yes"></iframe>
   </div>
 </section>
 
