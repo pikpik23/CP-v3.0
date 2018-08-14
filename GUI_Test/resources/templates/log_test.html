@@ -2,15 +2,14 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
+    {% set i = 0 %}
     {% for entry in log %}
-    $("#{{entry}}").click(function () {
-      $(".container-right").attr("src", "transmission/{{ entry }}");
-      {% for entry in log %}
-      $("#{{entry}}").attr("class", "off")
-      {% endfor %}
-      $("#MESSAGE").attr("class", "off");
+    $("#{{i}}").click(function () {
+      $(".container-right").attr("src", "log/{{ i }}");
+      $("#{{i}}").attr("class", "off")
       $(this).attr("class", "selected");
     });
+    {% set i = i + 1 %}
     {% endfor %}
   });
 </script>
@@ -25,7 +24,7 @@
         </li>
         {% for entry in log %}
         <li>
-          <button href="#" id={{entry}}><h2>{{ entry['name'] }}</h2> <br> Sender: {{entry['sender']}} <br> Revicer: {{entry['reciver']}}</button>
+          <button href="#" id={{i}}><h2>{{ entry['name'] }}</h2> <br> Sender: {{entry['sender']}} <br> Revicer: {{entry['reciver']}}</button>
         </li>
         {% endfor %}
       </ul>
@@ -33,7 +32,7 @@
   </div>
 
   <div class="container-right-main">
-    <iframe id="data_entry" class="container-right" src="transmission/MESSAGE" scrolling="yes"></iframe>
+    <iframe id="data_entry" class="container-right" src="log/MESSAGE" scrolling="yes"></iframe>
   </div>
 </section>
 

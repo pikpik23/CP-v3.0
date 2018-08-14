@@ -23,6 +23,11 @@ def display_log():
     return render_template("log_test.html", log=LOG)
 
 
+@APP.route('/log/<index>')
+def test_log(index):
+    return index
+
+
 @APP.route('/settings')
 def display_settings():
     return render_template('settings_page.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
