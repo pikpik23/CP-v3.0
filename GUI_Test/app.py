@@ -64,6 +64,8 @@ def update_setting():
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
+    print(rtrn_type)
+    print(request.form)
     ret = {}
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
@@ -75,21 +77,21 @@ def abstracted_return_return(rtrn_type):
     else:
         for serial in LEGACY_DIC[rtrn_type]:
             ret.update({serial: request.form[serial]})
-    LOG.append(ret)
+    LOG.insert(0, ret)
 
     return render_template("log_frame.html", ret=ret)
 
 
 @APP.route('/log')
 def display_log():
-    return render_template("log_test.html", log=LOG.reverse())
+    return render_template("log_test.html", log=LOG)
 
 
 @APP.route('/log/<index>')
 def test_log(index):
     try:
         index = int(index)
-        return render_template("log_frame.html", ret=(LOG.reverse())[index])
+        return render_template("log_frame.html", ret=LOG[index])
     except:
         return "<h1>ERROR</h1>"
 
