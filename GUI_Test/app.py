@@ -25,7 +25,11 @@ def display_log():
 
 @APP.route('/log/<index>')
 def test_log(index):
-    return index
+    try:
+        index = int(index)
+        return render_template("log_frame.html", ret=LOG[index])
+    except:
+        return "ERROR"
 
 
 @APP.route('/settings')
