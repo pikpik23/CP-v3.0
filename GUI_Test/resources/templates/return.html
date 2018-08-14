@@ -23,8 +23,6 @@
                     if (params.hasOwnProperty(key)) {
                         // make fields
                         var hiddenField = document.createElement("input");
-                        var hiddenField2 = document.createElement("input");
-
                         hiddenField.setAttribute("type", "hidden");
                         hiddenField.setAttribute("name", key);
                         hiddenField.setAttribute("value", params[key]);
@@ -124,8 +122,6 @@
     </table>
 
     {% block table %} {% endblock %}
-
-    <p id="pageloc"> test </p>
 
     <footer>
         <table class="footTable">

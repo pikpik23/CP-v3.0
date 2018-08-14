@@ -47,9 +47,9 @@ def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
 
-@APP.route('/transmission/Message')
+@APP.route('/transmission/MESSAGE')
 def display_message():
-    return render_template('Message.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+    return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 
 @APP.route('/transmission/<rtrn_type>')

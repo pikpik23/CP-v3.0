@@ -17,8 +17,14 @@
                         hiddenField.setAttribute("type", "hidden");
                         hiddenField.setAttribute("name", key);
                         hiddenField.setAttribute("value", params[key]);
-
                         form.appendChild(hiddenField);
+
+                        var hiddenField2 = document.createElement("input");
+                        hiddenField2.setAttribute("type", "hidden");
+                        hiddenField2.setAttribute("name", "page");
+                        hiddenField2.setAttribute("value", window.location.pathname);
+                        form.appendChild(hiddenField2);
+
                     }
                 }
 

@@ -8,12 +8,12 @@
         {% for return_type in serials_def %}
           $("#{{return_type}}").attr("class","off")
         {% endfor %}
-        $("#Message").attr("class","off");
+        $("#MESSAGE").attr("class","off");
         $(this).attr("class","selected");
        });
     {% endfor %}
-    $("#Message").click(function(){
-      $(".container-right").attr("src","transmission/Message");
+    $("#MESSAGE").click(function(){
+      $(".container-right").attr("src","transmission/MESSAGE");
       {% for return_type in serials_def %}
         $("#{{return_type}}").attr("class","off")
       {% endfor %}
@@ -32,7 +32,7 @@
         <a>Transmissions</a>
       </li>
       <li>
-        <button href="#" id="Message">Message</button>
+        <button class="selected" href="#" id="MESSAGE">MESSAGE</button>
       </li>
       {% for return_type in serials_def %}
       <li>
