@@ -15,11 +15,7 @@ LEGACY_DIC = dictionary.read_legacy()
 SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
 SETTINGS = dictionary.read_settings()
-
-
-@APP.route('/')
-def direct():
-    return redirect("/transmission", code=302)
+LOG = []
 
 
 @APP.route('/log')
@@ -42,6 +38,7 @@ def display_text():
     return render_template('texttest.html')
 
 
+@APP.route('/')
 @APP.route('/transmission')
 def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
@@ -63,6 +60,8 @@ def abstracted_return_return(rtrn_type):
     ret = {}
     for serial in LEGACY_DIC[rtrn_type]:
         ret.update({serial: request.form[serial]})
+    LOG.append(ret)
+    print(LOG)
     return render_template('return_display_test.html', serials_def=LEGACY_DIC)
 
 

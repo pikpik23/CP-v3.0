@@ -121,24 +121,28 @@
         </tr>
     </table>
 
-    {% block table %} {% endblock %}
+    <form>
+        {% block table %} {% endblock %}
 
-    <footer>
-        <table class="footTable">
-            <tr class=submit>
-                <td>
-                    <label class=checkbox>
-                        <input type="checkbox" id="printCheck"> Print</label>
-                </td>
-                <td>
-                    <button id="record">Record</button>
-                </td>
-                <td>
-                    <button id="cancel">Cancel</button>
-                </td>
-            </tr>
-        </table>
-    </footer>
+
+        <footer>
+            <table class="footTable">
+                <tr class=submit>
+                    <td>
+                        <label class=checkbox>
+                            <input type="checkbox" id="printCheck"> Print</label>
+                    </td>
+                    <td>
+                        <button id="record" class="button" type="submit" value="Submit">Record</button>
+                    </td>
+                    <td>
+                        <button id="cancel">Cancel</button>
+                    </td>
+                </tr>
+
+            </table>
+        </footer>
+    </form>
 </body>
 
 </html>
