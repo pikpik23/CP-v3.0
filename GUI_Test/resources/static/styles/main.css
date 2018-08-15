@@ -509,11 +509,12 @@ label:hover{
     height:20px;
 }
 
-.head2 td{
+.head2 th{
     font-weight:bold;
     background-color:#67747c;
     color:white;
     padding:3px;
+    text-align: left;
 }
 
 .foot {
@@ -528,4 +529,15 @@ label:hover{
 
 .fill{
     width:100%;
+}
+
+.table-scroll{
+    border: 1px solid #ddd;
+    position: absolute;
+    top:10px;
+    bottom:100px;
+    right:10px;
+    left:10px;
+    overflow-x:auto;
+    overflow-y:auto;
 }
