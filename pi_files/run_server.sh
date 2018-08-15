@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd /home/cp/cpSoftware/
-./app.py
+python3 /home/cp/cpSoftware/app.py
