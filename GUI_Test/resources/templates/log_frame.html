@@ -9,13 +9,14 @@
 </head>
 
 <body>
+    <div class="printBody">
         {% if ret %} {% for name, val in ret.items() %}
             {% if name == 'name' %}
                 <h2>{{val}}</h2>
             {% endif %}
         {% endfor %} 
+        <table class="printTable">
         {% for name, val in ret.items() %}
-            <table class="printTable">
             {% if name == 'sender' %}
                 <tr>
                     <td>From:</td>
@@ -37,8 +38,8 @@
                     <td>{{val}}</td>
                 </tr>
             {% endif %}
-            </table>
         {% endfor %}
+        </table>
         {% for name, val in ret.items() %}
             {% if name == 'msg' %}
                 <p>Message: {{val}}</p>
@@ -53,6 +54,7 @@
         <p>{{ log }}</p>
         <p>Log</p> {% else %}
         <p>ERROR</p> {% endif %}
+    </div>
 
 </body>
 

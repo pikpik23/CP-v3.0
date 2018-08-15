@@ -1,3 +1,13 @@
+MAINTDEM,2-0,0A,160742,Lambinon,"A: B220; B: Pri 3; C1: 0; C2: 20; C3: Toilet Paper x 3
+Poncho x 8; D1: NL Comms; D2: 121200; D3: Pickup; E: N/A
+N/A"
+MESSAGE,9,0A,160729,Lambinon,"msg: Message test &#13;&#10;
+from niner &#13;&#10;"
+MESSAGE,9,0A,160727,Lambinon,"msg: Get you shit together
+Roger Dodger
+Rightio"
+MAINTDEM,3-0,0A,160726,Lambinon,"A: C230; B: Pri 3; C1: 200; C2: 20; C3: Toilet paper x 4
+Hootchie Cord x 3; D1: NL Broke; D2: 170800; D3: Playtime; E: "
 LOCSTAT,6-0,0A,151857,Lambinon,A: GR123456; B: Stationary; C: 5 minutes
 INTREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: 
 SENTRYREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: ; E: ; F: 
