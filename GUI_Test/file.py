@@ -1,7 +1,7 @@
-import csv
+from csv import reader, writer
 
 
-class dictionary:
+class file:
 
     def save(dic=None):
         if not dic:
@@ -347,7 +347,7 @@ class dictionary:
                 }
             }
 
-        w = csv.writer(open("resources/files/new_serials.csv", "w"))
+        w = writer(open("resources/files/new_serials.csv", "w"))
 
         for name, serials in dic.items():
             lst = []
@@ -373,7 +373,7 @@ class dictionary:
     def read():
         # should return the original format
         dic = {}
-        r = csv.reader(open("resources/files/new_serials.csv", "r"))
+        r = reader(open("resources/files/new_serials.csv", "r"))
         i = 0
         for row in r:
             if i:
@@ -397,7 +397,7 @@ class dictionary:
         return dic
 
     def read_legacy():
-        serials = dictionary.read()
+        serials = file.read()
         final_dic = {}
         for name, dic in serials.items():
             inner_dic = {}
@@ -405,16 +405,6 @@ class dictionary:
                 inner_dic.update({serial: dic[serial]['desc']})
             final_dic.update({name: inner_dic})
         return final_dic
-        # wip
-
-        # should return only this format
-        '''
-            'LOCSTAT': {
-            "A": "Location",  # GR
-            "B": "Moving / Stationary",  # boolean
-            "C": "Direction of Movement or Length of Halt"
-        },
-        '''
 
     def read_locations():
         r = open("resources/files/locations.txt", "r")
@@ -439,7 +429,7 @@ class dictionary:
 
     def read_legacy_old_file():
         dic = {}
-        r = csv.reader(open("resources/files/serials.csv", "r"))
+        r = reader(open("resources/files/serials.csv", "r"))
         i = 0
         for row in r:
             if i:
@@ -458,17 +448,74 @@ class dictionary:
         for sett, val in dic.items():
             w.write(sett+': '+val+'\n')
 
+    def save_log(LOG):
+        # print('\n\n\nsaving')
+        '''
+        s = Timer(10.0, save)
+        s.daemon = True
+        s.start()
+        '''
+        w = writer(open("logs_test.csv", 'w'))
+
+        main_keys = [
+            'name',
+            'sender',
+            'receiver',
+            'time',
+            'duty'
+        ]
+
+        for ret in LOG:
+
+            test = ret
+            print(test)
+
+            lst = []
+            for key in main_keys:
+                print(key)
+                lst.append(test[key])
+            inn_lst = []
+            for serial, val in test.items():
+                if not (serial in main_keys):
+                    inn_lst.append(serial+': '+val)
+
+            lst.append('; '.join(inn_lst))
+
+            w.writerow(lst)
+
+    def load_log():
+        r = reader(open("logs.csv", "r"))
+        local_log = {}
+        for row in r:
+            ret = {}
+            try:
+                # print(row)
+                ret.update({'name': row[0]})
+                ret.update({'sender': row[1]})
+                ret.update({'receiver': row[2]})
+                ret.update({'time': row[3]})
+                ret.update({'duty': row[4]})
+
+                for serial_data in row[5:]:
+                    for serial in serial_data.split('; '):
+                        ser, val = serial.split(': ')
+                        ret.update({ser: val})
+                local_log.append(ret)
+            except:
+                print("error")
+        return local_log
+
 
 if __name__ == '__main__':
 
-    dic = dictionary.read_settings()
-    dictionary.save_settings(dic)
-    dictionary.read_locations()
-    dictionary.read_callsigns()
-    dictionary.save()
-    dictionary.read()
+    dic = file.read_settings()
+    file.save_settings(dic)
+    file.read_locations()
+    file.read_callsigns()
+    file.save()
+    file.read()
 
-    # x = dictionary()
+    # x = file()
     # x.save()
 
 
@@ -487,6 +534,6 @@ radio_button (list of possible options)
 class admin_return:
 
     def init(self):
-        self.serials_def = dictionary.read()
+        self.serials_def = file.read()
 
 """

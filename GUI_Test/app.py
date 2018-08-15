@@ -9,119 +9,27 @@ from threading import Timer
 from datetime import datetime
 from csv import reader, writer
 from flask import Flask, render_template, request, redirect
-from file import dictionary
+from file import file
 
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 
-LEGACY_DIC = dictionary.read_legacy()
-SERIALS = dictionary.read()
-LOCATIONS = dictionary.read_locations()
-CALLSIGNS = dictionary.read_callsigns()
-SETTINGS = dictionary.read_settings()
-LOG = []
-
-
-LOG = [{'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-           {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-           {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-           {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'},
-       {'name': 'LOCSTAT', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Sargent',
-        'time': '151111', 'A': 'POE', 'B': 'on', 'C': '234324'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS',
-           'duty': 'Sargent', 'time': '151203', 'msg': 'hello'},
-       {'name': 'MESSAGE', 'sender': '6-0', 'receiver': '0A',
-           'duty': 'Lambinon', 'time': '151305', 'msg': 'memr'},
-       {'name': 'MESSAGE', 'sender': '0A', 'receiver': 'KGS', 'duty': 'Lambinon', 'time': '151306', 'msg': 'gggb'}, {
-           'name': 'MESSAGE', 'sender': '0A', 'receiver': '0A', 'duty': 'Lambinon', 'time': '151306', 'msg': 'lol'}
-       ]
+LEGACY_DIC = file.read_legacy()
+SERIALS = file.read()
+LOCATIONS = file.read_locations()
+CALLSIGNS = file.read_callsigns()
+SETTINGS = file.read_settings()
+LOG = file.load_log()
 
 
 def save():
     # print('\n\n\nsaving')
-
-    # s = Timer(5.0, save)
-    # s.daemon = True
-
+    '''
+    s = Timer(10.0, save)
+    s.daemon = True
+    s.start()
+    '''
     w = writer(open("logs.csv", 'w'))
 
     main_keys = [
@@ -132,28 +40,23 @@ def save():
         'duty'
     ]
 
-    # print('log: ', LOG)
-
     for ret in LOG:
 
         test = ret
-        # print('ret', ret)
-        # print('test', test)
+        print(test)
 
         lst = []
         for key in main_keys:
-            # print("key ", key)
+            print(key)
             lst.append(test[key])
-            # del test[key]
         inn_lst = []
         for serial, val in test.items():
-            inn_lst.append(serial+': '+val)
+            if not (serial in main_keys):
+                inn_lst.append(serial+': '+val)
 
         lst.append('; '.join(inn_lst))
 
         w.writerow(lst)
-    # s.start()
-    # print("Saved")
 
 
 @APP.route('/')
@@ -196,13 +99,12 @@ def display_settings():
 
 
 def update_setting():
-    dictionary.save_settings(SETTINGS)
+    file.save_settings(SETTINGS)
 
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
-    # print(rtrn_type)
-    # print(request.form)
+
     ret = {}
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
@@ -210,19 +112,14 @@ def abstracted_return_return(rtrn_type):
     ret.update({'duty': request.form['Duty']})
     ret.update({'time': datetime.today().strftime('%d%H%M')})
 
-    print('ret inint ', ret)
-
     if rtrn_type == "MESSAGE":
         ret.update({'msg': request.form['msg']})
-        # print(ret)
     else:
         for serial in LEGACY_DIC[rtrn_type]:
             ret.update({serial: request.form[serial]})
-    # print("ret: ", ret)
-    LOG.append(ret)
-    #LOG.insert(0, (ret))
-    print('\n\nreturn logged: ', LOG)
-    # save()
+
+    LOG.insert(0, (ret))
+    file.save_log()
     return render_template("log_frame.html", ret=ret)
 
 
@@ -241,5 +138,5 @@ def test_log(index):
 
 
 if __name__ == '__main__':
-    # save()
+
     APP.run(debug=True)
