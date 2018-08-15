@@ -119,7 +119,7 @@ def abstracted_return_return(rtrn_type):
             ret.update({serial: request.form[serial]})
 
     LOG.insert(0, (ret))
-    file.save_log()
+    file.save_log(LOG)
     return render_template("log_frame.html", ret=ret)
 
 

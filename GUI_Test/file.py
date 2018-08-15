@@ -455,7 +455,7 @@ class file:
         s.daemon = True
         s.start()
         '''
-        w = writer(open("/resources/static/logs.csv", 'w'))
+        w = writer(open("resources/static/logs.csv", 'w'))
 
         main_keys = [
             'name',
