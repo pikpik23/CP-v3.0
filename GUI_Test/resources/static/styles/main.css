@@ -477,6 +477,9 @@ label:hover{
     background-color: #f2f2f2;;
 }
 
+.tableLog tr:hover{
+    background-color: #ddd;
+}
 
 .rowSelected{
     background-color: #288ad6 !important;
