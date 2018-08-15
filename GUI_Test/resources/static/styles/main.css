@@ -469,11 +469,18 @@ label:hover{
 }
 
 .tableLog td{
-    border:1px solid black;
+    border:1px solid #ddd;
+
 }
 
+.tableLog tr:nth-child(even) {
+    background-color: #f2f2f2;;
+}
+
+
 .rowSelected{
-    background-color: #ccc;
+    background-color: #288ad6 !important;
+    color:white;
     cursor: pointer;
 }
 
@@ -504,6 +511,9 @@ label:hover{
 
 .head2 td{
     font-weight:bold;
+    background-color:#67747c;
+    color:white;
+    padding:3px;
 }
 
 .foot {

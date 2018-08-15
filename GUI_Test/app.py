@@ -18,6 +18,7 @@ APP = Flask(__name__, template_folder='resources/templates',
 LEGACY_DIC = dictionary.read_legacy()
 SERIALS = dictionary.read()
 LOCATIONS = dictionary.read_locations()
+CALLSIGNS = dictionary.read_callsigns()
 SETTINGS = dictionary.read_settings()
 LOG = []
 
@@ -78,13 +79,13 @@ def display_main():
 
 @APP.route('/transmission/MESSAGE')
 def display_message():
-    return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+    return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
 
 
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
     return render_template('abstracted_return.new.html',
-                           return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+                           return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
 
 
 @APP.route('/notes')

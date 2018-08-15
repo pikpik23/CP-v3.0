@@ -421,6 +421,11 @@ class dictionary:
         locations = r.read().split("\n")
         return locations
 
+    def read_callsigns():
+        r = open("resources/files/callsigns.txt", "r")
+        callsigns = r.read().split("\n")
+        return callsigns
+
     def read_settings():
         r = open("resources/files/settings.txt", "r")
         settings = {}
@@ -459,6 +464,7 @@ if __name__ == '__main__':
     dic = dictionary.read_settings()
     dictionary.save_settings(dic)
     dictionary.read_locations()
+    dictionary.read_callsigns()
     dictionary.save()
     dictionary.read()
 
