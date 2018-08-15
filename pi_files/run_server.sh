@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd cpSoftware/
+cd /home/cp/cpSoftware/
 ./app.py
