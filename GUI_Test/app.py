@@ -7,7 +7,6 @@ All request handling is done from here
 
 from threading import Timer
 from datetime import datetime
-from csv import reader, writer
 from flask import Flask, render_template, request, redirect
 from file import file
 
@@ -21,42 +20,6 @@ LOCATIONS = file.read_locations()
 CALLSIGNS = file.read_callsigns()
 SETTINGS = file.read_settings()
 LOG = file.load_log()
-
-
-def save():
-    # print('\n\n\nsaving')
-    '''
-    s = Timer(10.0, save)
-    s.daemon = True
-    s.start()
-    '''
-    w = writer(open("logs.csv", 'w'))
-
-    main_keys = [
-        'name',
-        'sender',
-        'receiver',
-        'time',
-        'duty'
-    ]
-
-    for ret in LOG:
-
-        test = ret
-        print(test)
-
-        lst = []
-        for key in main_keys:
-            print(key)
-            lst.append(test[key])
-        inn_lst = []
-        for serial, val in test.items():
-            if not (serial in main_keys):
-                inn_lst.append(serial+': '+val)
-
-        lst.append('; '.join(inn_lst))
-
-        w.writerow(lst)
 
 
 @APP.route('/')
@@ -116,7 +79,10 @@ def abstracted_return_return(rtrn_type):
         ret.update({'msg': request.form['msg']})
     else:
         for serial in LEGACY_DIC[rtrn_type]:
-            ret.update({serial: request.form[serial]})
+            try:
+                ret.update({serial: request.form[serial]})
+            except KeyError:
+                ret.update({serial: ''})
 
     LOG.insert(0, (ret))
     file.save_log(LOG)

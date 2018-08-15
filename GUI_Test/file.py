@@ -468,11 +468,11 @@ class file:
         for ret in log:
 
             test = ret
-            print(test)
+            # print(test)
 
             lst = []
             for key in main_keys:
-                print(key)
+                # print(key)
                 lst.append(test[key])
             inn_lst = []
             for serial, val in test.items():

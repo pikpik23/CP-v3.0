@@ -1,3 +1,10 @@
+INTREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: 
+SENTRYREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: ; E: ; F: 
+MOVEREQ,0A,KGS,151509,Lambinon,A: ; B1: ; B2: ; C1: ; C2: ; D1: ; D2: ; D3: ; E: 
+MAINTDEM,0A,KGS,151509,Lambinon,A: ; B: ; C1: ; C2: ; C3: ; D1: ; D2: ; D3: ; E: 
+LOCSTAT,0A,KGS,151509,Lambinon,A: ; B: ; C: 
+MESSAGE,0A,KGS,151507,Lambinon,msg: hello
+MESSAGE,0A,KGS,151506,Lambinon,msg: 123
 LOCSTAT,0A,0A,151450,Lambinon,A: 123; B: on; C: 123
 LOCSTAT,0A,KGS,151111,Sargent,A: POE; B: on; C: 234324
 MESSAGE,0A,KGS,151203,Sargent,msg: hello
