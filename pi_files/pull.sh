@@ -1,4 +1,6 @@
 #!/bin/bash
 
 cd ../
-git pull limited_origin main
+git read-tree -mu HEAD
+git remote update
+git fetch limited_origin main
