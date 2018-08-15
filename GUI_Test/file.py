@@ -3,7 +3,7 @@ from csv import reader, writer
 
 class file:
 
-    def save(dic=None):
+    def save_dic(dic=None):
         if not dic:
             dic = {
 
@@ -370,7 +370,7 @@ class file:
                         lst.append(serial+':'+"!".join(inner_lst))
             w.writerow([(name), (', '.join(lst))])
 
-    def read():
+    def read_dic():
         # should return the original format
         dic = {}
         r = reader(open("resources/files/new_serials.csv", "r"))
@@ -397,7 +397,7 @@ class file:
         return dic
 
     def read_legacy():
-        serials = file.read()
+        serials = file.read_dic()
         final_dic = {}
         for name, dic in serials.items():
             inner_dic = {}
@@ -448,7 +448,7 @@ class file:
         for sett, val in dic.items():
             w.write(sett+': '+val+'\n')
 
-    def save_log(LOG):
+    def save_log(log):
         # print('\n\n\nsaving')
         '''
         s = Timer(10.0, save)
@@ -465,7 +465,7 @@ class file:
             'duty'
         ]
 
-        for ret in LOG:
+        for ret in log:
 
             test = ret
             print(test)
@@ -528,8 +528,8 @@ if __name__ == '__main__':
     file.save_settings(dic)
     file.read_locations()
     file.read_callsigns()
-    file.save()
-    file.read()
+    file.save_dic()
+    file.read_dic()
 
     # x = file()
     # x.save()

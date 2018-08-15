@@ -16,7 +16,7 @@ APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 
 LEGACY_DIC = file.read_legacy()
-SERIALS = file.read()
+SERIALS = file.read_dic()
 LOCATIONS = file.read_locations()
 CALLSIGNS = file.read_callsigns()
 SETTINGS = file.read_settings()
