@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 LOCSTAT,,,161401,Lambinon,A: ; B: ; C: 
 MESSAGE,,,161401,Lambinon,msg: 
 MAINTDEM,2-0,0A,160742,Lambinon,"A: B220; B: Pri 3; C1: 0; C2: 20; C3: Toilet Paper x 3
@@ -24,3 +25,6 @@ MESSAGE,0A,KGS,151203,Sargent,msg: hello
 MESSAGE,6-0,0A,151305,Lambinon,msg: memr
 MESSAGE,0A,KGS,151306,Lambinon,msg: gggb
 MESSAGE,0A,0A,151306,Lambinon,msg: lol
+=======
+MESSAGE,0A,KGS,161108,Lambinon,"msg;;;///;;;This is a test of the new system<br><br>Please ignore all memes that might arise<br><br>regards,<br>DO<br>"
+>>>>>>> d14f5d24caa514c2c9d9aa2b6fb34c3e860ff6da
