@@ -87,7 +87,7 @@ def abstracted_return_return(rtrn_type):
 
     LOG.insert(0, (ret))
     file.save_log(LOG)
-    return render_template("log_frame.html", ret=ret)
+    return redirect("/transmission/"+rtrn_type)
 
 def convert_newlines(line):
     new_content = []
