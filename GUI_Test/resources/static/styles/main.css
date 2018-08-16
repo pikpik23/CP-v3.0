@@ -466,6 +466,7 @@ label:hover{
     border:1px solid black;
     border-collapse: collapse;
     width:100%;
+       border: 1px solid #ddd;
 }
 
 .tableLog td{
@@ -535,7 +536,6 @@ label:hover{
 }
 
 .table-scroll{
-    border: 1px solid #ddd;
     position: absolute;
     top:10px;
     bottom:100px;
@@ -555,5 +555,5 @@ label:hover{
     }
 
 .textp{
-    
+
 }

@@ -1,30 +1,24 @@
-<<<<<<< HEAD
-LOCSTAT,,,161401,Lambinon,A: ; B: ; C: 
-MESSAGE,,,161401,Lambinon,msg: 
-MAINTDEM,2-0,0A,160742,Lambinon,"A: B220; B: Pri 3; C1: 0; C2: 20; C3: Toilet Paper x 3
-Poncho x 8; D1: NL Comms; D2: 121200; D3: Pickup; E: N/A
-N/A"
-MESSAGE,9,0A,160729,Lambinon,"msg: Message test &#13;&#10;
-from niner &#13;&#10;"
-MESSAGE,9,0A,160727,Lambinon,"msg: Get you shit together
-Roger Dodger
-Rightio"
-MAINTDEM,3-0,0A,160726,Lambinon,"A: C230; B: Pri 3; C1: 200; C2: 20; C3: Toilet paper x 4
-Hootchie Cord x 3; D1: NL Broke; D2: 170800; D3: Playtime; E: "
-LOCSTAT,6-0,0A,151857,Lambinon,A: GR123456; B: Stationary; C: 5 minutes
-INTREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: 
-SENTRYREP,0A,KGS,151509,Lambinon,A: ; B: ; C: ; D: ; E: ; F: 
-MOVEREQ,0A,KGS,151509,Lambinon,A: ; B1: ; B2: ; C1: ; C2: ; D1: ; D2: ; D3: ; E: 
-MAINTDEM,0A,KGS,151509,Lambinon,A: ; B: ; C1: ; C2: ; C3: ; D1: ; D2: ; D3: ; E: 
-LOCSTAT,0A,KGS,151509,Lambinon,A: ; B: ; C: 
-MESSAGE,0A,KGS,151507,Lambinon,msg: hello
-MESSAGE,0A,KGS,151506,Lambinon,msg: 123
-LOCSTAT,0A,0A,151450,Lambinon,A: 123; B: on; C: 123
-LOCSTAT,0A,KGS,151111,Sargent,A: POE; B: on; C: 234324
-MESSAGE,0A,KGS,151203,Sargent,msg: hello
-MESSAGE,6-0,0A,151305,Lambinon,msg: memr
-MESSAGE,0A,KGS,151306,Lambinon,msg: gggb
-MESSAGE,0A,0A,151306,Lambinon,msg: lol
-=======
+LOCSTAT,5-0,0A,161625,Muskens,"A;;;///;;;GR123456<br>;;;,,,;;;B;;;///;;;Stationary<br>;;;,,,;;;C;;;///;;;NW<br>"
+SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161555,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161555,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161555,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161555,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+SENTRYREP,,,161555,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161555,Muskens,msg;;;///;;;<br>
+LOCSTAT,5-0,0A,161554,Muskens,"A;;;///;;;GR123456<br>;;;,,,;;;B;;;///;;;Moving<br>;;;,,,;;;C;;;///;;;NW<br>"
+LOCSTAT,5-0,0A,161415,Muskens,"A;;;///;;;GR1233456<br>;;;,,,;;;B;;;///;;;Stationary<br>;;;,,,;;;C;;;///;;;5 min<br>"
+MAINTDEM,5-0,0A,161406,Muskens,"A;;;///;;;E110<br>;;;,,,;;;B;;;///;;;Pri 3<br>;;;,,,;;;C1;;;///;;;0<br>;;;,,,;;;C2;;;///;;;0<br>;;;,,,;;;C3;;;///;;;Toilet paper x 10<br>Poncho x 5<br>Hutchie x 2<br><br>;;;,,,;;;D1;;;///;;;NL Broke<br>;;;,,,;;;D2;;;///;;;121200<br>;;;,,,;;;D3;;;///;;;Playtime<br>;;;,,,;;;E;;;///;;;TESTING 231<br>"
+MAINTDEM,5-0,0A,161404,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C1;;;///;;;<br>;;;,,,;;;C2;;;///;;;<br>;;;,,,;;;C3;;;///;;;<br>;;;,,,;;;D1;;;///;;;<br>;;;,,,;;;D2;;;///;;;<br>;;;,,,;;;D3;;;///;;;;;;,,,;;;E;;;///;;;<br>"
 MESSAGE,0A,KGS,161108,Lambinon,"msg;;;///;;;This is a test of the new system<br><br>Please ignore all memes that might arise<br><br>regards,<br>DO<br>"
->>>>>>> d14f5d24caa514c2c9d9aa2b6fb34c3e860ff6da
