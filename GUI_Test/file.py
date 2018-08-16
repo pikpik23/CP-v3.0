@@ -390,7 +390,7 @@ class file:
                             sub_dic.update(
                                 {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
-                lst = row[1].split(';;;///;;;')
+                lst = row[1].split('\\')
                 dic.update({row[0]: inner_dic})
             else:
                 i += 1
@@ -421,32 +421,16 @@ class file:
         settings = {}
         for option in r.read().split('\n'):
             try:
-                option = option.split(';;;///;;;')
+                option = option.split('\\')
                 settings.update({option[0]: option[1]})
             except IndexError:
                 pass
         return settings
 
-    def read_legacy_old_file():
-        dic = {}
-        r = reader(open("resources/files/serials.csv", "r"))
-        i = 0
-        for row in r:
-            if i:
-                inner_dic = {}
-                for serial in row[1].split(';;,,,;;'):
-                    serial = serial.split(';;:::;;')
-                    inner_dic.update({serial[0]: serial[1]})
-                lst = row[1].split(';;;///;;;')
-                dic.update({row[0]: inner_dic})
-            else:
-                i += 1
-        return dic
-
     def save_settings(dic):
         w = open("resources/files/settings.txt", "w")
         for sett, val in dic.items():
-            w.write(sett+';;;///;;;'+val+'\n')
+            w.write(sett+'\\'+val+'\n')
 
     def save_log(log):
         # print('\n\n\nsaving')
@@ -477,9 +461,9 @@ class file:
             inn_lst = []
             for serial, val in test.items():
                 if not (serial in main_keys):
-                    inn_lst.append(serial+';;;///;;;'+val)
+                    inn_lst.append(serial+'\\'+val)
 
-            lst.append(';;;,,,;;;'.join(inn_lst))
+            lst.append('||'.join(inn_lst))
 
             w.writerow(lst)
 
@@ -503,8 +487,8 @@ class file:
             ret.update({'duty': row[4]})
 
             for serial_data in row[5:]:
-                for serial in serial_data.split(';;;,,,;;;'):
-                    ser, val = serial.split(';;;///;;;')
+                for serial in serial_data.split('||'):
+                    ser, val = serial.split('\\')
                     ret.update({ser: val})
             local_log.append(ret)
 
@@ -518,8 +502,8 @@ class file:
                 ret.update({'duty': row[4]})
 
                 for serial_data in row[5:]:
-                    for serial in serial_data.split(';;;,,,;;;'):
-                        ser, val = serial.split(';;;///;;;')
+                    for serial in serial_data.split('||'):
+                        ser, val = serial.split('\\')
                         ret.update({ser: val})
                 local_log.append(ret)
             except:
