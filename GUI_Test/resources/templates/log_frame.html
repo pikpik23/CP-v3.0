@@ -10,50 +10,61 @@
 
 <body>
     <div class="printBody">
-        {% if ret %} {% for name, val in ret.items() %}
-            {% if name == 'name' %}
-                <h2>{{val}}</h2>
-            {% endif %}
-        {% endfor %} 
-        <table class="printTable">
-        {% for name, val in ret.items() %}
-            {% if name == 'sender' %}
-                <tr>
-                    <td>From:</td>
-                    <td>{{val}}</td>
-                </tr>
-            {% elif name == 'time' %}
-                <tr>
-                    <td>Time Sent:</td>
-                    <td>{{val}}</td>
-                </tr>
-            {% elif name == 'receiver' %}
-                <tr>
-                    <td>To:</td>
-                    <td>{{val}}</td>
-                </tr>
-            {% elif name == 'duty' %}
-                <tr>
-                    <td>Duty Officer:</td>
-                    <td>{{val}}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-        </table>
-        {% for name, val in ret.items() %}
-            {% if name == 'msg' %}
-                <p>Message: {{val}}</p>
-            {% endif %}
-        {% endfor %}
-        {% for name, val in ret.items() %}
-            {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
-                <p>{{name}}: {{val}}</p>
-            {% endif %}
-        {% endfor %}
+        {% if ret %} 
+            {% for name, val in ret.items() %} 
+                {% if name == 'name' %}
+                    <h2>{{val}}</h2>
+                {% endif %} 
+            {% endfor %}
+            <table class="printTable">
+                {% for name, val in ret.items() %} 
+                    {% if name == 'sender' %}
+                    <tr>
+                        <td>From:</td>
+                        <td>{{val}}</td>
+                    </tr>
+                    {% elif name == 'time' %}
+                    <tr>
+                        <td>Time Sent:</td>
+                        <td>{{val}}</td>
+                    </tr>
+                    {% elif name == 'receiver' %}
+                    <tr>
+                        <td>To:</td>
+                        <td>{{val}}</td>
+                    </tr>
+                    {% elif name == 'duty' %}
+                    <tr>
+                        <td>Duty Officer:</td>
+                        <td>{{val}}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                
+            </table>
+            {% for name, rtrn in ret.items() %} 
+                {% if name == 'msg' %}
+                <p>Message:</p>
+                    {% for val in rtrn.split('<br>') %}
+                    <p class="textp">{{val}}</p>
+                    {% endfor %}
+                {% endif %} 
+            {% endfor %} 
+            
+            {% for name, rtrn in ret.items() %}
+                {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
+                    <p>{{name}}: </p>
+                    {% for val in rtrn.split('<br>') %}
+                    <p class="textp">{{val}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %} 
         {% elif log %}
-        <p>{{ log }}</p>
-        <p>Log</p> {% else %}
-        <p>ERROR</p> {% endif %}
+            <p>{{ log }}</p>
+            <p>Log</p>
+        {% else %}
+            <p>ERROR</p>
+        {% endif %}
     </div>
 
 </body>

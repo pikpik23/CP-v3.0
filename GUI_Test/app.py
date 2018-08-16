@@ -76,11 +76,12 @@ def abstracted_return_return(rtrn_type):
     ret.update({'time': datetime.today().strftime('%d%H%M')})
 
     if rtrn_type == "MESSAGE":
-        ret.update({'msg': request.form['msg']})
+        ret.update({'msg': convert_newlines(request.form['msg'])})
+
     else:
         for serial in LEGACY_DIC[rtrn_type]:
             try:
-                ret.update({serial: request.form[serial]})
+                ret.update({serial: convert_newlines(request.form[serial])})
             except KeyError:
                 ret.update({serial: ''})
 
@@ -88,6 +89,14 @@ def abstracted_return_return(rtrn_type):
     file.save_log(LOG)
     return render_template("log_frame.html", ret=ret)
 
+def convert_newlines(line):
+    new_content = []
+    for i in line.split('\n'):
+        if '\r' in i:
+            i = i[:-1]
+        new_content.append(i)
+    new_content.append('')
+    return '<br>'.join(new_content)
 
 @APP.route('/log')
 def display_log():
