@@ -362,13 +362,13 @@ class file:
                         inner_lst = []
                         for cont in serials[serial]:
                             if cont == "options":
-                                inner_lst.append(cont+"@" +
-                                                 "#".join(serials[serial]["options"]))
+                                inner_lst.append(cont+";;@@;;" +
+                                                 ";;##;;".join(serials[serial]["options"]))
                             else:
                                 inner_lst.append(
-                                    cont+"@"+serials[serial][cont])
-                        lst.append(serial+':'+"!".join(inner_lst))
-            w.writerow([(name), (', '.join(lst))])
+                                    cont+";;@@;;"+serials[serial][cont])
+                        lst.append(serial+';;:::;;'+";;!!!;;".join(inner_lst))
+            w.writerow([(name), (';;,,,;;'.join(lst))])
 
     def read_dic():
         # should return the original format
@@ -378,19 +378,19 @@ class file:
         for row in r:
             if i:
                 inner_dic = {}
-                for serial in row[1].split(', '):
-                    serial = serial.split(':')
+                for serial in row[1].split(';;,,,;;'):
+                    serial = serial.split(';;:::;;')
                     sub_dic = {}
-                    for sub_serial in serial[1].split('!'):
-                        sub_serial = sub_serial.split("@")
+                    for sub_serial in serial[1].split(';;!!!;;'):
+                        sub_serial = sub_serial.split(";;@@;;")
                         if sub_serial[0] == 'options':
-                            options = sub_serial[1].split("#")
+                            options = sub_serial[1].split(";;##;;")
                             sub_dic.update({sub_serial[0]: options})
                         else:
                             sub_dic.update(
                                 {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
-                lst = row[1].split(': ')
+                lst = row[1].split(';;;///;;;')
                 dic.update({row[0]: inner_dic})
             else:
                 i += 1
@@ -421,7 +421,7 @@ class file:
         settings = {}
         for option in r.read().split('\n'):
             try:
-                option = option.split(': ')
+                option = option.split(';;;///;;;')
                 settings.update({option[0]: option[1]})
             except IndexError:
                 pass
@@ -434,10 +434,10 @@ class file:
         for row in r:
             if i:
                 inner_dic = {}
-                for serial in row[1].split(', '):
-                    serial = serial.split(':')
+                for serial in row[1].split(';;,,,;;'):
+                    serial = serial.split(';;:::;;')
                     inner_dic.update({serial[0]: serial[1]})
-                lst = row[1].split(': ')
+                lst = row[1].split(';;;///;;;')
                 dic.update({row[0]: inner_dic})
             else:
                 i += 1
@@ -446,7 +446,7 @@ class file:
     def save_settings(dic):
         w = open("resources/files/settings.txt", "w")
         for sett, val in dic.items():
-            w.write(sett+': '+val+'\n')
+            w.write(sett+';;;///;;;'+val+'\n')
 
     def save_log(log):
         # print('\n\n\nsaving')
@@ -477,14 +477,20 @@ class file:
             inn_lst = []
             for serial, val in test.items():
                 if not (serial in main_keys):
-                    inn_lst.append(serial+': '+val)
+                    inn_lst.append(serial+';;;///;;;'+val)
 
-            lst.append('; '.join(inn_lst))
+            lst.append(';;;,,,;;;'.join(inn_lst))
 
             w.writerow(lst)
 
     def load_log():
-        r = reader(open("resources/static/logs.csv", "r"))
+        try:
+            r = reader(open("resources/static/logs.csv", "r"))
+        except:
+            w = open("resources/static/logs.csv", 'w')
+            w.close()
+            r = reader(open("resources/static/logs.csv", "r"))
+
         local_log = []
         for row in r:
             ret = {}
@@ -497,8 +503,8 @@ class file:
             ret.update({'duty': row[4]})
 
             for serial_data in row[5:]:
-                for serial in serial_data.split('; '):
-                    ser, val = serial.split(': ')
+                for serial in serial_data.split(';;;,,,;;;'):
+                    ser, val = serial.split(';;;///;;;')
                     ret.update({ser: val})
             local_log.append(ret)
 
@@ -512,8 +518,8 @@ class file:
                 ret.update({'duty': row[4]})
 
                 for serial_data in row[5:]:
-                    for serial in serial_data.split('; '):
-                        ser, val = serial.split(': ')
+                    for serial in serial_data.split(';;;,,,;;;'):
+                        ser, val = serial.split(';;;///;;;')
                         ret.update({ser: val})
                 local_log.append(ret)
             except:
@@ -524,8 +530,8 @@ class file:
 
 if __name__ == '__main__':
 
-    dic = file.read_settings()
-    file.save_settings(dic)
+    settts = file.read_settings()
+    file.save_settings(settts)
     file.read_locations()
     file.read_callsigns()
     file.save_dic()
