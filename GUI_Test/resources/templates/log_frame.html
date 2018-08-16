@@ -42,22 +42,31 @@
                 {% endfor %}
                 
             </table>
-            {% for name, rtrn in ret.items() %} 
+            <table>
+            {% for name, rtrn in ret.items() %}
+            <tr>
                 {% if name == 'msg' %}
-                <p>Message:</p>
+                <td>Message:</td>
+                <td class="textp">
                     {% for val in rtrn.split('<br>') %}
-                    <p class="textp">{{val}}</p>
+                    {{val}}<br>
                     {% endfor %}
+                </td>
                 {% endif %} 
+            </tr>
             {% endfor %} 
             
             {% for name, rtrn in ret.items() %}
+            <tr>
                 {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
-                    <p>{{name}}: </p>
+                    <td>{{name}}: </td>
+                    <td class="textp"></td>
                     {% for val in rtrn.split('<br>') %}
-                    <p class="textp">{{val}}</p>
+                    {{val}}<br>
                     {% endfor %}
+                </td>
                 {% endif %}
+            </tr>
             {% endfor %} 
         {% elif log %}
             <p>{{ log }}</p>
@@ -65,6 +74,7 @@
         {% else %}
             <p>ERROR</p>
         {% endif %}
+    </table>
     </div>
 
 </body>
