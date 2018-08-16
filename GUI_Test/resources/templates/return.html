@@ -70,6 +70,19 @@
                 var radio = (this.id);
                 (radio + "Radio").click()
             });
+            
+            $("#record").click(function () {
+                var checkbox = document.getElementById("printCheck")
+                $("#logPrint").attr("src", "log_frame.html");
+                if (checkbox.checked == true){
+                    window.frames["printf"].focus();
+                    window.frames["printf"].print();
+                    alert("memes")
+                }
+                else{
+                }
+
+            });
         });
 
     </script>
@@ -146,6 +159,7 @@
             </table>
         </footer>
     </form>
+    <iframe src="log_frame.html" name="printf" scrolling="yes" style="width:0;height:0;"></iframe>
 </body>
 
 </html>

@@ -1,4 +1,36 @@
-<<<<<<< HEAD
+LOCSTAT,4-0,0A,161802,Muskens,"A;;;///;;;High Ropes;;;,,,;;;B;;;///;;;Stationary;;;,,,;;;C;;;///;;;NW"
+LOCSTAT,3-0,0A,161802,Muskens,"A;;;///;;;NL Hammer;;;,,,;;;B;;;///;;;Stationary;;;,,,;;;C;;;///;;;NW"
+MESSAGE,,,161801,Muskens,msg;;;///;;;
+MESSAGE,,,161759,Muskens,msg;;;///;;;
+MESSAGE,,,161756,Muskens,msg;;;///;;;
+MESSAGE,,,161754,Muskens,msg;;;///;;;
+STRENGTHSTATE,3-0,0A,161754,Muskens,"A1;;;///;;;1;;;,,,;;;A2;;;///;;;1;;;,,,;;;A3;;;///;;;1;;;,,,;;;B1;;;///;;;3;;;,,,;;;B2;;;///;;;3;;;,,,;;;C;;;///;;;3"
+MESSAGE,3-0,0A,161725,Muskens,msg;;;///;;;<br>
+MESSAGE,5-0,2-0,161721,Muskens,msg;;;///;;;memess<br>
+LOCSTAT,5-0,0A,161713,Muskens,"A;;;///;;;1<br>;;;,,,;;;B;;;///;;;Moving<br>;;;,,,;;;C;;;///;;;1<br>"
+MESSAGE,,,161709,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161707,Muskens,msg;;;///;;;<br>
+LOCSTAT,4-0,0A,161706,Muskens,"A;;;///;;;POE<br>;;;,,,;;;B;;;///;;;Stationary<br>;;;,,,;;;C;;;///;;;NW<br>"
+MESSAGE,,,161701,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161659,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161658,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161658,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161656,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161656,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161656,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161655,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161652,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161652,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161652,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161652,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161652,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161651,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161651,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161647,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161646,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161646,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161644,Muskens,msg;;;///;;;<br>
+MESSAGE,,,161644,Muskens,msg;;;///;;;<br>
 LOCSTAT,5-0,0A,161625,Muskens,"A;;;///;;;GR123456<br>;;;,,,;;;B;;;///;;;Stationary<br>;;;,,,;;;C;;;///;;;NW<br>"
 SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
 SENTRYREP,,,161556,Pinn,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C;;;///;;;<br>;;;,,,;;;D;;;///;;;<br>;;;,,,;;;E;;;///;;;<br>;;;,,,;;;F;;;///;;;<br>"
@@ -22,9 +54,4 @@ LOCSTAT,5-0,0A,161554,Muskens,"A;;;///;;;GR123456<br>;;;,,,;;;B;;;///;;;Moving<b
 LOCSTAT,5-0,0A,161415,Muskens,"A;;;///;;;GR1233456<br>;;;,,,;;;B;;;///;;;Stationary<br>;;;,,,;;;C;;;///;;;5 min<br>"
 MAINTDEM,5-0,0A,161406,Muskens,"A;;;///;;;E110<br>;;;,,,;;;B;;;///;;;Pri 3<br>;;;,,,;;;C1;;;///;;;0<br>;;;,,,;;;C2;;;///;;;0<br>;;;,,,;;;C3;;;///;;;Toilet paper x 10<br>Poncho x 5<br>Hutchie x 2<br><br>;;;,,,;;;D1;;;///;;;NL Broke<br>;;;,,,;;;D2;;;///;;;121200<br>;;;,,,;;;D3;;;///;;;Playtime<br>;;;,,,;;;E;;;///;;;TESTING 231<br>"
 MAINTDEM,5-0,0A,161404,Muskens,"A;;;///;;;<br>;;;,,,;;;B;;;///;;;;;;,,,;;;C1;;;///;;;<br>;;;,,,;;;C2;;;///;;;<br>;;;,,,;;;C3;;;///;;;<br>;;;,,,;;;D1;;;///;;;<br>;;;,,,;;;D2;;;///;;;<br>;;;,,,;;;D3;;;///;;;;;;,,,;;;E;;;///;;;<br>"
-=======
-MESSAGE,,,161418,Lambinon,msg;;;///;;;123<br>345<br>567<br>5768<br>
-MESSAGE,0A,KGS,161417,Lambinon,msg;;;///;;;23<br>234f<br>435<br>435<br>
-MESSAGE,0A,KGS,161416,Lambinon,msg;;;///;;;Hello<br>line 2<br>line 3<br>line 4<br><br>
->>>>>>> d8b84c42d1cc0ab411d26bdc86e170af2cdecded
 MESSAGE,0A,KGS,161108,Lambinon,"msg;;;///;;;This is a test of the new system<br><br>Please ignore all memes that might arise<br><br>regards,<br>DO<br>"
