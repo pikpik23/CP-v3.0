@@ -15,7 +15,11 @@
     $("#0").attr("class", "rowSelected");
     $('#logs').floatThead({
     });
-  });
+    $("#print").click(function(){
+      window.frames["printf"].focus();
+      window.frames["printf"].print();
+    });
+   });
 </script>
 
 
@@ -56,12 +60,12 @@
   </div>
 
   <div class="logDisplay">
-    <iframe id="logPrint" src="log/0" scrolling="yes"></iframe>
+    <iframe id="logPrint" src="log/0" name="printf" scrolling="yes"></iframe>
     <div class="foot">
         <table class="footTable">
             <tr class=submit>
                 <td>
-                    <button>Print</button>
+                    <button id="print">Print</button>
                 </td>
                 <td>
                     <button>Edit</button>

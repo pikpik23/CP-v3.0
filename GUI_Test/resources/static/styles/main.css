@@ -548,3 +548,12 @@ label:hover{
 .printBody{
     padding:20px 30px;
 }
+
+@page {
+        margin: 0mm;  /* this affects the margin in the printer settings */
+
+    }
+
+.textp{
+    
+}
