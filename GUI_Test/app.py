@@ -28,15 +28,13 @@ def display_main():
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
 
-@APP.route('/transmission/MESSAGE')
-def display_message():
-    return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
-
-
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
-    return render_template('abstracted_return.new.html',
-                           return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
+    if rtrn_type == 'MESSAGE':
+        return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
+    else:
+        return render_template('abstracted_return.new.html',
+                        return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
 
 
 @APP.route('/notes')
@@ -87,7 +85,7 @@ def abstracted_return_return(rtrn_type):
 
     LOG.insert(0, (ret))
     file.save_log(LOG)
-    return redirect("/transmission/"+rtrn_type)
+    return abstracted_return(rtrn_type)
 
 def convert_newlines(line):
     new_content = []
