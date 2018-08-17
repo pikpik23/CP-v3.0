@@ -24,31 +24,32 @@ LOG = file.load_log()
 
 @APP.route('/')
 @APP.route('/transmission')
-def display_main():
+def display_return_frame():
+    """ Renders the return frame """
     return render_template('index_test.html', serials_def=LEGACY_DIC)
 
 
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
+    """ Renders the internal return form """
     if rtrn_type == 'MESSAGE':
-        return render_template('MESSAGE.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
+        return render_template('MESSAGE.html',
+                               serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
     else:
         return render_template('abstracted_return.new.html',
-                        return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
+                               return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS,
+                               settings=SETTINGS, callsigns=CALLSIGNS)
 
 
 @APP.route('/notes')
 def display_notes():
+    """ Renders the notes page """
     return render_template('notes.html')
-
-
-@APP.route('/text')
-def display_text():
-    return render_template('texttest.html')
 
 
 @APP.route('/settings/<setting>/', methods=['POST'])
 def abstracted_updating_settings(setting):
+    """ handles setting changes (POST) then reloads page """
     SETTINGS[setting] = request.form['name']
     update_setting()
     return redirect(request.form['page'])
@@ -56,15 +57,19 @@ def abstracted_updating_settings(setting):
 
 @APP.route('/settings')
 def display_settings():
-    return render_template('settings_page.html', serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+    """ Renders the settings page """
+    return render_template('settings_page.html',
+                           serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
 
 
 def update_setting():
+    """ sub function to update the settings """
     file.save_settings(SETTINGS)
 
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
+    """ handles the return submissin (POST) returns same page """
 
     ret = {}
     ret.update({'name': rtrn_type})
@@ -87,7 +92,9 @@ def abstracted_return_return(rtrn_type):
     file.save_log(LOG)
     return abstracted_return(rtrn_type)
 
+
 def convert_newlines(line):
+    """ replaces new lines with <br> to be displayed in html """
     new_content = []
     for i in line.split('\n'):
         if '\r' in i:
@@ -96,13 +103,16 @@ def convert_newlines(line):
     new_content.append('')
     return '<br>'.join(new_content)
 
+
 @APP.route('/log')
 def display_log():
+    """ Renders the log_frame """
     return render_template("log_test.html", log=LOG)
 
 
 @APP.route('/log/<index>')
 def test_log(index):
+    """ Renders the return form """
     try:
         index = int(index)
         return render_template("log_frame.html", ret=LOG[index])

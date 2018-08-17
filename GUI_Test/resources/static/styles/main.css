@@ -1,6 +1,5 @@
 html {
     overflow: hidden;
-
 }
 
 * {
@@ -15,6 +14,7 @@ body {
 }
 
 /* Style the header */
+
 header {
     background-color: #67747c;
     padding: 30px;
@@ -33,34 +33,32 @@ div.scrollmenu {
     overflow-y: scroll;
 }
 */
+
 nav {
-    
     width: 200px;
     background: #ccc;
     padding: 10px 20px;
     height: 100%;
-
     position: fixed;
     z-index: 1;
     top: 56px;
     left: 0;
     overflow-x: hidden;
-
     border-color: rgb(145, 145, 145);
     border-style: solid;
     border-width: 1px;
 }
 
 /* Style the list inside the menu */
+
 nav ul {
     list-style-type: none;
     /*overflow-y: scroll;*/
     padding: 0;
 }
 
-section{
-    width:100%;
-
+section {
+    width: 100%;
 }
 
 /* Clear floats after the columns 
@@ -70,24 +68,25 @@ section:after {
     clear: both;
 }*/
 
-
 nav button {
-    display: block; /* Make the links appear below each other */
-    padding: 12px; 
-    text-decoration: none; /* Remove underline from links */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    text-decoration: none;
+    /* Remove underline from links */
     width: 100%;
     margin: 12px 0;
     font-weight: bold;
-    font-size:14px;
+    font-size: 14px;
 }
 
-nav button:hover{
+nav button:hover {
     cursor: pointer;
 }
 
 nav button.selected {
     background-color: #67747c;
-    color:white;
+    color: white;
 }
 
 nav button.off {
@@ -95,13 +94,15 @@ nav button.off {
 }
 
 nav a {
-    display: block; /* Make the links appear below each other */
-    padding: 12px; 
-    text-decoration: none; /* Remove underline from links */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    text-decoration: none;
+    /* Remove underline from links */
     width: 100%;
     margin: 12px 0;
     font-weight: bold;
-    font-size:14px;
+    font-size: 14px;
     background-color: #288ad6;
     border-color: rgb(186, 186, 186);
     border-style: solid;
@@ -115,77 +116,68 @@ nav a {
 .topnav {
     overflow: hidden;
     background-color: #67747c;
-
     width: 100%;
-
     position: fixed;
     top: 0;
     left: 0;
     overflow-x: hidden;
+}
 
-  }
-  
-  .topnav a {
+.topnav a {
     float: left;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
-    
-  }
+}
 
-  a.kgs{
+a.kgs {
     font-weight: bolder;
-  }
+}
 
-  
-  .topa:hover {
+.topa:hover {
     background-color: #f2f2f2;
     color: black;
-  }
-  
-  .topa.active {
+}
+
+.topa.active {
     background-color: #ddd;
     color: black;
-    
-  }
+}
 
-  #navImage{
-    height:15px;
-
-  }
+#navImage {
+    height: 15px;
+}
 
 /* --------------------------- iframe --------------------*/
 
-#data_entry{
-
-    height:100%;
-    width:100%;
+#data_entry {
+    height: 100%;
+    width: 100%;
     /*margin-bottom:100px;  only use when ther is footer*/
 }
 
-.container-right-main{
+.container-right-main {
     position: fixed;
-    top:0;
+    top: 0;
     bottom: 6px;
-    left:6px;
+    left: 6px;
     right: 6px;
-
-    margin-left:200px;
+    margin-left: 200px;
     margin-top: 56px;
 }
 
-
 /* ------------------- Abstracted Return -------------------*/
-.return_table{
+
+.return_table {
     width: 100%;
-    border-spacing:0;
+    border-spacing: 0;
     border-collapse: collapse;
 }
 
-.return_table td{
-    padding:6px 12px;
+.return_table td {
+    padding: 6px 12px;
     vertical-align: top;
 }
 
@@ -194,25 +186,23 @@ nav a {
     border-spacing: 0;
 }
 
-.head td{
-    font-weight:bold;
-    border-spacing:0;
+.head td {
+    font-weight: bold;
+    border-spacing: 0;
 }
 
-.value{
+.value {
     width: 300px;
-
 }
 
 .serial {
-    width:50px;
-    font-weight:bold;
+    width: 50px;
+    font-weight: bold;
 }
 
 textarea.return {
     resize: none;
     font-size: 10pt;
-
     border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
@@ -221,12 +211,10 @@ textarea.return {
 textarea.message {
     resize: none;
     font-size: 10pt;
-
     border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
-
-    width:100%;
+    width: 100%;
     height: 400px;
 }
 
@@ -235,62 +223,62 @@ input[type="text"] {
     width: 150px;
 }
 
-input{
+input {
     font-size: 10pt;
     border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
 }
 
-.toFrom{
-    width:100%;
-    border-spacing:0;
+.toFrom {
+    width: 100%;
+    border-spacing: 0;
     border-collapse: collapse;
 }
 
-.toFromStandard button{
-    width:75px;
+.toFromStandard button {
+    width: 75px;
     font-size: 10pt;
 }
 
 .toFrom td {
-    padding:4px 4px;
+    padding: 4px 4px;
 }
 
 .banner {
     overflow: hidden;
     background-color: #288ad6;
     width: 100%;
-  }
-  
-  #transmission{
-    margin-bottom:8px;
-  }
+}
 
-  .banner a {
+#transmission {
+    margin-bottom: 8px;
+}
+
+.banner a {
     float: left;
     color: white;
     text-align: center;
     padding: 8px 16px;
     text-decoration: none;
     font-size: 17px;
-    font-weight:bold;
-  }
+    font-weight: bold;
+}
 
-.toFromStandard{
+.toFromStandard {
     width: 79px
 }
 
 .settings {
-    width:100px;
+    width: 100px;
     text-align: left;
     font-size: 11pt;
 }
 
 .settings button {
-    width:100px;
+    width: 100px;
     font-size: 10pt;
-/* Night mode only
+    /* Night mode only
     display: block; 
     text-decoration: none; 
     border: 1px solid #288ad6;
@@ -298,21 +286,22 @@ input{
     color: #288ad6;
     border-radius: 5px 
     */
-    
 }
 
+.left {
+    border-left: 1px solid rgb(187, 187, 187);
+}
 
-.left{
-    border-left:1px solid rgb(187, 187, 187);
+.right {
+    border-right: 1px solid rgb(187, 187, 187);
 }
-.right{
-    border-right:1px solid rgb(187, 187, 187);
+
+.top {
+    border-top: 1px solid rgb(187, 187, 187);
 }
-.top{
-    border-top:1px solid rgb(187, 187, 187);
-}
-.bottom{
-    border-bottom:1px solid rgb(187, 187, 187);
+
+.bottom {
+    border-bottom: 1px solid rgb(187, 187, 187);
 }
 
 /* ----------------------- Footer ---------------------*/
@@ -320,21 +309,21 @@ input{
 footer {
     padding: 10px;
     text-align: center;
-    font-size:10pt;
+    font-size: 10pt;
     position: fixed;
     bottom: 0px;
-    left:0px;
+    left: 0px;
     right: 0px;
-    background-color:white;
+    background-color: white;
 }
 
 .footTable {
-    border-spacing:0;
+    border-spacing: 0;
     border-collapse: collapse;
 }
 
-.submit button{
-    font-size:10pt;
+.submit button {
+    font-size: 10pt;
     border-radius: 5px;
     text-align: center;
     width: 75px;
@@ -342,46 +331,42 @@ footer {
 
 .submit td {
     border-top: 1px solid rgb(187, 187, 187);
-    padding:8px 4px;
+    padding: 8px 4px;
     vertical-align: middle;
 }
 
-label:hover{
+label:hover {
     cursor: pointer;
 }
 
-
 /* ----------------- Notes -----------------------------*/
+
 .main {
     position: fixed;
-    top:0;
+    top: 0;
     bottom: 6px;
-    left:6px;
+    left: 6px;
     right: 6px;
-    margin-top:56px;
+    margin-top: 56px;
     border: 2px solid rgb(187, 187, 187);
 }
 
-
-.notes{
+.notes {
     position: absolute;
-    top:36px;
+    top: 36px;
     bottom: 0px;
-    left:0px;
+    left: 0px;
     right: 8px;
-
-
     font-size: 12pt;
-    padding:8px;
-    width:100%;
+    padding: 8px;
+    width: 100%;
     line-height: 22px;
-
-    border:none;
-    outline:none;
+    border: none;
+    outline: none;
     resize: none;
 }
 
-.notes:focus{
+.notes:focus {
     border: none;
     overflow: auto;
     outline: none;
@@ -390,105 +375,101 @@ label:hover{
     box-shadow: none;
 }
 
-
 .mainSetting {
     position: fixed;
-    top:0;
+    top: 0;
     bottom: 6px;
-    left:6px;
+    left: 6px;
     right: 6px;
-    margin-top:56px;
+    margin-top: 56px;
 }
 
-.divLeft{
+.divLeft {
     border: 2px solid rgb(187, 187, 187);
     float: left;
     height: 100%;
-    width:49.5%;
-
+    width: 49.5%;
 }
 
-.divRight{
+.divRight {
     border: 2px solid rgb(187, 187, 187);
     float: right;
     height: 100%;
-    width:49.5%;
-
+    width: 49.5%;
 }
 
-.inner{
-    padding:12px;
+.inner {
+    padding: 12px;
     line-height: 24px;
 }
 
 /*---------------------------- LOG --------------------*/
-.logLeft{
+
+.logLeft {
     position: fixed;
     z-index: 1;
     top: 56px;
     left: 6px;
-    right:0;
+    right: 0;
     bottom: 6px;
-    margin-right:612px;
-    
+    margin-right: 612px;
     overflow-x: hidden;
     border-color: rgb(145, 145, 145);
     border-style: solid;
     border-width: 1px;
 }
 
-.logTable{
-    position:absolute;
-    top:36px;
+.logTable {
+    position: absolute;
+    top: 36px;
     bottom: 0px;
-    left:0px;
+    left: 0px;
     right: 0px;
     padding: 10px 20px;
 }
 
-.logDisplay{
-    width:600px;
+.logDisplay {
+    width: 600px;
     position: fixed;
-    top:0;
+    top: 0;
     bottom: 6px;
     right: 6px;
     margin-top: 56px;
-
 }
 
-#logPrint{
-    height:100%;
-    width:100%;
-    margin-bottom:100px;
+#logPrint {
+    height: 100%;
+    width: 100%;
+    margin-bottom: 100px;
 }
 
-.tableLog{
-    border:1px solid black;
+.tableLog {
+    border: 1px solid black;
     border-collapse: collapse;
-    width:100%;
-       border: 1px solid #ddd;
+    width: 100%;
+    border: 1px solid #ddd;
 }
 
-.tableLog td{
-    border:1px solid #ddd;
-
+.tableLog td {
+    border: 1px solid #ddd;
 }
 
 .tableLog tr:nth-child(even) {
-    background-color: #f2f2f2;;
+    background-color: #f2f2f2;
+    ;
 }
 
-.tableLog tr:hover{
+.tableLog tr:hover {
     background-color: #ddd;
 }
 
-.rowSelected{
+.rowSelected {
     background-color: #288ad6 !important;
-    color:white;
+    color: white;
     cursor: pointer;
 }
 
-.rowOff{
+.rowOff {
     background-color: transparent;
     cursor: pointer;
 }
@@ -506,55 +487,58 @@ label:hover{
     width:150px
 }*/
 
-.printTable td{
+.printTable td {
     font-weight: bold;
 }
-.printTable tr{
-    height:20px;
+
+.printTable tr {
+    height: 20px;
 }
 
-.head2 th{
-    font-weight:bold;
-    background-color:#67747c;
-    color:white;
-    padding:3px;
+.head2 th {
+    font-weight: bold;
+    background-color: #67747c;
+    color: white;
+    padding: 3px;
     text-align: left;
 }
 
 .foot {
     position: absolute;
     text-align: center;
-    font-size:10pt;
+    font-size: 10pt;
     bottom: 0px;
-    left:0px;
+    left: 0px;
     right: 0px;
-    background-color:white;
+    background-color: white;
 }
 
-.fill{
-    width:100%;
+.fill {
+    width: 100%;
 }
 
-.table-scroll{
+.table-scroll {
     position: absolute;
-    top:10px;
-    bottom:100px;
-    right:10px;
-    left:10px;
-    overflow-x:auto;
-    overflow-y:auto;
+    top: 10px;
+    bottom: 100px;
+    right: 10px;
+    left: 10px;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 
-.printBody{
-    padding:20px 30px;
+.printBody {
+    padding: 20px 30px;
 }
 
 @page {
-        margin: 0mm;  /* this affects the margin in the printer settings */
+    margin: 0mm;
+    /* this affects the margin in the printer settings */
+}
 
-    }
-
+/* not in use...
 #prev_return.hidden {
     visibility: hidden;
     display: none;
 }
+*/
