@@ -5,7 +5,7 @@ The main file for the CP site
 All request handling is done from here
 """
 
-from threading import Timer
+# from threading import Timer
 from datetime import datetime
 from flask import Flask, render_template, request, redirect
 from file import file
@@ -34,11 +34,17 @@ def abstracted_return(rtrn_type):
     """ Renders the internal return form """
     if rtrn_type == 'MESSAGE':
         return render_template('MESSAGE.html',
-                               serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS, callsigns=CALLSIGNS)
+                               serials_def=SERIALS,
+                               locs=LOCATIONS,
+                               settings=SETTINGS,
+                               callsigns=CALLSIGNS)
     else:
         return render_template('abstracted_return.new.html',
-                               return_type=rtrn_type, serials_def=SERIALS, locs=LOCATIONS,
-                               settings=SETTINGS, callsigns=CALLSIGNS)
+                               return_type=rtrn_type,
+                               serials_def=SERIALS,
+                               locs=LOCATIONS,
+                               settings=SETTINGS,
+                               callsigns=CALLSIGNS)
 
 
 @APP.route('/notes')
@@ -59,7 +65,9 @@ def abstracted_updating_settings(setting):
 def display_settings():
     """ Renders the settings page """
     return render_template('settings_page.html',
-                           serials_def=SERIALS, locs=LOCATIONS, settings=SETTINGS)
+                           serials_def=SERIALS,
+                           locs=LOCATIONS,
+                           settings=SETTINGS)
 
 
 def update_setting():
@@ -116,8 +124,8 @@ def test_log(index):
     try:
         index = int(index)
         return render_template("log_frame.html", ret=LOG[index])
-    except:
-        return "<h1>ERROR</h1>"
+    except IndexError:
+        return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
 
 if __name__ == '__main__':
