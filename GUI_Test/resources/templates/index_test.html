@@ -1,23 +1,46 @@
 {% extends 'layout.html' %} {% block body %}
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
     {% for return_type in serials_def %}
       $("#{{return_type}}").click(function () {
-        $(".container-right").attr("src","transmission/{{ return_type }}");
+        //$(".container-right-main").attr("src","transmission/{{ return_type }}");
         {% for return_type in serials_def %}
           $("#{{return_type}}").attr("class","off")
         {% endfor %}
         $("#MESSAGE").attr("class","off");
         $(this).attr("class","selected");
+
+        $.ajax({
+          url: "/transmission/{{return_type}}",
+          type: "get",
+          success: function(response) {
+            $("#container-right-main").html(response);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+          }
+        });
        });
     {% endfor %}
     $("#MESSAGE").click(function(){
-      $(".container-right").attr("src","transmission/MESSAGE");
+      //$(".container-right").attr("src","transmission/MESSAGE");
       {% for return_type in serials_def %}
         $("#{{return_type}}").attr("class","off")
       {% endfor %}
 
+      $.ajax({
+          url: "/transmission/MESSAGE",
+          type: "get",
+          success: function(response) {
+            $("#container-right-main").html(response);
+          },
+          error: function(xhr) {
+            //Do Something to handle error
+          }
+        });
+      
       $(this).attr("class","selected");
     });
 });
@@ -43,8 +66,10 @@
   </nav>
   </div>
 
-  <div class="container-right-main">
+  <div id="container-right-main">
+  <!--
       <iframe id="data_entry" class="container-right" src="transmission/MESSAGE" scrolling="yes"></iframe>
+  -->
   </div>
 </section>
 

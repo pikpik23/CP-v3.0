@@ -47,6 +47,24 @@ def abstracted_return(rtrn_type):
                                callsigns=CALLSIGNS)
 
 
+''' @APP.route('/transmission/<rtrn_type>')
+def abstracted_return(rtrn_type):
+    """ Renders the internal return form """
+    if rtrn_type == 'MESSAGE':
+        return render_template('MESSAGE.html',
+                               serials_def=SERIALS,
+                               locs=LOCATIONS,
+                               settings=SETTINGS,
+                               callsigns=CALLSIGNS)
+    else:
+        return render_template('abstracted_return.new.html',
+                               return_type=rtrn_type,
+                               serials_def=SERIALS,
+                               locs=LOCATIONS,
+                               settings=SETTINGS,
+                               callsigns=CALLSIGNS) '''
+
+
 @APP.route('/notes')
 def display_notes():
     """ Renders the notes page """
