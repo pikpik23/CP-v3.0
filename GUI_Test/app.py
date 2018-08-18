@@ -32,6 +32,7 @@ def display_return_frame():
 @APP.route('/transmission/<rtrn_type>')
 def abstracted_return(rtrn_type):
     """ Renders the internal return form """
+
     if rtrn_type == 'MESSAGE':
         return render_template('MESSAGE.html',
                                serials_def=SERIALS,
@@ -116,7 +117,8 @@ def abstracted_return_return(rtrn_type):
 
     LOG.insert(0, (ret))
     file.save_log(LOG)
-    return abstracted_return(rtrn_type)
+    return redirect("/")
+    # return abstracted_return(rtrn_type)
 
 
 def convert_newlines(line):

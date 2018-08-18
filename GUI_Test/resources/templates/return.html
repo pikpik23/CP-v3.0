@@ -124,8 +124,11 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
-
-    <form method="POST" id="main_form">
+    {% if return_type %}
+    <form method="POST" id="main_form" action="/transmission/{{return_type}}">
+    {%else%}
+    <form method="POST" id="main_form" action="/transmission/MESSAGE">
+    {%endif%}
         <table class="toFrom">
             <tr>
                 <td class="serial">To:</td>
