@@ -71,9 +71,8 @@
                 (radio + "Radio").click()
             });
             
-            $("#record").click(function () {
+            /*$("#record").click(function () {
                 var checkbox = document.getElementById("printCheck")
-                $("#logPrint").attr("src", "log_frame.html");
                 if (checkbox.checked == true){
                     window.frames["printf"].focus();
                     window.frames["printf"].print();
@@ -82,14 +81,40 @@
                 else{
                 }
 
+            });*/
+
+            $("#main_form").submit(function(e) {
+                e.preventDefault();
+                this.submit();
+                setTimeout(function(){
+                    var checkbox = document.getElementById("check")
+                    if (checkbox.checked == true){
+                        window.frames["printf"].focus();
+                        window.frames["printf"].print();
+                        alert("memes");
+                    }
+                    else{
+                    }
+                 }, 100);
+               
             });
+
+            function load() {
+                {% if print == true %}
+                    alert("memes");
+                {% else %}
+                    alert("false")
+                {% endif %}
+            };
+    
+
         });
 
     </script>
 
 </head>
 
-<body>
+<body onload="load()">
 
     <!--
     <iframe class="hidden" id="prev_return" src="/log/0"></iframe>
@@ -151,7 +176,7 @@
                 <tr class=submit>
                     <td>
                         <label class=checkbox>
-                            <input type="checkbox" id="printCheck"> Print</label>
+                            <input type="checkbox" id="check" name="check"> Print</label>
                     </td>
                     <td>
                         <button id="record" class="button" type="submit" value="Submit">Record</button>
@@ -164,7 +189,7 @@
             </table>
         </footer>
     </form>
-    <iframe src="/log/0" name="printf" scrolling="yes"  style="width:100%;"></iframe>
+    <iframe src="/log/0" name="printf" scrolling="yes"  hidden="true" style="width:100%;"></iframe>
 </body>
 
 </html>
