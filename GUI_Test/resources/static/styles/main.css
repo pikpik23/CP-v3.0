@@ -153,19 +153,21 @@ a.kgs {
 /* --------------------------- iframe --------------------*/
 
 #container-right-main {
-    height: 100%;
-    width: 100%;
-    /*margin-bottom:100px;  only use when ther is footer*/
-}
-
-.container-right-main {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 6px;
     left: 6px;
     right: 6px;
     margin-left: 200px;
     margin-top: 56px;
+    padding:5px;
+    border: 1px solid #ddd;
+    /*margin-bottom:100px;  only use when ther is footer*/
+    
+}
+
+.container-right-main {
+
 }
 
 /* ------------------- Abstracted Return -------------------*/
@@ -312,14 +314,16 @@ footer {
     font-size: 10pt;
     position: fixed;
     bottom: 0px;
-    left: 0px;
+    left: 200px;
     right: 0px;
-    background-color: white;
+    background-color: transparent;
 }
 
 .footTable {
     border-spacing: 0;
     border-collapse: collapse;
+    background-color:transparent;
+
 }
 
 .submit button {
