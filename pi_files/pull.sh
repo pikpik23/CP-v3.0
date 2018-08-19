@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /home/cp/flask/
+
 git fetch limited_origin main
 
 git reset FETCH_HEAD
