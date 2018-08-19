@@ -53,7 +53,7 @@
             {% for name, rtrn in ret.items() %}
             <tr>
                 {% if name == 'msg' %}
-                <td>Message:</td>
+                <td class="textp">Message:</td>
                 <td class="textp">
                     {% for val in rtrn.split('<br>') %}
                     {{val}}<br>
@@ -66,12 +66,12 @@
             {% for name, rtrn in ret.items() %}
             <tr>
                 {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
-                    <td>{{name}}: </td>
+                    <td class="textp">{{name}}: </td>
                     <td class="textp">
                     {% for val in rtrn.split('<br>') %}
                     {{val}}<br>
                     {% endfor %}
-                </td>
+                    </td>
                 {% endif %}
             </tr>
             {% endfor %} 
