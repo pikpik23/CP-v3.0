@@ -1,0 +1,19 @@
+LOCSTAT,,,181717,Lambinon,A\<br>||B\||C\<br>
+MESSAGE,,,181717,Lambinon,msg\<br>
+MESSAGE,,,181716,Lambinon,msg\<br>
+LOCSTAT,0A,KGS,181713,Lambinon,A\ECH B<br>||B\Moving<br>||C\123<br>
+LOCSTAT,2-0,0A,181038,Muskens,A\EXCON<br>||B\Stationary<br>||C\vzxc<br>
+LOCSTAT,1-0,0A,181022,Muskens,A\EXCON<br>||B\Stationary<br>||C\2<br>
+MESSAGE,2-0,0A,181021,Muskens,msg\meme<br>
+MESSAGE,2-0,4-0,172255,Muskens,msg\duty<br>
+MESSAGE,2-0,0A,172252,Lambinon,msg\memeememememe<br>
+MESSAGE,2-0,0A,172250,Lambinon,msg\test 231<br>
+MESSAGE,8-0,0A,172244,Lambinon,msg\testing 123<br>
+LOCSTAT,3-0,0A,172243,Lambinon,A\High Ropes<br>||B\Stationary<br>||C\5 hrs<br>
+MESSAGE,2-0,0A,172240,Lambinon,msg\print test numero 2<br>
+MESSAGE,2-0,0A,172237,Lambinon,msg\print test<br>
+LOCSTAT,4-0,0A,172235,Lambinon,A\NL Hammer<br>||B\Stationary<br>||C\5days<br>
+MAINTDEM,0A,KGS,171638,Lambinon,A\A234<br>||B\Pri 2<br>||C1\342<br>||C2\234<br>||C3\23423<br>||D1\23<br>||D2\234<br>||D3\Pickup<br>||E\234234<br>
+LOCSTAT,0A,KGS,170945,Lambinon,A\ECH B<br>||B\Moving<br>||C\1234<br>
+LOCSTAT,0A,KGS,170944,Lambinon,A\ECH B<br>||B\Stationary<br>||C\1234<br>
+LOCSTAT,0A,KGS,170910,Lambinon,A\High Ropes<br>||B\Stationary<br>||C\hello<br>

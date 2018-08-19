@@ -4,6 +4,7 @@ from csv import reader, writer
 class file:
 
     def save_dic(dic=None):
+        """ Saves the given dictionary of serials to a file """
         if not dic:
             dic = {
 
@@ -211,7 +212,8 @@ class file:
                     },
 
                     "D": {
-                        "desc": "Future intentions and relevant general information",
+                        "desc": "Future intentions and " +
+                        "relevant general information",
                         "data_type": "long"
                     },
                 },
@@ -363,7 +365,10 @@ class file:
                         for cont in serials[serial]:
                             if cont == "options":
                                 inner_lst.append(cont+";;@@;;" +
-                                                 ";;##;;".join(serials[serial]["options"]))
+                                                 ";;##;;".join(
+                                                     serials
+                                                     [serial]
+                                                     ["options"]))
                             else:
                                 inner_lst.append(
                                     cont+";;@@;;"+serials[serial][cont])
@@ -371,6 +376,7 @@ class file:
             w.writerow([(name), (';;,,,;;'.join(lst))])
 
     def read_dic():
+        """ reads the dictionary of serials """
         # should return the original format
         dic = {}
         r = reader(open("resources/files/new_serials.csv", "r"))
@@ -390,13 +396,14 @@ class file:
                             sub_dic.update(
                                 {sub_serial[0]: sub_serial[1]})
                     inner_dic.update({serial[0]: sub_dic})
-                lst = row[1].split('\\')
+                # lst = row[1].split('\\')
                 dic.update({row[0]: inner_dic})
             else:
                 i += 1
         return dic
 
     def read_legacy():
+        """ reads the dictionary and returns it in the legacy format """
         serials = file.read_dic()
         final_dic = {}
         for name, dic in serials.items():
@@ -407,16 +414,19 @@ class file:
         return final_dic
 
     def read_locations():
+        """ reads the file containing the locations """
         r = open("resources/files/locations.txt", "r")
         locations = r.read().split("\n")
         return locations
 
     def read_callsigns():
+        """ reads the file containing the callsigns """
         r = open("resources/files/callsigns.txt", "r")
         callsigns = r.read().split("\n")
         return callsigns
 
     def read_settings():
+        """ reads the settings from file """
         r = open("resources/files/settings.txt", "r")
         settings = {}
         for option in r.read().split('\n'):
@@ -428,11 +438,14 @@ class file:
         return settings
 
     def save_settings(dic):
+        """ saves the given settings (dictionary) to file """
         w = open("resources/files/settings.txt", "w")
         for sett, val in dic.items():
             w.write(sett+'\\'+val+'\n')
 
     def save_log(log):
+        """ Saves the log to file """
+
         # print('\n\n\nsaving')
         '''
         s = Timer(10.0, save)
@@ -468,9 +481,10 @@ class file:
             w.writerow(lst)
 
     def load_log():
+        """ loads the log file """
         try:
             r = reader(open("resources/static/logs.csv", "r"))
-        except:
+        except FileNotFoundError:
             w = open("resources/static/logs.csv", 'w')
             w.close()
             r = reader(open("resources/static/logs.csv", "r"))
