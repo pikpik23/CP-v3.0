@@ -1,4 +1,5 @@
 from csv import reader, writer
+from collections import OrderedDict as OrdDic
 
 
 class file:
@@ -378,15 +379,15 @@ class file:
     def read_dic():
         """ reads the dictionary of serials """
         # should return the original format
-        dic = {}
+        dic = OrdDic()
         r = reader(open("resources/files/new_serials.csv", "r"))
         i = 0
         for row in r:
             if i:
-                inner_dic = {}
+                inner_dic = OrdDic()
                 for serial in row[1].split(';;,,,;;'):
                     serial = serial.split(';;:::;;')
-                    sub_dic = {}
+                    sub_dic = OrdDic()
                     for sub_serial in serial[1].split(';;!!!;;'):
                         sub_serial = sub_serial.split(";;@@;;")
                         if sub_serial[0] == 'options':
@@ -405,9 +406,9 @@ class file:
     def read_legacy():
         """ reads the dictionary and returns it in the legacy format """
         serials = file.read_dic()
-        final_dic = {}
+        final_dic = OrdDic()
         for name, dic in serials.items():
-            inner_dic = {}
+            inner_dic = OrdDic()
             for serial in dic:
                 inner_dic.update({serial: dic[serial]['desc']})
             final_dic.update({name: inner_dic})
@@ -428,7 +429,7 @@ class file:
     def read_settings():
         """ reads the settings from file """
         r = open("resources/files/settings.txt", "r")
-        settings = {}
+        settings = OrdDic()
         for option in r.read().split('\n'):
             try:
                 option = option.split('\\')
@@ -491,7 +492,7 @@ class file:
 
         local_log = []
         for row in r:
-            ret = {}
+            ret = OrdDic()
 
             # print(row)
             ret.update({'name': row[0]})
