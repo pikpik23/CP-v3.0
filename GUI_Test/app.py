@@ -151,7 +151,7 @@ def test_log(index):
 @APP.route('/edit_return')
 def display_edit_return():
     """ Renders the edit return page """
-    return render_template('test_edit.html', serials_def=SERIALS,)
+    return render_template('test_edit.html', serials_def=SERIALS, return_type='MAINTDEM')
 
 if __name__ == '__main__':
 

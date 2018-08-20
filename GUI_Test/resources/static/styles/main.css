@@ -581,6 +581,6 @@ br {
     float: right;
 }
 
-.table_serials, td {
+.table_serials, .table_serials td {
     border: 1px solid black;
 }
