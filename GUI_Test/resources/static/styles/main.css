@@ -445,6 +445,8 @@ label:hover {
     height: 100%;
     width: 100%;
     margin-bottom: 100px;
+    overflow-x: scroll;
+    overflow-y: scroll;
 }
 
 .tableLog {
@@ -542,6 +544,10 @@ label:hover {
 
 .textp {
     vertical-align: top;
+    height:20px;
+}
+
+br {
     line-height:10px;
 }
 
@@ -551,3 +557,30 @@ label:hover {
     display: none;
 }
 */
+
+.edit-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.edit-table td{
+    border: 1px solid black;
+}
+
+.return-list {
+    width:20%;
+    border: 1px solid #ddd;
+    height: 100%;
+    float:left;
+}
+
+.serial-list {
+    width:79%;
+    border: 1px solid #ddd;
+    height: 100%;
+    float: right;
+}
+
+.table_serials, td {
+    border: 1px solid black;
+}

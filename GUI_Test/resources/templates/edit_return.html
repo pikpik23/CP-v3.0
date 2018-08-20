@@ -1,0 +1,42 @@
+{% extends 'layout.html' %} {% block body %}
+
+<div class="mainSetting">
+    <div class="return-list">
+        <div class="banner">
+            <a>Returns</a>
+        </div>
+        <table class="edit-table">
+            {% for return_type in serials_def %}
+            <tr>
+            <td>{{ return_type }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="serial-list">
+        <div class="banner">
+            <a>Returns</a>
+        </div>
+        <table class="edit-table">
+            <tr>
+                <td>Serial</td>
+                <td>Description</td>
+                <td>Type</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>Demand Number</td>
+                <td>Short Text</td>
+                <td><button>Edit</button></td>
+            </tr>
+            <tr>
+                <td><input type="text"/></td>
+                <td><input type="text"/></td>
+                <td><input type="text"/></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

@@ -148,6 +148,10 @@ def test_log(index):
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
+@APP.route('/edit_return')
+def display_edit_return():
+    """ Renders the edit return page """
+    return render_template('test_edit.html', serials_def=SERIALS,)
 
 if __name__ == '__main__':
 
