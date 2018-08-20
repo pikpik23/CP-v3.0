@@ -584,3 +584,8 @@ br {
 .table_serials, .table_serials td {
     border: 1px solid black;
 }
+
+#serials {
+    width:100%;
+    height:100%;
+}
