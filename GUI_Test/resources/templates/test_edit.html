@@ -92,7 +92,6 @@ $(document).ready(function($)
 		var tbl_row = $(this).closest('tr');
 
 		var row_id = tbl_row.attr('row_id');
-
 		
 		//hide save and cacel buttons
 		tbl_row.find('.btn_save').hide();
@@ -103,11 +102,12 @@ $(document).ready(function($)
 
 		//make the whole row editable
 		tbl_row.find('.row_data')
-		.attr('edit_type', 'click')
-		.removeClass('bg-warning')
+		.attr('contenteditable', 'false')
 		.css('padding','') 
 
 		//--->get row data > start
+		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
+
 		var arr = {}; 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{   
@@ -118,7 +118,7 @@ $(document).ready(function($)
 		//--->get row data > end
 
 		//use the "arr"	object for your ajax call
-		$.extend(arr, {row_id:arr['serial']});
+		$.extend(arr, {row_id:row_index});
 
 		$.post("update", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
