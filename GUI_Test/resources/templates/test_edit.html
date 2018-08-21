@@ -121,14 +121,12 @@ $(document).ready(function($)
 		$.extend(arr, {row_id:arr['serial']});
 
 		$.post("update", arr, function(data, status){
-			alert("Data: " + data + "\nStatus: " + status);
+			//alert("Data: " + data + "\nStatus: " + status);
+			
 		});
 	});
 
 	//--->save whole row entery > end
-	$.post("update", arr, function(data, status){
-			alert("Data: " + data + "\nStatus: " + status);
-	});
 
 }); 
 </script>

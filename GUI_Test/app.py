@@ -168,7 +168,20 @@ def display_abstracted_serials(rtrn_type):
 
 @APP.route('/edit_return/update', methods=['POST'])
 def test_update():
-    print(request.form)
+    # print(request.form)
+
+    request_content = ['serial',
+                       'desc',
+                       'type',
+                       'row_id']
+
+    indic = {}
+
+    for request_name in request_content:
+        indic.update({request_name: request.form[request_name]})
+
+    print(indic)
+
     return "Recieved"
 
 
