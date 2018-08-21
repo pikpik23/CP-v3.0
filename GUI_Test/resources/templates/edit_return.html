@@ -1,13 +1,115 @@
 {% extends 'layout.html' %} {% block body %}
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">  
-    $(document).ready(function () {
+    $(document).ready(function ($) {
         {% for return_type in serials_def %}
         $("#{{return_type}}").click(function () {
             $("#serials").attr("src", "edit_return/{{return_type}}");
         });
         {% endfor %}
-    });
+
+        $(document).find('.btn_save').hide();
+	    $(document).find('.btn_cancel').hide(); 
+        
+        $(document).on('click', '.btn_edit', function(event) 
+	    {
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+		var row_id = tbl_row.attr('row_id');
+
+		tbl_row.find('.btn_save').show();
+		tbl_row.find('.btn_cancel').show();
+
+		//hide edit button
+		tbl_row.find('.btn_edit').hide(); 
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'true')
+		.attr('edit_type', 'button')
+		.css('padding','3px')
+
+		//--->add the original entry > start
+		tbl_row.find('.row_data').each(function(index, val) 
+		{  
+			//this will help in case user decided to click on cancel button
+			$(this).attr('original_entry', $(this).html());
+		}); 		
+		//--->add the original entry > end
+
+	});
+	//--->button > edit > end
+
+	$(document).on('click', '.btn_remove', function(event) 
+	{
+		$(this).closest('tr').remove()
+	});
+
+	$("#add").click(function (){
+		//var data = $(".edit-table tr:eq(1)").clone();
+		//data.find('div').innerHTML('');
+		//$(this).prev().find($('table tbody')).append(data);
+		$(".edit-table tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btn_edit"> <a href="#" class="btn btn-link " row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
+		$(".edit-table tr:last").find($(".btn_edit")).click();
+
+		//$(this).prev().find($('.btn_edit')).click();
+	});
+
+
+	//--->button > cancel > start	
+	$(document).on('click', '.btn_cancel', function(event) 
+	{
+		event.preventDefault();
+
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('edit_type', 'click')
+		.removeClass('bg-warning')
+		.css('padding','') 
+
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			$(this).html( $(this).attr('original_entry') ); 
+		});  
+	});
+	//--->button > cancel > end
+
+	
+	//--->save whole row entery > start	
+	$(document).on('click', '.btn_save', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'false')
+		.css('padding','') 
+
+
+			
+		});
+	});
 </script>
 
 <div class="mainSetting">
@@ -18,10 +120,19 @@
         <table class="edit-table">
             {% for return_type in serials_def %}
             <tr>
-            <td><button id="{{return_type}}">{{ return_type }}</button></td>
+                  <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
+            <td>
+                <span class="btn_edit"> <a href="#" class="btn btn-link "  > Rename</a> </span>
+                <span class="btn_save"> <a href="#" class="btn btn-link "  > Save</a> </span>
+                <span class="btn_cancel"> <a href="#" class="btn btn-link " > Cancel</a> </span>
+                <span class="btn_remove"> <a href="#" class="btn btn-link " > Remove</a> </span>
+                <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span>
+                
+            </td>
             </tr>
             {% endfor %}
         </table>
+        <button id="add">Add Return</button>
     </div>
     <div class="serial-list">
         <div class="banner">
