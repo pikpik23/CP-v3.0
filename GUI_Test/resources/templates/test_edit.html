@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/styles/main.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function($)
@@ -117,12 +118,17 @@ $(document).ready(function($)
 		//--->get row data > end
 
 		//use the "arr"	object for your ajax call
-		$.extend(arr, {row_id:row_id});
+		$.extend(arr, {row_id:arr['serial']});
 
-
+		$.post("update", arr, function(data, status){
+			alert("Data: " + data + "\nStatus: " + status);
+		});
 	});
-	//--->save whole row entery > end
 
+	//--->save whole row entery > end
+	$.post("update", arr, function(data, status){
+			alert("Data: " + data + "\nStatus: " + status);
+	});
 
 }); 
 </script>

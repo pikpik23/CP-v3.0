@@ -148,20 +148,29 @@ def test_log(index):
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
+
 @APP.route('/edit_return')
 def display_edit_return():
     """ Renders the edit return page """
     return render_template('edit_return.html', serials_def=SERIALS)
 
+
 @APP.route('/edit_return/<rtrn_type>')
 def display_abstracted_serials(rtrn_type):
     """ Renders the edit return page """
     return render_template('test_edit.html',
-                               return_type=rtrn_type,
-                               serials_def=SERIALS,
-                               locs=LOCATIONS,
-                               settings=SETTINGS,
-                               callsigns=CALLSIGNS)
+                           return_type=rtrn_type,
+                           serials_def=SERIALS,
+                           locs=LOCATIONS,
+                           settings=SETTINGS,
+                           callsigns=CALLSIGNS)
+
+
+@APP.route('/edit_return/update', methods=['POST'])
+def test_update():
+    print(request.form)
+    return "Recieved"
+
 
 if __name__ == '__main__':
 
