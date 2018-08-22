@@ -27,7 +27,7 @@ $(document).ready(function($)
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'true')
 		.attr('edit_type', 'button')
-		.css('padding','3px')
+		.addClass('edit')
 
 		//--->add the original entry > start
 		tbl_row.find('.row_data').each(function(index, val) 
@@ -49,7 +49,7 @@ $(document).ready(function($)
 		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""><td><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn btn-link " row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span>	</td></tr>');
+		$(".table_serials tr:last").after('<tr row_id=""><td><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span>	</td></tr>');
 		$(".table_serials tr:last").find($(".btn_edit")).click();
 
 		//$(this).prev().find($('.btn_edit')).click();
@@ -75,8 +75,7 @@ $(document).ready(function($)
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('edit_type', 'click')
-		.removeClass('bg-warning')
-		.css('padding','') 
+		.removeClass('edit')
 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{   
@@ -104,7 +103,7 @@ $(document).ready(function($)
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
-		.css('padding','') 
+		.removeClass('edit')
 
 		//--->get row data > start
 		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
@@ -141,6 +140,7 @@ $(document).ready(function($)
 				<th>Description</th>
 				<th>Type</th>
 				<th>Options</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -151,10 +151,10 @@ $(document).ready(function($)
 						<td><div class="row_data" col_name="data_type">{{info['data_type']}}</div></td>
 						<td><div class="row_data" col_name="options">{{", ".join(info['options'])}}</div></td>
 						<td>
-								<span class="btn_edit"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Edit</a> </span>
-								<span class="btn_save"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Save</a> </span>
-								<span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Cancel</a> </span>
-								<span class="btn_remove"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Remove</a> </span>
+								<span class="btn_edit"> <a href="#" class="btn_action" row_id="{{serial}}" > Edit</a> </span>
+								<span class="btn_save"> <a href="#" class="btn_action" row_id="{{serial}}" > Save</a> </span>
+								<span class="btn_cancel"> <a href="#" class="btn_action" row_id="{{serial}}" > Cancel</a> </span>
+								<span class="btn_remove"> <a href="#" class="btn_action" row_id="{{serial}}" > Remove</a> </span>
 						</td>
 					</tr>
 				{% endfor %}

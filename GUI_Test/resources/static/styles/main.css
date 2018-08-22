@@ -446,7 +446,6 @@ label:hover {
 }
 
 .tableLog {
-    border: 1px solid black;
     border-collapse: collapse;
     width: 100%;
     border: 1px solid #ddd;
@@ -583,6 +582,35 @@ br {
     border: 1px solid rgb(145, 145, 145);
 }
 
+.table_serials th{
+    font-weight: bold;
+    background-color: #67747c;
+    color: white;
+    padding:3px;
+    text-align: left;
+}
+
 .table_serials, .table_serials td {
-    border: 1px solid black;
+    border-collapse: collapse;
+    padding:10px 6px;
+    border: 1px solid #ddd;
+}
+
+.table_serials tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+.row_data {
+    padding:3px;
+}
+
+.edit {
+    background-color: #fcf8e3;
+    border-radius: 3px;
+}
+
+.btn_action {
+    text-decoration: none;
+    color:black;
 }
