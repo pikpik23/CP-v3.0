@@ -120,8 +120,9 @@ $(document).ready(function($)
 
 		//use the "arr"	object for your ajax call
 		$.extend(arr, {row_id:row_index});
+		$.extend(arr, {return_type:"{{return_type}}"});
 
-		$.post("update", arr, function(data, status){
+		$.post("/edit_return", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			
 		});
@@ -132,6 +133,7 @@ $(document).ready(function($)
 }); 
 </script>
 
+	<h1 class="return-name" id="{{return_type}}">{{return_type}}</h1>
 	<table class="table_serials">
 		<thead>
 			<tr>
@@ -146,8 +148,8 @@ $(document).ready(function($)
 					<tr row_id="{{ serial }}">
 						<td><div class="row_data" col_name="serial">{{serial}}</div></td>
 						<td><div class="row_data" col_name="desc">{{info['desc']}}</div></td>
-						<td><div class="row_data" col_name="type">{{info['data_type']}}</div></td>
-						<td><div class="row_data" col_name="options">{{info['options']}}</div></td>
+						<td><div class="row_data" col_name="data_type">{{info['data_type']}}</div></td>
+						<td><div class="row_data" col_name="options">{{", ".join(info['options'])}}</div></td>
 						<td>
 								<span class="btn_edit"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Edit</a> </span>
 								<span class="btn_save"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Save</a> </span>

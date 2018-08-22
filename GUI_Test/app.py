@@ -167,20 +167,31 @@ def display_abstracted_serials(rtrn_type):
 
 
 @APP.route('/edit_return/update', methods=['POST'])
+@APP.route('/edit_return', methods=['POST'])
+@APP.route('/update', methods=['POST'])
 def test_update():
     # print(request.form)
 
-    request_content = ['serial',
-                       'desc',
-                       'type',
-                       'row_id']
+    # dict = request.form.to_dict()
 
-    indic = {}
+    tmpDic = request.form.to_dict()
+    rtrn_type = tmpDic['return_type']
+    rtrn_serial = tmpDic['serial']
 
-    for request_name in request_content:
-        indic.update({request_name: request.form[request_name]})
+    print(SERIALS[rtrn_type][rtrn_serial])
 
-    print(indic)
+    inner_dic = {}
+    for name, val in tmpDic.items():
+        inner_dic.update({name: val})
+
+    SERIALS[rtrn_type][rtrn_serial].update({name: val})
+    SERIALS[rtrn_type].update(
+        {rtrn_serial: {
+            'desc': tmpDic['desc'],
+            'data_type': tmpDic['data_type']
+        }})
+
+    print(SERIALS[rtrn_type][rtrn_serial])
 
     return "Recieved"
 
