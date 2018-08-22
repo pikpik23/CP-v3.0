@@ -165,6 +165,11 @@ def display_abstracted_serials(rtrn_type):
                            settings=SETTINGS,
                            callsigns=CALLSIGNS)
 
+@APP.route('/edit_return/info')
+def display_edit_return_info():
+    """ Renders the edit return page """
+    return render_template('edit_return_info.html', serials_def=SERIALS, locs=LOCATIONS)
+
 
 @APP.route('/edit_return/update', methods=['POST'])
 @APP.route('/edit_return', methods=['POST'])

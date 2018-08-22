@@ -578,7 +578,7 @@ br {
     bottom: 6px;
     left: 406px;
     right: 6px;
-    padding:5px;
+    /*padding:5px;*/
     border: 1px solid rgb(145, 145, 145);
 }
 
@@ -613,4 +613,12 @@ br {
 .btn_action {
     text-decoration: none;
     color:black;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.serial_body{
+    padding:0 16px;
 }

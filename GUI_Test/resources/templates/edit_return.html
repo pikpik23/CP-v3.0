@@ -3,6 +3,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">  
     $(document).ready(function ($) {
+        $.ajax({
+            url: "/edit_return/info",
+            type: "get",
+            success: function(response) {
+                $("#serial-list").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
         {% for return_type in serials_def %}
         $("#{{return_type}}").click(function () {
             //$("#serials").attr("src", "edit_return/{{return_type}}");
