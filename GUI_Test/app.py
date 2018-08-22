@@ -167,7 +167,7 @@ def display_abstracted_serials(rtrn_type):
 
 @APP.route('/edit_return/info')
 def display_edit_return_info():
-    """ Renders the edit return page """
+    """ Renders the edit return info page """
     return render_template('edit_return_info.html', serials_def=SERIALS, locs=LOCATIONS)
 
 
@@ -183,7 +183,7 @@ def test_update():
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']
 
-    print(SERIALS[rtrn_type][rtrn_serial])
+    # print(SERIALS[rtrn_type][rtrn_serial])
 
     inner_dic = {}
     for name, val in tmpDic.items():
@@ -196,7 +196,10 @@ def test_update():
             'data_type': tmpDic['data_type']
         }})
 
-    print(SERIALS[rtrn_type][rtrn_serial])
+    LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
+    print(LEGACY_DIC[rtrn_type][rtrn_serial])
+
+    # print(SERIALS[rtrn_type][rtrn_serial])
 
     return "Recieved"
 
