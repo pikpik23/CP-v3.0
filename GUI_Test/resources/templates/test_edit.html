@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/styles/main.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
@@ -48,7 +49,7 @@ $(document).ready(function($)
 		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""><td><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="type"></div></td><td><div class="row_data" col_name="type"></div></td><td><span class="btn_edit"> <a href="#" class="btn btn-link " row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span>	</td></tr>');
+		$(".table_serials tr:last").after('<tr row_id=""><td><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn btn-link " row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span>	</td></tr>');
 		$(".table_serials tr:last").find($(".btn_edit")).click();
 
 		//$(this).prev().find($('.btn_edit')).click();
@@ -130,7 +131,7 @@ $(document).ready(function($)
 
 }); 
 </script>
-<div class="mainSetting">
+
 	<table class="table_serials">
 		<thead>
 			<tr>
@@ -146,7 +147,7 @@ $(document).ready(function($)
 						<td><div class="row_data" col_name="serial">{{serial}}</div></td>
 						<td><div class="row_data" col_name="desc">{{info['desc']}}</div></td>
 						<td><div class="row_data" col_name="type">{{info['data_type']}}</div></td>
-						<td><div class="row_data" col_name="type">{{info['options']}}</div></td>
+						<td><div class="row_data" col_name="options">{{info['options']}}</div></td>
 						<td>
 								<span class="btn_edit"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Edit</a> </span>
 								<span class="btn_save"> <a href="#" class="btn btn-link " row_id="{{serial}}" > Save</a> </span>
@@ -160,4 +161,4 @@ $(document).ready(function($)
 
 	</table>
 	<button id="add">ADD ROW</button>
-</div>
+

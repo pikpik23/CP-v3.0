@@ -1,33 +1,54 @@
 {% extends 'layout.html' %} {% block body %}
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">  
     $(document).ready(function ($) {
+        $.ajax({
+            url: "/edit_return/LOCSTAT",
+            type: "get",
+            success: function(response) {
+                $("#serial-list").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
         {% for return_type in serials_def %}
         $("#{{return_type}}").click(function () {
-            $("#serials").attr("src", "edit_return/{{return_type}}");
+            //$("#serials").attr("src", "edit_return/{{return_type}}");
+            $.ajax({
+            url: "/edit_return/{{return_type}}",
+            type: "get",
+            success: function(response) {
+                $("#serial-list").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
         });
         {% endfor %}
 
-        $(document).find('.btn_save').hide();
-	    $(document).find('.btn_cancel').hide(); 
+        $(document).find('.btnSave').hide();
+	    $(document).find('.btnCancel').hide(); 
         
-        $(document).on('click', '.btn_edit', function(event) 
+        $(document).on('click', '.btnEdit', function(event) 
 	    {
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 		var row_id = tbl_row.attr('row_id');
 
-		tbl_row.find('.btn_save').show();
-		tbl_row.find('.btn_cancel').show();
+		tbl_row.find('.btnSave').show();
+		tbl_row.find('.btnCancel').show();
 
 		//hide edit button
-		tbl_row.find('.btn_edit').hide(); 
+		tbl_row.find('.btnEdit').hide(); 
 
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'true')
 		.attr('edit_type', 'button')
-		.css('padding','3px')
+		.css('p_returning','3px')
 
 		//--->add the original entry > start
 		tbl_row.find('.row_data').each(function(index, val) 
@@ -40,24 +61,24 @@
 	});
 	//--->button > edit > end
 
-	$(document).on('click', '.btn_remove', function(event) 
+	$(document).on('click', '.btnRemove', function(event) 
 	{
 		$(this).closest('tr').remove()
 	});
 
-	$("#add").click(function (){
+	$("#add_return").click(function (){
 		//var data = $(".edit-table tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".edit-table tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btn_edit"> <a href="#" class="btn btn-link " row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
-		$(".edit-table tr:last").find($(".btn_edit")).click();
+		$(".edit-table tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn btn-link " row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
+		$(".edit-table tr:last").find($(".btnEdit")).click();
 
-		//$(this).prev().find($('.btn_edit')).click();
+		//$(this).prev().find($('.btnEdit')).click();
 	});
 
 
 	//--->button > cancel > start	
-	$(document).on('click', '.btn_cancel', function(event) 
+	$(document).on('click', '.btnCancel', function(event) 
 	{
 		event.preventDefault();
 
@@ -66,11 +87,11 @@
 		var row_id = tbl_row.attr('row_id');
 
 		//hide save and cacel buttons
-		tbl_row.find('.btn_save').hide();
-		tbl_row.find('.btn_cancel').hide();
+		tbl_row.find('.btnSave').hide();
+		tbl_row.find('.btnCancel').hide();
 
 		//show edit button
-		tbl_row.find('.btn_edit').show();
+		tbl_row.find('.btnEdit').show();
 
 		//make the whole row editable
 		tbl_row.find('.row_data')
@@ -87,7 +108,7 @@
 
 	
 	//--->save whole row entery > start	
-	$(document).on('click', '.btn_save', function(event) 
+	$(document).on('click', '.btnSave', function(event) 
 	{
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
@@ -95,11 +116,11 @@
 		var row_id = tbl_row.attr('row_id');
 		
 		//hide save and cacel buttons
-		tbl_row.find('.btn_save').hide();
-		tbl_row.find('.btn_cancel').hide();
+		tbl_row.find('.btnSave').hide();
+		tbl_row.find('.btnCancel').hide();
 
 		//show edit button
-		tbl_row.find('.btn_edit').show();
+		tbl_row.find('.btnEdit').show();
 
 		//make the whole row editable
 		tbl_row.find('.row_data')
@@ -111,34 +132,37 @@
 		});
 	});
 </script>
-
 <div class="mainSetting">
     <div class="return-list">
         <div class="banner">
             <a>Returns</a>
         </div>
         <table class="edit-table">
+            <tr>
+                <td>Return Name</td>
+                <td>Options</td>
+            </tr>
             {% for return_type in serials_def %}
             <tr>
                   <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
             <td>
-                <span class="btn_edit"> <a href="#" class="btn btn-link "  > Rename</a> </span>
-                <span class="btn_save"> <a href="#" class="btn btn-link "  > Save</a> </span>
-                <span class="btn_cancel"> <a href="#" class="btn btn-link " > Cancel</a> </span>
-                <span class="btn_remove"> <a href="#" class="btn btn-link " > Remove</a> </span>
+                <span class="btnEdit"> <a href="#" class="btn btn-link "  > Rename</a> </span>
+                <span class="btnSave"> <a href="#" class="btn btn-link "  > Save</a> </span>
+                <span class="btnCancel"> <a href="#" class="btn btn-link " > Cancel</a> </span>
+                <span class="btnRemove"> <a href="#" class="btn btn-link " > Remove</a> </span>
                 <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span>
                 
             </td>
             </tr>
             {% endfor %}
         </table>
-        <button id="add">Add Return</button>
+        <button id="add_return">Add Return</button>
     </div>
-    <div class="serial-list">
-        <div class="banner">
+    <div id="serial-list">
+        <!--<div class="banner">
             <a>Returns</a>
         </div>
-        <iframe id="serials" src="edit_return/MAINTDEM"></iframe>
+        <iframe id="serials" src="edit_return/MAINTDEM"></iframe> -->
 
     </div>
 </div>

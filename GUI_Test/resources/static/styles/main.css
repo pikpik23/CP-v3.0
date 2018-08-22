@@ -166,10 +166,6 @@ a.kgs {
     
 }
 
-.container-right-main {
-
-}
-
 /* ------------------- Abstracted Return -------------------*/
 
 .return_table {
@@ -568,24 +564,25 @@ br {
 }
 
 .return-list {
-    width:20%;
+    width:400px;
     border: 1px solid #ddd;
-    height: 100%;
-    float:left;
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+
 }
 
-.serial-list {
-    width:79%;
-    border: 1px solid #ddd;
-    height: 100%;
-    float: right;
+#serial-list {
+    position: absolute;
+    top: 0;
+    bottom: 6px;
+    left: 406px;
+    right: 6px;
+    padding:5px;
+    border: 1px solid rgb(145, 145, 145);
 }
 
 .table_serials, .table_serials td {
     border: 1px solid black;
-}
-
-#serials {
-    width:100%;
-    height:100%;
 }
