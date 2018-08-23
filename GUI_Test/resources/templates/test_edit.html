@@ -124,7 +124,7 @@ $(document).ready(function($)
 	
 	//--->save whole row entery > start	
 	$(document).on('click', '.btn_save', function(event) 
-	{
+	{	
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
@@ -141,6 +141,17 @@ $(document).ready(function($)
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.removeClass('edit')
+		
+		tbl_row.find('.row_data').each(function(index, val) 
+		{
+			var col_name = $(this).attr('col_name');  
+			if ( col_name == 'data_type') {
+				var col_val  =  $(this).html();
+				if (col_val != "string" && col_val != "long" && col_val != "location" && col_val != "choice") {
+					alert('memes')
+				}
+			}
+		});
 
 		//--->get row data > start
 		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
