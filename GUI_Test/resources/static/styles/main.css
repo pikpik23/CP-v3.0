@@ -622,3 +622,16 @@ br {
 .serial_body{
     padding:0 16px;
 }
+
+#edit_return{
+    width:100%;
+}
+
+.section_left{
+    padding:10px;
+}
+
+a.button {
+    text-decoration: none;
+    color: initial;
+}

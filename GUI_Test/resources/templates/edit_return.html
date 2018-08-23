@@ -3,6 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">  
     $(document).ready(function ($) {
+
         $.ajax({
             url: "/edit_return/info",
             type: "get",
@@ -67,11 +68,11 @@
 	});
 
 	$("#add_return").click(function (){
-		//var data = $(".edit-table tr:eq(1)").clone();
+		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".edit-table tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn btn-link " row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
-		$(".edit-table tr:last").find($(".btnEdit")).click();
+		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn btn-link " row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
+		$(".table_serials tr:last").find($(".btnEdit")).click();
 
 		//$(this).prev().find($('.btnEdit')).click();
 	});
@@ -137,10 +138,12 @@
         <div class="banner">
             <a>Returns</a>
         </div>
-        <table class="edit-table">
+        <div class="section_left">
+        <button><a class="button" href="/settings">Back to Settings</a></button>
+        <table class="table_serials" id="edit_return">
             <tr>
-                <td>Return Name</td>
-                <td>Options</td>
+                <th>Return Name</th>
+                <th>Options</th>
             </tr>
             {% for return_type in serials_def %}
             <tr>
@@ -158,6 +161,7 @@
         </table>
         <button id="add_return">Add Return</button>
     </div>
+</div>
     <div id="serial-list">
         <!--<div class="banner">
             <a>Returns</a>
