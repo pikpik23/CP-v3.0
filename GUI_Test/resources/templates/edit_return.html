@@ -71,7 +71,7 @@
 		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn btn-link " row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn btn-link " row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn btn-link " row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn btn-link " row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span></td></tr>');
+		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span></td></tr>');
 		$(".table_serials tr:last").find($(".btnEdit")).click();
 
 		//$(this).prev().find($('.btnEdit')).click();
@@ -149,11 +149,11 @@
             <tr>
                   <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
             <td>
-                <span class="btnEdit"> <a href="#" class="btn btn-link "  > Rename</a> </span>
-                <span class="btnSave"> <a href="#" class="btn btn-link "  > Save</a> </span>
-                <span class="btnCancel"> <a href="#" class="btn btn-link " > Cancel</a> </span>
-                <span class="btnRemove"> <a href="#" class="btn btn-link " > Remove</a> </span>
-                <span id="{{return_type}}"> <a href="#" class="btn btn-link " > Edit Serials</a> </span>
+                <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
+                <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
+                <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
+                <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
+                <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span>
                 
             </td>
             </tr>
