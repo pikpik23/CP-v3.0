@@ -1,0 +1,11 @@
+Return Name,Serials
+LOCSTAT,"A:Location, B:Moving / Stationary, C:Direction of Movement or Length of Halt"
+MAINTDEM,"A:Demand Number, B:Priority, C1:Quantity of Ration Packs, C2:Quantity of Water Jerries, C3:Other Items and Quantity, D1:Location of Delivery, D2:Time of Delivery, D3:Mode of Delivery, E:Remarks"
+STRENGTHSTATE,"A1:No. of Own Cadets, A2:No. of Attachments, A3:No. of Staff, B1:No. of expected attachments in next 24 hours, B2:No. of expected detachments in next 24 hours, C:Total Personnel"
+CASEVAC,"A:Patient ID, B1:No. of Stretcher Cases, B2:No. of Sitting Cases, C:Requirements for special equipment, D1:Location of RV, D2:Callsign and Channel at RV, E:Remarks"
+NOTICAS,"A:Patient ID, B:Rank, C:Name, D:Details of injury or illness, E:Location of injury, F:Time of injury, G:Treatment administered, H:Remarks and Present Location"
+SITREP,"A:Time, B:Own Situation, C:Situation with Regard to third parties, D:Future intentions and relevant general information"
+INTREP,"A:Time of incident, B:Location of incident, C:Brief description of incident, D:Commanders evaluation"
+MOVEREQ,"A:Callsign of person at pick-up location, B1:Location of pick up, B2:Location of Destination, C1:Number of persons to be transported, C2:Configuration of troops, D1:Description of cargo, D2:Estimated number of vehicles, D3:Is a loading/unloading pary available at Loc, E:Time of pickup"
+STARLIGHTREQ,"A:Callsign of person at location, B:Location, C:Nature of illness or injury, D:Any RV details, E:Remarks"
+SENTRYREP,"A:Vehicle Number Plate, B:Status, C:Passengers, D:Destination, E:Estimated time of return, F:Remarks"

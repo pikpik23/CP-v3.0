@@ -195,7 +195,7 @@ def test_update():
         inner_dic.update({name: val})
 
     SERIALS[rtrn_type].update({rtrn_serial: {}})
-    LEGACY_DIC.update({rtrn_serial: {}})
+    LEGACY_DIC.update({rtrn_type: {}})
 
     SERIALS[rtrn_type][rtrn_serial].update({name: val})
 
@@ -217,8 +217,15 @@ def test_update():
         })
 
     LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
-    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
 
+    # deleting things
+    """
+    del dic[rtrn_type]
+    or 
+    dic.pop(rtrn_type)
+    """
+
+    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
     # print(SERIALS[rtrn_type][rtrn_serial])
 
     return "Recieved"

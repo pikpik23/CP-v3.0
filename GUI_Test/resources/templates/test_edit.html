@@ -43,6 +43,42 @@ $(document).ready(function($)
 
 	$(document).on('click', '.btn_remove', function(event) 
 	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'false')
+		.removeClass('edit')
+
+		//--->get row data > start
+		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
+
+		var arr = {}; 
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			var col_name = $(this).attr('col_name');  
+			var col_val  =  $(this).html();
+			arr[col_name] = col_val;
+		});
+		//--->get row data > end
+
+		//use the "arr"	object for your ajax call
+		$.extend(arr, {row_id:row_index});
+		$.extend(arr, {return_type:"{{return_type}}"});
+
+		$.post("/edit_return", arr, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);	
+		});
 		$(this).closest('tr').remove()
 	});
 
