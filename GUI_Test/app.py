@@ -222,7 +222,7 @@ def test_update(action):
     elif action == 'remove':
         LEGACY_DIC[rtrn_type].pop(rtrn_serial)
         SERIALS[rtrn_type].pop(rtrn_serial)
-        print(tmpDic)
+        # print(tmpDic)
     # deleting things
     """
     del dic[rtrn_type]
