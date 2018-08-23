@@ -363,13 +363,13 @@ class file:
                     },
 
                     "F": {
-                        "desc": "Remarksl",
+                        "desc": "Remarks",
                         "data_type": "long"
                     }
                 }
             }
 
-        w = writer(open("resources/files/new_serials.csv", "w"))
+        w = writer(open("resources/files/serials.csv", "w"))
 
         for name, serials in dic.items():
             lst = []
@@ -399,7 +399,7 @@ class file:
         """ reads the dictionary of serials """
         # should return the original format
         dic = OrdDic()
-        r = reader(open("resources/files/new_serials.csv", "r"))
+        r = reader(open("resources/files/serials.csv", "r"))
         i = 0
         for row in r:
             if i:

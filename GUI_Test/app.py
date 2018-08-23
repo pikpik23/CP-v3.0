@@ -174,14 +174,13 @@ def display_edit_return_info():
                            locs=LOCATIONS)
 
 
-@APP.route('/edit_return/update', methods=['POST'])
-@APP.route('/edit_return', methods=['POST'])
+@APP.route('/edit_return/<action>', methods=['POST'])
 @APP.route('/update', methods=['POST'])
-def test_update():
+def test_update(action):
     # print(request.form)
 
     # dict = request.form.to_dict()
-
+    # print(action)
     tmpDic = request.form.to_dict()
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']
@@ -195,7 +194,7 @@ def test_update():
         inner_dic.update({name: val})
 
     SERIALS[rtrn_type].update({rtrn_serial: {}})
-    LEGACY_DIC.update({rtrn_serial: {}})
+    LEGACY_DIC.update({rtrn_type: {}})
 
     SERIALS[rtrn_type][rtrn_serial].update({name: val})
 
@@ -217,8 +216,15 @@ def test_update():
         })
 
     LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
-    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
 
+    # deleting things
+    """
+    del dic[rtrn_type]
+    or 
+    dic.pop(rtrn_type)
+    """
+
+    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
     # print(SERIALS[rtrn_type][rtrn_serial])
 
     return "Recieved"
