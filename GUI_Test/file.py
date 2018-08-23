@@ -25,6 +25,7 @@ class file:
 
     def save_dic(dic=None):
         """ Saves the given dictionary of serials to a file """
+
         if not dic:
             dic = {
 
@@ -368,9 +369,9 @@ class file:
                     }
                 }
             }
-
+        # print("start saving")
         w = writer(open("resources/files/serials.csv", "w"))
-
+        w.writerow(['Return Name', 'Serials'])
         for name, serials in dic.items():
             lst = []
             if name == "Return Name":

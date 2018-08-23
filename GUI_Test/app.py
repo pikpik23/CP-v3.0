@@ -224,6 +224,8 @@ def test_update(action):
         SERIALS[rtrn_type].pop(rtrn_serial)
         # print(tmpDic)
     # deleting things
+
+    file.save_dic(SERIALS)
     """
     del dic[rtrn_type]
     or 
