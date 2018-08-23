@@ -3,8 +3,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script type="text/javascript">  
     $(document).ready(function ($) {
-
-        $.ajax({
+        $("#back").click(function (){
+            window.location.href = '/settings';
+        });
+        $("#instructions").click(function (){
+            $.ajax({
             url: "/edit_return/info",
             type: "get",
             success: function(response) {
@@ -14,6 +17,9 @@
             //Do Something to handle error
             }
             });
+        });
+        $("#instructions").click();
+        
         {% for return_type in serials_def %}
         $("#{{return_type}}").click(function () {
             //$("#serials").attr("src", "edit_return/{{return_type}}");
@@ -49,7 +55,7 @@
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'true')
 		.attr('edit_type', 'button')
-		.css('p_returning','3px')
+		.addClass('edit')
 
 		//--->add the original entry > start
 		tbl_row.find('.row_data').each(function(index, val) 
@@ -71,7 +77,7 @@
 		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span> <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span></td></tr>');
+		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span></td><span class="btnRemove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></tr>');
 		$(".table_serials tr:last").find($(".btnEdit")).click();
 
 		//$(this).prev().find($('.btnEdit')).click();
@@ -97,8 +103,7 @@
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('edit_type', 'click')
-		.removeClass('bg-warning')
-		.css('padding','') 
+		.removeClass('edit')
 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{   
@@ -127,6 +132,7 @@
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.css('padding','') 
+        .removeClass('edit')
 
 
 			
@@ -138,30 +144,33 @@
         <div class="banner">
             <a>Returns</a>
         </div>
-        <div class="section_left">
-        <button><a class="button" href="/settings">Back to Settings</a></button>
-        <table class="table_serials" id="edit_return">
-            <tr>
-                <th>Return Name</th>
-                <th>Options</th>
-            </tr>
-            {% for return_type in serials_def %}
-            <tr>
-                  <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
-            <td>
-                <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
-                <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
-                <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
-                <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
-                <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span>
-                
-            </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <button id="add_return">Add Return</button>
+        <div class="section_left"> 
+            <div>
+                <button id="back" class="edit_buttons">Back to Settings</button>
+                <button class="edit_buttons" id="instructions">Instructions</button>
+            </div>
+            <table class="table_serials" id="edit_return">
+                <tr>
+                    <th class="return_column">Return Name</th>
+                    <th>Options</th>
+                </tr>
+                {% for return_type in serials_def %}
+                <tr>
+                    <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
+                <td>
+                    <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
+                    <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
+                    <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
+                    <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span>
+                    <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
+                    
+                </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="add" id="add_return">Add Return</button>
+        </div>
     </div>
-</div>
     <div id="serial-list">
         <!--<div class="banner">
             <a>Returns</a>
