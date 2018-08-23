@@ -137,7 +137,7 @@ $(document).ready(function($)
 		//show edit button
 		tbl_row.find('.btn_edit').show();
 
-		//make the whole row editable
+		//turn off editing
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.removeClass('edit')
@@ -147,32 +147,36 @@ $(document).ready(function($)
 			var col_name = $(this).attr('col_name');  
 			if ( col_name == 'data_type') {
 				var col_val  =  $(this).html();
-				if (col_val != "string" && col_val != "long" && col_val != "location" && col_val != "choice") {
-					alert('memes')
+				if (col_val == "string" || col_val == "long" || col_val == "location" || col_val == "choice") {
+					var row_index = $(this).closest('td').parent()[0].sectionRowIndex
+
+					var arr = {}; 
+					tbl_row.find('.row_data').each(function(index, val) 
+					{   
+						var col_name = $(this).attr('col_name');  
+						var col_val  =  $(this).html();
+						arr[col_name] = col_val;
+					});
+					//--->get row data > end
+
+					//use the "arr"	object for your ajax call
+					$.extend(arr, {row_id:row_index});
+					$.extend(arr, {return_type:"{{return_type}}"});
+
+					$.post("/edit_return/add", arr, function(data, status){
+						//alert("Data: " + data + "\nStatus: " + status);
+					});
+				}
+				else {
+					alert('You must use one of the accepted data types (string, long, location, choice).')
+					tbl_row.find('.btn_cancel')
+					.click()
 				}
 			}
 		});
 
 		//--->get row data > start
-		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
 
-		var arr = {}; 
-		tbl_row.find('.row_data').each(function(index, val) 
-		{   
-			var col_name = $(this).attr('col_name');  
-			var col_val  =  $(this).html();
-			arr[col_name] = col_val;
-		});
-		//--->get row data > end
-
-		//use the "arr"	object for your ajax call
-		$.extend(arr, {row_id:row_index});
-		$.extend(arr, {return_type:"{{return_type}}"});
-
-		$.post("/edit_return/add", arr, function(data, status){
-			//alert("Data: " + data + "\nStatus: " + status);
-			
-		});
 	});
 
 	//--->save whole row entery > end
