@@ -174,14 +174,13 @@ def display_edit_return_info():
                            locs=LOCATIONS)
 
 
-@APP.route('/edit_return/update', methods=['POST'])
-@APP.route('/edit_return', methods=['POST'])
+@APP.route('/edit_return/<action>', methods=['POST'])
 @APP.route('/update', methods=['POST'])
-def test_update():
+def test_update(action):
     # print(request.form)
 
     # dict = request.form.to_dict()
-
+    # print(action)
     tmpDic = request.form.to_dict()
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']

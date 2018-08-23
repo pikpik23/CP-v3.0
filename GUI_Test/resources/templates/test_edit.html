@@ -76,7 +76,7 @@ $(document).ready(function($)
 		$.extend(arr, {row_id:row_index});
 		$.extend(arr, {return_type:"{{return_type}}"});
 
-		$.post("/edit_return", arr, function(data, status){
+		$.post("/edit_return/remove", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);	
 		});
 		$(this).closest('tr').remove()
@@ -158,7 +158,7 @@ $(document).ready(function($)
 		$.extend(arr, {row_id:row_index});
 		$.extend(arr, {return_type:"{{return_type}}"});
 
-		$.post("/edit_return", arr, function(data, status){
+		$.post("/edit_return/add", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			
 		});
