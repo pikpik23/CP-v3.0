@@ -185,38 +185,44 @@ def test_update(action):
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']
 
-    # print(SERIALS[rtrn_type][rtrn_serial])
+    if action == 'add':
 
-    # print(tmpDic)
+        # print(SERIALS[rtrn_type][rtrn_serial])
 
-    inner_dic = {}
-    for name, val in tmpDic.items():
-        inner_dic.update({name: val})
+        # print(tmpDic)
 
-    SERIALS[rtrn_type].update({rtrn_serial: {}})
-    LEGACY_DIC.update({rtrn_type: {}})
+        inner_dic = {}
+        for name, val in tmpDic.items():
+            inner_dic.update({name: val})
 
-    SERIALS[rtrn_type][rtrn_serial].update({name: val})
+        SERIALS[rtrn_type].update({rtrn_serial: {}})
+        LEGACY_DIC.update({rtrn_type: {}})
 
-    SERIALS[rtrn_type][rtrn_serial].update({
-        'desc': tmpDic['desc']
-    })
+        SERIALS[rtrn_type][rtrn_serial].update({name: val})
 
-    SERIALS[rtrn_type][rtrn_serial].update({
-        "data_type": tmpDic['data_type']
-    })
-
-    if tmpDic['data_type'] == 'choice':
-        x = tmpDic['options']
-        x = x.replace('<span style="font-size: 11pt;">', '')
-        x = x.replace('</span>', '')
-        x = x.split(', ')
         SERIALS[rtrn_type][rtrn_serial].update({
-            "options": x
+            'desc': tmpDic['desc']
         })
 
-    LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
+        SERIALS[rtrn_type][rtrn_serial].update({
+            "data_type": tmpDic['data_type']
+        })
 
+        if tmpDic['data_type'] == 'choice':
+            x = tmpDic['options']
+            x = x.replace('<span style="font-size: 11pt;">', '')
+            x = x.replace('</span>', '')
+            x = x.split(', ')
+            SERIALS[rtrn_type][rtrn_serial].update({
+                "options": x
+            })
+
+        LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
+
+    elif action == 'remove':
+        LEGACY_DIC[rtrn_type].pop(rtrn_serial)
+        SERIALS[rtrn_type].pop(rtrn_serial)
+        print(tmpDic)
     # deleting things
     """
     del dic[rtrn_type]
