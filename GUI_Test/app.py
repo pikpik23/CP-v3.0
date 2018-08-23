@@ -165,10 +165,13 @@ def display_abstracted_serials(rtrn_type):
                            settings=SETTINGS,
                            callsigns=CALLSIGNS)
 
+
 @APP.route('/edit_return/info')
 def display_edit_return_info():
     """ Renders the edit return info page """
-    return render_template('edit_return_info.html', serials_def=SERIALS, locs=LOCATIONS)
+    return render_template('edit_return_info.html',
+                           serials_def=SERIALS,
+                           locs=LOCATIONS)
 
 
 @APP.route('/edit_return/update', methods=['POST'])
@@ -185,16 +188,24 @@ def test_update():
 
     # print(SERIALS[rtrn_type][rtrn_serial])
 
+    print(tmpDic)
+
     inner_dic = {}
     for name, val in tmpDic.items():
         inner_dic.update({name: val})
 
+    SERIALS[rtrn_type].update({rtrn_serial: {}})
+    LEGACY_DIC.update({rtrn_serial: {}})
+
     SERIALS[rtrn_type][rtrn_serial].update({name: val})
-    SERIALS[rtrn_type].update(
-        {rtrn_serial: {
-            'desc': tmpDic['desc'],
-            'data_type': tmpDic['data_type']
-        }})
+
+    SERIALS[rtrn_type][rtrn_serial].update({
+        'desc': tmpDic['desc']
+    })
+
+    SERIALS[rtrn_type][rtrn_serial].update({
+        "data_type": tmpDic['data_type']
+    })
 
     LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
     print(LEGACY_DIC[rtrn_type][rtrn_serial])
