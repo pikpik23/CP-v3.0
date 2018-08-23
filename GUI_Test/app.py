@@ -188,7 +188,7 @@ def test_update():
 
     # print(SERIALS[rtrn_type][rtrn_serial])
 
-    print(tmpDic)
+    # print(tmpDic)
 
     inner_dic = {}
     for name, val in tmpDic.items():
@@ -207,8 +207,17 @@ def test_update():
         "data_type": tmpDic['data_type']
     })
 
+    if tmpDic['data_type'] == 'choice':
+        x = tmpDic['options']
+        x = x.replace('<span style="font-size: 11pt;">', '')
+        x = x.replace('</span>', '')
+        x = x.split(', ')
+        SERIALS[rtrn_type][rtrn_serial].update({
+            "options": x
+        })
+
     LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
-    print(LEGACY_DIC[rtrn_type][rtrn_serial])
+    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
 
     # print(SERIALS[rtrn_type][rtrn_serial])
 
