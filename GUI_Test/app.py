@@ -228,7 +228,7 @@ def test_update(action):
     file.save_dic(SERIALS)
     """
     del dic[rtrn_type]
-    or 
+     or
     dic.pop(rtrn_type)
     """
 
@@ -236,6 +236,24 @@ def test_update(action):
     # print(SERIALS[rtrn_type][rtrn_serial])
 
     return "Recieved"
+
+
+@APP.route('/log/edit/<index>')
+def test_log_edit(index):
+    """ Renders the return form """
+    index = int(index)
+    print(LOG[index])
+    try:
+        index = int(index)
+        return render_template("abstracted_return.edit.html",
+                               return_type=LOG[index]['name'],
+                               serials_def=SERIALS,
+                               locs=LOCATIONS,
+                               settings=SETTINGS,
+                               callsigns=CALLSIGNS,
+                               ret=LOG[index])
+    except IndexError:
+        return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
 
 if __name__ == '__main__':

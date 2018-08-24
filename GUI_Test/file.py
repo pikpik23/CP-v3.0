@@ -29,8 +29,6 @@ class file:
         if not dic:
             dic = {
 
-                'Return Name': 'Serials',
-
                 'LOCSTAT': {
                     "A": {
                         "desc": "Location",
