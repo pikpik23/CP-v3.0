@@ -136,15 +136,19 @@ def convert_newlines(line):
 @APP.route('/log')
 def display_log():
     """ Renders the log_frame """
-    return render_template("log_test.html", log=LOG)
+    for i in file.load_log():
+        print(i['logID'])
+    return render_template("log_test.html", log=file.load_log())
 
 
-@APP.route('/log/<index>')
-def test_log(index):
+@APP.route('/log/<logID>')
+def test_log(logID):
     """ Renders the return form """
+    # print(LOG[int(logID)])
     try:
-        index = int(index)
-        return render_template("log_frame.html", ret=LOG[index])
+        # index = int(logID)
+        return render_template("log_frame.html",
+                               ret=file.load_log(logID=logID)[0])
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 

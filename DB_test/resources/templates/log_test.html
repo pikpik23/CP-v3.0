@@ -4,10 +4,10 @@
 <script type="text/javascript">  
   $(document).ready(function () {
     {% for entry in log %}
-    $("#{{loop.index0}}").click(function () {
-      $("#logPrint").attr("src", "log/{{loop.index0}}");
+    $("#{{entry['logID']}}").click(function () {
+      $("#logPrint").attr("src", "log/{{entry['logID']}}");
       {% for entry in log %}
-      $("#{{loop.index0}}").attr("class", "rowOff")
+      $("#{{entry['logID']}}").attr("class", "rowOff")
       {% endfor %}
       $(this).attr("class", "rowSelected");
     });
@@ -45,7 +45,7 @@
         <tbody>
           {% for entry in log %}
           <div class="entryRow">
-            <tr class="rowOff" id={{loop.index0}}>
+            <tr class="rowOff" id="{{entry['logID']}}">
               <td>{{entry['time'] }}</td>
               <td>{{entry['sender']}}</td>
               <td>{{entry['receiver']}}</td>

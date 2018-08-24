@@ -54,6 +54,15 @@ class dbManager:
             c = conn.cursor()
             return c.execute('SELECT * FROM ' + dbManager.TABLE_NAME)
 
+    def findIndex(logID):
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            sqlStr = ("""SELECT * FROM """ +
+                      dbManager.TABLE_NAME +
+                      """ WHERE logID=?""")
+            x = c.execute(sqlStr, [str(logID)])
+            return x
+
 
 if __name__ == '__main__':
     dbManager.create_DB()

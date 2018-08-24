@@ -498,7 +498,7 @@ class file:
         dbManager.newReturn(lst)
             # w.writerow(lst)
 
-    def load_log():
+    def load_log(logID=None):
         """ loads the log file """
         # try:
         #     r = reader(open("resources/static/logs.csv", "r"))
@@ -507,8 +507,13 @@ class file:
         #     w.close()
         #     r = reader(open("resources/static/logs.csv", "r"))
 
+        if logID:
+            x = dbManager.findIndex(logID)
+        else:
+            x = dbManager.readReturn()
+
         local_log = []
-        for row in dbManager.readReturn():
+        for row in x:
             ret = OrdDic()
 
             # print(row)
@@ -522,26 +527,10 @@ class file:
             for serial_data in row[6:]:
                 for serial in serial_data.split('||'):
                     ser, val = serial.split('\\')
-                    ret.update({ser: val})
+                    val = ""+val
+                    ret.update({ser: str(val)})
             local_log.append(ret)
-
-            '''
-            try:
-                # print(row)
-                ret.update({'name': row[0]})
-                ret.update({'sender': row[1]})
-                ret.update({'receiver': row[2]})
-                ret.update({'time': row[3]})
-                ret.update({'duty': row[4]})
-
-                for serial_data in row[5:]:
-                    for serial in serial_data.split('||'):
-                        ser, val = serial.split('\\')
-                        ret.update({ser: val})
-                local_log.append(ret)
-            except:
-                print("error")
-            '''
+            
         return local_log
 
 
