@@ -675,3 +675,7 @@ br {
 .actions_col {
     width:175px;
 }
+
+.up:hover, .down:hover {
+    cursor: pointer;
+}
