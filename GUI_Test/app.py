@@ -89,6 +89,12 @@ def display_settings():
                            locs=LOCATIONS,
                            settings=SETTINGS)
 
+@APP.route('/settings/locs')
+def display_settings_locations():
+    """ Renders the locations edit field """
+    return render_template('locations_edit.html',
+                           locs=LOCATIONS)
+
 
 def update_setting():
     """ sub function to update the settings """

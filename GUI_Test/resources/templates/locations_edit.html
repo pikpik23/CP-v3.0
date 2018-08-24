@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/styles/main.css">
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script type="text/javascript">  
+  $(document).ready(function () {
+    $('#save_locs').click(function(){
+        alert("do something renier")
+    });
+  });
+</script>
+
+<textarea class='locs_text'>{% for location in locs %}
+{{location}}{% endfor %}
+</textarea>
+<button id="save_locs">Save</button>

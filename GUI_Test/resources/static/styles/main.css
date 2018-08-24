@@ -386,19 +386,23 @@ label:hover {
 
 .divLeft {
     border: 2px solid rgb(187, 187, 187);
-    float: left;
-    height: 100%;
-    width: 49.5%;
+    position: absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:300px;
 }
 
 .divRight {
     border: 2px solid rgb(187, 187, 187);
-    float: right;
-    height: 100%;
-    width: 49.5%;
+    position: absolute;
+    left:306px;
+    top:0;
+    bottom:0;
+    right:0;
 }
 
-.inner {
+.inner{
     padding: 12px;
     line-height: 24px;
 }
@@ -678,4 +682,35 @@ br {
 
 .up:hover, .down:hover {
     cursor: pointer;
+}
+
+#settings_display{
+    position: absolute;
+    top:36px;
+    left:0;
+    right:0;
+    bottom:0;
+
+}
+
+.locs_text{
+    position: absolute;
+    top:0;
+    width:100%;
+    bottom:50px;
+
+    resize: none;
+    font-size: 12pt;
+    padding: 12px;
+
+    line-height: 22px;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+#save_locs {
+    position: absolute;
+    bottom:5px;
+    left:5px;
 }
