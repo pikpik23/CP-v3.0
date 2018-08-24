@@ -1,5 +1,6 @@
 from csv import reader, writer
 from collections import OrderedDict as OrdDic
+from db import dbManager
 
 
 class file:
@@ -471,7 +472,7 @@ class file:
         s.daemon = True
         s.start()
         '''
-        w = writer(open("resources/static/logs.csv", 'w'))
+        # w = writer(open("resources/static/logs.csv", 'w'))
 
         main_keys = [
             'name',
@@ -481,67 +482,55 @@ class file:
             'duty'
         ]
 
-        for ret in log:
+        # print(test)
 
-            test = ret
-            # print(test)
+        lst = []
+        for key in main_keys:
+            # print(key)
+            lst.append(log[key])
+        inn_lst = []
+        for serial, val in log.items():
+            if not (serial in main_keys):
+                inn_lst.append(serial+'\\'+val)
 
-            lst = []
-            for key in main_keys:
-                # print(key)
-                lst.append(test[key])
-            inn_lst = []
-            for serial, val in test.items():
-                if not (serial in main_keys):
-                    inn_lst.append(serial+'\\'+val)
+        lst.append('||'.join(inn_lst))
 
-            lst.append('||'.join(inn_lst))
+        dbManager.newReturn(lst)
+            # w.writerow(lst)
 
-            w.writerow(lst)
-
-    def load_log():
+    def load_log(logID=None):
         """ loads the log file """
-        try:
-            r = reader(open("resources/static/logs.csv", "r"))
-        except FileNotFoundError:
-            w = open("resources/static/logs.csv", 'w')
-            w.close()
-            r = reader(open("resources/static/logs.csv", "r"))
+        # try:
+        #     r = reader(open("resources/static/logs.csv", "r"))
+        # except FileNotFoundError:
+        #     w = open("resources/static/logs.csv", 'w')
+        #     w.close()
+        #     r = reader(open("resources/static/logs.csv", "r"))
+
+        if logID:
+            x = dbManager.findIndex(logID)
+        else:
+            x = dbManager.readReturn()
 
         local_log = []
-        for row in r:
+        for row in x:
             ret = OrdDic()
 
             # print(row)
-            ret.update({'name': row[0]})
-            ret.update({'sender': row[1]})
-            ret.update({'receiver': row[2]})
-            ret.update({'time': row[3]})
-            ret.update({'duty': row[4]})
+            ret.update({'logID': row[0]})
+            ret.update({'name': row[1]})
+            ret.update({'sender': row[2]})
+            ret.update({'receiver': row[3]})
+            ret.update({'time': row[4]})
+            ret.update({'duty': row[5]})
 
-            for serial_data in row[5:]:
+            for serial_data in row[6:]:
                 for serial in serial_data.split('||'):
                     ser, val = serial.split('\\')
-                    ret.update({ser: val})
+                    val = ""+val
+                    ret.update({ser: str(val)})
             local_log.append(ret)
-
-            '''
-            try:
-                # print(row)
-                ret.update({'name': row[0]})
-                ret.update({'sender': row[1]})
-                ret.update({'receiver': row[2]})
-                ret.update({'time': row[3]})
-                ret.update({'duty': row[4]})
-
-                for serial_data in row[5:]:
-                    for serial in serial_data.split('||'):
-                        ser, val = serial.split('\\')
-                        ret.update({ser: val})
-                local_log.append(ret)
-            except:
-                print("error")
-            '''
+            
         return local_log
 
 
