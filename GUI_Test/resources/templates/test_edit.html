@@ -188,7 +188,7 @@ $(document).ready(function($)
 			});
 		});
 		
-		$.extend(arr, {return_type:"{{return_type}}"});
+		$.extend(array, {return_type:"{{return_type}}"});
 		$.post("/edit_return/add", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 		});
