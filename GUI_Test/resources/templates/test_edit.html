@@ -7,7 +7,7 @@
 <script type="text/javascript">
 $(document).ready(function($)
 {
-	$(document).find('.btn_save').hide();
+	$(document).find('.btn_done').hide();
 	$(document).find('.btn_cancel').hide(); 
  
 	//--->button > edit > start	
@@ -18,7 +18,7 @@ $(document).ready(function($)
 
 		var row_id = tbl_row.attr('row_id');
 
-		tbl_row.find('.btn_save').show();
+		tbl_row.find('.btn_done').show();
 		tbl_row.find('.btn_cancel').show();
 
 		//hide edit button
@@ -48,8 +48,8 @@ $(document).ready(function($)
 
 		var row_id = tbl_row.attr('row_id');
 		
-		//hide save and cacel buttons
-		tbl_row.find('.btn_save').hide();
+		//hide done and cacel buttons
+		tbl_row.find('.btn_done').hide();
 		tbl_row.find('.btn_cancel').hide();
 
 		//show edit button
@@ -86,7 +86,7 @@ $(document).ready(function($)
 		//var data = $(".table_serials tr:eq(1)").clone();
 		//data.find('div').innerHTML('');
 		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="data_type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span>	</td></tr>');
+		$(".table_serials tr:last").after('<tr row_id=""><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="data_type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_done"> <a href="#" class="btn_action" row_id="" > Done</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span>	</td></tr>');
 		$(".table_serials tr:last").find($(".btn_edit")).click();
 
 		//$(this).prev().find($('.btn_edit')).click();
@@ -102,8 +102,8 @@ $(document).ready(function($)
 
 		var row_id = tbl_row.attr('row_id');
 
-		//hide save and cacel buttons
-		tbl_row.find('.btn_save').hide();
+		//hide done and cacel buttons
+		tbl_row.find('.btn_done').hide();
 		tbl_row.find('.btn_cancel').hide();
 
 		//show edit button
@@ -122,16 +122,16 @@ $(document).ready(function($)
 	//--->button > cancel > end
 
 	
-	//--->save whole row entery > start	
-	$(document).on('click', '.btn_save', function(event) 
+	//--->done whole row entery > start	
+	$(document).on('click', '.btn_done', function(event) 
 	{	
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
 		var row_id = tbl_row.attr('row_id');
 		
-		//hide save and cacel buttons
-		tbl_row.find('.btn_save').hide();
+		//hide done and cacel buttons
+		tbl_row.find('.btn_done').hide();
 		tbl_row.find('.btn_cancel').hide();
 
 		//show edit button
@@ -236,7 +236,7 @@ $(document).ready(function($)
 						<td class="options_col"><div class="row_data" col_name="options">{{", ".join(info['options'])}}</div></td>
 						<td class="actions_col">
 								<span class="btn_edit"> <a href="#" class="btn_action" row_id="{{serial}}" > Edit</a> </span>
-								<span class="btn_save"> <a href="#" class="btn_action" row_id="{{serial}}" > Save</a> </span>
+								<span class="btn_done"> <a href="#" class="btn_action" row_id="{{serial}}" > Done</a> </span>
 								<span class="btn_cancel"> <a href="#" class="btn_action" row_id="{{serial}}" > Cancel</a> </span>
 								<span class="btn_remove"> <a href="#" class="btn_action" row_id="{{serial}}" > Remove</a> </span>
 						</td>
@@ -250,5 +250,5 @@ $(document).ready(function($)
 		</tbody>
 
 	</table>
-	<button class="add" id="add">Add Serial</button><button id="save_all">Add Serial</button>
+	<button class="add" id="add">Add Serial</button><button id="save_all">done</button>
 </div>
