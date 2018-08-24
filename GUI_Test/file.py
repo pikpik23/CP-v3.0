@@ -1,6 +1,72 @@
 from csv import reader, writer
 from collections import OrderedDict as OrdDic
-from db import dbManager
+import sqlite3
+
+
+class dbManager:
+
+    FILE_NAME = 'LOG_Temp.db'
+    TABLE_NAME = 'LOG_RETURNS'
+
+    def create_DB():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            # Create table
+            c.execute('''CREATE TABLE LOG_RETURNS
+                        (logID int,
+                        returnType text,
+                        sender text,
+                        reciever text,
+                        logTime int,
+                        dutyOfficer text,
+                        serials text
+                        )''')
+
+            conn.commit()
+
+    def read():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            for row in c.execute('SELECT * FROM stocks ORDER BY price'):
+                print(row)
+
+    def input():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            t = ('RHAT',)
+            c.execute('SELECT * FROM stocks WHERE symbol=?', t)
+
+    def massInput():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            # Larger example that inserts many records at a time
+            purchases = [('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+                         ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+                         ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+                         ]
+            c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases)
+
+    def newReturn(lst):
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            c.execute(
+                'INSERT INTO '+dbManager.TABLE_NAME+' VALUES (NULL,' +
+                '?, '*(len(lst) - 1) + '?)',
+                lst)
+
+    def readReturn():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            return c.execute('SELECT * FROM ' + dbManager.TABLE_NAME)
+
+    def findIndex(logID):
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            sqlStr = ("""SELECT * FROM """ +
+                      dbManager.TABLE_NAME +
+                      """ WHERE logID=?""")
+            x = c.execute(sqlStr, [str(logID)])
+            return x
 
 
 class file:
@@ -496,7 +562,6 @@ class file:
         lst.append('||'.join(inn_lst))
 
         dbManager.newReturn(lst)
-            # w.writerow(lst)
 
     def load_log(logID=None):
         """ loads the log file """
@@ -530,7 +595,7 @@ class file:
                     val = ""+val
                     ret.update({ser: str(val)})
             local_log.append(ret)
-            
+
         return local_log
 
 
