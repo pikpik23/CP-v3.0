@@ -1,12 +1,18 @@
 import sqlite3
-conn = sqlite3.connect('Test2.db')
+conn = sqlite3.connect('LOG_Temp.db')
 c = conn.cursor()
 
 
 def create_DB():
     # Create table
-    c.execute('''CREATE TABLE stocks
-                (date text, trans text, symbol text, qty real, price real)''')
+    c.execute('''CREATE TABLE LOG_RETURNS
+                (logID int,
+                sender text,
+                reciever text,
+                logTime int,
+                dutyOfficer text,
+                serials text
+                )''')
 
     # Save (commit) the changes
     conn.commit()
@@ -35,7 +41,7 @@ def massInput():
 
 
 if __name__ == '__main__':
-    create_DB()
+    # create_DB()
     massInput()
     read()
     conn.close()

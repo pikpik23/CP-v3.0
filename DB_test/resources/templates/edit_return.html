@@ -1,0 +1,182 @@
+{% extends 'layout.html' %} {% block body %}
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">  
+    $(document).ready(function ($) {
+        $("#back").click(function (){
+            window.location.href = '/settings';
+        });
+        $("#instructions").click(function (){
+            $.ajax({
+            url: "/edit_return/info",
+            type: "get",
+            success: function(response) {
+                $("#serial-list").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
+        });
+        $("#instructions").click();
+        
+        {% for return_type in serials_def %}
+        $("#{{return_type}}").click(function () {
+            //$("#serials").attr("src", "edit_return/{{return_type}}");
+            $.ajax({
+            url: "/edit_return/{{return_type}}",
+            type: "get",
+            success: function(response) {
+                $("#serial-list").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
+        });
+        {% endfor %}
+
+        $(document).find('.btnSave').hide();
+	    $(document).find('.btnCancel').hide(); 
+        
+        $(document).on('click', '.btnEdit', function(event) 
+	    {
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+		var row_id = tbl_row.attr('row_id');
+
+		tbl_row.find('.btnSave').show();
+		tbl_row.find('.btnCancel').show();
+
+		//hide edit button
+		tbl_row.find('.btnEdit').hide(); 
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'true')
+		.attr('edit_type', 'button')
+		.addClass('edit')
+
+		//--->add the original entry > start
+		tbl_row.find('.row_data').each(function(index, val) 
+		{  
+			//this will help in case user decided to click on cancel button
+			$(this).attr('original_entry', $(this).html());
+		}); 		
+		//--->add the original entry > end
+
+	});
+	//--->button > edit > end
+
+	$(document).on('click', '.btnRemove', function(event) 
+	{
+		$(this).closest('tr').remove()
+	});
+
+	$("#add_return").click(function (){
+		//var data = $(".table_serials tr:eq(1)").clone();
+		//data.find('div').innerHTML('');
+		//$(this).prev().find($('table tbody')).append(data);
+		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span></td><span class="btnRemove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></tr>');
+		$(".table_serials tr:last").find($(".btnEdit")).click();
+
+		//$(this).prev().find($('.btnEdit')).click();
+	});
+
+
+	//--->button > cancel > start	
+	$(document).on('click', '.btnCancel', function(event) 
+	{
+		event.preventDefault();
+
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		//hide save and cacel buttons
+		tbl_row.find('.btnSave').hide();
+		tbl_row.find('.btnCancel').hide();
+
+		//show edit button
+		tbl_row.find('.btnEdit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('edit_type', 'click')
+		.removeClass('edit')
+
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			$(this).html( $(this).attr('original_entry') ); 
+		});  
+	});
+	//--->button > cancel > end
+
+	
+	//--->save whole row entery > start	
+	$(document).on('click', '.btnSave', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btnSave').hide();
+		tbl_row.find('.btnCancel').hide();
+
+		//show edit button
+		tbl_row.find('.btnEdit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'false')
+		.css('padding','') 
+        .removeClass('edit')
+
+
+			
+		});
+	});
+</script>
+<div class="mainSetting">
+    <div class="return-list">
+        <div class="banner">
+            <a>Returns</a>
+        </div>
+        <div class="section_left"> 
+            <div>
+                <button id="back" class="edit_buttons">Back to Settings</button>
+                <button class="edit_buttons" id="instructions">Instructions</button>
+            </div>
+            <table class="table_serials" id="edit_return">
+                <tr>
+                    <th class="return_column">Return Name</th>
+                    <th>Options</th>
+                </tr>
+                {% for return_type in serials_def %}
+                <tr>
+                    <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
+                <td>
+                    <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
+                    <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
+                    <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
+                    <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span>
+                    <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
+                    
+                </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="add" id="add_return">Add Return</button>
+        </div>
+    </div>
+    <div id="serial-list">
+        <!--<div class="banner">
+            <a>Returns</a>
+        </div>
+        <iframe id="serials" src="edit_return/MAINTDEM"></iframe> -->
+
+    </div>
+</div>
+{% endblock %}

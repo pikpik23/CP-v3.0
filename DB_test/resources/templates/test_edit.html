@@ -1,0 +1,222 @@
+
+<link rel="stylesheet" href="/styles/main.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function($)
+{
+	$(document).find('.btn_save').hide();
+	$(document).find('.btn_cancel').hide(); 
+ 
+	//--->button > edit > start	
+	$(document).on('click', '.btn_edit', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		tbl_row.find('.btn_save').show();
+		tbl_row.find('.btn_cancel').show();
+
+		//hide edit button
+		tbl_row.find('.btn_edit').hide(); 
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'true')
+		.attr('edit_type', 'button')
+		.addClass('edit')
+
+		//--->add the original entry > start
+		tbl_row.find('.row_data').each(function(index, val) 
+		{  
+			//this will help in case user decided to click on cancel button
+			$(this).attr('original_entry', $(this).html());
+		}); 		
+		//--->add the original entry > end
+
+	});
+	//--->button > edit > end
+
+	$(document).on('click', '.btn_remove', function(event) 
+	{
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'false')
+		.removeClass('edit')
+
+		//--->get row data > start
+		var row_index = $(this).closest('td').parent()[0].sectionRowIndex
+
+		var arr = {}; 
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			var col_name = $(this).attr('col_name');  
+			var col_val  =  $(this).html();
+			arr[col_name] = col_val;
+		});
+		//--->get row data > end
+
+		//use the "arr"	object for your ajax call
+		$.extend(arr, {row_id:row_index});
+		$.extend(arr, {return_type:"{{return_type}}"});
+
+		$.post("/edit_return/remove", arr, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);	
+		});
+		$(this).closest('tr').remove()
+	});
+
+	$("#add").click(function (){
+		//var data = $(".table_serials tr:eq(1)").clone();
+		//data.find('div').innerHTML('');
+		//$(this).prev().find($('table tbody')).append(data);
+		$(".table_serials tr:last").after('<tr row_id=""><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="data_type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_save"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span>	</td></tr>');
+		$(".table_serials tr:last").find($(".btn_edit")).click();
+
+		//$(this).prev().find($('.btn_edit')).click();
+	});
+
+
+	//--->button > cancel > start	
+	$(document).on('click', '.btn_cancel', function(event) 
+	{
+		event.preventDefault();
+
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//make the whole row editable
+		tbl_row.find('.row_data')
+		.attr('edit_type', 'click')
+		.removeClass('edit')
+
+		tbl_row.find('.row_data').each(function(index, val) 
+		{   
+			$(this).html( $(this).attr('original_entry') ); 
+		});  
+	});
+	//--->button > cancel > end
+
+	
+	//--->save whole row entery > start	
+	$(document).on('click', '.btn_save', function(event) 
+	{	
+		event.preventDefault();
+		var tbl_row = $(this).closest('tr');
+
+		var row_id = tbl_row.attr('row_id');
+		
+		//hide save and cacel buttons
+		tbl_row.find('.btn_save').hide();
+		tbl_row.find('.btn_cancel').hide();
+
+		//show edit button
+		tbl_row.find('.btn_edit').show();
+
+		//turn off editing
+		tbl_row.find('.row_data')
+		.attr('contenteditable', 'false')
+		.removeClass('edit')
+		
+		tbl_row.find('.row_data').each(function(index, val) 
+		{
+			var col_name = $(this).attr('col_name');  
+			if ( col_name == 'data_type') {
+				var col_val  =  $(this).html();
+				if (col_val == "string" || col_val == "long" || col_val == "location" || col_val == "choice") {
+					var row_index = $(this).closest('td').parent()[0].sectionRowIndex
+
+					var arr = {}; 
+					tbl_row.find('.row_data').each(function(index, val) 
+					{   
+						var col_name = $(this).attr('col_name');  
+						var col_val  =  $(this).html();
+						arr[col_name] = col_val;
+					});
+					//--->get row data > end
+
+					//use the "arr"	object for your ajax call
+					$.extend(arr, {row_id:row_index});
+					$.extend(arr, {return_type:"{{return_type}}"});
+
+					$.post("/edit_return/add", arr, function(data, status){
+						//alert("Data: " + data + "\nStatus: " + status);
+					});
+				}
+				else {
+					alert('You must use one of the accepted data types (string, long, location, choice).')
+					tbl_row.find('.btn_cancel')
+					.click()
+				}
+			}
+		});
+
+		//--->get row data > start
+
+	});
+
+	//--->save whole row entery > end
+
+}); 
+</script>
+<div class=banner>
+		<a>Edit Return</a>
+	</div>
+<div class="serial_body">
+
+	<h1 class="return-name" id="{{return_type}}">{{return_type}}</h1>
+	<table class="table_serials">
+		<thead>
+			<tr>
+				<th class="serial_column">Serial</th>
+				<th>Description</th>
+				<th>Type</th>
+				<th>Options</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+				{% for serial, info in serials_def[return_type].items() %}
+					<tr row_id="{{ serial }}">
+						<td class="serial_column"><div class="row_data" col_name="serial">{{serial}}</div></td>
+						<td><div class="row_data" col_name="desc">{{info['desc']}}</div></td>
+						<td class="typ_col"><div class="row_data" col_name="data_type">{{info['data_type']}}</div></td>
+						<td class="options_col"><div class="row_data" col_name="options">{{", ".join(info['options'])}}</div></td>
+						<td class="actions_col">
+								<span class="btn_edit"> <a href="#" class="btn_action" row_id="{{serial}}" > Edit</a> </span>
+								<span class="btn_save"> <a href="#" class="btn_action" row_id="{{serial}}" > Save</a> </span>
+								<span class="btn_cancel"> <a href="#" class="btn_action" row_id="{{serial}}" > Cancel</a> </span>
+								<span class="btn_remove"> <a href="#" class="btn_action" row_id="{{serial}}" > Remove</a> </span>
+						</td>
+					</tr>
+				{% endfor %}
+
+		</tbody>
+
+	</table>
+	<button class="add" id="add">Add Serial</button>
+</div>
