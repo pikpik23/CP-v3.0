@@ -96,6 +96,16 @@ def display_settings_locations():
     return render_template('locations_edit.html',
                            locs=LOCATIONS)
 
+@APP.route('/settings/general')
+def display_settings_general():
+    """ Renders the general settings field """
+    return render_template('settings_general.html',
+                           settings=SETTINGS)
+
+@APP.route('/settings/info')
+def display_info():
+    """ Renders the Product info Page """
+    return render_template('product_info.html')
 
 @APP.route('/settings/locs', methods=['POST'])
 def update_settings_locations():

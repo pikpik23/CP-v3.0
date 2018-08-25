@@ -100,10 +100,11 @@
             });*/
             
             $('#record').click(function(){
+                var html = $(document)
                 var arr = {}
-                html.find('.data_row').each(function (index, val){
-                    var serial = $(this).find('.serial').html
-                    var data = $(this).find('.data').value
+                html.find('.data_row').each(function (index, element){
+                    var serial = $(element).find('.serial').html
+                    var data = $(element).find('.data').value
                     arr[serial] = data;
                 });
 
