@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
-            function post(path, params, method) {
+           /* function post(path, params, method) {
                 method = method || "POST"; // Set method to post by default if not specified.
 
                 // The rest of this code assumes you are not using a library.
@@ -41,7 +41,7 @@
 
                 document.body.appendChild(form);
                 form.submit();
-            }
+            }*/
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
@@ -83,7 +83,7 @@
 
             });*/
 
-            $("#main_form").submit(function(e) {
+            /*$("#main_form").submit(function(e) {
                 e.preventDefault();
                 this.submit();
                 setTimeout(function(){
@@ -97,6 +97,28 @@
                     }
                  }, 100);
                
+            });*/
+            
+            $('#record').click(function(){
+                var arr = {}
+                html.find('.data_row').each(function (index, val){
+                    var serial = $(this).find('.serial').html
+                    var data = $(this).find('.data').value
+                    arr[serial] = data;
+                });
+
+                var to = $('#inputTo').value
+                var from = $('#inputFrom').value
+                $.extend(arr, {return_type:"{{return_type}}"});
+                $.extend(arr, {cs:"{{settings['callsign']}}"});
+                $.extend(arr, {duty:"{{settings['Duty']}}"});
+                $.extend(arr, {to:to});
+                $.extend(arr, {from:from});
+                
+
+                $.post("/transmission/add", arr, function(data, status){
+						alert("Data: " + data + "\nStatus: " + status);
+				});
             });
 
         });
@@ -111,9 +133,9 @@
         <a>Record Transmission</a>
     </div>
     {% if return_type %}
-    <form method="POST" id="main_form" action="/transmission/{{return_type}}">
+    <!--<form method="POST" id="main_form" action="/transmission/{{return_type}}"> -->
     {%else%}
-    <form method="POST" id="main_form" action="/transmission/MESSAGE">
+    <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
     {%endif%}
         <table class="toFrom">
             <tr>
@@ -222,7 +244,7 @@
                             <input type="checkbox" id="check" name="check"> Print</label>
                     </td>
                     <td>
-                        <button id="record" class="button" type="submit" value="Submit">Record</button>
+                        <button id="record" class="button" value="Submit">Record</button>
                     </td>
                     <td>
                         <button type="button" id="cancel">Cancel</button>
