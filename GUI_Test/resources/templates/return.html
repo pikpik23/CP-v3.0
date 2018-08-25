@@ -115,10 +115,10 @@
                 $.extend(arr, {to:to});
                 $.extend(arr, {from:from});
                 
-
-                $.post("/transmission/add", arr, function(data, status){
+                alert(JSON.stringify(arr))
+                /*$.post("/transmission/add", arr, function(data, status){
 						alert("Data: " + data + "\nStatus: " + status);
-				});
+				});*/
             });
 
         });
@@ -244,7 +244,7 @@
                             <input type="checkbox" id="check" name="check"> Print</label>
                     </td>
                     <td>
-                        <button id="record" class="button" value="Submit">Record</button>
+                        <button id="record" class="button">Record</button>
                     </td>
                     <td>
                         <button type="button" id="cancel">Cancel</button>
