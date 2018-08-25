@@ -505,6 +505,10 @@ class file:
         locations = r.read().split("\n")
         return locations
 
+    def save_Locations(lst):
+        w = open("resources/files/locations.txt", "w")
+        w.write(lst)
+
     def read_callsigns():
         """ reads the file containing the callsigns """
         r = open("resources/files/callsigns.txt", "r")

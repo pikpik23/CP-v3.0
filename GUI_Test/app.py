@@ -89,11 +89,23 @@ def display_settings():
                            locs=LOCATIONS,
                            settings=SETTINGS)
 
+
 @APP.route('/settings/locs')
 def display_settings_locations():
     """ Renders the locations edit field """
     return render_template('locations_edit.html',
                            locs=LOCATIONS)
+
+
+@APP.route('/settings/locs', methods=['POST'])
+def update_settings_locations():
+    file.save_Locations(request.form['locs'])
+    # print(LOCATIONS)
+    # print(request.form['locs']).split('\n')
+    print(request.form['locs'].split('\n'))
+    global LOCATIONS
+    LOCATIONS = request.form['locs'].split('\n')
+    return ''
 
 
 def update_setting():
