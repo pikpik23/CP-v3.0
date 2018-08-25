@@ -2,52 +2,23 @@
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
-    function post(path, params, method) {
-                method = method || "POST"; // Set method to post by default if not specified.
-
-                // The rest of this code assumes you are not using a library.
-                // It can be made less wordy if you use one.
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-
-                for (var key in params) {
-                    if (params.hasOwnProperty(key)) {
-                        var hiddenField = document.createElement("input");
-                        hiddenField.setAttribute("type", "hidden");
-                        hiddenField.setAttribute("name", key);
-                        hiddenField.setAttribute("value", params[key]);
-                        form.appendChild(hiddenField);
-
-                        var hiddenField2 = document.createElement("input");
-                        hiddenField2.setAttribute("type", "hidden");
-                        hiddenField2.setAttribute("name", "page");
-                        hiddenField2.setAttribute("value", window.location.pathname);
-                        form.appendChild(hiddenField2);
-
-                    }
-                }
-
-                document.body.appendChild(form);
-                form.submit();
-    }
-    $("#btnDuty").click(function () {
-        var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-        if (duty == null || duty == "") {   
-        }
-        else {
-            post('/settings/Duty/', { name: duty });
-        }
+    $('#general').click(function(){
+        $.ajax({
+            url: "/settings/general",
+            type: "get",
+            success: function(response) {
+                $("#settings_display").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
+            $('#current').html("General");
+            $('button').each(function(index, element){
+                $(element).attr("class","off");
+            });
+            $(this).attr("class","selected");
     });
-    $("#btnCallsign").click(function () {
-        var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-        if (cs == null || cs == "") {   
-        }
-        else {
-            post('/settings/callsign/', { name: cs });
-        }
-    });
-
     $('#edit_locs').click(function(){
         $.ajax({
             url: "/settings/locs",
@@ -60,41 +31,60 @@
             }
             });
             $('#current').html("Locations");
+            $('button').each(function(index, element){
+                $(element).attr("class","off");
+            });
+            $(this).attr("class","selected");
+    });
+    $('#edit_return').click(function(){
+        $('button').each(function(index, element){
+                $(element).attr("class","off");
+            });
+        window.location = "/edit_return"
+    });
+    $('#product').click(function(){
+        $.ajax({
+            url: "/settings/info",
+            type: "get",
+            success: function(response) {
+                $("#settings_display").html(response);
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+            }
+            });
+            $('#current').html("Product Info");
+            $('button').each(function(index, element){
+                $(element).attr("class","off");
+            });
+            $(this).attr("class","selected");
     });
 
 });
 </script>
 
-<div class="mainSetting">
-    <div class="divLeft">
-        <div class="banner">
-            <a>Settings</a>
-        </div>
-        <div class="inner">
-            <table class="settingsTable">
-                <tr>
-                    <td>Duty Officer</td>
-                    <td>{{settings['Duty']}}</td>
-                    <td><button id="btnDuty">Duty Officer</button></td>
-                </tr>
-                <tr>
-                        <td>Callsign</td>
-                        <td>{{settings['callsign']}}</td>
-                        <td><button id="btnCallsign">This Callsign</button></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><a href="/edit_return">Return</a></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><button id="edit_locs">Edit Locations</button></td>
-                </tr>
-                <tr>
-                    <td colspan="3"><button id="product_info">Product Information</button></td>
-                </tr>
-                
-            </table>
-        </div>
+<div class="scrollmenu">
+        <nav>
+            <ul>
+            <li>
+                <a>Settings</a>
+            </li>
+            <li>
+                <button class="setting_button" id="general">General</button>
+            </li>
+            <li>
+                <button class="setting_button" id="edit_return">Edit Return</button>
+            </li>
+            <li>
+                <button class="setting_button" id="edit_locs">Edit Locations</button>
+            </li>
+            <li>
+                <button class="setting_button" id="product">Product Info</button>
+            </li>
+            </ul>
+        </nav>
     </div>
+        
     <div class="divRight">
         <div class="banner">
             <a id="current">Product Details</a>

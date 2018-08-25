@@ -375,37 +375,6 @@ label:hover {
     box-shadow: none;
 }
 
-.mainSetting {
-    position: fixed;
-    top: 0;
-    bottom: 6px;
-    left: 6px;
-    right: 6px;
-    margin-top: 56px;
-}
-
-.divLeft {
-    border: 2px solid rgb(187, 187, 187);
-    position: absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:300px;
-}
-
-.divRight {
-    border: 2px solid rgb(187, 187, 187);
-    position: absolute;
-    left:306px;
-    top:0;
-    bottom:0;
-    right:0;
-}
-
-.inner{
-    padding: 12px;
-    line-height: 24px;
-}
 
 /*---------------------------- LOG --------------------*/
 
@@ -684,14 +653,66 @@ br {
     cursor: pointer;
 }
 
+
+/* -------------------- Settings ---------------------------*/
+
+.mainSetting {
+    position: fixed;
+    top: 0;
+    bottom: 6px;
+    left: 6px;
+    right: 6px;
+    margin-top: 56px;
+}
+
+.settingsTable {
+    width:100%;
+}
+
+.settingsTable td.setting_row {
+    border: 1px solid black;
+    border-radius: 5px;
+    width:100%;
+    padding:10px;
+}
+
+
 #settings_display{
     position: absolute;
     top:36px;
     left:0;
     right:0;
     bottom:0;
-
 }
+
+.space {
+    height:30px;
+}
+
+.divLeft {
+    border: 2px solid rgb(187, 187, 187);
+    position: absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:300px;
+}
+
+.divRight {
+    border: 2px solid rgb(187, 187, 187);
+    position: absolute;
+    left:206px;
+    top:56px;
+    bottom:6px;
+    right:6px;
+}
+
+.inner{
+    padding: 12px;
+    line-height: 24px;
+}
+
+/* ----------------------- Locations-Edit --------------------*/
 
 .locs_text{
     position: absolute;
@@ -713,4 +734,10 @@ br {
     position: absolute;
     bottom:5px;
     left:5px;
+}
+
+/* ----------------------------- General Setting --------------------*/
+
+.general {
+    border: 1px solid black;
 }
