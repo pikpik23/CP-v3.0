@@ -752,10 +752,11 @@ br {
 }
 
 #repeat {
-    position: absolute;
-    top:20%;
-    left:40%;
-    width:20%;
-    border:5px solid black;
+    position: fixed;
+    top:15%;
+    left:35%;
+    width:30%;
+
     display: none;
+    z-index:100;
 }
