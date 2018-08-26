@@ -1,0 +1,2 @@
+sudo nano ~/.config/lxsession/LXDE-pi/autostart # autostart config
+pi can be connected too using rpi.local
