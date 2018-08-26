@@ -293,4 +293,7 @@ def test_log_edit(index):
 
 if __name__ == '__main__':
 
-    APP.run(host='0.0.0.0', debug=True)
+    try:
+        APP.run(host='0.0.0.0', debug=True, port=80)
+    except PermissionError:
+        APP.run(host='0.0.0.0', debug=True)
