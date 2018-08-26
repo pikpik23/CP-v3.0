@@ -6,6 +6,17 @@
         <title>Flask CP</title>
         <link rel="stylesheet" href="/styles/main.css">
     </head>
+    <script type="text/javascript" src="/egg.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        var memes = new Egg("r,e,p,e,a,t", function() {
+            jQuery('#repeat').fadeIn(500, function() {
+            window.setTimeout(function() { jQuery('#repeat').hide(); }, 3000);
+        });
+        }).listen();
+    });
+    </script>
     <body>
         {% include '/includes/_navbar.html' %}
 
@@ -13,5 +24,8 @@
             {% block body %}
             {% endblock %}
         </div>
+        <img src="/repeat.gif" id="repeat">
     </body>
+    
+    
 </html>

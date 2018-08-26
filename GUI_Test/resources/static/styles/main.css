@@ -741,3 +741,21 @@ br {
 .general {
     border: 1px solid black;
 }
+
+#portaloo {
+    position: absolute;
+    top:20%;
+    left:40%;
+    width:20%;
+    border:5px solid blue;
+    display: none;
+}
+
+#repeat {
+    position: absolute;
+    top:20%;
+    left:40%;
+    width:20%;
+    border:5px solid black;
+    display: none;
+}

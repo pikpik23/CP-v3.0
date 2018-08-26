@@ -1,3 +1,18 @@
+<script type="text/javascript" src="/egg.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    var memes = new Egg("m,e,m,e,s", function() {
+        alert('memes')
+    }).listen();
+
+    var memes = new Egg("c,q", function() {
+        jQuery('#portaloo').fadeIn(500, function() {
+        window.setTimeout(function() { jQuery('#portaloo').hide(); }, 1000);
+    });
+    }).listen();
+});
+</script>
 <link rel="stylesheet" href="/styles/main.css">
 <div class="inner">
     <h1>Info</h1>
@@ -12,3 +27,4 @@
     </ul>
 
 </div>
+<img src="/portaloo.png" id="portaloo">
