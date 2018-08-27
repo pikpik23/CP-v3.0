@@ -72,7 +72,20 @@
                         //Do Something to handle error
                 }
             });
-        }).listen();
+    }).listen();
+
+    var minesweeper = new Egg("m,i,n,e,s,w,e,e,p,e,r", function() {
+            $.ajax({
+                url: "/games/minesweeper",
+                type: "get",
+                success: function(response) {
+                    $("#settings_display").html(response);
+                },
+                    error: function(xhr) {
+                        //Do Something to handle error
+                }
+            });
+    }).listen();
 
 });
 </script>
