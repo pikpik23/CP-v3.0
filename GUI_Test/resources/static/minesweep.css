@@ -36,51 +36,51 @@ table.minesweeper td {
 }
 
 td.unopened {
-    background: url('img/unopened.svg');
+    background: url('minesweepImages/unopened.svg');
     cursor: pointer;
 }
 
 td.opened {
-    background: url('img/opened.svg');
+    background: url('minesweepImages/opened.svg');
 }
 
 td.flagged {
-    background: url('img/flag.svg');
+    background: url('minesweepImages/flag.svg');
     cursor: pointer;
 }
 
 td.mine {
-    background: url('img/mine.png');
+    background: url('minesweepImages/mine.png');
 }
 
 td.mine-neighbour-1 {
-    background: url('img/1.svg');
+    background: url('minesweepImages/1.svg');
 }
 
 td.mine-neighbour-2 {
-    background: url('img/2.svg');
+    background: url('minesweepImages/2.svg');
 }
 
 td.mine-neighbour-3 {
-    background: url('img/3.svg');
+    background: url('minesweepImages/3.svg');
 }
 
 td.mine-neighbour-4 {
-    background: url('img/4.svg');
+    background: url('minesweepImages/4.svg');
 }
 
 td.mine-neighbour-5 {
-    background: url('img/5.svg');
+    background: url('minesweepImages/5.svg');
 }
 
 td.mine-neighbour-6 {
-    background: url('img/6.svg');
+    background: url('minesweepImages/6.svg');
 }
 
 td.mine-neighbour-7 {
-    background: url('img/7.svg');
+    background: url('minesweepImages/7.svg');
 }
 
 td.mine-neighbour-8 {
-    background: url('img/8.svg');
+    background: url('minesweepImages/8.svg');
 }
