@@ -109,6 +109,11 @@ def display_info():
     """ Renders the Product info Page """
     return render_template('product_info.html')
 
+@APP.route('/tetris')
+def display_tetris():
+    """ Renders the tetris Page """
+    return render_template('tetris.html')
+
 
 @APP.route('/settings/locs', methods=['POST'])
 def update_settings_locations():

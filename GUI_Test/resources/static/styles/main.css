@@ -760,3 +760,57 @@ br {
     display: none;
     z-index:100;
 }
+
+/*--------------------- TETRIS ----------------------*/
+#tetris{ 
+    width:100%;
+}
+#canvas{ 
+    position: absolute;
+    top:10px;
+    left:350px;
+    background: url(/texture.jpg); 
+    box-shadow: 10px 10px 10px #999; 
+    border: 2px solid #333;
+ }
+#menu { 
+    width: 300px; 
+    height: 600px; 
+    margin-top:10px;
+} 
+#menu p   { 
+    margin: 0.5em 0; 
+    text-align: center; 
+}
+#menu p a { 
+    text-decoration: none; 
+    color: black; 
+}
+#upcoming { 
+    display: block; 
+    margin: 0 auto; 
+    background-color: #E0E0E0; 
+}
+#score{ color: red; 
+    font-weight: bold; 
+    vertical-align: middle; 
+}
+#rows{ 
+    color: blue; 
+    font-weight: bold; 
+    vertical-align: middle; 
+}
+#tetris { 
+    font-size: 1.75em; 
+    width: 650px; 
+} 
+#upcoming {
+    width: 150px; 
+    height: 150px; 
+} 
+#canvas { 
+    width: 300px; 
+    height: 600px; 
+} 
+
+/* -----------------------------------------------------------*/
