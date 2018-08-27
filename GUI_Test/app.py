@@ -291,6 +291,11 @@ def test_log_edit(index):
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
 
+@APP.route('/games/minesweeper')
+def minesweeper():
+    return render_template("minesweeper_game.html")
+
+
 if __name__ == '__main__':
 
     try:
