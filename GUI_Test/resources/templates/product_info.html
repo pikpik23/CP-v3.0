@@ -7,6 +7,7 @@ $(document).ready(function () {
     }).listen();
 
     var memes = new Egg("c,q", function() {
+        $('#portaloo').attr('src', '/portaloo.png');
         jQuery('#portaloo').fadeIn(500, function() {
         window.setTimeout(function() { jQuery('#portaloo').hide(); }, 1000);
     });
@@ -24,7 +25,8 @@ $(document).ready(function () {
     <ul>
         <li>Trent doesn't know how to use AJAX</li>
         <li>Trent often copied Renier's code</li>
+        <li>There are x easter eggs on the site have you found them all?</li>
     </ul>
 
 </div>
-<img src="/portaloo.png" id="portaloo">
+<img id="portaloo">
