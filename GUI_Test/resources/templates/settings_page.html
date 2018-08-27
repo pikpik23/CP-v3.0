@@ -1,4 +1,5 @@
 {% extends 'layout.html' %} {% block body %}
+<script type="text/javascript" src="/egg.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
@@ -12,12 +13,12 @@
             error: function(xhr) {
             //Do Something to handle error
             }
-            });
-            $('#current').html("General");
-            $('button').each(function(index, element){
-                $(element).attr("class","off");
-            });
-            $(this).attr("class","selected");
+        });
+        $('#current').html("General");
+        $('button').each(function(index, element){
+            $(element).attr("class","off");
+        });
+        $(this).attr("class","selected");
     });
     $('#edit_locs').click(function(){
         $.ajax({
@@ -29,12 +30,12 @@
             error: function(xhr) {
             //Do Something to handle error
             }
-            });
-            $('#current').html("Locations");
-            $('button').each(function(index, element){
-                $(element).attr("class","off");
-            });
-            $(this).attr("class","selected");
+        });
+        $('#current').html("Locations");
+        $('button').each(function(index, element){
+            $(element).attr("class","off");
+        });
+        $(this).attr("class","selected");
     });
     $('#edit_return').click(function(){
         $('button').each(function(index, element){
@@ -50,15 +51,28 @@
                 $("#settings_display").html(response);
             },
             error: function(xhr) {
-            //Do Something to handle error
+                //Do Something to handle error
             }
-            });
-            $('#current').html("Product Info");
-            $('button').each(function(index, element){
-                $(element).attr("class","off");
-            });
-            $(this).attr("class","selected");
+        });
+        $('#current').html("Product Info");
+        $('button').each(function(index, element){
+            $(element).attr("class","off");
+        });
+        $(this).attr("class","selected");
+
     });
+    var tetris = new Egg("t,e,t,r,i,s", function() {
+            $.ajax({
+                url: "/tetris",
+                type: "get",
+                success: function(response) {
+                    $("#settings_display").html(response);
+                },
+                    error: function(xhr) {
+                        //Do Something to handle error
+                }
+            });
+        }).listen();
 
 });
 </script>
