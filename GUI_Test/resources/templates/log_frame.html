@@ -18,8 +18,7 @@
 <body>
     <div class="printBody">
         {% if ret %} 
-            {% for item in ret %}
-            
+            {% for name, val in ret.items() %}
                 {% if name == 'name' %}
                     <h2>{{val}}</h2>
                 {% endif %} 
@@ -65,7 +64,7 @@
             
             {% for name, rtrn in ret.items() %}
             <tr>
-                {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' %}
+                {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' and name!= 'logID' %}
                     <td class="textp">{{name}}: </td>
                     <td class="textp">
                     {% set rtrn = rtrn|string %}

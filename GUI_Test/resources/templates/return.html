@@ -100,9 +100,9 @@
             });*/
             
             $('#record').click(function(){
-                var html = $(document)
                 var arr = {}
-                html.find('.data_row').each(function (index, element){
+                var table = $(".return_table")
+                table.find('.data_row').each(function (index, element){
                     var serial = $(element).find('.serial').html
                     var data = $(element).find('.data').value
                     arr[serial] = data;

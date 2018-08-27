@@ -63,7 +63,7 @@
     });
     var tetris = new Egg("t,e,t,r,i,s", function() {
             $.ajax({
-                url: "/tetris",
+                url: "/games/tetris",
                 type: "get",
                 success: function(response) {
                     $("#settings_display").html(response);

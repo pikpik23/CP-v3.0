@@ -109,7 +109,7 @@ def display_info():
     """ Renders the Product info Page """
     return render_template('product_info.html')
 
-@APP.route('/tetris')
+@APP.route('/games/tetris')
 def display_tetris():
     """ Renders the tetris Page """
     return render_template('tetris.html')
