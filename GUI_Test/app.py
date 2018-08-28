@@ -173,8 +173,6 @@ def convert_newlines(line):
 @APP.route('/log')
 def display_log():
     """ Renders the log_frame """
-    for i in file.load_log():
-        print(i['logID'])
     return render_template("log_test.html", log=file.load_log())
 
 
