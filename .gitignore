@@ -111,3 +111,6 @@ venv.bak/
 # My lint files
 .pylintrc
 pylama.ini
+
+# Visual studio code files
+**/.vs/*
