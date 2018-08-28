@@ -177,8 +177,38 @@ $(document).ready(function($)
 	});
 
 	$('#save_all').click(function (){
+			var table = $('.table_body');
+			var arr = {}
+			$('.table_body').find('tr').each(function(element,val) {
+				var serial_name = $(this).attr('row_id')
+				var  serial_array= {}
+				$(this).find('.row_data').each(function(index, val) {   
+					var col_name = $(this).attr('col_name');  
+					var col_val  =  $(this).html();
+					serial_array[col_name] = col_val;
+				});
 
-		var elements = document.getElementsByClassName("table_content");
+				alert(JSON.stringify(serial_array));
+				arr[serial_name] = serial_array;
+			});
+
+			alert(JSON.stringify(arr))
+
+			$.post("/edit_return/TEST", arr, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			});
+
+			/*
+			var arr = {}; 
+			tbl_row.find('.row_data').each(function(index, val) {   
+				var col_name = $(this).attr('col_name');  
+				var col_val  =  $(this).html();
+				arr[col_name] = col_val;
+			});
+
+			 */
+
+		/*var elements = document.getElementsByClassName("table_content");
 		var row = {};
 
 		for(var i=0; i<elements.length; i++) {
@@ -191,7 +221,6 @@ $(document).ready(function($)
 				//alert(val)
 			};
 		};
-		/*
 		var tableObject = $('.table_serials tbody').map(function (i) {
 		var row = {};
 		$(this).find('tr').each(function (i) {
