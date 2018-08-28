@@ -17,7 +17,7 @@
             <div id="{{serial}}">
                 {% for option in info['options'] %}
                 <label class="lblRadio" id="{{option}}">
-                    <input class="itext" id="{{option}}Radio" name="{{serial}}" value="{{option}}" type="radio">{{option}}</input>
+                    <input class="itext data" id="{{option}}Radio" name="{{serial}}" value="{{option}}" type="radio">{{option}}</input>
                 </label>
                 {% endfor %} </div>
             {% elif info['data_type'] == 'long'%}

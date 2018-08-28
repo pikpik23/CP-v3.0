@@ -102,14 +102,27 @@
             $('#record').click(function(){
                 var arr = {}
                 var table = $(".return_table")
-                table.find('.data_row').each(function (index, element){
-                    var serial = $(element).find('.serial').html
-                    var data = $(element).find('.data').value
-                    arr[serial] = data;
+                table.find('.data').each(function (index, element){
+                    type = $(this).attr('type');
+                    if (type != 'radio') {
+                        var serial = $(this).attr('name');
+                        var data = $(this).val();
+                        arr[serial] = data;
+                    }
+                    else {
+                        if ($(this).is(':checked')) {
+                            alert('checked')
+                            var serial = $(this).attr('name');
+                            var data = $(this).val();
+                            arr[serial] = data;
+                        }
+                        else {
+                        }
+                    }
                 });
 
-                var to = $('#inputTo').value
-                var from = $('#inputFrom').value
+                var to = $('#inputTo').val()
+                var from = $('#inputFrom').val()
                 $.extend(arr, {return_type:"{{return_type}}"});
                 $.extend(arr, {cs:"{{settings['callsign']}}"});
                 $.extend(arr, {duty:"{{settings['Duty']}}"});
@@ -117,9 +130,9 @@
                 $.extend(arr, {from:from});
                 
                 alert(JSON.stringify(arr))
-                /*$.post("/transmission/add", arr, function(data, status){
-						alert("Data: " + data + "\nStatus: " + status);
-				});*/
+                $.post("/transmission/add", arr, function(data, status){
+						//alert("Data: " + data + "\nStatus: " + status);
+				});
             });
 
         });
