@@ -109,6 +109,7 @@ def display_info():
     """ Renders the Product info Page """
     return render_template('product_info.html')
 
+
 @APP.route('/games/tetris')
 def display_tetris():
     """ Renders the tetris Page """
@@ -172,8 +173,6 @@ def convert_newlines(line):
 @APP.route('/log')
 def display_log():
     """ Renders the log_frame """
-    for i in file.load_log():
-        print(i['logID'])
     return render_template("log_test.html", log=file.load_log())
 
 
@@ -221,9 +220,11 @@ def test_update(action):
 
     # dict = request.form.to_dict()
     # print(action)
+    '''
     tmpDic = request.form.to_dict()
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']
+    '''
 
     if action == 'add':
 
@@ -265,7 +266,10 @@ def test_update(action):
         # print(tmpDic)
     # deleting things
 
-    file.save_dic(SERIALS)
+    if action == 'TEST':
+        print(request.form.to_dict())
+
+    # file.save_dic(SERIALS)
     """
     del dic[rtrn_type]
      or
