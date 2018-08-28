@@ -111,7 +111,6 @@
                     }
                     else {
                         if ($(this).is(':checked')) {
-                            alert('checked')
                             var serial = $(this).attr('name');
                             var data = $(this).val();
                             arr[serial] = data;
@@ -133,6 +132,26 @@
                 $.post("/transmission/add", arr, function(data, status){
 						//alert("Data: " + data + "\nStatus: " + status);
 				});
+            });
+
+
+            $('#cancel').click(function(){
+                var table = $(".return_table")
+                table.find('.data').each(function (index, element){
+                    type = $(this).attr('type');
+                    if (type != 'radio') {
+                       $(this).val('');
+                    }
+                    else {
+                        if ($(this).is(':checked')) {
+                            $(this).prop('checked', false); 
+                        }
+                        else {
+                        }
+                    }
+                });
+                $('#inputTo').val('')
+                $('#inputFrom').val('')
             });
 
         });
