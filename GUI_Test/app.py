@@ -135,12 +135,12 @@ def update_setting():
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
     """ handles the return submissin (POST) returns same page """
-
+    print(request.form)
     ret = {}
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
     ret.update({'receiver': request.form['receiver']})
-    ret.update({'duty': request.form['Duty']})
+    ret.update({'duty': request.form['duty']})
     ret.update({'time': datetime.today().strftime('%d%H%M')})
 
     if rtrn_type == "MESSAGE":
@@ -155,7 +155,7 @@ def abstracted_return_return(rtrn_type):
 
     LOG.insert(0, (ret))
     file.save_log(ret)
-    return redirect("/")
+    return ""
     # return abstracted_return(rtrn_type)
 
 
