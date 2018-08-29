@@ -180,12 +180,15 @@ def display_log():
 def test_log(logID):
     """ Renders the return form """
     # print(LOG[int(logID)])
+    if logID == 'init':
+        logID = file.getFirst()
+
     try:
         # index = int(logID)
         return render_template("log_frame.html",
                                ret=file.load_log(logID=logID)[0])
     except IndexError:
-        return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
+        return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
 
 
 @APP.route('/edit_return')
