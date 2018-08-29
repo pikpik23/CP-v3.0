@@ -156,13 +156,21 @@
                 
                 // alert(JSON.stringify(arr))
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
-						//alert("Data: " + data + "\nStatus: " + status);
+                        $("#popup").html('{{return_type}} Submitted');
+                        $("#popup").show()
+                        $("#popup").animate({
+                            right: '40px',
+                        });
+                        setTimeout(function() {
+                            $("#popup").fadeOut(500)
+                            }, 3000);
+                        
 				});
                 document.getElementById("main_form").reset()
             });
 
 
-            $('#cancel').click(function(){
+            /*$('#cancel').click(function(){
                 var table = $(".return_table")
                 table.find('.data').each(function (index, element){
                     type = $(this).attr('type');
@@ -179,7 +187,7 @@
                 });
                 $('#inputTo').val('')
                 $('#inputFrom').val('')
-            });
+            }); */
         });
     </script>
 
@@ -322,7 +330,6 @@
 
         {% block table %} {% endblock %}
 
-
         <footer>
             <table class="footTable">
                 <tr class=submit>
@@ -342,6 +349,7 @@
         </footer>
     </form>
     <iframe src="/log/0" name="printf" scrolling="yes"  hidden="true" style="width:100%;"></iframe>
+    <div id="popup">MEMEMEMS</div>
 </body>
 
 </html>

@@ -825,3 +825,11 @@ br {
 .transmission_settings td {
     padding:4px;
 }
+
+#popup {
+    display:none;
+    color: white;
+    position: absolute;
+    right:-10px;
+    top:12px;
+}
