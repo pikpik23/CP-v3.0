@@ -78,7 +78,7 @@ def abstracted_updating_settings(setting):
     """ handles setting changes (POST) then reloads page """
     SETTINGS[setting] = request.form['name']
     update_setting()
-    return redirect(request.form['page'])
+    return ""
 
 
 @APP.route('/settings')

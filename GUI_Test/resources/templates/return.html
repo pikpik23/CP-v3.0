@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
+            /*
            function post(path, params, method) {
                 method = method || "POST"; // Set method to post by default if not specified.
 
@@ -42,6 +43,7 @@
                 document.body.appendChild(form);
                 form.submit();
             }
+            */
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
@@ -58,7 +60,11 @@
                 if (duty == null || duty == "") {
                 }
                 else {
-                    post('/settings/Duty/', { name: duty });
+                    $.post('/settings/Duty/', { name: duty }, function(data, status){
+                    //alert("Data: " + data + "\nStatus: " + status);
+                    // document.getElementById("duty_officer").innerHTML(duty)
+                    $('#duty_officer').html(duty);
+                });
                 }
             });
 
@@ -67,7 +73,10 @@
                 if (cs == null || cs == "") {
                 }
                 else {
-                    post('/settings/callsign/', { name: cs });
+                    $.post('/settings/callsign/', { name: cs }, function(data, status){
+                //alert("Data: " + data + "\nStatus: " + status);
+                });
+                $('#callsign').html(cs);
                 }
             });
 
@@ -76,7 +85,10 @@
                 if (net == null || net == "") {
                 }
                 else {
-                    post('/settings/net/', { name: net });
+                    $.post('/settings/net/', { name: net }, function(data, status){
+                //alert("Data: " + data + "\nStatus: " + status);
+                });
+                $('#net_name').html(net);
                 }
             });
 
@@ -282,19 +294,19 @@
                 <td class="settings top left" align="right">
                     <button type="button" id="btnCallsign">This Callsign</button>
                 </td>
-                <td class="settings top right" align="right">{{settings['callsign']}}</td>
+                <td id="callsign" class="settings top right" align="right">{{settings['callsign']}}</td>
             </tr>
             <tr>
                 <td class="settings  left" align="right">
                     <button type="button" id="btnDuty">Duty Officer</button>
                 </td>
-                <td class="settings  right" align="right">{{settings['Duty']}}</td>
+                <td id="duty_officer" class="settings  right" align="right">{{settings['Duty']}}</td>
             </tr>
             <tr>
                 <td class="settings bottom left" align="right">
                         <button type="button" id="btnNet">This Net</button>
                 </td>
-                <td class="settings bottom right" align="right">{{settings['net']}}</td>
+                <td id="net_name" class="settings bottom right" align="right">{{settings['net']}}</td>
             </tr>
         </table>
 
