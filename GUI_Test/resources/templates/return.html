@@ -132,6 +132,7 @@
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
 						//alert("Data: " + data + "\nStatus: " + status);
 				});
+                document.getElementById("main_form").reset()
             });
 
 
@@ -293,7 +294,7 @@
                         <button type="button" id="record" class="button">Record</button>
                     </td>
                     <td>
-                        <button type="button" id="cancel">Cancel</button>
+                        <button type="reset" id="cancel">Cancel</button>
                     </td>
                 </tr>
 

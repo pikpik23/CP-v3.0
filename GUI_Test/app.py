@@ -135,7 +135,7 @@ def update_setting():
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
     """ handles the return submissin (POST) returns same page """
-    print(request.form)
+    # print(request.form)
     ret = {}
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
