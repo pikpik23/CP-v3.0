@@ -125,11 +125,11 @@
                 $.extend(arr, {return_type:"{{return_type}}"});
                 $.extend(arr, {cs:"{{settings['callsign']}}"});
                 $.extend(arr, {duty:"{{settings['Duty']}}"});
-                $.extend(arr, {to:to});
-                $.extend(arr, {from:from});
+                $.extend(arr, {receiver:to});
+                $.extend(arr, {sender:from});
                 
-                alert(JSON.stringify(arr))
-                $.post("/transmission/add", arr, function(data, status){
+                // alert(JSON.stringify(arr))
+                $.post("/transmission/{{return_type}}", arr, function(data, status){
 						//alert("Data: " + data + "\nStatus: " + status);
 				});
             });
@@ -216,7 +216,7 @@
         <a>Record Transmission</a>
     </div>
     {% if return_type %}
-    <form method="POST" id="main_form" action="/transmission/{{return_type}}">
+    <form method="POST" id="main_form" action="/transmission/old/{{return_type}}">
     {%else%}
     <form method="POST" id="main_form" action="/transmission/MESSAGE">
     {%endif%}
@@ -275,7 +275,7 @@
                             <input type="checkbox" id="check" name="check"> Print</label>
                     </td>
                     <td>
-                        <button id="record" class="button">Record</button>
+                        <button type="button" id="record" class="button">Record</button>
                     </td>
                     <td>
                         <button type="button" id="cancel">Cancel</button>
