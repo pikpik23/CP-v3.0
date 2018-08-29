@@ -1,2 +1,3 @@
 callsign\0A
 Duty\Lambinon
+net\Admin Net

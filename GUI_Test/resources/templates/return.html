@@ -48,6 +48,11 @@
             $(".fromButton").click(function () {
                 $("#inputFrom").val(this.innerHTML);
             });
+
+            //$(".netButton").click(function () {
+            //    $("#inputNet").val(this.innerHTML);
+            //});
+
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
                 if (duty == null || duty == "") {
@@ -63,6 +68,15 @@
                 }
                 else {
                     post('/settings/callsign/', { name: cs });
+                }
+            });
+
+            $("#btnNet").click(function () {
+                var net = prompt("Enter your current Net", "{{settings['net']}}");
+                if (net == null || net == "") {
+                }
+                else {
+                    post('/settings/net/', { name: net });
                 }
             });
 
@@ -164,27 +178,12 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
-    {% if return_type %}
+        {% if return_type %}
     <!--<form method="POST" id="main_form" action="/transmission/{{return_type}}"> -->
-    {%else%}
+        {%else%}
     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
-    {%endif%}
+        {%endif%}
         <table class="toFrom">
-            <tr>
-                <td class="serial">Net:</td>
-                <td class="toFromStandard">
-                    <input id="inputNet" name="net" class="itext" type="text" autocomplete="off"/>
-                </td>
-                <td colspan="2" class="toFromStandard">
-                    <button type="button" class="netButton">{{settings['net']}}</button>
-                </td>
-                <td></td>
-                <td class="settings top left" align="right">
-                    <button type="button" id="btnNet">This Net</button>
-                </td>
-                <td class="settings top right" align="right">{{settings['net']}}</td>
-
-            </tr>
             <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
@@ -222,6 +221,14 @@
                 </td>
                 <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
             </tr>
+            <tr>
+                    <td colspan="4"></td>
+                    <td></td>
+                    <td class="settings top left" align="right">
+                            <button type="button" id="btnNet">This Net</button>
+                    </td>
+                    <td class="settings top right" align="right">{{settings['net']}}</td>
+            </tr>
         </table>
 
         <input type="hidden" name="Duty" value="{{settings['Duty']}}"/>
@@ -234,7 +241,7 @@
     {% if return_type %}
     <form method="POST" id="main_form" action="/transmission/old/{{return_type}}">
     {%else%}
-    <form method="POST" id="main_form" action="/transmission/MESSAGE">
+     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
     {%endif%}
         <table class="toFrom">
             <tr>
@@ -254,10 +261,7 @@
                     <button type="button" class="toButton">KGS</button>
                 </td>
                 <td></td>
-                <td class="settings top left" align="right">
-                    <button type="button" id="btnCallsign">This Callsign</button>
-                </td>
-                <td class="settings top right" align="right">{{settings['callsign']}}</td>
+                
 
             </tr>
             <tr>
@@ -269,10 +273,28 @@
                     <button type="button" class="fromButton">{{settings['callsign']}}</button>
                 </td>
                 <td></td>
-                <td class="settings bottom left" align="right">
+                
+            </tr>
+        </table>
+
+        <table class="transmission_settings">
+            <tr>
+                <td class="settings top left" align="right">
+                    <button type="button" id="btnCallsign">This Callsign</button>
+                </td>
+                <td class="settings top right" align="right">{{settings['callsign']}}</td>
+            </tr>
+            <tr>
+                <td class="settings  left" align="right">
                     <button type="button" id="btnDuty">Duty Officer</button>
                 </td>
-                <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
+                <td class="settings  right" align="right">{{settings['Duty']}}</td>
+            </tr>
+            <tr>
+                <td class="settings bottom left" align="right">
+                        <button type="button" id="btnNet">This Net</button>
+                </td>
+                <td class="settings bottom right" align="right">{{settings['net']}}</td>
             </tr>
         </table>
 
