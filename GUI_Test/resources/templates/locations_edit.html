@@ -3,7 +3,7 @@
 <script type="text/javascript">  
   $(document).ready(function () {
     $('#save_locs').click(function(){
-        info = $('.locs_text').val();
+        let info = $('.locs_text').val();
         $.ajax({
           type: "POST",
           url: '/settings/locs',

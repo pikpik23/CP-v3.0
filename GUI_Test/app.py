@@ -25,7 +25,7 @@ LOG = file.load_log()
 @APP.route('/transmission')
 def display_return_frame():
     """ Renders the return frame """
-    return render_template('index_test.html', serials_def=LEGACY_DIC)
+    return render_template('transmission.html', serials_def=LEGACY_DIC)
 
 
 @APP.route('/transmission/<rtrn_type>')
@@ -39,7 +39,7 @@ def abstracted_return(rtrn_type):
                                settings=SETTINGS,
                                callsigns=CALLSIGNS)
     else:
-        return render_template('abstracted_return.new.html',
+        return render_template('returns/inner_return.html',
                                return_type=rtrn_type,
                                serials_def=SERIALS,
                                locs=LOCATIONS,
@@ -57,7 +57,7 @@ def abstracted_return(rtrn_type):
                                settings=SETTINGS,
                                callsigns=CALLSIGNS)
     else:
-        return render_template('abstracted_return.new.html',
+        return render_template('inner_return.html',
                                return_type=rtrn_type,
                                serials_def=SERIALS,
                                locs=LOCATIONS,
@@ -111,7 +111,7 @@ def display_info():
 @APP.route('/games/tetris')
 def display_tetris():
     """ Renders the tetris Page """
-    return render_template('tetris.html')
+    return render_template('games/tetris.html')
 
 
 @APP.route('/settings/locs', methods=['POST'])
@@ -192,7 +192,7 @@ def test_log(logID):
 @APP.route('/edit_return')
 def display_edit_return():
     """ Renders the edit return page """
-    return render_template('edit_return.html', serials_def=SERIALS)
+    return render_template('returns/edit_return.html', serials_def=SERIALS)
 
 
 @APP.route('/edit_return/<rtrn_type>')
@@ -209,7 +209,7 @@ def display_abstracted_serials(rtrn_type):
 @APP.route('/edit_return/info')
 def display_edit_return_info():
     """ Renders the edit return info page """
-    return render_template('edit_return_info.html',
+    return render_template('returns/edit_return_info.html',
                            serials_def=SERIALS,
                            locs=LOCATIONS)
 
@@ -290,7 +290,7 @@ def test_log_edit(index):
     print(LOG[index])
     try:
         index = int(index)
-        return render_template("abstracted_return.edit.html",
+        return render_template("returns/abstracted_return.edit.html",
                                return_type=LOG[index]['name'],
                                serials_def=SERIALS,
                                locs=LOCATIONS,
@@ -303,7 +303,7 @@ def test_log_edit(index):
 
 @APP.route('/games/minesweeper')
 def minesweeper():
-    return render_template("minesweeper_game.html")
+    return render_template("games/minesweeper.html")
 
 
 if __name__ == '__main__':

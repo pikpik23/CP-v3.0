@@ -217,7 +217,7 @@ class file:
         DbManager.new_return(lst)
 
     @staticmethod
-    def load_log(logID=None):
+    def load_log(log_id=None):
         """ loads the log file """
         # try:
         #     r = reader(open("resources/static/logs.csv", "r"))
@@ -226,8 +226,8 @@ class file:
         #     w.close()
         #     r = reader(open("resources/static/logs.csv", "r"))
 
-        if logID:
-            x = DbManager.find_index(logID)
+        if log_id:
+            x = DbManager.find_index(log_id)
         else:
             x = DbManager.read_return()
 

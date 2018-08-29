@@ -1,4 +1,4 @@
-{% extends 'return.test.html' %} {% block table %}
+ {% extends 'returns/return.html' %} {% block table %}
 <h2>{{return_type}}</h2>
 
 <table class='return_table'>
@@ -12,7 +12,7 @@
         <td class='serial'>{{serial}}</td>
         <td>
             {% if info['data_type'] == 'string' %}
-            <input class="itext" name="{{serial}}" type="text" autocomplete="off" /> 
+            <input class="itext" name="{{serial}}" type="text" autocomplete="off" value="{{ret[serial].replace('<br>', '\n')}}"/> 
             {% elif info['data_type'] == 'choice'%}
             <div id="{{serial}}">
                 {% for option in info['options'] %}
@@ -21,8 +21,9 @@
                 </label>
                 {% endfor %} </div>
             {% elif info['data_type'] == 'long'%}
-            <textarea class="itext return" name="{{serial}}" rows="4" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
-            <input class="itext" name="{{serial}}" type="text" id="" list="locs" autocomplete="off" />
+            <textarea class="itext return" name="{{serial}}" rows="4" cols="40">{{ret[serial].replace('<br>', '\n')}}</textarea> 
+            {% elif info['data_type'] == 'location'%}
+            <input value="{{ret[serial].replace('<br>', '\n')}}" class="itext" name="{{serial}}" type="text" id="" list="locs" autocomplete="off" />
             <datalist id="locs">
                 <option selected disabled>Choose</option>
                 {% for location in locs %}
