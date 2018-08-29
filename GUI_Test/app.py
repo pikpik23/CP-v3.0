@@ -33,7 +33,7 @@ def abstracted_return(rtrn_type):
     """ Renders the internal return form """
 
     if rtrn_type == 'MESSAGE':
-        return render_template('MESSAGE.html',
+        return render_template('returns/MESSAGE.html',
                                serials_def=SERIALS,
                                locs=LOCATIONS,
                                settings=SETTINGS,
@@ -82,7 +82,7 @@ def abstracted_updating_settings(setting):
 @APP.route('/settings')
 def display_settings():
     """ Renders the settings page """
-    return render_template('settings_page.html',
+    return render_template('settings/settings_page.html',
                            serials_def=SERIALS,
                            locs=LOCATIONS,
                            settings=SETTINGS)
@@ -98,7 +98,7 @@ def display_settings_locations():
 @APP.route('/settings/general')
 def display_settings_general():
     """ Renders the general settings field """
-    return render_template('settings_general.html',
+    return render_template('settings/settings_general.html',
                            settings=SETTINGS)
 
 
@@ -171,11 +171,11 @@ def convert_newlines(line):
 @APP.route('/log')
 def display_log():
     """ Renders the log_frame """
-    return render_template("log_test.html", log=file.load_log())
+    return render_template("log/log_test.html", log=file.load_log())
 
 
-@APP.route('/log/<logID>')
-def test_log(logID):
+@APP.route('/log/<log_id>')
+def test_log(log_id):
     """ Renders the return form """
     # print(LOG[int(logID)])
     if log_id == 'init':
@@ -183,7 +183,7 @@ def test_log(logID):
 
     try:
         # index = int(logID)
-        return render_template("log_frame.html",
+        return render_template("log/log_frame.html",
                                ret=file.load_log(logID=log_id)[0])
     except IndexError:
         return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
@@ -198,7 +198,7 @@ def display_edit_return():
 @APP.route('/edit_return/<rtrn_type>')
 def display_abstracted_serials(rtrn_type):
     """ Renders the edit return page """
-    return render_template('test_edit.html',
+    return render_template('edit.html',
                            return_type=rtrn_type,
                            serials_def=SERIALS,
                            locs=LOCATIONS,
