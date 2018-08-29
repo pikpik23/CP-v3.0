@@ -63,7 +63,7 @@ class DbManager:
             return i
 
 
-class file:
+class File:
 
     @staticmethod
     def get_first():
@@ -133,7 +133,7 @@ class file:
     @staticmethod
     def read_legacy():
         """ reads the dictionary and returns it in the legacy format """
-        serials = file.read_dic()
+        serials = File.read_dic()
         final_dic = OrdDic()
         for name, dic in serials.items():
             inner_dic = OrdDic()
@@ -254,12 +254,12 @@ class file:
 
 
 if __name__ == '__main__':
-    settings = file.read_settings()
-    file.save_settings(settings)
-    file.read_locations()
-    file.read_callsigns()
-    file.save_dic()
-    file.read_dic()
+    settings = File.read_settings()
+    File.save_settings(settings)
+    File.read_locations()
+    File.read_callsigns()
+    File.save_dic()
+    File.read_dic()
 
     # x = file()
     # x.save()

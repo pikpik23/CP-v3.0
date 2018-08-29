@@ -7,18 +7,17 @@ All request handling is done from here
 
 from datetime import datetime
 from flask import Flask, render_template, request, redirect
-from file import file
-
+from file import File
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 
-LEGACY_DIC = file.read_legacy()
-SERIALS = file.read_dic()
-LOCATIONS = file.read_locations()
-CALLSIGNS = file.read_callsigns()
-SETTINGS = file.read_settings()
-LOG = file.load_log()
+LEGACY_DIC = File.read_legacy()
+SERIALS = File.read_dic()
+LOCATIONS = File.read_locations()
+CALLSIGNS = File.read_callsigns()
+SETTINGS = File.read_settings()
+LOG = File.load_log()
 
 
 @APP.route('/')
@@ -116,7 +115,7 @@ def display_tetris():
 
 @APP.route('/settings/locs', methods=['POST'])
 def update_settings_locations():
-    file.save_Locations(request.form['locs'])
+    File.save_Locations(request.form['locs'])
     # print(LOCATIONS)
     # print(request.form['locs']).split('\n')
     # print(request.form['locs'].split('\n'))
@@ -127,7 +126,7 @@ def update_settings_locations():
 
 def update_setting():
     """ sub function to update the settings """
-    file.save_settings(SETTINGS)
+    File.save_settings(SETTINGS)
 
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
@@ -152,7 +151,7 @@ def abstracted_return_return(rtrn_type):
                 ret.update({serial: ''})
 
     LOG.insert(0, (ret))
-    file.save_log(ret)
+    File.save_log(ret)
     return ""
     # return abstracted_return(rtrn_type)
 
@@ -171,7 +170,7 @@ def convert_newlines(line):
 @APP.route('/log')
 def display_log():
     """ Renders the log_frame """
-    return render_template("log/log_test.html", log=file.load_log())
+    return render_template("log/log_test.html", log=File.load_log())
 
 
 @APP.route('/log/<log_id>')
@@ -179,13 +178,13 @@ def test_log(log_id):
     """ Renders the return form """
     # print(LOG[int(logID)])
     if log_id == 'init':
-        log_id = file.get_first()
+        log_id = File.get_first()
 
     try:
         # index = int(logID)
 
         return render_template("log/log_frame.html",
-                               ret=file.load_log(log_id=log_id)[0])
+                               ret=File.load_log(log_id=log_id)[0])
 
     except IndexError:
         return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
@@ -224,48 +223,45 @@ def test_update(action):
     # dict = request.form.to_dict()
     # print(action)
 
-    tmpDic = request.form.to_dict()
-    rtrn_type = tmpDic['return_type']
-    rtrn_serial = tmpDic['serial']
-
+    return_type = request.form.to_dict()['return_type']
+    return_serial = request.form.to_dict()['serial']
 
     if action == 'add':
 
         # print(SERIALS[rtrn_type][rtrn_serial])
-
         # print(tmpDic)
 
         inner_dic = {}
-        for name, val in tmpDic.items():
+        for name, val in request.form.to_dict().items():
             inner_dic.update({name: val})
 
-        SERIALS[rtrn_type].update({rtrn_serial: {}})
-        LEGACY_DIC.update({rtrn_type: {}})
+        SERIALS[return_type].update({return_serial: {}})
+        LEGACY_DIC.update({return_type: {}})
 
-        SERIALS[rtrn_type][rtrn_serial].update({name: val})
+        SERIALS[return_type][return_serial].update({name: val})
 
-        SERIALS[rtrn_type][rtrn_serial].update({
-            'desc': tmpDic['desc']
+        SERIALS[return_type][return_serial].update({
+            'desc': request.form.to_dict()['desc']
         })
 
-        SERIALS[rtrn_type][rtrn_serial].update({
-            "data_type": tmpDic['data_type']
+        SERIALS[return_type][return_serial].update({
+            "data_type": request.form.to_dict()['data_type']
         })
 
-        if tmpDic['data_type'] == 'choice':
-            x = tmpDic['options']
+        if request.form.to_dict()['data_type'] == 'choice':
+            x = request.form.to_dict()['options']
             x = x.replace('<span style="font-size: 11pt;">', '')
             x = x.replace('</span>', '')
             x = x.split(', ')
-            SERIALS[rtrn_type][rtrn_serial].update({
+            SERIALS[return_type][return_serial].update({
                 "options": x
             })
 
-        LEGACY_DIC[rtrn_type].update({'desc': tmpDic['desc']})
+        LEGACY_DIC[return_type].update({'desc': request.form.to_dict()['desc']})
 
     elif action == 'remove':
-        LEGACY_DIC[rtrn_type].pop(rtrn_serial)
-        SERIALS[rtrn_type].pop(rtrn_serial)
+        LEGACY_DIC[return_type].pop(return_serial)
+        SERIALS[return_type].pop(return_serial)
         # print(tmpDic)
     # deleting things
 
