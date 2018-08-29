@@ -68,8 +68,23 @@ class dbManager:
             x = c.execute(sqlStr, [str(logID)])
             return x
 
+    def getFirstIndex():
+        with sqlite3.connect(dbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            sqlStr = ("""SELECT logID FROM """ +
+                      dbManager.TABLE_NAME +
+                      """ WHERE logID = (SELECT MAX(logID)  FROM """ +
+                      dbManager.TABLE_NAME + ")")
+            x = c.execute(sqlStr)
+            for i in x:
+                i = int(list(i)[0])
+            return i
+
 
 class file:
+
+    def getFirst():
+        return dbManager.getFirstIndex()
 
     def insert_into_dic(dct, key, value, dict_setitem=dict.__setitem__):
         """ still a WIP but hopefully will allow me to add at index """
