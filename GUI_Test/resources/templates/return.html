@@ -177,55 +177,61 @@
     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
         {%endif%}
         <table class="toFrom">
-            <tr>
-                <td class="serial">To:</td>
-                <td class="toFromStandard">
-                    <input value="{{ret['receiver'].replace('<br>', '\n')}}" id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
-                        <datalist id="callsigns">
-                            {% for callsigns in callsigns %}
-                            <option value="{{callsigns}}">{{callsigns}}</option>
-                            {% endfor %}
-                        </datalist>
-                </td>
-                <td class="toFromStandard">
-                    <button type="button" class="toButton">{{settings['callsign']}}</button>
-                </td>
-                <td class="toFromStandard">
-                    <button type="button" class="toButton">KGS</button>
-                </td>
-                <td></td>
-                <td class="settings left" align="right">
-                    <button type="button" id="btnCallsign">This Callsign</button>
-                </td>
-                <td class="settings right" align="right">{{settings['callsign']}}</td>
-
-            </tr>
-            <tr>
-                <td class="serial">From:</td>
-                <td class="toFromStandard">
-                    <input value="{{ret['sender'].replace('<br>', '\n')}}" name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
-                </td>
-                <td class="toFromStandard" colspan="2">
-                    <button type="button" class="fromButton">{{settings['callsign']}}</button>
-                </td>
-                <td></td>
-                <td class="settings bottom left" align="right">
-                    <button type="button" id="btnDuty">Duty Officer</button>
-                </td>
-                <td class="settings bottom right" align="right">{{settings['Duty']}}</td>
-            </tr>
-            <tr>
-                    <td colspan="4"></td>
+                <tr>
+                    <td class="serial">To:</td>
+                    <td class="toFromStandard">
+                        <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                            <datalist id="callsigns">
+                                {% for callsigns in callsigns %}
+                                <option value="{{callsigns}}">{{callsigns}}</option>
+                                {% endfor %}
+                            </datalist>
+                    </td>
+                    <td class="toFromStandard">
+                        <button type="button" class="toButton">{{settings['callsign']}}</button>
+                    </td>
+                    <td class="toFromStandard">
+                        <button type="button" class="toButton">KGS</button>
+                    </td>
                     <td></td>
+                    
+    
+                </tr>
+                <tr>
+                    <td class="serial">From:</td>
+                    <td class="toFromStandard">
+                        <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    </td>
+                    <td class="toFromStandard" colspan="2">
+                        <button type="button" class="fromButton">{{settings['callsign']}}</button>
+                    </td>
+                    <td></td>
+                    
+                </tr>
+            </table>
+    
+            <table class="transmission_settings">
+                <tr>
                     <td class="settings top left" align="right">
+                        <button type="button" id="btnCallsign">This Callsign</button>
+                    </td>
+                    <td id="callsign" class="settings top right" align="right">{{settings['callsign']}}</td>
+                </tr>
+                <tr>
+                    <td class="settings  left" align="right">
+                        <button type="button" id="btnDuty">Duty Officer</button>
+                    </td>
+                    <td id="duty_officer" class="settings  right" align="right">{{settings['Duty']}}</td>
+                </tr>
+                <tr>
+                    <td class="settings bottom left" align="right">
                             <button type="button" id="btnNet">This Net</button>
                     </td>
-                    <td class="settings top right" align="right">{{settings['net']}}</td>
-            </tr>
-        </table>
-
-        <input type="hidden" name="Duty" value="{{settings['Duty']}}"/>
-
+                    <td id="net_name" class="settings bottom right" align="right">{{settings['net']}}</td>
+                </tr>
+            </table>
+    
+            <input type="hidden" name="Duty" value="{{settings['Duty']}}"/>
     {% else %}
 
     <div class="banner" id="transmission">
