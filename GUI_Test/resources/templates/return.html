@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
-           /* function post(path, params, method) {
+           function post(path, params, method) {
                 method = method || "POST"; // Set method to post by default if not specified.
 
                 // The rest of this code assumes you are not using a library.
@@ -41,7 +41,7 @@
 
                 document.body.appendChild(form);
                 form.submit();
-            }*/
+            }
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
@@ -170,6 +170,21 @@
     {%endif%}
         <table class="toFrom">
             <tr>
+                <td class="serial">Net:</td>
+                <td class="toFromStandard">
+                    <input id="inputNet" name="net" class="itext" type="text" autocomplete="off"/>
+                </td>
+                <td colspan="2" class="toFromStandard">
+                    <button type="button" class="netButton">{{settings['net']}}</button>
+                </td>
+                <td></td>
+                <td class="settings top left" align="right">
+                    <button type="button" id="btnNet">This Net</button>
+                </td>
+                <td class="settings top right" align="right">{{settings['net']}}</td>
+
+            </tr>
+            <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
                     <input value="{{ret['receiver'].replace('<br>', '\n')}}" id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
@@ -186,10 +201,10 @@
                     <button type="button" class="toButton">KGS</button>
                 </td>
                 <td></td>
-                <td class="settings top left" align="right">
+                <td class="settings left" align="right">
                     <button type="button" id="btnCallsign">This Callsign</button>
                 </td>
-                <td class="settings top right" align="right">{{settings['callsign']}}</td>
+                <td class="settings right" align="right">{{settings['callsign']}}</td>
 
             </tr>
             <tr>
