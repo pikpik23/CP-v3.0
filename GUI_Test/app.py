@@ -183,8 +183,13 @@ def test_log(logID):
 
     try:
         # index = int(logID)
+<<<<<<< HEAD
         return render_template("log_frame.html",
                                ret=file.load_log(logID=log_id)[0])
+=======
+        return render_template("log/log_frame.html",
+                               ret=file.load_log(log_id=log_id)[0])
+>>>>>>> 62796fac6b7a68699bdd23f5787778d3dcc1baba
     except IndexError:
         return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
 
