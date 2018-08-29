@@ -831,5 +831,8 @@ br {
     color: white;
     position: absolute;
     right:-10px;
-    top:12px;
+    top:15px;
+    width:400px;
+    text-align:right;
+    font-size: 12pt;
 }
