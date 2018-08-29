@@ -114,3 +114,4 @@ pylama.ini
 
 # Visual studio code files
 **/.vs/*
+GUI_Test/LOG_Temp.db
