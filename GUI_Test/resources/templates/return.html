@@ -169,6 +169,7 @@
     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
     {%endif%}
         <table class="toFrom">
+            
             <tr>
                 <td class="serial">Net:</td>
                 <td class="toFromStandard">
@@ -231,11 +232,26 @@
         <a>Record Transmission</a>
     </div>
     {% if return_type %}
-    <form method="POST" id="main_form" action="/transmission/{{return_type}}">
+    <!--<form method="POST" id="main_form" action="/transmission/{{return_type}}"> -->
     {%else%}
-    <form method="POST" id="main_form" action="/transmission/MESSAGE">
+     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
     {%endif%}
         <table class="toFrom">
+            <tr>
+                <td class="serial">Net:</td>
+                <td class="toFromStandard">
+                    <input id="inputNet" name="net" class="itext" type="text" autocomplete="off"/>
+                </td>
+                <td colspan="2" class="toFromStandard">
+                    <button type="button" class="netButton">{{settings['net']}}</button>
+                </td>
+                <td></td>
+                <td class="settings top left" align="right">
+                    <button type="button" id="btnNet">This Net</button>
+                </td>
+                <td class="settings top right" align="right">{{settings['net']}}</td>
+
+            </tr>
             <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
