@@ -814,3 +814,14 @@ br {
 } 
 
 /* -----------------------------------------------------------*/
+
+.transmission_settings {
+    border-collapse: collapse;
+    position: absolute;
+    right:6px;
+    top:50px;;
+
+}
+.transmission_settings td {
+    padding:4px;
+}
