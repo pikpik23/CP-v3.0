@@ -5,8 +5,6 @@ The main file for the CP site
 All request handling is done from here
 """
 
-# from threading import Timer
-# test
 from datetime import datetime
 from flask import Flask, render_template, request, redirect
 from file import file
@@ -134,7 +132,7 @@ def update_setting():
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
 def abstracted_return_return(rtrn_type):
-    """ handles the return submissin (POST) returns same page """
+    """ handles the return submission (POST) returns same page """
     # print(request.form)
     ret = {}
     ret.update({'name': rtrn_type})
@@ -180,13 +178,13 @@ def display_log():
 def test_log(logID):
     """ Renders the return form """
     # print(LOG[int(logID)])
-    if logID == 'init':
-        logID = file.getFirst()
+    if log_id == 'init':
+        log_id = file.get_first()
 
     try:
         # index = int(logID)
         return render_template("log_frame.html",
-                               ret=file.load_log(logID=logID)[0])
+                               ret=file.load_log(logID=log_id)[0])
     except IndexError:
         return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
 
@@ -223,11 +221,11 @@ def test_update(action):
 
     # dict = request.form.to_dict()
     # print(action)
-    '''
+
     tmpDic = request.form.to_dict()
     rtrn_type = tmpDic['return_type']
     rtrn_serial = tmpDic['serial']
-    '''
+
 
     if action == 'add':
 
