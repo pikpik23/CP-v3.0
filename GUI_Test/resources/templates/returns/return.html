@@ -9,41 +9,7 @@
     <script src="js_files/jquery-1.12.0.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
-            /*
-           function post(path, params, method) {
-                method = method || "POST"; // Set method to post by default if not specified.
 
-                // The rest of this code assumes you are not using a library.
-                // It can be made less wordy if you use one.
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-
-
-                for (var key in params) {
-                    if (params.hasOwnProperty(key)) {
-                        // make fields
-                        var hiddenField = document.createElement("input");
-                        hiddenField.setAttribute("type", "hidden");
-                        hiddenField.setAttribute("name", key);
-                        hiddenField.setAttribute("value", params[key]);
-                        form.appendChild(hiddenField);
-
-                        var hiddenField2 = document.createElement("input");
-                        hiddenField2.setAttribute("type", "hidden");
-                        hiddenField2.setAttribute("name", "page");
-                        hiddenField2.setAttribute("value", window.location.pathname);
-
-
-                        form.appendChild(hiddenField2);
-
-                    }
-                }
-
-                document.body.appendChild(form);
-                form.submit();
-            }
-            */
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
@@ -51,18 +17,12 @@
                 $("#inputFrom").val(this.innerHTML);
             });
 
-            //$(".netButton").click(function () {
-            //    $("#inputNet").val(this.innerHTML);
-            //});
-
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
                 if (duty == null || duty == "") {
                 }
                 else {
                     $.post('/settings/Duty/', { name: duty }, function(data, status){
-                    //alert("Data: " + data + "\nStatus: " + status);
-                    // document.getElementById("duty_officer").innerHTML(duty)
                     $('#duty_officer').html(duty);
                 });
                 }
@@ -74,7 +34,6 @@
                 }
                 else {
                     $.post('/settings/callsign/', { name: cs }, function(data, status){
-                //alert("Data: " + data + "\nStatus: " + status);
                 });
                 $('#callsign').html(cs);
                 }
@@ -86,46 +45,11 @@
                 }
                 else {
                     $.post('/settings/net/', { name: net }, function(data, status){
-                //alert("Data: " + data + "\nStatus: " + status);
                 });
                 $('#net_name').html(net);
                 }
             });
 
-            /*
-            $(".lblRadio").click(function () {
-                var radio = (this.id);
-                (radio + "Radio").click()
-            });
-            */
-            /*$("#record").click(function () {
-                var checkbox = document.getElementById("printCheck")
-                if (checkbox.checked == true){
-                    window.frames["printf"].focus();
-                    window.frames["printf"].print();
-                    alert("memes")
-                }
-                else{
-                }
-
-            });*/
-
-            /*$("#main_form").submit(function(e) {
-                e.preventDefault();
-                this.submit();
-                setTimeout(function(){
-                    var checkbox = document.getElementById("check")
-                    if (checkbox.checked == true){
-                        window.frames["printf"].focus();
-                        window.frames["printf"].print();
-                        alert("memes");
-                    }
-                    else{
-                    }
-                 }, 100);
-               
-            });*/
-            
             $('#record').click(function(){
                 var arr = {}
                 var table = $(".return_table")
@@ -157,45 +81,17 @@
 
                 var checked = document.getElementById("check").checked;
 
-                // alert(JSON.stringify(arr))
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
-                    success: document.getElementById("printf").innerHTML = data;
+                    document.getElementById('printf').contentDocument.body.innerHTML = data;
+                    if (checked){
+                        document.getElementById('printf').style.visibility = 'visible';
+                        window.frames["printf"].focus();
+                        window.frames["printf"].print();
+                        document.getElementById('printf').style.visibility = 'hidden';
+                    }
                 });
-
-                if (checked){
-                    window.frames["printf"].focus();
-                    window.frames["printf"].print();
-                    // alert('meme')
-                }
-                else{
-                }
-
-                // document.getElementById('printf').contentWindow.location.reload();
-               /*
-                if (checkbox.checked == true){
-                    
-                }
-                else{
-                }
-                
-                //NOTIFICATION
-                $("#popup").html('{{return_type}} Submitted');
-                        $("#popup").show()
-                        $("#popup").animate({
-                            right: '30px',
-                });
-                setTimeout(function() {
-                    $("#popup").fadeOut(500)
-                    setTimeout(function() {
-                        $("#popup").css('right','-200px')
-                        },500);
-                    }, 3000);
-                
-                */
                 document.getElementById("main_form").reset()
-
             });
-
         });
     </script>
 
@@ -206,11 +102,6 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
-        {% if return_type %}
-    <!--<form method="POST" id="main_form" action="/transmission/{{return_type}}"> -->
-        {%else%}
-    <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
-        {%endif%}
         <table class="toFrom">
                 <tr>
                     <td class="serial">To:</td>
@@ -356,10 +247,7 @@
             </table>
         </footer>
     </form>
-    <iframe src="/log/init" onload="onLoadHandler()" id="printf" name="printf" scrolling="yes" style="width:100%;"></iframe>
-    <div id="popup">MEMEMEMS</div>
-    <script type="text/javascript">
-    </script>
+    <iframe src="javascript:void(0);" id="printf" name="printf" scrolling="yes" style="width:100%; visibility: hidden;"></iframe>
 </body>
 
 </html>
