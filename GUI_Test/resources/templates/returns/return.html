@@ -76,6 +76,7 @@
                 $.extend(arr, {return_type:"{{return_type}}"});
                 $.extend(arr, {cs:"{{settings['callsign']}}"});
                 $.extend(arr, {duty:"{{settings['Duty']}}"});
+                $.extend(arr, {net:"{{settings['net']}}"});
                 $.extend(arr, {receiver:to});
                 $.extend(arr, {sender:from});
 
@@ -89,7 +90,20 @@
                         window.frames["printf"].print();
                         //document.getElementById('printf').style.visibility = 'hidden';
                     }
+                    
                 });
+                //NOTIFICATION
+                $("#popup").html('{{return_type}} Submitted');
+                    $("#popup").show()
+                    $("#popup").animate({
+                        right: '30px',
+                });
+                setTimeout(function() {
+                    $("#popup").fadeOut(500)
+                    setTimeout(function() {
+                        $("#popup").css('right','-200px')
+                    },500);
+                }, 3000);
                 document.getElementById("main_form").reset()
             });
         });
@@ -248,6 +262,7 @@
         </footer>
     </form>
     <iframe src="javascript:void(0);" id="printf" name="printf" scrolling="yes" style="width:100%; visibility: hidden;"></iframe>
+    <div id="popup">Notification</div>
 </body>
 
 </html>

@@ -25,7 +25,12 @@
             {% endfor %}
             <table class="printTable">
                 {% for name, val in ret.items() %}
-                    {% if name == 'sender' %}
+                    {% if name == 'net' %}
+                    <tr>
+                        <td>Net:</td>
+                        <td>{{val}}</td>
+                    </tr>
+                    {% elif name == 'sender' %}
                     <tr>
                         <td>From:</td>
                         <td>{{val}}</td>
@@ -64,7 +69,7 @@
             
             {% for name, rtrn in ret.items() %}
             <tr>
-                {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' and name!= 'logID' %}
+                {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' and name!= 'logID' and name != 'net' %}
                     <td class="textp">{{name}}: </td>
                     <td class="textp">
                     {% set rtrn = rtrn|string %}
