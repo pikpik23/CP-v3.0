@@ -61,11 +61,19 @@
             $('#record').click(function(){
                 var arr = {}
                 var table = $(".return_table")
-                table.find('.data').each(function (index, element){
+                var loop = table.find('.data').each(function test(index, element){
                     type = $(this).attr('type');
                     if (type != 'radio') {
                         var serial = $(this).attr('name');
                         var data = $(this).val();
+                        if (data == null || data == ""){
+                            var missing = confirm("You are missing a serial. Would you like to continue?");
+                            if (missing == true) {} 
+                            else {
+                                console.log("recording")
+                                return true;
+                            }
+                        }
                         arr[serial] = data;
                     }
                     else {
@@ -78,11 +86,22 @@
                         }
                     }
                 });
-
+                
+                if (loop == true) {
+                    return;
+                }
                 // alert();
 
                 var to = $('#inputTo').val();
                 var from = $('#inputFrom').val();
+                if (to == null || to == ""){
+                    alert("Please enter a value for the To field");
+                    return;
+                }
+                if (from == null || from == ""){
+                    alert("Please enter a value for the From field");
+                    return;
+                }
                 $.extend(arr, {return_type:"{{return_type}}"});
                 $.extend(arr, {cs:document.getElementById('callsign').textContent});
                 $.extend(arr, {duty:document.getElementById('duty_officer').textContent});
