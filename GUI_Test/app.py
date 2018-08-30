@@ -218,13 +218,31 @@ def display_edit_return_info():
 @APP.route('/edit_return/<action>', methods=['POST'])
 @APP.route('/update', methods=['POST'])
 def test_update(action):
+
+    outdic = dict()
+    for key, row in request.form.to_dict().items():
+        innerdic = dict()
+        print(key)
+        name, right = key.split('[')
+        id = right[:-1]
+        innerdic = {id: row}
+
+        if name in outdic.keys():
+            outdic[name].update({id:row})
+        else:
+            outdic.update({name:{id:row}})
+    SERIALS.update({action:outdic})
+
+            #print(key, row)
     # print(request.form)
 
     # dict = request.form.to_dict()
     # print(action)
 
+    '''
     return_type = request.form.to_dict()['return_type']
     return_serial = request.form.to_dict()['serial']
+
 
     if action == 'add':
 
@@ -264,21 +282,14 @@ def test_update(action):
         SERIALS[return_type].pop(return_serial)
         # print(tmpDic)
     # deleting things
-
-    if action == 'TEST':
-        print(request.form.to_dict())
+    '''
 
     # file.save_dic(SERIALS)
-    """
-    del dic[rtrn_type]
-     or
-    dic.pop(rtrn_type)
-    """
 
     #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
     # print(SERIALS[rtrn_type][rtrn_serial])
 
-    return "Recieved"
+    return ""
 
 
 @APP.route('/log/edit/<index>')

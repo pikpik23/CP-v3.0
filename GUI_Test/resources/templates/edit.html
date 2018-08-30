@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/styles/main.css">
 <script src="/js_files/2.1.4_jquery.js"></script>
 <script src="/js_files/jquery-3.1.1.js"></script>
-<script src="js_files/jquery-1.10.2.js"></script>
+<script src="/js_files/jquery-1.10.2.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function($)
@@ -188,13 +188,13 @@ $(document).ready(function($)
 					serial_array[col_name] = col_val;
 				});
 
-				alert(JSON.stringify(serial_array));
+				//alert(JSON.stringify(serial_array));
 				arr[serial_name] = serial_array;
 			});
 
-			alert(JSON.stringify(arr))
+			//alert(JSON.stringify(arr))
 
-			$.post("/edit_return/TEST", arr, function(data, status){
+			$.post("/edit_return/{{ return_type }}", arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
 
