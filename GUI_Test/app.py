@@ -152,7 +152,7 @@ def abstracted_return_return(rtrn_type):
 
     LOG.insert(0, (ret))
     File.save_log(ret)
-    #return ""
+    # return ""
     return abstracted_return(rtrn_type)
 
 

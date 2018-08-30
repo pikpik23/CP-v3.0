@@ -154,13 +154,24 @@
                 $.extend(arr, {duty:"{{settings['Duty']}}"});
                 $.extend(arr, {receiver:to});
                 $.extend(arr, {sender:from});
-                
+
+                var checked = document.getElementById("check").checked;
+
                 // alert(JSON.stringify(arr))
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
+                    success: document.getElementById("printf").innerHTML = data;
                 });
 
-                document.getElementById('printf').contentWindow.location.reload();
-                
+                if (checked){
+                    window.frames["printf"].focus();
+                    window.frames["printf"].print();
+                    // alert('meme')
+                }
+                else{
+                }
+
+                // document.getElementById('printf').contentWindow.location.reload();
+               /*
                 if (checkbox.checked == true){
                     
                 }
@@ -180,7 +191,7 @@
                         },500);
                     }, 3000);
                 
-                
+                */
                 document.getElementById("main_form").reset()
 
             });
@@ -348,17 +359,6 @@
     <iframe src="/log/init" onload="onLoadHandler()" id="printf" name="printf" scrolling="yes" style="width:100%;"></iframe>
     <div id="popup">MEMEMEMS</div>
     <script type="text/javascript">
-        function onLoadHandler() {
-            //PRINTING
-            var checkbox = document.getElementById("check")
-                if (checkbox.checked == true){
-                    window.frames["printf"].focus();
-                    window.frames["printf"].print();
-                    alert('meme')
-                }
-                else{
-                }
-        }
     </script>
 </body>
 
