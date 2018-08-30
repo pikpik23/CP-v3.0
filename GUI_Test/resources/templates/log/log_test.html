@@ -21,7 +21,8 @@
       window.frames["printf"].focus();
       window.frames["printf"].print();
     });
-    $('#logs tr').last().click();
+    $('.table_body tr').first().click();
+
     document.addEventListener("keydown", function(event) {
     if (event.keyCode === 38) {
         event.preventDefault();
@@ -53,13 +54,13 @@
         <table class="tableLog" id="logs">
           <thead>
           <tr class="head2">
-            <th class="tdTime">Time</td>
-            <th class="tdFrom">From</td>
-            <th class="tdTo">To</td>
-            <th class="tdType">Type</td>
+            <th class="tdTime">Time</th>
+            <th class="tdFrom">From</th>
+            <th class="tdTo">To</th>
+            <th class="tdType">Type</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="table_body">
           {% for entry in log %}
           <div class="entryRow">
             <tr class="rowOff" id="{{entry['logID']}}">
