@@ -134,6 +134,7 @@ def abstracted_return_return(rtrn_type):
     """ handles the return submission (POST) returns same page """
     # print(request.form)
     ret = {}
+    ret.update({'net': request.form['net']})
     ret.update({'name': rtrn_type})
     ret.update({'sender': request.form['sender']})
     ret.update({'receiver': request.form['receiver']})
