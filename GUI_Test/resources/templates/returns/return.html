@@ -157,17 +157,40 @@
                 
                 // alert(JSON.stringify(arr))
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
-                        $("#popup").html('{{return_type}} Submitted');
+                    success: (function(){
+                        alert("meme");
+                        //document.getElementById('printf').contents().find('html').html(data2)
+                        document.getElementById('printf').contentWindow.location.reload();
+                    });
+                });
+
+                
+
+                //PRINTING
+                var checkbox = document.getElementById("check")
+                if (checkbox.checked == true){
+                    window.frames["printf"].focus();
+                    window.frames["printf"].print();
+                }
+                else{
+                }
+                
+                //NOTIFICATION
+                $("#popup").html('{{return_type}} Submitted');
                         $("#popup").show()
                         $("#popup").animate({
-                            right: '40px',
-                        });
-                        setTimeout(function() {
-                            $("#popup").fadeOut(500)
-                            }, 3000);
-                        
-				});
+                            right: '30px',
+                });
+                setTimeout(function() {
+                    $("#popup").fadeOut(500)
+                    setTimeout(function() {
+                        $("#popup").css('right','-200px')
+                        },500);
+                    }, 3000);
+                
+                
                 document.getElementById("main_form").reset()
+
             });
         });
     </script>
@@ -329,7 +352,7 @@
             </table>
         </footer>
     </form>
-    <iframe src="/log/0" name="printf" scrolling="yes"  hidden="true" style="width:100%;"></iframe>
+    <iframe src="/log/init" id="printf" name="printf" scrolling="yes" style="width:100%;"></iframe>
     <div id="popup">MEMEMEMS</div>
 </body>
 
