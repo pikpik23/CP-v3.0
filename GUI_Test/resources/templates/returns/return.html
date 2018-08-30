@@ -71,14 +71,16 @@
                     }
                 });
 
-                var to = $('#inputTo').val()
-                var from = $('#inputFrom').val()
+                // alert();
+
+                var to = $('#inputTo').val();
+                var from = $('#inputFrom').val();
                 $.extend(arr, {return_type:"{{return_type}}"});
-                $.extend(arr, {cs:"{{settings['callsign']}}"});
-                $.extend(arr, {duty:"{{settings['Duty']}}"});
-                $.extend(arr, {net:"{{settings['net']}}"});
-                $.extend(arr, {receiver:to});
-                $.extend(arr, {sender:from});
+                $.extend(arr, {cs:document.getElementById('callsign').textContent});
+                $.extend(arr, {duty:document.getElementById('duty_officer').textContent});
+                $.extend(arr, {net:document.getElementById('net_name').textContent});
+                $.extend(arr, {receiver:document.getElementById('inputTo').textContent});
+                $.extend(arr, {sender:document.getElementById('inputFrom').textContent});
 
                 var checked = document.getElementById("check").checked;
 
