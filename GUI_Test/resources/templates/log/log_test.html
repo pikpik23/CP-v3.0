@@ -17,10 +17,12 @@
     $("#0").attr("class", "rowSelected");
     $('#logs').floatThead({
     });
+
     $("#print").click(function(){
       window.frames["printf"].focus();
       window.frames["printf"].print();
     });
+
     $('#logs tr').last().click();
     document.addEventListener("keydown", function(event) {
     if (event.keyCode === 38) {
