@@ -84,10 +84,10 @@
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
                     document.getElementById('printf').contentDocument.body.innerHTML = data;
                     if (checked){
-                        document.getElementById('printf').style.visibility = 'visible';
+                        //document.getElementById('printf').style.visibility = 'visible';
                         window.frames["printf"].focus();
                         window.frames["printf"].print();
-                        document.getElementById('printf').style.visibility = 'hidden';
+                        //document.getElementById('printf').style.visibility = 'hidden';
                     }
                 });
                 document.getElementById("main_form").reset()
