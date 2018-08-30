@@ -2,62 +2,59 @@
 <script src="/js_files/jquery-1.12.0.js"></script>
 <script type="text/javascript">  
   $(document).ready(function () {
-    function post(path, params, method) {
-                method = method || "POST"; // Set method to post by default if not specified.
 
-                // The rest of this code assumes you are not using a library.
-                // It can be made less wordy if you use one.
-                var form = document.createElement("form");
-                form.setAttribute("method", method);
-                form.setAttribute("action", path);
-
-                for (var key in params) {
-                    if (params.hasOwnProperty(key)) {
-                        var hiddenField = document.createElement("input");
-                        hiddenField.setAttribute("type", "hidden");
-                        hiddenField.setAttribute("name", key);
-                        hiddenField.setAttribute("value", params[key]);
-                        form.appendChild(hiddenField);
-
-                        var hiddenField2 = document.createElement("input");
-                        hiddenField2.setAttribute("type", "hidden");
-                        hiddenField2.setAttribute("name", "page");
-                        hiddenField2.setAttribute("value", window.location.pathname);
-                        form.appendChild(hiddenField2);
-
-                    }
+      $("#btnDuty").click(function () {
+                var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
+                if (duty == null || duty == "") {
                 }
+                else {
+                    $.post('/settings/Duty/', { name: duty }, function(data, status){
+                    $('#duty_officer').html(duty);
+                });
+                }
+            });
 
-                document.body.appendChild(form);
-                form.submit();
-    }
-    $("#btnDuty").click(function () {
-        var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-        if (duty == null || duty == "") {   
+
+     $("#btnCallsign").click(function () {
+                var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
+                if (cs == null || cs == "") {
+                }
+                else {
+                    $.post('/settings/callsign/', { name: cs }, function(data, status){
+                });
+                $('#callsign').html(cs);
+                }
+            });
+
+    $("#btnNet").click(function () {
+        var net = prompt("Enter your current Net", "{{settings['net']}}");
+        if (net == null || net == "") {
         }
         else {
-            post('/settings/Duty/', { name: duty });
-        }
-    });
-    $("#btnCallsign").click(function () {
-        var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-        if (cs == null || cs == "") {   
-        }
-        else {
-            post('/settings/callsign/', { name: cs });
+            $.post('/settings/net/', { name: net }, function(data, status){
+        });
+        $('#net_name').html(net);
         }
     });
   });
 </script>
 <table class='general'>
     <tr>
-            <td>Duty Officer</td>
-            <td>{{settings['Duty']}}</td>
-            <td><button id="btnDuty">Duty Officer</button></td>
-        </tr>
-        <tr>
-                <td>Callsign</td>
-                <td>{{settings['callsign']}}</td>
-                <td><button id="btnCallsign">This Callsign</button></td>
+        <td class="settings top left" align="right">
+            <button type="button" id="btnCallsign">This Callsign</button>
+        </td>
+        <td id="callsign" class="settings top right" align="right">{{settings['callsign']}}</td>
+    </tr>
+    <tr>
+        <td class="settings  left" align="right">
+            <button type="button" id="btnDuty">Duty Officer</button>
+        </td>
+        <td id="duty_officer" class="settings  right" align="right">{{settings['Duty']}}</td>
+    </tr>
+    <tr>
+        <td class="settings bottom left" align="right">
+                <button type="button" id="btnNet">This Net</button>
+        </td>
+        <td id="net_name" class="settings bottom right" align="right">{{settings['net']}}</td>
     </tr>
 </table>

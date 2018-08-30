@@ -33,9 +33,17 @@
                 if (cs == null || cs == "") {
                 }
                 else {
-                    $.post('/settings/callsign/', { name: cs }, function(data, status){
-                });
-                $('#callsign').html(cs);
+                    $.post('/settings/callsign/', { name: cs }, function(data, status){});
+
+                    $('#callsign').html(cs);
+                    
+                    for (i in document.getElementById("senderButton")){
+                        alert(i)
+                    }
+                    
+                    alert(document.getElementById("sender").textContent);
+                    document.getElementById("sender").textContent = cs;
+                    document.getElementById("reciever").textContent = cs;
                 }
             });
 
@@ -124,13 +132,13 @@
                     <td class="toFromStandard">
                         <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
                             <datalist id="callsigns">
-                                {% for callsigns in callsigns %}
-                                <option value="{{callsigns}}">{{callsigns}}</option>
+                                {% for callsign in callsigns %}
+                                <option value="{{callsign}}">{{callsign}}</option>
                                 {% endfor %}
                             </datalist>
                     </td>
                     <td class="toFromStandard">
-                        <button type="button" class="toButton">{{settings['callsign']}}</button>
+                        <button type="button" id='senderButton' class="toButton">{{settings['callsign']}}</button>
                     </td>
                     <td class="toFromStandard">
                         <button type="button" class="toButton">KGS</button>
@@ -145,7 +153,7 @@
                         <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
                     </td>
                     <td class="toFromStandard" colspan="2">
-                        <button type="button" class="fromButton">{{settings['callsign']}}</button>
+                        <button type="button" id="senderButton" class="fromButton">{{settings['callsign']}}</button>
                     </td>
                     <td></td>
                     
