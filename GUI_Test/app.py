@@ -9,7 +9,7 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect
 from file import File
 from flask_compress import Compress
-from flask_static_compress import FlaskStaticCompress
+# from flask_static_compress import FlaskStaticCompress
 
 
 APP = Flask(__name__, template_folder='resources/templates',
