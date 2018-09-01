@@ -59,9 +59,9 @@
             });
 
             $('#record').click(function(){
-                var arr = {}
-                var table = $(".return_table")
-                var loop = table.find('.data').each(function test(index, element){
+                var arr = {};
+                var table = $(".return_table");
+                var testLoop = table.find('.data').each(function test(index, element){
                     type = $(this).attr('type');
                     if (type != 'radio') {
                         var serial = $(this).attr('name');
@@ -70,7 +70,8 @@
                             var missing = confirm("You are missing a serial. Would you like to continue?");
                             if (missing == true) {} 
                             else {
-                                console.log("recording")
+                                console.log("recording");
+                                var hello = true
                                 return true;
                             }
                         }
@@ -85,9 +86,11 @@
                         else {
                         }
                     }
+                    return false;
                 });
+                alert(testLoop)
                 
-                if (loop == true) {
+                if (testLoop) {
                     return;
                 }
                 // alert();
@@ -114,10 +117,8 @@
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
                     document.getElementById('printf').contentDocument.body.innerHTML = data;
                     if (checked){
-                        //document.getElementById('printf').style.visibility = 'visible';
                         window.frames["printf"].focus();
                         window.frames["printf"].print();
-                        //document.getElementById('printf').style.visibility = 'hidden';
                     }
                     
                 });
