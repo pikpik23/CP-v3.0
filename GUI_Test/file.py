@@ -1,6 +1,33 @@
 from csv import reader, writer
 from collections import OrderedDict as OrdDic
 import sqlite3
+from jsmin import jsmin
+
+class MinifyFilesPre:
+    file_names = [
+        "2.1.4_jquery.js",
+        "autosave.js",
+        "egg.js",
+        "jquery.floatThead.min.js",
+        "jquery - 1.8.1.js",
+        "jquery - 1.12.0.js",
+        "jquery - 3.1.1.js",
+        "query_wid.js",
+    ]
+
+    def save(self):
+        """combines several js files together, with optional minification"""
+        with open("/resources/static/js_files/full_version.js", 'w') as w:
+            w . write(self.minified)
+
+    def js_merge(self):
+        """saves minified version to a single one"""
+        js = ""
+        for file_name in self.file_names:
+            file_name = "/resources/static/js_files" + file_name
+            js += open(file_name).read()
+
+        self.minified = jsmin(js)
 
 
 class DbManager:
@@ -62,8 +89,11 @@ class DbManager:
                 i = int(list(i)[0])
             return i
 
-
 class File:
+
+    @staticmethod
+    def pre_merge():
+        MinifyFilesPre().js_merge().save()
 
     @staticmethod
     def get_first():
@@ -255,12 +285,15 @@ class File:
 
 
 if __name__ == '__main__':
-    settings = File.read_settings()
-    File.save_settings(settings)
-    File.read_locations()
-    File.read_callsigns()
-    File.save_dic()
-    File.read_dic()
+
+    File.pre_merge()
+
+    # settings = File.read_settings()
+    # File.save_settings(settings)
+    # File.read_locations()
+    # File.read_callsigns()
+    # File.save_dic()
+    # File.read_dic()
 
     # x = file()
     # x.save()
