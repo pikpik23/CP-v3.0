@@ -18,11 +18,13 @@ class MinifyFilesPre:
 
     js = ""
 
+    @staticmethod
     def save():
         """combines several js files together, with optional minification"""
         with open("resources/static/js_files/full_version.js", 'w') as w:
             w.write(MinifyFilesPre.js)
 
+    @staticmethod
     def js_merge():
         """saves minified version to a single one"""
         js = ""
@@ -101,6 +103,7 @@ class File:
     def pre_merge():
         MinifyFilesPre.js_merge()
         MinifyFilesPre.save()
+        # print(" * Updated js min merged")
 
     @staticmethod
     def get_first():
@@ -162,6 +165,7 @@ class File:
                 dic.update({row[0]: inner_dic})
             else:
                 i += 1
+            # print(" * Read Dictionary")
         return dic
 
     @staticmethod
