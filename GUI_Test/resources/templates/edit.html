@@ -116,8 +116,9 @@ $(document).ready(function($)
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
-		var row_id = tbl_row.attr('row_id');
+		//var row_id = tbl_row.attr('row_id');
 		
+
 		//hide done and cacel buttons
 		tbl_row.find('.btn_done').hide();
 		tbl_row.find('.btn_cancel').hide();
@@ -129,7 +130,7 @@ $(document).ready(function($)
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.removeClass('edit')
-		
+
 		tbl_row.find('.row_data').each(function(index, val) 
 		{
 			var col_name = $(this).attr('col_name');  
@@ -139,10 +140,16 @@ $(document).ready(function($)
 					unsaved();
 				}
 				else {
+
 					alert('You must use one of the accepted data types (string, long, location, choice).')
 					tbl_row.find('.btn_cancel')
 					.click()
+					return;
 				}
+			}
+			if (col_name == 'serial') {
+				var row_id = $(this).html();
+				tbl_row.attr('row_id',row_id);
 			}
 		});
 	});
