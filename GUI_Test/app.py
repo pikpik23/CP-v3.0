@@ -9,13 +9,11 @@ from datetime import datetime
 from flask import Flask, render_template, request, redirect
 from file import File
 from flask_compress import Compress
-# from flask_static_compress import FlaskStaticCompress
 
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 Compress(APP)
-# compress = FlaskStaticCompress(APP)
 
 LEGACY_DIC = File.read_legacy()
 SERIALS = File.read_dic()
@@ -24,7 +22,7 @@ CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
 LOG = File.load_log()
 
-# File.pre_merge()
+File.generate_css_min()
 
 
 @APP.route('/')

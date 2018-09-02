@@ -3,6 +3,7 @@ from collections import OrderedDict as OrdDic
 import sqlite3
 from jsmin import jsmin
 from glob import glob
+from csscompressor import compress
 
 
 class MinifyFilesPre:
@@ -39,6 +40,17 @@ class MinifyFilesPre:
                 # file_name = "resources/static/js_files/" + file_name
                 js = jsmin(open(file_name).read())
                 open(file_name, 'w').write(js)
+
+    @staticmethod
+    def min_js_file(file_name):
+        js = jsmin(open(file_name).read())
+        open(file_name, 'w').write(js)
+
+    @staticmethod
+    def min_css_file(file_name):
+        css = compress(open(file_name).read())
+        open(file_name[:-4]+'.min.css', 'w').write(css)
+
 
     @staticmethod
     def get_js_files():
@@ -106,6 +118,10 @@ class DbManager:
             return i
 
 class File:
+
+    @staticmethod
+    def generate_css_min():
+        MinifyFilesPre.min_css_file('resources/static/styles/main.css')
 
     @staticmethod
     def pre_merge(merge=False):
@@ -307,7 +323,9 @@ class File:
 
 if __name__ == '__main__':
 
-    File.pre_merge()
+    pass
+
+    # File.pre_merge()
 
     # settings = File.read_settings()
     # File.save_settings(settings)
