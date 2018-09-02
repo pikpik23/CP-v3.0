@@ -228,9 +228,11 @@ def test_update(action):
     outdic = dict()
     for key, row in request.form.to_dict().items():
         innerdic = dict()
-        print(key)
+        # print(key)
         name, right = key.split('[')
         id = right[:-1]
+        if id == 'options':
+            row = row.split(', ')
         innerdic = {id: row}
 
         if name in outdic.keys():
