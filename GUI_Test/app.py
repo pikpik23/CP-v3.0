@@ -15,7 +15,7 @@ from flask_compress import Compress
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 Compress(APP)
-compress = FlaskStaticCompress(APP)
+# compress = FlaskStaticCompress(APP)
 
 LEGACY_DIC = File.read_legacy()
 SERIALS = File.read_dic()
