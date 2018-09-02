@@ -6,12 +6,9 @@ from jsmin import jsmin
 
 class MinifyFilesPre:
     file_names = [
-        "2.1.4_jquery.js",
         "autosave.js",
         "egg.js",
         "jquery.floatThead.min.js",
-        "jquery-1.8.1.js",
-        "jquery-1.12.0.js",
         "jquery-3.1.1.js",
         "query_wid.js",
     ]
