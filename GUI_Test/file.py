@@ -2,37 +2,60 @@ from csv import reader, writer
 from collections import OrderedDict as OrdDic
 import sqlite3
 from jsmin import jsmin
+from glob import glob
+from csscompressor import compress
 
 
 class MinifyFilesPre:
-    file_names = [
-        "autosave.js",
-        "egg.js",
-        "jquery.floatThead.min.js",
-        "jquery-3.1.1.js",
-        "query_wid.js",
-    ]
+    def __init__(self, merge=False):
+    
+        # print(glob("resources/static/js_files/*.js"))
+        file_names = glob("resources/static/js_files/*.js")
+        file_names.remove("resources/static/js_files/full_version.js")
+        # print(file_names)
+        self.file_names = file_names
+        self.merge = merge
+        self.js = ""
 
-    js = ""
-
-    @staticmethod
-    def save():
+    def save(self):
         """combines several js files together, with optional minification"""
         with open("resources/static/js_files/full_version.js", 'w') as w:
-            w.write(MinifyFilesPre.js)
+            w.write(self.js)
+
+    def js_merge(self):
+        """saves minified version to a single one"""
+        if self.merge:
+            js = ""
+            for file_name in self.file_names:
+                try:
+                    # file_name = "resources/static/js_files/" + file_name
+                    js += jsmin(open(file_name).read())
+                    # js += '\n'
+                except FileNotFoundError:
+                    print(f"The file {file_name} could not be found")
+                self.js = jsmin(js)
+
+        else:
+            for file_name in self.file_names:
+                # file_name = "resources/static/js_files/" + file_name
+                js = jsmin(open(file_name).read())
+                open(file_name, 'w').write(js)
 
     @staticmethod
-    def js_merge():
-        """saves minified version to a single one"""
-        js = ""
-        for file_name in MinifyFilesPre.file_names:
-            try:
+    def min_js_file(file_name):
+        js = jsmin(open(file_name).read())
+        open(file_name, 'w').write(js)
 
-                file_name = "resources/static/js_files/" + file_name
-                js += open(file_name).read()
-            except FileNotFoundError:
-                print("The file {file_name} could not be found".format(file_name=file_name))
-            MinifyFilesPre.js = jsmin(js)
+    @staticmethod
+    def min_css_file(file_name):
+        css = compress(open(file_name).read())
+        open(file_name[:-4]+'.min.css', 'w').write(css)
+
+
+    @staticmethod
+    def get_js_files():
+        file_names = glob("resources/static/js_files/*.js")
+        file_names.remove("resources/static/js_files/full_version.js")
 
 
 class DbManager:
@@ -97,10 +120,19 @@ class DbManager:
 class File:
 
     @staticmethod
-    def pre_merge():
-        MinifyFilesPre.js_merge()
-        MinifyFilesPre.save()
-        # print(" * Updated js min merged")
+    def generate_css_min():
+        MinifyFilesPre.min_css_file('resources/static/styles/main.css')
+
+    @staticmethod
+    def pre_merge(merge=False):
+
+        if merge:
+            tmp_file =  MinifyFilesPre()
+            tmp_file.js_merge()
+            tmp_file.save()
+            # print(" * Updated js min merged")
+        else:
+            MinifyFilesPre.get_js_files()
 
     @staticmethod
     def get_first():
@@ -291,7 +323,9 @@ class File:
 
 if __name__ == '__main__':
 
-    File.pre_merge()
+    pass
+
+    # File.pre_merge()
 
     # settings = File.read_settings()
     # File.save_settings(settings)
