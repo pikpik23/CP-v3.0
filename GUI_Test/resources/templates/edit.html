@@ -18,7 +18,18 @@ function saveAll() {
 	saved = true
 	$('.return-name').html('{{return_type}}');
 	$('#save_all').html("Save");
-	alert('saved');
+	//NOTIFICATION
+
+	$("#popup").show()
+	$("#popup").animate({
+		right: '30px',
+	});
+	setTimeout(function() {
+		$("#popup").fadeOut(500)
+		setTimeout(function() {
+			$("#popup").css('right','-200px')
+		},500);
+	}, 3000);
 };
 
 
@@ -141,6 +152,7 @@ $(document).ready(function($)
 	});
 
 	$('#save_all').click(function (){
+		if (saved == false) {
 			var table = $('.table_body');
 			var arr = {}
 			$('.table_body').find('tr').each(function(element,val) {
@@ -162,7 +174,7 @@ $(document).ready(function($)
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
 			saveAll();
-		
+		}
 	});
 
 
@@ -236,4 +248,5 @@ $(document).ready(function($)
 
 	</table>
 	<button class="add" id="add">Add Serial</button><button class="add" id="save_all">Save</button>
+	<div id="popup">Serials Saved</div>
 </div>
