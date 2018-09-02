@@ -2,40 +2,35 @@ from csv import reader, writer
 from collections import OrderedDict as OrdDic
 import sqlite3
 from jsmin import jsmin
+from glob import glob
 
 
 class MinifyFilesPre:
-    file_names = [
-        "2.1.4_jquery.js",
-        "autosave.js",
-        "egg.js",
-        "jquery.floatThead.min.js",
-        "jquery-1.8.1.js",
-        "jquery-1.12.0.js",
-        "jquery-3.1.1.js",
-        "query_wid.js",
-    ]
+    def __init__(self):
 
-    js = ""
+        # print(glob("resources/static/js_files/*.js"))
+        file_names = glob("resources/static/js_files/*.js")
+        file_names.remove("resources/static/js_files/full_version.js")
+        print(file_names)
+        self.file_names = file_names
 
-    @staticmethod
-    def save():
+        self.js = ""
+
+    def save(self):
         """combines several js files together, with optional minification"""
         with open("resources/static/js_files/full_version.js", 'w') as w:
-            w.write(MinifyFilesPre.js)
+            w.write(self.js)
 
-    @staticmethod
-    def js_merge():
+    def js_merge(self):
         """saves minified version to a single one"""
         js = ""
-        for file_name in MinifyFilesPre.file_names:
+        for file_name in self.file_names:
             try:
-
-                file_name = "resources/static/js_files/" + file_name
+                # file_name = "resources/static/js_files/" + file_name
                 js += open(file_name).read()
             except FileNotFoundError:
                 print("The file {file_name} could not be found".format(file_name=file_name))
-            MinifyFilesPre.js = jsmin(js)
+            self.js = jsmin(js)
 
 
 class DbManager:
@@ -101,8 +96,9 @@ class File:
 
     @staticmethod
     def pre_merge():
-        MinifyFilesPre.js_merge()
-        MinifyFilesPre.save()
+        tmp_file =  MinifyFilesPre()
+        tmp_file.js_merge()
+        tmp_file.save()
         # print(" * Updated js min merged")
 
     @staticmethod
