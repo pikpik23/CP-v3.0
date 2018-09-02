@@ -327,6 +327,6 @@ if __name__ == '__main__':
     # below is wip
     # File.pre_merge()
     try:
-        APP.run(host='0.0.0.0', port=8080)
+        APP.run(host='0.0.0.0', debug=True, port=8080)
     except PermissionError:
         APP.run(host='0.0.0.0')
