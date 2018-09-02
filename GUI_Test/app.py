@@ -240,6 +240,7 @@ def test_update(action):
         else:
             outdic.update({name:{id:row}})
     SERIALS.update({action:outdic})
+    File.save_dic(SERIALS)
 
             #print(key, row)
     # print(request.form)
