@@ -3,31 +3,37 @@ from collections import OrderedDict as OrdDic
 import sqlite3
 from jsmin import jsmin
 
+
 class MinifyFilesPre:
     file_names = [
         "2.1.4_jquery.js",
         "autosave.js",
         "egg.js",
         "jquery.floatThead.min.js",
-        "jquery - 1.8.1.js",
-        "jquery - 1.12.0.js",
-        "jquery - 3.1.1.js",
+        "jquery-1.8.1.js",
+        "jquery-1.12.0.js",
+        "jquery-3.1.1.js",
         "query_wid.js",
     ]
 
-    def save(self):
-        """combines several js files together, with optional minification"""
-        with open("/resources/static/js_files/full_version.js", 'w') as w:
-            w . write(self.minified)
+    js = ""
 
-    def js_merge(self):
+    def save():
+        """combines several js files together, with optional minification"""
+        with open("resources/static/js_files/full_version.js", 'w') as w:
+            w.write(MinifyFilesPre.js)
+
+    def js_merge():
         """saves minified version to a single one"""
         js = ""
-        for file_name in self.file_names:
-            file_name = "/resources/static/js_files" + file_name
-            js += open(file_name).read()
+        for file_name in MinifyFilesPre.file_names:
+            try:
 
-        self.minified = jsmin(js)
+                file_name = "resources/static/js_files/" + file_name
+                js += open(file_name).read()
+            except FileNotFoundError:
+                print("The file {file_name} could not be found".format(file_name=file_name))
+            MinifyFilesPre.js = jsmin(js)
 
 
 class DbManager:
@@ -93,18 +99,16 @@ class File:
 
     @staticmethod
     def pre_merge():
-        MinifyFilesPre().js_merge().save()
+        MinifyFilesPre.js_merge()
+        MinifyFilesPre.save()
 
     @staticmethod
     def get_first():
         return DbManager.get_first_index()
 
     @staticmethod
-    def save_dic(dic=None):
+    def save_dic(dic):
         """ Saves the given dictionary of serials to a file """
-
-        if not dic:
-            dic = dict()
         # print("start saving")
         w = writer(open("resources/files/serials.csv", "w"))
         w.writerow(['Return Name', 'Serials'])
