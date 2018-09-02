@@ -7,7 +7,7 @@ from glob import glob
 
 class MinifyFilesPre:
     def __init__(self):
-
+    
         # print(glob("resources/static/js_files/*.js"))
         file_names = glob("resources/static/js_files/*.js")
         file_names.remove("resources/static/js_files/full_version.js")
