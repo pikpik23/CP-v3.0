@@ -173,7 +173,16 @@ $(document).ready(function($)
 		}
 	});
 	$('#cancel_all').click(function (){
-		
+		$.ajax({
+			url: "/edit_return/{{return_type}}",
+			type: "get",
+			success: function(response) {
+			$("#serial-list").html(response);
+			},
+			error: function(xhr) {
+			//Do Something to handle error
+			}
+		});
 	});
 
 	$(document).on('click', '.up', function(event) 
