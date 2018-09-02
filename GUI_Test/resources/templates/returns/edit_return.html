@@ -1,7 +1,11 @@
 {% extends '/includes/layout.html' %} {% block body %}
 <script src="js_files/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+	var saved = true;
+</script>
 <script type="text/javascript">  
     $(document).ready(function ($) {
+		
         $("#back").click(function (){
             window.location.href = '/settings';
         });
@@ -22,16 +26,25 @@
         {% for return_type in serials_def %}
         $("#{{return_type}}").click(function () {
             //$("#serials").attr("src", "edit_return/{{return_type}}");
-            $.ajax({
-            url: "/edit_return/{{return_type}}",
-            type: "get",
-            success: function(response) {
-                $("#serial-list").html(response);
-            },
-            error: function(xhr) {
-            //Do Something to handle error
-            }
-            });
+			if (saved == true) {
+				$.ajax({
+					url: "/edit_return/{{return_type}}",
+					type: "get",
+					success: function(response) {
+					$("#serial-list").html(response);
+					},
+					error: function(xhr) {
+					//Do Something to handle error
+					}
+            	});
+			}
+			else if (saved == false) {
+				alert('unsaved changes')
+			}
+			else {
+				alert('it didnt work')
+			}
+
         });
         {% endfor %}
 

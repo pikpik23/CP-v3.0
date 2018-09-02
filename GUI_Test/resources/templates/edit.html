@@ -2,19 +2,18 @@
 <link rel="stylesheet" href="/styles/main.css">
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-var saved = true
+//var saved = true
 function unsaved () {
 	if (saved == true) {
 		saved = false
 		$('.return-name').append('<span class="unsaved">&#9679;</span>');
-		$('#save_all').append('<span class="unsaved">&#9679;</span>');
+		
 	}
-};
+	};
 
 function saveAll() {
 	saved = true
 	$('.return-name').html('{{return_type}}');
-	$('#save_all').html("Save");
 	//NOTIFICATION
 
 	$("#popup").show()
@@ -173,7 +172,9 @@ $(document).ready(function($)
 			saveAll();
 		}
 	});
-
+	$('#cancel_all').click(function (){
+		
+	});
 
 	$(document).on('click', '.up', function(event) 
 	{
@@ -244,6 +245,6 @@ $(document).ready(function($)
 		</tbody>
 
 	</table>
-	<button class="add" id="add">Add Serial</button><button class="add" id="save_all">Save</button>
+	<button class="add" id="add">Add Serial</button><button class="add" id="save_all">Save</button><button class="add" id="cancel_all">Cancel</button>
 	<div id="popup">Serials Saved</div>
 </div>
