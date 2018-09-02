@@ -160,11 +160,15 @@ a.kgs {
     right: 6px;
     margin-left: 200px;
     margin-top: 56px;
-    padding:5px;
     border: 1px solid rgb(145, 145, 145);
-    /*margin-bottom:100px;  only use when ther is footer*/
     
+    /*margin-bottom:100px;  only use when ther is footer*/
 }
+
+.inner_return {
+    padding:5px;
+}
+
 
 /* ------------------- Abstracted Return -------------------*/
 
@@ -250,7 +254,7 @@ input {
 }
 
 #transmission {
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .banner a {
@@ -827,7 +831,7 @@ br {
     border-collapse: collapse;
     position: absolute;
     right:6px;
-    top:50px;;
+    top:44px;
 
 }
 .transmission_settings td {
@@ -839,7 +843,7 @@ br {
     color: white;
     position: absolute;
     right:-200px;
-    top:15px;
+    top:10px;
     width:400px;
     text-align:right;
     font-size: 12pt;
