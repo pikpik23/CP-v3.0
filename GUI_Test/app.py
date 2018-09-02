@@ -24,7 +24,7 @@ CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
 LOG = File.load_log()
 
-File.pre_merge()
+# File.pre_merge()
 
 
 @APP.route('/')

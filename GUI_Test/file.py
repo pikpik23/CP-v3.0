@@ -6,14 +6,14 @@ from glob import glob
 
 
 class MinifyFilesPre:
-    def __init__(self):
+    def __init__(self, merge=False):
     
         # print(glob("resources/static/js_files/*.js"))
         file_names = glob("resources/static/js_files/*.js")
         file_names.remove("resources/static/js_files/full_version.js")
-        print(file_names)
+        # print(file_names)
         self.file_names = file_names
-
+        self.merge = merge
         self.js = ""
 
     def save(self):
@@ -23,14 +23,27 @@ class MinifyFilesPre:
 
     def js_merge(self):
         """saves minified version to a single one"""
-        js = ""
-        for file_name in self.file_names:
-            try:
+        if self.merge:
+            js = ""
+            for file_name in self.file_names:
+                try:
+                    # file_name = "resources/static/js_files/" + file_name
+                    js += jsmin(open(file_name).read())
+                    # js += '\n'
+                except FileNotFoundError:
+                    print(f"The file {file_name} could not be found")
+                self.js = jsmin(js)
+
+        else:
+            for file_name in self.file_names:
                 # file_name = "resources/static/js_files/" + file_name
-                js += open(file_name).read()
-            except FileNotFoundError:
-                print("The file {file_name} could not be found".format(file_name=file_name))
-            self.js = jsmin(js)
+                js = jsmin(open(file_name).read())
+                open(file_name, 'w').write(js)
+
+    @staticmethod
+    def get_js_files():
+        file_names = glob("resources/static/js_files/*.js")
+        file_names.remove("resources/static/js_files/full_version.js")
 
 
 class DbManager:
@@ -95,11 +108,15 @@ class DbManager:
 class File:
 
     @staticmethod
-    def pre_merge():
-        tmp_file =  MinifyFilesPre()
-        tmp_file.js_merge()
-        tmp_file.save()
-        # print(" * Updated js min merged")
+    def pre_merge(merge=False):
+
+        if merge:
+            tmp_file =  MinifyFilesPre()
+            tmp_file.js_merge()
+            tmp_file.save()
+            # print(" * Updated js min merged")
+        else:
+            MinifyFilesPre.get_js_files()
 
     @staticmethod
     def get_first():
