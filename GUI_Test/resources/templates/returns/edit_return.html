@@ -53,46 +53,45 @@
         
         $(document).on('click', '.btnEdit', function(event) 
 	    {
-		event.preventDefault();
-		var tbl_row = $(this).closest('tr');
-		var row_id = tbl_row.attr('row_id');
+			event.preventDefault();
+			var tbl_row = $(this).closest('tr');
+			var row_id = tbl_row.attr('row_id');
 
-		tbl_row.find('.btnSave').show();
-		tbl_row.find('.btnCancel').show();
+			tbl_row.find('.btnSave').show();
+			tbl_row.find('.btnCancel').show();
 
-		//hide edit button
-		tbl_row.find('.btnEdit').hide(); 
+			//hide edit button
+			tbl_row.find('.btnEdit').hide(); 
 
-		//make the whole row editable
-		tbl_row.find('.row_data')
-		.attr('contenteditable', 'true')
-		.attr('edit_type', 'button')
-		.addClass('edit')
+			//make the whole row editable
+			tbl_row.find('.row_data')
+			.attr('contenteditable', 'true')
+			.attr('edit_type', 'button')
+			.addClass('edit')
 
-		//--->add the original entry > start
-		tbl_row.find('.row_data').each(function(index, val) 
-		{  
-			//this will help in case user decided to click on cancel button
-			$(this).attr('original_entry', $(this).html());
-		}); 		
-		//--->add the original entry > end
+			//--->add the original entry > start
+			tbl_row.find('.row_data').each(function(index, val) 
+			{  
+				//this will help in case user decided to click on cancel button
+				$(this).attr('original_entry', $(this).html());
+			}); 		
 
 	});
 	//--->button > edit > end
 
 	$(document).on('click', '.btnRemove', function(event) 
 	{
-		$(this).closest('tr').remove()
+		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.')
+		if (check == true) {
+			$(this).closest('tr').remove()
+		}
+		
 	});
 
 	$("#add_return").click(function (){
-		//var data = $(".table_serials tr:eq(1)").clone();
-		//data.find('div').innerHTML('');
-		//$(this).prev().find($('table tbody')).append(data);
-		$(".table_serials tr:last").after('<tr row_id=""> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span></td><span class="btnRemove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></tr>');
+		$(".table_serials tr:last").after('<tr> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
 		$(".table_serials tr:last").find($(".btnEdit")).click();
 
-		//$(this).prev().find($('.btnEdit')).click();
 	});
 
 
@@ -139,17 +138,35 @@
 
 		//show edit button
 		tbl_row.find('.btnEdit').show();
-
-		//make the whole row editable
+		
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.css('padding','') 
-        .removeClass('edit')
+        .removeClass('edit')	
+	
+		var row_id = tbl_row.find('.row_data').html();
+		tbl_row.attr("row_id",row_id);
 
+		tbl_row.find('.btnSerials')
+		.attr('id',row_id)
+		
+		var ret_arr = []
 
+		$('.return_body').find('tr').each(function(element,val) {
+			var ret_type = $(this).attr('row_id');
+			ret_arr.push(ret_type);
 			
 		});
+
+		$.post("/edit_return/return_update", ret_arr, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			});
+		
+
+		});
 	});
+
+
 </script>
 <div class="mainSetting">
     <div class="return-list">
@@ -166,19 +183,22 @@
                     <th class="return_column">Return Name</th>
                     <th>Options</th>
                 </tr>
-                {% for return_type in serials_def %}
-                <tr>
+				
+				<tbody class="return_body">
+				{% for return_type in serials_def %}
+                <tr row_id="{{return_type}}">
                     <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
-                <td>
+                	<td>
                     <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
                     <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
                     <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
-                    <span id="{{return_type}}"> <a href="#" class="btn_action" > Edit Serials</a> </span>
+                    <span id="{{return_type}}" class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span>
                     <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
                     
                 </td>
                 </tr>
-                {% endfor %}
+				{% endfor %}
+				</tbody>
             </table>
             <button class="add" id="add_return">Add Return</button>
         </div>
