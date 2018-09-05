@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask CP</title>
     <link rel="stylesheet" href="/styles/main.min.css">
-    <script src="js_files/jquery-3.1.1.js"></script>
+    <script src="/js_files/jquery-3.1.1.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
 
@@ -41,7 +41,7 @@
                         alert(i)
                     }
                     
-                    alert(document.getElementById("sender").textContent);
+                    // alert(document.getElementById("sender").textContent);
                     document.getElementById("sender").textContent = cs;
                     document.getElementById("reciever").textContent = cs;
                 }
@@ -59,6 +59,7 @@
             });
 
             $('#record').click(function(){
+                console.log("record")
                 var arr = {};
                 var table = $(".return_table");
                 var testLoop = table.find('.data').each(function test(index, element){
@@ -70,8 +71,6 @@
                             var missing = confirm("You are missing a serial. Would you like to continue?");
                             if (missing == true) {} 
                             else {
-                                console.log("recording");
-                                var hello = true
                                 return true;
                             }
                         }

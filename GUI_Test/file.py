@@ -121,6 +121,8 @@ class DbManager:
             x = c.execute(sqlStr)
             for i in x:
                 i = int(list(i)[0])
+            if not i:
+                i = None
             return i
 
 class File:

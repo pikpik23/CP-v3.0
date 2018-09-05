@@ -50,25 +50,6 @@ def abstracted_return(rtrn_type):
                                settings=SETTINGS,
                                callsigns=CALLSIGNS)
 
-
-''' @APP.route('/transmission/<rtrn_type>')
-def abstracted_return(rtrn_type):
-    """ Renders the internal return form """
-    if rtrn_type == 'MESSAGE':
-        return render_template('MESSAGE.html',
-                               serials_def=SERIALS,
-                               locs=LOCATIONS,
-                               settings=SETTINGS,
-                               callsigns=CALLSIGNS)
-    else:
-        return render_template('inner_return.html',
-                               return_type=rtrn_type,
-                               serials_def=SERIALS,
-                               locs=LOCATIONS,
-                               settings=SETTINGS,
-                               callsigns=CALLSIGNS) '''
-
-
 @APP.route('/notes')
 def display_notes():
     """ Renders the notes page """
@@ -193,7 +174,7 @@ def test_log(log_id):
                                ret=File.load_log(log_id=log_id)[0])
 
     except IndexError:
-        return "<h1>ERROR</h1><p>Trent probably screwed up</p>"
+        return "<h1>ERROR</h1><p>There are not logs</p>"
 
 
 @APP.route('/edit_return')
