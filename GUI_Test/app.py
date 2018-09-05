@@ -212,7 +212,8 @@ def test_update(action):
             print(x['add'])
 
         elif 'rem' in x:
-            print(x['rem'])
+            SERIALS.pop(x['rem'])
+            File.save_dic(SERIALS)
 
         else:
             print(x)
@@ -233,6 +234,9 @@ def test_update(action):
                 outdic.update({name:{id:row}})
         SERIALS.update({action:outdic})
         File.save_dic(SERIALS)
+
+        global LEGACY_DIC
+        LEGACY_DIC = File.read_legacy()
 
     return ""
 
