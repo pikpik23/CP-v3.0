@@ -225,78 +225,30 @@ def display_edit_return_info():
 @APP.route('/update', methods=['POST'])
 def test_update(action):
 
-    outdic = dict()
-    for key, row in request.form.to_dict().items():
-        innerdic = dict()
-        # print(key)
-        name, right = key.split('[')
-        id = right[:-1]
-        if id == 'options':
-            row = row.split(', ')
-        innerdic = {id: row}
+    if action == "return_update":
+        pass
 
-        if name in outdic.keys():
-            outdic[name].update({id:row})
-        else:
-            outdic.update({name:{id:row}})
-    SERIALS.update({action:outdic})
-    File.save_dic(SERIALS)
+    else:
+        outdic = dict()
+        for key, row in request.form.to_dict().items():
+            # innerdic = dict()
+            # print(key)
+            name, right = key.split('[')
+            id = right[:-1]
+            if id == 'options':
+                # print(row)
+                row = row.split(', ')
+                # print(row)
+            # innerdic = {id: row}
 
-            #print(key, row)
-    # print(request.form)
+            if name in outdic.keys():
+                outdic[name].update({id:row})
+            else:
+                outdic.update({name:{id:row}})
+        SERIALS.update({action:outdic})
+        File.save_dic(SERIALS)
 
-    # dict = request.form.to_dict()
-    # print(action)
-
-    '''
-    return_type = request.form.to_dict()['return_type']
-    return_serial = request.form.to_dict()['serial']
-
-
-    if action == 'add':
-
-        # print(SERIALS[rtrn_type][rtrn_serial])
-        # print(tmpDic)
-
-        inner_dic = {}
-        for name, val in request.form.to_dict().items():
-            inner_dic.update({name: val})
-
-        SERIALS[return_type].update({return_serial: {}})
-        LEGACY_DIC.update({return_type: {}})
-
-        SERIALS[return_type][return_serial].update({name: val})
-
-        SERIALS[return_type][return_serial].update({
-            'desc': request.form.to_dict()['desc']
-        })
-
-        SERIALS[return_type][return_serial].update({
-            "data_type": request.form.to_dict()['data_type']
-        })
-
-        if request.form.to_dict()['data_type'] == 'choice':
-            x = request.form.to_dict()['options']
-            x = x.replace('<span style="font-size: 11pt;">', '')
-            x = x.replace('</span>', '')
-            x = x.split(', ')
-            SERIALS[return_type][return_serial].update({
-                "options": x
-            })
-
-        LEGACY_DIC[return_type].update({'desc': request.form.to_dict()['desc']})
-
-    elif action == 'remove':
-        LEGACY_DIC[return_type].pop(return_serial)
-        SERIALS[return_type].pop(return_serial)
-        # print(tmpDic)
-    # deleting things
-    '''
-
-    # file.save_dic(SERIALS)
-
-    #  print(LEGACY_DIC[rtrn_type][rtrn_serial])
-    # print(SERIALS[rtrn_type][rtrn_serial])
+    # print(outdic)
 
     return ""
 

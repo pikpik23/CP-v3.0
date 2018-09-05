@@ -19,7 +19,7 @@ class MinifyFilesPre:
 
     def save(self):
         """combines several js files together, with optional minification"""
-        with open("resources/static/js_files/full_version.js", 'w') as w:
+        with open("resources/static/js_files/full_version.js", 'w', newline="\n") as w:
             w.write(self.js)
 
     def js_merge(self):
@@ -29,7 +29,7 @@ class MinifyFilesPre:
             for file_name in self.file_names:
                 try:
                     # file_name = "resources/static/js_files/" + file_name
-                    js += jsmin(open(file_name).read())
+                    js += jsmin(open(file_name, newline="\n").read())
                     # js += '\n'
                 except FileNotFoundError:
                     print(f"The file {file_name} could not be found")
@@ -38,18 +38,18 @@ class MinifyFilesPre:
         else:
             for file_name in self.file_names:
                 # file_name = "resources/static/js_files/" + file_name
-                js = jsmin(open(file_name).read())
-                open(file_name, 'w').write(js)
+                js = jsmin(open(file_name, newline="\n").read())
+                open(file_name, 'w', newline="\n").write(js)
 
     @staticmethod
     def min_js_file(file_name):
-        js = jsmin(open(file_name).read())
-        open(file_name, 'w').write(js)
+        js = jsmin(open(file_name, newline="\n").read())
+        open(file_name, 'w', newline="\n").write(js)
 
     @staticmethod
     def min_css_file(file_name):
-        css = compress(open(file_name).read())
-        open(file_name[:-4]+'.min.css', 'w').write(css)
+        css = compress(open(file_name, newline="\n").read())
+        open(file_name[:-4]+'.min.css', 'w', newline="\n").write(css)
 
 
     @staticmethod
@@ -142,7 +142,7 @@ class File:
     def save_dic(dic):
         """ Saves the given dictionary of serials to a file """
         # print("start saving")
-        w = writer(open("resources/files/serials.csv", "w"))
+        w = writer(open("resources/files/serials.csv", "w", newline="\n"))
         w.writerow(['Return Name', 'Serials'])
         for name, serials in dic.items():
             lst = []
@@ -173,7 +173,7 @@ class File:
         """ reads the dictionary of serials """
         # should return the original format
         dic = OrdDic()
-        r = reader(open("resources/files/serials.csv", "r"))
+        r = reader(open("resources/files/serials.csv", "r", newline="\n"))
         i = 0
         for row in r:
             if i:
@@ -212,26 +212,26 @@ class File:
     @staticmethod
     def read_locations():
         """ reads the file containing the locations """
-        r = open("resources/files/locations.txt", "r")
+        r = open("resources/files/locations.txt", "r", newline="\n")
         locations = r.read().split("\n")
         return locations
 
     @staticmethod
     def save_Locations(lst):
-        w = open("resources/files/locations.txt", "w")
+        w = open("resources/files/locations.txt", "w", newline="\n")
         w.write(lst)
 
     @staticmethod
     def read_callsigns():
         """ reads the file containing the callsigns """
-        r = open("resources/files/callsigns.txt", "r")
+        r = open("resources/files/callsigns.txt", "r", newline="\n")
         callsigns = r.read().split("\n")
         return callsigns
 
     @staticmethod
     def read_settings():
         """ reads the settings from file """
-        r = open("resources/files/settings.txt", "r")
+        r = open("resources/files/settings.txt", "r", newline="\n")
         settings = OrdDic()
         for option in r.read().split('\n'):
             try:
@@ -244,7 +244,7 @@ class File:
     @staticmethod
     def save_settings(dic):
         """ saves the given settings (dictionary) to file """
-        w = open("resources/files/settings.txt", "w")
+        w = open("resources/files/settings.txt", "w", newline="\n")
         for sett, val in dic.items():
             w.write(sett + '\\' + val + '\n')
 
