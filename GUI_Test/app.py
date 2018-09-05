@@ -226,20 +226,17 @@ def display_edit_return_info():
 def test_update(action):
 
     if action == "return_update":
-        pass
+        print(request.form.to_dict())
 
     else:
         outdic = dict()
         for key, row in request.form.to_dict().items():
-            # innerdic = dict()
-            # print(key)
+
             name, right = key.split('[')
             id = right[:-1]
             if id == 'options':
                 # print(row)
                 row = row.split(', ')
-                # print(row)
-            # innerdic = {id: row}
 
             if name in outdic.keys():
                 outdic[name].update({id:row})
@@ -247,8 +244,6 @@ def test_update(action):
                 outdic.update({name:{id:row}})
         SERIALS.update({action:outdic})
         File.save_dic(SERIALS)
-
-    # print(outdic)
 
     return ""
 

@@ -154,10 +154,11 @@
 
 		$('.return_body').find('tr').each(function(element,val) {
 			var ret_type = $(this).attr('row_id');
+			// alert(ret_type);
 			ret_arr.push(ret_type);
 			
 		});
-
+        alert(ret_arr)
 		$.post("/edit_return/return_update", ret_arr, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
