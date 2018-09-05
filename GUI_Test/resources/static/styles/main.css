@@ -559,11 +559,11 @@ br {
     border: 1px solid rgb(145, 145, 145);
 }
 
-.table_serials {
+#table_serials {
     width:100%;
 }
 
-.table_serials th{
+#table_serials th{
     font-weight: bold;
     background-color: #67747c;
     color: white;
@@ -571,13 +571,13 @@ br {
     text-align: left;
 }
 
-.table_serials, .table_serials td {
+#table_serials, #table_serials td {
     border-collapse: collapse;
     padding:10px 6px;
     border: 1px solid #ddd;
 }
 
-.table_serials tr:nth-child(even) {
+#table_serials tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 

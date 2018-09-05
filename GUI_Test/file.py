@@ -59,7 +59,7 @@ class MinifyFilesPre:
 
 
 class DbManager:
-    FILE_NAME = 'LOG_Temp.db'
+    FILE_NAME = 'resources/static/LOG_Temp.db'
     TABLE_NAME = 'LOG_RETURNS'
 
     @staticmethod

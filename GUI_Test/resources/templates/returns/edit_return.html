@@ -89,8 +89,8 @@
 	});
 
 	$("#add_return").click(function (){
-		$(".table_serials tr:last").after('<tr> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
-		$(".table_serials tr:last").find($(".btnEdit")).click();
+		$(".table_serials_outer tr:last").after('<tr> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
+		$(".table_serials_outer tr:last").find($(".btnEdit")).click();
 
 	});
 
@@ -114,7 +114,7 @@
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('edit_type', 'click')
-		.removeClass('edit')
+		.removeClass('edit');
 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{   
@@ -178,7 +178,7 @@
                 <button id="back" class="edit_buttons">Back to Settings</button>
                 <button class="edit_buttons" id="instructions">Instructions</button>
             </div>
-            <table class="table_serials" id="edit_return">
+            <table id="table_serials" class="table_serials_outer" id="edit_return">
                 <tr>
                     <th class="return_column">Return Name</th>
                     <th>Options</th>
