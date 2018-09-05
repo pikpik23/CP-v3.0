@@ -207,7 +207,15 @@ def display_edit_return_info():
 def test_update(action):
 
     if action == "return_update":
-        print(request.form.to_dict())
+        x = request.form.to_dict()
+        if 'add' in x:
+            print(x['add'])
+
+        elif 'rem' in x:
+            print(x['rem'])
+
+        else:
+            print(x)
 
     else:
         outdic = dict()

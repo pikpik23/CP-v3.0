@@ -5,7 +5,7 @@
 //var saved = true
 function unsaved () {
 	if (saved == true) {
-		saved = false
+		saved = false;
 		$('.return-name').append('<span class="unsaved">&#9679;</span>');
 		
 	}
@@ -16,12 +16,12 @@ function saveAll() {
 	$('.return-name').html('{{return_type}}');
 	//NOTIFICATION
 
-	$("#popup").show()
+	$("#popup").show();
 	$("#popup").animate({
 		right: '30px',
 	});
 	setTimeout(function() {
-		$("#popup").fadeOut(500)
+		$("#popup").fadeOut(500);
 		setTimeout(function() {
 			$("#popup").css('right','-200px')
 		},500);
@@ -52,7 +52,7 @@ $(document).ready(function($)
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'true')
 		.attr('edit_type', 'button')
-		.addClass('edit')
+		.addClass('edit');
 
 		//--->add the original entry > start
 		tbl_row.find('.row_data').each(function(index, val) 
@@ -68,7 +68,7 @@ $(document).ready(function($)
 	$(document).on('click', '.btn_remove', function(event) 
 	{
 		event.preventDefault();
-		$(this).closest('tr').remove()
+		$(this).closest('tr').remove();
 		unsaved()
 	});
 
@@ -100,7 +100,7 @@ $(document).ready(function($)
 		//make the whole row editable
 		tbl_row.find('.row_data')
 		.attr('edit_type', 'click')
-		.removeClass('edit')
+		.removeClass('edit');
 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{   
@@ -128,7 +128,7 @@ $(document).ready(function($)
 		//turn off editing
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
-		.removeClass('edit')
+		.removeClass('edit');
 
 		tbl_row.find('.row_data').each(function(index, val) 
 		{
@@ -142,7 +142,7 @@ $(document).ready(function($)
 
 					alert('You must use one of the accepted data types (string, long, location, choice).')
 					tbl_row.find('.btn_cancel')
-					.click()
+					.click();
 					return;
 				}
 			}
@@ -158,8 +158,8 @@ $(document).ready(function($)
 			var table = $('.table_body');
 			var arr = {}
 			$('.table_body').find('tr').each(function(element,val) {
-				var serial_name = $(this).attr('row_id')
-				var  serial_array= {}
+				var serial_name = $(this).attr('row_id');
+				var  serial_array= {};
 				$(this).find('.row_data').each(function(index, val) {   
 					var col_name = $(this).attr('col_name');  
 					var col_val  =  $(this).html();

@@ -345,20 +345,3 @@ if __name__ == '__main__':
     # x = file()
     # x.save()
 
-'''
-INPUT TYPES
-
-short text
-location (contain a list of possible location)
-long text
-radio_button (list of possible options)
-
-'''
-
-"""
-class admin_return:
-
-    def init(self):
-        self.serials_def = file.read()
-
-"""

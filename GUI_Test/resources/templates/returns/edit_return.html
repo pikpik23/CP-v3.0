@@ -67,7 +67,7 @@
 			tbl_row.find('.row_data')
 			.attr('contenteditable', 'true')
 			.attr('edit_type', 'button')
-			.addClass('edit')
+			.addClass('edit');
 
 			//--->add the original entry > start
 			tbl_row.find('.row_data').each(function(index, val) 
@@ -83,8 +83,15 @@
 	{
 		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.')
 		if (check == true) {
-			$(this).closest('tr').remove()
-		}
+			$(this).closest('tr').remove();
+
+            var meme2 = $(event.target).parent().parent().parent().find(".row_data").html();
+            var ret = {rem: meme2};
+
+            $.post("/edit_return/return_update", ret, function(data, status){
+                //alert("Data: " + data + "\nStatus: " + status);
+                });
+		};
 		
 	});
 
@@ -124,7 +131,7 @@
 	//--->button > cancel > end
 
 	
-	//--->save whole row entery > start	
+	//--->save whole row entry > start
 	$(document).on('click', '.btnSave', function(event) 
 	{
 		event.preventDefault();
@@ -142,25 +149,33 @@
 		tbl_row.find('.row_data')
 		.attr('contenteditable', 'false')
 		.css('padding','') 
-        .removeClass('edit')	
+        .removeClass('edit');
 	
 		var row_id = tbl_row.find('.row_data').html();
 		tbl_row.attr("row_id",row_id);
 
 		tbl_row.find('.btnSerials')
 		.attr('id',row_id)
-		.attr('row_id',row_id)
+		.attr('row_id',row_id);
 		
-		var ret_arr = []
+		var ret_arr = [];
 
+		// var meme = $(event.target).closest('.row_data').text();
+        // alert(meme);
+
+        var meme2 = $(event.target).parent().parent().parent().find(".row_data").html();
+        var ret = {add: meme2};
+		/*
 		$('.return_body').find('tr').each(function(element,val) {
 			var ret_type = $(this).attr('row_id');
 			// alert(ret_type);
 			ret_arr.push(ret_type);
+			alert(ret_type);
 			
-		});
-        alert(ret_arr)
-		$.post("/edit_return/return_update", ret_arr, function(data, status){
+		}); */
+
+
+		$.post("/edit_return/return_update", ret, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
 		
