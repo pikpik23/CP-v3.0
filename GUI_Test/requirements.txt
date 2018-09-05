@@ -14,3 +14,4 @@ flask-compress >= 1.4.0
 Flask-Static-Compress >= 1.0.2
 jsmin >= 2.2.2
 csscompressor >= 0.9.5
+Flask-Compress >= 1.4.0
