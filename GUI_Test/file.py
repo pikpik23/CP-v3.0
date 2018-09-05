@@ -63,21 +63,24 @@ class DbManager:
     TABLE_NAME = 'LOG_RETURNS'
 
     @staticmethod
-    def create_db():
+    def create_db(ret=False):
         with sqlite3.connect(DbManager.FILE_NAME) as conn:
             c = conn.cursor()
             # Create table
-            c.execute('''CREATE TABLE LOG_RETURNS
-                        (logID int,
-                        returnType text,
-                        sender text,
-                        receiver text,
-                        logTime int,
-                        dutyOfficer text,
-                        serials text
-                        )''')
+            c.execute('''CREATE TABLE `LOG_RETURNS` (
+                    `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                    `returnType`	text,
+                    `sender`	text,
+                    `reciever`	text,
+                    `logTime`	int,
+                    `dutyOfficer`	text,
+                    `serials`	text
+                );''')
 
             conn.commit()
+
+            if ret:
+                return DbManager.read_return()
 
     @staticmethod
     def new_return(lst):
@@ -90,9 +93,12 @@ class DbManager:
 
     @staticmethod
     def read_return():
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
-            c = conn.cursor()
-            return c.execute('SELECT * FROM ' + DbManager.TABLE_NAME)
+        try:
+            with sqlite3.connect(DbManager.FILE_NAME) as conn:
+                c = conn.cursor()
+                return c.execute('SELECT * FROM ' + DbManager.TABLE_NAME)
+        except sqlite3.OperationalError:
+            return DbManager.create_db(ret=True)
 
     @staticmethod
     def find_index(log_id):
