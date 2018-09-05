@@ -235,8 +235,8 @@ def test_update(action):
         SERIALS.update({action:outdic})
         File.save_dic(SERIALS)
 
-        global LEGACY_DIC
-        LEGACY_DIC = File.read_legacy()
+    global LEGACY_DIC
+    LEGACY_DIC = File.read_legacy()
 
     return ""
 
