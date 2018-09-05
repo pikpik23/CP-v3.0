@@ -29,7 +29,7 @@ File.generate_css_min()
 @APP.route('/transmission')
 def display_return_frame():
     """ Renders the return frame """
-    return render_template('transmission.html', serials_def=LEGACY_DIC)
+    return render_template('transmission.html', serials_def=SERIALS)
 
 
 @APP.route('/transmission/<rtrn_type>')
