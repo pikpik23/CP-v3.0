@@ -121,9 +121,10 @@ class DbManager:
             x = c.execute(sqlStr)
             for i in x:
                 i = int(list(i)[0])
-            if not i:
-                i = None
-            return i
+            try:
+                return i
+            except UnboundLocalError:
+                return ""
 
 class File:
 
@@ -280,7 +281,8 @@ class File:
             'sender',
             'receiver',
             'time',
-            'duty'
+            'duty',
+            'net'
         ]
 
         # print(test)
@@ -296,6 +298,7 @@ class File:
 
         lst.append('||'.join(inn_lst))
 
+        print(lst)
         DbManager.new_return(lst)
 
     @staticmethod
@@ -324,12 +327,17 @@ class File:
             ret.update({'receiver': row[3]})
             ret.update({'time': row[4]})
             ret.update({'duty': row[5]})
+            ret.update({'net': row[6]})
 
-            for serial_data in row[6:]:
-                for serial in serial_data.split('||'):
-                    ser, val = serial.split('\\')
-                    val = "" + val
-                    ret.update({ser: str(val)})
+
+            for serial_data in row[7:]:
+                try:
+                    for serial in serial_data.split('||'):
+                        ser, val = serial.split('\\')
+                        val = "" + val
+                        ret.update({ser: str(val)})
+                except AttributeError:
+                    print('The Db structure is incorrect')
             local_log.append(ret)
 
         # OrdDic(reversed(list(local_log.items())))
