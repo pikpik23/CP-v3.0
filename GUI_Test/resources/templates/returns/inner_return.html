@@ -1,5 +1,5 @@
  {% extends 'returns/return.html' %} {% block table %}
-<h2>{{return_type}}</h2>
+<h2 id="return_type">{{return_type}}</h2>
 
 <table class='return_table'>
     <tr class="head">
@@ -11,7 +11,7 @@
     <tr class="data_row">
         <td class='serial'>{{serial}}</td>
         <td>
-            {% if info['data_type'] == 'string' %}
+            {% if info['data_type'] == 'short' %}
             <input class="itext data" name="{{serial}}" type="text" autocomplete="off" /> 
             {% elif info['data_type'] == 'choice'%}
             <div id="{{serial}}">

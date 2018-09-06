@@ -53,33 +53,39 @@
                 }
             });
             $('#record').click(function(){
-                var arr = {}
-                var table = $(".return_table")
-                var loop = table.find('.data').each(function test(index, element){
-                    type = $(this).attr('type');
-                    if (type != 'radio') {
-                        var serial = $(this).attr('name');
-                        var data = $(this).val();
-                        if (data == null || data == ""){
-                            var missing = confirm("You are missing a serial. Would you like to continue?");
-                            if (missing == true) {} 
-                            else {
-                                console.log("recording")
-                                return true;
-                            }
-                        }
-                        arr[serial] = data;
-                    }
-                    else {
-                        if ($(this).is(':checked')) {
+                var arr = {};
+                var table = $(".return_table");
+                if ($('#return_type').html() === 'MESSAGE'){
+                    arr['msg'] = document.getElementById('textInput').value
+                }
+                else {
+                    var loop = table.find('.data').each(function test(index, element) {
+                        type = $(this).attr('type');
+                        if (type != 'radio') {
                             var serial = $(this).attr('name');
                             var data = $(this).val();
+                            if (data == null || data == "") {
+                                var missing = confirm("You are missing a serial. Would you like to continue?");
+                                if (missing == true) {
+                                }
+                                else {
+                                    console.log("recording");
+                                    return true;
+                                }
+                            }
                             arr[serial] = data;
                         }
                         else {
+                            if ($(this).is(':checked')) {
+                                var serial = $(this).attr('name');
+                                var data = $(this).val();
+                                arr[serial] = data;
+                            }
+                            else {
+                            }
                         }
-                    }
-                });
+                    });
+                };
                 
                 if (loop == true) {
                     return;
@@ -95,14 +101,16 @@
                     alert("Please enter a value for the From field");
                     return;
                 }
-                $.extend(arr, {return_type:"{{return_type}}"});
+
+                $.extend(arr, {return_type: $('#return_type').html()});
                 $.extend(arr, {cs:document.getElementById('callsign').textContent});
                 $.extend(arr, {duty:document.getElementById('duty_officer').textContent});
                 $.extend(arr, {net:document.getElementById('net_name').textContent});
-                $.extend(arr, {receiver:document.getElementById('inputTo').textContent});
-                $.extend(arr, {sender:document.getElementById('inputFrom').textContent});
+                $.extend(arr, {receiver: document.getElementById('inputTo').value});
+                $.extend(arr, {sender: document.getElementById('inputFrom').value});
                 var checked = document.getElementById("check").checked;
-                $.post("/transmission/{{return_type}}", arr, function(data, status){
+
+                $.post("/transmission/"+$('#return_type').html(), arr, function(data, status){
                     document.getElementById('printf').contentDocument.body.innerHTML = data;
                     if (checked){
                         //document.getElementById('printf').style.visibility = 'visible';
@@ -114,7 +122,7 @@
                 });
                 //NOTIFICATION
                 $("#popup").html('{{return_type}} Submitted');
-                    $("#popup").show()
+                    $("#popup").show();
                     $("#popup").animate({
                         right: '30px',
                 });
@@ -124,7 +132,7 @@
                         $("#popup").css('right','-200px')
                     },500);
                 }, 3000);
-                document.getElementById("main_form").reset()
+                // document.getElementById("main_form").reset()
             });
         });
     </script>
