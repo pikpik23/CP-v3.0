@@ -1,9 +1,9 @@
 {% extends '/includes/layout.html' %} {% block body %}
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script src="/js_files/jquery.floatThead.min.js"></script>
-<script type="text/javascript">  
-  $(document).ready(function () {
-    
+<script id="JsLoadScript" type="text/javascript">
+  function load() {
+
     {% for entry in log %}
     $("#{{entry['logID']}}").click(function () {
       $("#logPrint").attr("src", "log/{{entry['logID']}}");
@@ -11,13 +11,14 @@
       $("#{{entry['logID']}}").attr("class", "rowOff");
       {% endfor %}
       $(this).attr("class", "rowSelected");
-      
+
     });
     {% endfor %}
     $("#0").attr("class", "rowSelected");
     $('#logs').floatThead({
     });
 
+    /*
     $('#edit_log_entry').click(function () {
         var iframe = document.getElementById('logPrint');
         var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
@@ -26,6 +27,7 @@
         }
        alert(iframeDocument.getElementById('logID_text').textContent);
     });
+    */
 
     $("#print").click(function(){
       window.frames["printf"].focus();
@@ -45,7 +47,7 @@
         $('tr.rowSelected').next().click()
     }
     });
-   });
+   }
 </script>
 
 
@@ -108,5 +110,7 @@
     </footer>
   </div>
 </section>
-
+<script>
+    $(document).ready = load();
+</script>
 {% endblock %}

@@ -23,10 +23,6 @@ LOG = File.load_log()
 
 File.generate_css_min()
 
-@APP.route('/test')
-def testPage():
-    return render_template('log/log_edit_popup_test.html')
-
 
 @APP.route('/')
 @APP.route('/transmission')
@@ -167,6 +163,10 @@ def convert_newlines(line):
 
 
 @APP.route('/log')
+def testPage():
+    return render_template('log/log_edit_new.html')
+
+@APP.route('/log/frame')
 def display_log():
     """ Renders the log_frame """
     return render_template("log/log_test.html", log=list(reversed(File.load_log())))

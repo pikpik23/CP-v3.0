@@ -7,10 +7,25 @@
 </head>
 <body>
 
-<h2>Log Page Here</h2>
+<script language="JavaScript">
 
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Edit return</button>
+    $(window).on('load', function() {
+        $("#pleaseChangeMe").load("/log/frame", function () {
+            createModal();
+        });
+        // createModal();
+
+        /*$.get('/log', function (data) {
+           // alert(data);
+           document.getElementById("pleaseChangeMe").innerHTML = data;
+           createModal();
+
+           load()
+       })*/
+    });
+</script>
+<div id="pleaseChangeMe">
+</div>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -23,17 +38,21 @@
 </div>
 
 <script>
+    function createModal() {
+
 // Get the modal
 var modal = document.getElementById('myModal');
 
 // Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
+var btn = document.getElementById("edit_log_entry");
 
 // When the user clicks the button, open the modal
 btn.onclick = function() {
 
-    $.get('/log/edit/2').done(function (response) {
+    var logSerial = $("#logPrint").contents().find("#logID_text")[0].textContent;
+    //alert(logSerial);
+
+    $.get('/log/edit/'+logSerial).done(function (response) {
         $('.modal-content').html(response);
 
         var span = document.getElementById("cancel");
@@ -75,7 +94,6 @@ btn.onclick = function() {
                     }
                 });
             }
-            ;
 
             if (loop == true) {
                 return;
@@ -125,8 +143,9 @@ btn.onclick = function() {
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
-    };
+    }
 };
+}
 </script>
 
 </body>
