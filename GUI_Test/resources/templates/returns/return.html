@@ -144,6 +144,7 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
+    <div class="inner_return">
         <table class="toFrom">
                 <tr>
                     <td class="serial">To:</td>
@@ -205,6 +206,7 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
+    <div class="inner_return">
     {% if return_type %}
     <form method="POST" id="main_form" action="/transmission/old/{{return_type}}">
     {%else%}
@@ -290,6 +292,7 @@
         </footer>
     </form>
     <iframe src="javascript:void(0);" id="printf" name="printf" scrolling="yes" style="width:100%; visibility: hidden;"></iframe>
+    </div>
     <div id="popup">Notification</div>
 </body>
 
