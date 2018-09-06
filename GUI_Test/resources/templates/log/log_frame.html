@@ -50,6 +50,11 @@
                         <td>Duty Officer:</td>
                         <td>{{val}}</td>
                     </tr>
+                        {% elif name == 'logID' %}
+                    <tr>
+                        <td>LOGID:</td>
+                        <td><span id="logID_text">{{val}}</span></td>
+                    </tr>
                     {% endif %}
                 {% endfor %}
             </table>

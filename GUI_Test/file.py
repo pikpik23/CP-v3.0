@@ -68,14 +68,15 @@ class DbManager:
             c = conn.cursor()
             # Create table
             c.execute('''CREATE TABLE `LOG_RETURNS` (
-                    `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                    `returnType`	text,
-                    `sender`	text,
-                    `reciever`	text,
-                    `logTime`	int,
-                    `dutyOfficer`	text,
-                    `serials`	text
-                );''')
+                            `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                            `returnType`	text,
+                            `sender`	text,
+                            `reciever`	text,
+                            `logTime`	int,
+                            `dutyOfficer`	text,
+                            `net`	TEXT,
+                            `serials`	text
+                        );''')
 
             conn.commit()
 
@@ -125,6 +126,17 @@ class DbManager:
                 return i
             except UnboundLocalError:
                 return ""
+
+    @staticmethod
+    def update_record(lst, logID):
+        # print(lst)
+        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            rowData = """returnType=?, sender=?, reciever=?, logTime=?, dutyOfficer=?, net=?, serials=?"""
+            c.execute(
+                'UPDATE ' + DbManager.TABLE_NAME + ' SET '+rowData+' WHERE logID='+logID,
+                lst)
+
 
 class File:
 
@@ -265,7 +277,7 @@ class File:
             w.write(sett + '\\' + val + '\n')
 
     @staticmethod
-    def save_log(log):
+    def save_log(log, update=False):
         """ Saves the log to file """
 
         # print('\n\n\nsaving')
@@ -298,8 +310,14 @@ class File:
 
         lst.append('||'.join(inn_lst))
 
-        print(lst)
-        DbManager.new_return(lst)
+        # print(lst)
+
+        if update:
+            DbManager.update_record(lst, log['logID'])
+
+        else:
+            DbManager.new_return(lst)
+
 
     @staticmethod
     def load_log(log_id=None):

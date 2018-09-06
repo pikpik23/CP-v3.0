@@ -72,7 +72,6 @@ def display_settings():
                            settings=SETTINGS)
 
 
-# TODO: Make the following functions to an abstracted one
 @APP.route('/settings/updatelist/<list_name>', methods=['POST'])
 def update_list_settings(list_name):
     if list_name.upper() == 'LOCATIONS':
@@ -183,7 +182,7 @@ def test_log(log_id):
                                ret=File.load_log(log_id=log_id)[0])
 
     except IndexError:
-        return "<h1>ERROR</h1><p>There are not logs</p>"
+        return "<h1>ERROR</h1><p>There are no logs to display</p>"
 
 
 @APP.route('/edit_return')
@@ -247,22 +246,60 @@ def test_update(action):
     return ""
 
 
-@APP.route('/log/edit/<index>')
-def test_log_edit(index):
+@APP.route('/log/edit/<log_id>')
+def test_log_edit(log_id):
     """ Renders the return form """
-    index = int(index)
-    print(LOG[index])
+    log_id = int(log_id)
+    # print(File.load_log(log_id=log_id)[0])
     try:
-        index = int(index)
-        return render_template("returns/abstracted_return.edit.html",
-                               return_type=LOG[index]['name'],
+        index = int(log_id)
+
+        return render_template("Edit_Log/edit_log_body.html",
+                               return_type=File.load_log(log_id=log_id)[0]['name'],
                                serials_def=SERIALS,
                                locs=LOCATIONS,
                                settings=SETTINGS,
                                callsigns=CALLSIGNS,
-                               ret=LOG[index])
+                               ret=File.load_log(log_id=log_id)[0])
+
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
+
+
+@APP.route('/log/edit/<log_id>', methods=['POST'])
+def test_log_edit_submit(log_id):
+
+    log = request.form.to_dict()
+    # print(request.form.to_dict())
+    # print(File.load_log(log_id=log_id)[0])
+
+    ret = {}
+    ret.update({'logID': log_id})
+    ret.update({'name': log['name']})
+    ret.update({'sender': log['sender']})
+    ret.update({'receiver': log['receiver']})
+    ret.update({'time': log['time']})
+    ret.update({'duty': log['duty']})
+    ret.update({'net': log['net']})
+
+    if log['name'] == "MESSAGE":
+        ret.update({'msg': convert_newlines(log['msg'])})
+
+    else:
+        for serial in SERIALS[log['name']]:
+            try:
+                ret.update({serial: convert_newlines(log[serial])})
+            except KeyError:
+                ret.update({serial: ''})
+
+    # LOG.insert(0, (ret))
+    # File.update_log_entry(ret)
+
+    # print('         ',ret)
+
+    File.save_log(ret, update=True)
+
+    return ""
 
 
 @APP.route('/games/minesweeper')
