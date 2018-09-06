@@ -226,7 +226,14 @@ class File:
 
     @staticmethod
     def save_Locations(lst):
+        lst = '\n'.join(lst)
         w = open("resources/files/locations.txt", "w", newline="\n")
+        w.write(lst)
+
+    @staticmethod
+    def save_callsigns(lst):
+        lst = '\n'.join(lst)
+        w = open("resources/files/callsigns.txt", "w", newline="\n")
         w.write(lst)
 
     @staticmethod

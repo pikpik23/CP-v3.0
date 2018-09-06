@@ -726,7 +726,7 @@ br {
 
 /* ----------------------- Locations-Edit --------------------*/
 
-.locs_text{
+.list_values{
     position: absolute;
     top:0;
     width:100%;
@@ -742,7 +742,7 @@ br {
     resize: none;
 }
 
-#save_locs {
+#save_list {
     position: absolute;
     bottom:5px;
     left:5px;

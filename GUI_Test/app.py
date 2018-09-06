@@ -72,11 +72,32 @@ def display_settings():
                            settings=SETTINGS)
 
 
+# TODO: Make the following functions to an abstracted one
+@APP.route('/settings/updatelist/<list_name>', methods=['POST'])
+def update_list_settings(list_name):
+    if list_name.upper() == 'LOCATIONS':
+        global LOCATIONS
+        LOCATIONS = request.form['lst'].split('\n')
+        File.save_Locations(LOCATIONS)
+
+    elif list_name.upper() == 'CALLSIGNS':
+        global CALLSIGNS
+        CALLSIGNS = request.form['lst'].split('\n')
+        File.save_callsigns(CALLSIGNS)
+
+    return ""
+
 @APP.route('/settings/locs')
 def display_settings_locations():
     """ Renders the locations edit field """
-    return render_template('locations_edit.html',
+    return render_template('list_edit.html',
                            locs=LOCATIONS)
+
+@APP.route('/settings/callsigns')
+def display_settings_callsigns():
+    """ Renders the locations edit field """
+    return render_template('list_edit.html',
+                           locs=CALLSIGNS)
 
 
 @APP.route('/settings/general')
@@ -96,17 +117,6 @@ def display_info():
 def display_tetris():
     """ Renders the tetris Page """
     return render_template('games/tetris.html')
-
-
-@APP.route('/settings/locs', methods=['POST'])
-def update_settings_locations():
-    File.save_Locations(request.form['locs'])
-    # print(LOCATIONS)
-    # print(request.form['locs']).split('\n')
-    # print(request.form['locs'].split('\n'))
-    global LOCATIONS
-    LOCATIONS = request.form['locs'].split('\n')
-    return ''
 
 
 def update_setting():
