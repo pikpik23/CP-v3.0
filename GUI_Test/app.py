@@ -23,6 +23,10 @@ LOG = File.load_log()
 
 File.generate_css_min()
 
+@APP.route('/test')
+def testPage():
+    return render_template('log/log_edit_popup_test.html')
+
 
 @APP.route('/')
 @APP.route('/transmission')
