@@ -15,7 +15,6 @@ APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 Compress(APP)
 
-LEGACY_DIC = File.read_legacy()
 SERIALS = File.read_dic()
 LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
@@ -131,7 +130,7 @@ def abstracted_return_return(rtrn_type):
         ret.update({'msg': convert_newlines(request.form['msg'])})
 
     else:
-        for serial in LEGACY_DIC[rtrn_type]:
+        for serial in SERIALS[rtrn_type]:
             try:
                 ret.update({serial: convert_newlines(request.form[serial])})
             except KeyError:
@@ -234,9 +233,6 @@ def test_update(action):
                 outdic.update({name:{id:row}})
         SERIALS.update({action:outdic})
         File.save_dic(SERIALS)
-
-    global LEGACY_DIC
-    LEGACY_DIC = File.read_legacy()
 
     return ""
 

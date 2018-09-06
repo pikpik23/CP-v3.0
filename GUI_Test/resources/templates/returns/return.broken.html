@@ -6,15 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask CP</title>
     <link rel="stylesheet" href="/styles/min_main.css">
-    <script src="js_files/jquery-3.1.1.js"></script>
+    <script src="/js_files/jquery-3.1.1.js"></script>
     <script type="text/javascript"> 
         $(document).ready(function () {
+
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
             $(".fromButton").click(function () {
                 $("#inputFrom").val(this.innerHTML);
             });
+
             $("#btnDuty").click(function () {
                 var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
                 if (duty == null || duty == "") {
@@ -25,23 +27,26 @@
                 });
                 }
             });
+
             $("#btnCallsign").click(function () {
                 var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
                 if (cs == null || cs == "") {
                 }
                 else {
                     $.post('/settings/callsign/', { name: cs }, function(data, status){});
+
                     $('#callsign').html(cs);
                     
                     for (i in document.getElementById("senderButton")){
                         alert(i)
                     }
                     
-                    alert(document.getElementById("sender").textContent);
+                    // alert(document.getElementById("sender").textContent);
                     document.getElementById("sender").textContent = cs;
                     document.getElementById("reciever").textContent = cs;
                 }
             });
+
             $("#btnNet").click(function () {
                 var net = prompt("Enter your current Net", "{{settings['net']}}");
                 if (net == null || net == "") {
@@ -52,10 +57,12 @@
                 $('#net_name').html(net);
                 }
             });
+
             $('#record').click(function(){
-                var arr = {}
-                var table = $(".return_table")
-                var loop = table.find('.data').each(function test(index, element){
+                console.log("record")
+                var arr = {};
+                var table = $(".return_table");
+                var testLoop = table.find('.data').each(function test(index, element){
                     type = $(this).attr('type');
                     if (type != 'radio') {
                         var serial = $(this).attr('name');
@@ -64,7 +71,6 @@
                             var missing = confirm("You are missing a serial. Would you like to continue?");
                             if (missing == true) {} 
                             else {
-                                console.log("recording")
                                 return true;
                             }
                         }
@@ -79,12 +85,15 @@
                         else {
                         }
                     }
+                    return false;
                 });
+                alert(testLoop)
                 
-                if (loop == true) {
+                if (testLoop) {
                     return;
                 }
                 // alert();
+
                 var to = $('#inputTo').val();
                 var from = $('#inputFrom').val();
                 if (to == null || to == ""){
@@ -101,14 +110,14 @@
                 $.extend(arr, {net:document.getElementById('net_name').textContent});
                 $.extend(arr, {receiver:document.getElementById('inputTo').textContent});
                 $.extend(arr, {sender:document.getElementById('inputFrom').textContent});
+
                 var checked = document.getElementById("check").checked;
+
                 $.post("/transmission/{{return_type}}", arr, function(data, status){
                     document.getElementById('printf').contentDocument.body.innerHTML = data;
                     if (checked){
-                        //document.getElementById('printf').style.visibility = 'visible';
                         window.frames["printf"].focus();
                         window.frames["printf"].print();
-                        //document.getElementById('printf').style.visibility = 'hidden';
                     }
                     
                 });
@@ -136,6 +145,7 @@
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
+    <div class="inner_return">
         <table class="toFrom">
                 <tr>
                     <td class="serial">To:</td>
@@ -193,10 +203,11 @@
     
             <input type="hidden" name="Duty" value="{{settings['Duty']}}"/>
     {% else %}
-
+    </div>
     <div class="banner" id="transmission">
         <a>Record Transmission</a>
     </div>
+    <div class="inner_return">
     {% if return_type %}
     <form method="POST" id="main_form" action="/transmission/old/{{return_type}}">
     {%else%}
@@ -282,7 +293,9 @@
         </footer>
     </form>
     <iframe src="javascript:void(0);" id="printf" name="printf" scrolling="yes" style="width:100%; visibility: hidden;"></iframe>
-    <div id="popup">Notification</div>
+    
+</div>
+<div id="popup">Notification</div>
 </body>
 
 </html>
