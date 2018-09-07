@@ -114,7 +114,6 @@ pylama.ini
 
 # Visual studio code files
 **/.vs/*
-**/LOG_Temp.db
 
 #PyCharm Memes
 **/.idea/*

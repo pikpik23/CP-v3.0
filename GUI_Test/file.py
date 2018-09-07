@@ -72,7 +72,7 @@ class DbManager:
                             `returnType`	text,
                             `sender`	text,
                             `reciever`	text,
-                            `logTime`	int,
+                            `logTime`	text,
                             `dutyOfficer`	text,
                             `net`	TEXT,
                             `serials`	text
