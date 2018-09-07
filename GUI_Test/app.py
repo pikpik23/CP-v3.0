@@ -222,7 +222,12 @@ def test_update(action):
     if action == "return_update":
         x = request.form.to_dict()
         if 'add' in x:
-            print(x['add'])
+
+            if x['old']:
+                SERIALS[x['add']] = SERIALS.pop(x['old'])
+            else:
+                SERIALS.update({x['add']:{'A': {'desc': 'default entry', 'data_type':'short', 'options':['']}}})
+            File.save_dic(SERIALS)
 
         elif 'rem' in x:
             SERIALS.pop(x['rem'])
@@ -275,7 +280,7 @@ def test_log_edit(log_id):
 def test_log_edit_submit(log_id):
 
     log = request.form.to_dict()
-    print(request.form.to_dict())
+    # print(request.form.to_dict())
     # print(File.load_log(log_id=log_id)[0])
 
     ret = {}

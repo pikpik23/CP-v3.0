@@ -81,7 +81,7 @@
 
 	$(document).on('click', '.btnRemove', function(event) 
 	{
-		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.')
+		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.');
 		if (check == true) {
 			$(this).closest('tr').remove();
 
@@ -96,7 +96,7 @@
 	});
 
 	$("#add_return").click(function (){
-		$(".table_serials_outer tr:last").after('<tr> <td><div class="row_data" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
+		$(".table_serials_outer tr:last").after('<tr> <td><div class="row_data" prevcont="" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
 		$(".table_serials_outer tr:last").find($(".btnEdit")).click();
 
 	});
@@ -137,7 +137,10 @@
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
-		var row_id = tbl_row.attr('row_id');
+        var prevmeme = $(event.target).parent().parent().parent().find(".row_data")[0].getAttribute("prevcont");
+        // alert(prevmeme);
+
+		// var row_id = tbl_row.attr('row_id');
 		
 		//hide save and cacel buttons
 		tbl_row.find('.btnSave').hide();
@@ -165,6 +168,7 @@
 
         var meme2 = $(event.target).parent().parent().parent().find(".row_data").html();
         var ret = {add: meme2};
+        ret.old = prevmeme;
 		/*
 		$('.return_body').find('tr').each(function(element,val) {
 			var ret_type = $(this).attr('row_id');
@@ -178,6 +182,8 @@
 		$.post("/edit_return/return_update", ret, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
+
+		$(event.target).parent().parent().parent().find(".row_data")[0].attr('prevcont', prevmeme);
 		
 
 		});
@@ -204,7 +210,7 @@
 				<tbody class="return_body">
 				{% for return_type in serials_def %}
                 <tr row_id="{{return_type}}">
-                    <td><div class="row_data" col_name="return">{{ return_type }}</div></td>
+                    <td><div class="row_data" prevcont="{{ return_type }}" col_name="return">{{ return_type }}</div></td>
                 	<td>
                     <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
                     <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
