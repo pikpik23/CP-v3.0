@@ -359,7 +359,7 @@ class File:
             local_log.append(ret)
 
         # OrdDic(reversed(list(local_log.items())))
-        return local_log
+        return local_log[:200]
 
 
 if __name__ == '__main__':
