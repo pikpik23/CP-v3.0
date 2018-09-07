@@ -467,10 +467,15 @@ label:hover {
 
 .printTable td {
     font-weight: bold;
+    padding:4px;
 }
 
 .printTable tr {
     height: 20px;
+}
+
+.head_column {
+    width:100px;
 }
 
 .head2 th {

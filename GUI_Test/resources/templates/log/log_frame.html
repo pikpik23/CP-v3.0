@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flask CP</title>
-    <link rel="stylesheet" href="/styles/main.min.css">
+    <link rel="stylesheet" href="/styles/main.css">
     <script src="/js_files/jquery-3.1.1.js"></script>
     <script type="text/javascript">  
         $(document).ready(function () {
@@ -27,32 +27,32 @@
                 {% for name, val in ret.items() %}
                     {% if name == 'net' %}
                     <tr>
-                        <td>Net:</td>
+                        <td class="head_column">Net:</td>
                         <td>{{val}}</td>
                     </tr>
                     {% elif name == 'sender' %}
                     <tr>
-                        <td>From:</td>
+                        <td class="head_column">From:</td>
                         <td>{{val}}</td>
                     </tr>
                     {% elif name == 'time' %}
                     <tr>
-                        <td>Time Sent:</td>
+                        <td class="head_column">Time Sent:</td>
                         <td>{{val}}</td>
                     </tr>
                     {% elif name == 'receiver' %}
                     <tr>
-                        <td>To:</td>
+                        <td class="head_column">To:</td>
                         <td>{{val}}</td>
                     </tr>
                     {% elif name == 'duty' %}
                     <tr>
-                        <td>Duty Officer:</td>
+                        <td class="head_column">Duty Officer:</td>
                         <td>{{val}}</td>
                     </tr>
                         {% elif name == 'logID' %}
                     <tr>
-                        <td>LOGID:</td>
+                        <td class="head_column">LOGID:</td>
                         <td><span id="logID_text">{{val}}</span></td>
                     </tr>
                     {% endif %}
