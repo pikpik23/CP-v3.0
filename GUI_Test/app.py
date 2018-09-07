@@ -170,7 +170,7 @@ def testPage():
 @APP.route('/log/frame')
 def display_log():
     """ Renders the log_frame """
-    return render_template("log/log_test.html", log=list(reversed(File.load_log())))
+    return render_template("log/log_test.html",serials_def=SERIALS, log=list(reversed(File.load_log())))
 
 
 @APP.route('/log/<log_id>')

@@ -506,7 +506,7 @@ label:hover {
 .table-scroll {
     position: absolute;
     top: 10px;
-    bottom: 100px;
+    bottom: 200px;
     right: 10px;
     left: 10px;
     overflow-x: auto;
@@ -531,13 +531,23 @@ br {
     line-height:10px;
 }
 
+.query {
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:190px;
+    border:1px solid black;
+}
+
+
 /* not in use...
 #prev_return.hidden {
     visibility: hidden;
     display: none;
 }
 */
-
+/*-------------------------------- EDIT SERIALS ---------------------------*/
 .edit-table {
     border: 1px solid black;
     border-collapse: collapse;
