@@ -157,7 +157,8 @@ def convert_newlines(line):
     for i in line.split('\n'):
         if '\r' in i:
             i = i[:-1]
-        new_content.append(i)
+        if i:
+            new_content.append(i)
     new_content.append('')
     return '<br>'.join(new_content)
 
@@ -274,7 +275,7 @@ def test_log_edit(log_id):
 def test_log_edit_submit(log_id):
 
     log = request.form.to_dict()
-    # print(request.form.to_dict())
+    print(request.form.to_dict())
     # print(File.load_log(log_id=log_id)[0])
 
     ret = {}

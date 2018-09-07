@@ -63,7 +63,8 @@ btn.onclick = function() {
         $('#record').click(function () {
             var arr = {};
             var table = $(".return_table");
-            if ($('#return_type').html() === 'MESSAGE') {
+            // alert(($('#logName').html()));
+            if ($('#logName').html() === 'MESSAGE') {
                 arr['msg'] = document.getElementById('textInput').value
             }
             else {
