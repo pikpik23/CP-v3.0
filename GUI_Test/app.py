@@ -275,7 +275,7 @@ def test_log_edit(log_id):
 def test_log_edit_submit(log_id):
 
     log = request.form.to_dict()
-    # print(request.form.to_dict())
+    print(request.form.to_dict())
     # print(File.load_log(log_id=log_id)[0])
 
     ret = {}
