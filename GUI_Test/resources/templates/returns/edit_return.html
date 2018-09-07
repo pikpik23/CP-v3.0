@@ -182,9 +182,8 @@
 		$.post("/edit_return/return_update", ret, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});
-
-		$(event.target).parent().parent().parent().find(".row_data")[0].attr('prevcont', prevmeme);
-		
+        
+            $(event.target).parent().parent().parent().find(".row_data")[0].setAttribute('prevcont', meme2)
 
 		});
 	});

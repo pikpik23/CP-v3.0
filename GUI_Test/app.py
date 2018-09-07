@@ -230,8 +230,11 @@ def test_update(action):
             File.save_dic(SERIALS)
 
         elif 'rem' in x:
-            SERIALS.pop(x['rem'])
-            File.save_dic(SERIALS)
+            try:
+                SERIALS.pop(x['rem'])
+                File.save_dic(SERIALS)
+            except KeyError:
+                print("Tried to delete something that didn't exist")
 
         else:
             print(x)
