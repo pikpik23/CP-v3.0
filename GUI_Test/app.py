@@ -157,7 +157,8 @@ def convert_newlines(line):
     for i in line.split('\n'):
         if '\r' in i:
             i = i[:-1]
-        new_content.append(i)
+        if i:
+            new_content.append(i)
     new_content.append('')
     return '<br>'.join(new_content)
 

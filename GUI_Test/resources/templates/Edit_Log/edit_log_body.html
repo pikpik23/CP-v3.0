@@ -182,12 +182,18 @@
 
     <h2><span id="logName">{{return_type}}</span> (Log Id: <span id="logID_Content">{{ ret['logID'] }}</span>)</h2>
     <p>TIME: <span id="logTime">{{ ret['time'] }}</span></p>
-<table class='return_table'>
+
+        {% if return_type == 'MESSAGE' %}
+            <textarea class="itext return message" name="msg" id="textInput" rows="4" cols="40">{{ret['msg'].replace('<br>', '\n')}}</textarea>
+        {% else %}
+
+    <table class='return_table'>
     <tr class="head">
         <td class='serial'>Serial</td>
         <td class="value">Value</td>
         <td class='serialDes'>Description</td>
     </tr>
+
     {% for serial, info in serials_def[return_type].items() %}
     <tr>
         <td class='serial'>{{serial}}</td>
@@ -221,6 +227,7 @@
     </tr>
     {% endfor %}
 </table>
+    {% endif %}
 
      <footer>
             <table class="footTable">
