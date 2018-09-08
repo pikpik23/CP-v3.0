@@ -57,7 +57,7 @@
           query[type] = value;
         });
       });
-      alert(JSON.stringify(query));
+      // alert(JSON.stringify(query));
       $.post("/log/query", query, function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
 			});

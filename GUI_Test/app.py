@@ -319,6 +319,10 @@ def test_log_edit_submit(log_id):
 def minesweeper():
     return render_template("games/minesweeper.html")
 
+@APP.route('/log/query', methods=['POST'])
+def getQuery():
+    print(request.form.to_dict())
+    return ""
 
 if __name__ == '__main__':
 
