@@ -58,6 +58,9 @@
         });
       });
       alert(JSON.stringify(query));
+      $.post("/log/query", query, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			});
     });
 
     $("#clear").click(function(){
