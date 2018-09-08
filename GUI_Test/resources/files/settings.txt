@@ -1,3 +1,3 @@
 callsign\0A
 Duty\Lambinon
-net\ADMIN NET
+net\HQ NET

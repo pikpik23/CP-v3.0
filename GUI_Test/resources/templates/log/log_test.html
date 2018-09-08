@@ -47,6 +47,27 @@
         $('tr.rowSelected').next().click()
     }
     });
+    $("#search").click(function(){
+      var query = {}
+      var table = $('#query_table')
+      table.find('tr').each(function(index, val){
+        $(this).find('.query_input').each(function(index, val){
+          var value = $(this).val()
+          var type = $(this).attr('query_type')
+          query[type] = value;
+        });
+      });
+      alert(JSON.stringify(query));
+    });
+
+    $("#clear").click(function(){
+      var table = $('#query_table')
+      table.find('tr').each(function(index, val){
+        $(this).find('.query_input').each(function(index, val){
+          $(this).val('')
+        });
+      });
+    });
    }
 </script>
 
@@ -88,25 +109,28 @@
       </div>
     </div>
     <div class="query">
-      <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option.</p>
-      <table>
+      <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID</p>
+      <table id="query_table">
         <tr>
-          <td>LogID</td>
-          <td><input type="text"></td>
+          <td>Time</td>
+          <td><input class="query_input" query_type="time" type="text"></td>
           <td>To</td>
+          <td><input class="query_input" query_type="to" type="text"></td>
+          <td>OR</td>
+          <td>LogID:</td>
           <td><input type="text"></td>
         </tr>
         <tr>
           <td>Net</td>
-          <td><input type="text"></td>
+          <td><input class="query_input" query_type="net" type="text"></td>
           <td>From</td>
-          <td><input type="text"></td>
+          <td><input class="query_input" query_type="from" type="text"></td>
         </tr>
         <tr>
           <td>Duty Officer</td>
-          <td><input type="text"></td>
+          <td><input class="query_input" query_type="duty" type="text"></td>
           <td>Type</td>
-          <td><input type="text" list="returns_list"></td>
+          <td><input class="query_input" query_type="type" type="text" list="returns_list"></td>
           <datalist id="returns_list">
               <option value="MESSAGE">MESSAGE</option>
               {% for return_type in serials_def %}
@@ -115,8 +139,8 @@
           </datalist>
         </tr>
         <tr>
-          <td><button>Search</button></td>
-          <td><button>Clear</button></td>
+          <td><button id="search">Search</button></td>
+          <td><button id="clear">Clear</button></td>
         </tr>
       </table>
 
