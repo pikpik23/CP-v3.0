@@ -19,7 +19,6 @@ SERIALS = File.read_dic()
 LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
-LOG = File.load_log()
 
 File.generate_css_min()
 
@@ -145,7 +144,7 @@ def abstracted_return_return(rtrn_type):
             except KeyError:
                 ret.update({serial: ''})
 
-    LOG.insert(0, (ret))
+    # LOG.insert(0, (ret))
     File.save_log(ret)
     # return ""
     return test_log('init')
@@ -170,7 +169,7 @@ def testPage():
 @APP.route('/log/frame')
 def display_log():
     """ Renders the log_frame """
-    return render_template("log/log_test.html",serials_def=SERIALS, log=list(reversed(File.load_log())))
+    return render_template("log/log_test.html",serials_def=SERIALS, log=list(File.load_log()))
 
 
 @APP.route('/log/<log_id>')

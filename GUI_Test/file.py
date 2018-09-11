@@ -67,18 +67,22 @@ class DbManager:
         with sqlite3.connect(DbManager.FILE_NAME) as conn:
             c = conn.cursor()
             # Create table
-            c.execute('''CREATE TABLE `LOG_RETURNS` (
-                            `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                            `returnType`	text,
-                            `sender`	text,
-                            `reciever`	text,
-                            `logTime`	text,
-                            `dutyOfficer`	text,
-                            `net`	TEXT,
-                            `serials`	text
-                        );''')
+            try:
+                c.execute('''CREATE TABLE `LOG_RETURNS` (
+                                `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                `returnType`	text,
+                                `sender`	text,
+                                `reciever`	text,
+                                `logTime`	text,
+                                `dutyOfficer`	text,
+                                `net`	TEXT,
+                                `serials`	text
+                            );''')
 
-            conn.commit()
+                conn.commit()
+
+            except sqlite3.OperationalError:
+                print("The Db already exists")
 
             if ret:
                 return DbManager.read_return()
@@ -93,12 +97,19 @@ class DbManager:
                 lst)
 
     @staticmethod
-    def read_return():
+    def read_return(entries=None):
+
         try:
             with sqlite3.connect(DbManager.FILE_NAME) as conn:
                 c = conn.cursor()
-                return c.execute('SELECT * FROM ' + DbManager.TABLE_NAME)
-        except sqlite3.OperationalError:
+                if entries:
+                    results = c.execute(f"SELECT * FROM '{DbManager.TABLE_NAME}' ORDER BY logID DESC LIMIT {entries}")
+                else:
+                    # should not be used but just here just in case
+                    results = c.execute(f'SELECT * FROM {DbManager.TABLE_NAME}')
+                return results
+        except sqlite3.OperationalError as e:
+            # print(f"SELECT * FROM '{DbManager.TABLE_NAME}' LIMIT {entries} ORDER BY logID ASC")
             return DbManager.create_db(ret=True)
 
     @staticmethod
@@ -220,7 +231,7 @@ class File:
 
     @staticmethod
     def read_legacy():
-        """ reads the dictionary and returns it in the legacy format """
+        """ Depreciated reads the dictionary and returns it in the legacy format """
         serials = File.read_dic()
         final_dic = OrdDic()
         for name, dic in serials.items():
@@ -332,7 +343,7 @@ class File:
         if log_id:
             x = DbManager.find_index(log_id)
         else:
-            x = DbManager.read_return()
+            x = DbManager.read_return(entries=100)
 
         local_log = []
         for row in x:
@@ -358,8 +369,8 @@ class File:
                     print('The Db structure is incorrect')
             local_log.append(ret)
 
-        # OrdDic(reversed(list(local_log.items())))
-        return local_log[:200]
+
+        return local_log
 
 
 if __name__ == '__main__':
