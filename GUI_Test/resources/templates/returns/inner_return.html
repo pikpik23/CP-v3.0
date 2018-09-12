@@ -19,7 +19,9 @@
                 <label class="lblRadio" id="{{option}}">
                     <input class="itext data" id="{{option}}Radio" name="{{serial}}" value="{{option}}" type="radio">{{option}}</input>
                 </label>
-                {% endfor %} </div>
+                {% endfor %}
+                <label><input class="last data" type="radio" hidden="hidden"></input></label>
+            </div>
             {% elif info['data_type'] == 'long'%}
             <textarea class="itext return data" name="{{serial}}" rows="4" cols="40"></textarea> {% elif info['data_type'] == 'location'%}
             <input class="itext data" name="{{serial}}" type="text" id="" list="locs" autocomplete="off" />

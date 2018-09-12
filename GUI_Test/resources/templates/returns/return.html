@@ -53,42 +53,71 @@
                 }
             });
             $('#record').click(function(){
+                var exit = false
                 var arr = {};
                 var table = $(".return_table");
+                var box_checked = false
                 if ($('#return_type').html() === 'MESSAGE'){
                     arr['msg'] = document.getElementById('textInput').value
                 }
                 else {
+                    var validated = false
                     var loop = table.find('.data').each(function test(index, element) {
                         type = $(this).attr('type');
                         if (type != 'radio') {
                             var serial = $(this).attr('name');
                             var data = $(this).val();
-                            if (data == null || data == "") {
+                            if (data == "" && validated == false) {
                                 var missing = confirm("You are missing a serial. Would you like to continue?");
                                 if (missing == true) {
+                                    validated = true
                                 }
                                 else {
-                                    console.log("recording");
-                                    return true;
+                                    exit = true;
+                                    validated = true
+                                    return;
                                 }
+
                             }
                             arr[serial] = data;
                         }
                         else {
-                            if ($(this).is(':checked')) {
-                                var serial = $(this).attr('name');
-                                var data = $(this).val();
-                                arr[serial] = data;
+                            
+                            var radio_class = $(this).attr('class');
+                            var last = radio_class.includes('last');
+                            if (last == true) {
+                                if (box_checked == false && validated == false) {
+                                var missing = confirm("You are missing a serial. Would you like to continue?");
+                                if (missing == true) {
+                                    validated = true
+                                }
+                                else {
+                                    exit = true;
+                                    validated = true
+                                    return;
+                                    }
+                                }
+                                else {
+                                    box_checked = false;
+                                }
                             }
-                            else {
-                            }
+                            else{
+                                if ($(this).is(':checked')) {
+                                    var serial = $(this).attr('name');
+                                    var data = $(this).val();
+                                    arr[serial] = data;
+                                    box_checked = true
+
+                                }
+                            } 
+                           
                         }
                     });
                 };
                 
-                if (loop == true) {
+                if (exit == true) {
                     return;
+                    exit = false;
                 }
                 // alert();
                 var to = $('#inputTo').val();
@@ -210,7 +239,7 @@
     {% if return_type %}
     <form method="POST" id="main_form" action="/transmission/old/{{return_type}}">
     {%else%}
-     <!--<form method="POST" id="main_form" action="/transmission/MESSAGE"> -->
+     <form method="POST" id="main_form" action="/transmission/MESSAGE">
     {%endif%}
         <table class="toFrom">
             <tr>
