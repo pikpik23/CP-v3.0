@@ -58,6 +58,40 @@ class DbManager:
     TABLE_NAME = "'LOG_RETURNS'"
 
     @staticmethod
+    def query_data(conditions):
+        print(conditions)
+
+        try:
+            with sqlite3.connect(DbManager.FILE_NAME) as conn:
+                # c = conn.cursor()
+                condition_order = ['logID',
+                             'returnType',
+                            'sender',
+                            'reciever',
+                            'logTime',
+                            'dutyOfficer',
+                            'net',
+                            'serials']
+                vals = list()
+                cond_string = ""
+                for cond in condition_order:
+                    try:
+                        vals.append(conditions[cond])
+                    except KeyError:
+                        vals.append("")
+
+
+                results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} "
+                                    f"WHERE logID LIKE '%?%' AND"
+                                    f""
+                                    f"ORDER BY logID DESC LIMIT {entries}")
+                return results
+
+        except sqlite3.OperationalError as e:
+            print(e)
+
+
+    @staticmethod
     def create_db(ret=False):
         with sqlite3.connect(DbManager.FILE_NAME) as conn:
             c = conn.cursor()
@@ -327,6 +361,9 @@ class File:
         else:
             DbManager.new_return(lst)
 
+    @staticmethod
+    def load_log_query(query):
+        return DbManager.query_data(query)
 
     @staticmethod
     def load_log(log_id=None):

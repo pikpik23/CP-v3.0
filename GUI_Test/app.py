@@ -170,12 +170,7 @@ def convert_newlines(line):
 
 @APP.route('/log')
 def render_log_page():
-
     log = File.load_log()
-    if not log:
-        print("WHY")
-
-
     return render_template('log/log_edit_new.html',serials_def=SERIALS, log=log)
 
 
@@ -329,8 +324,9 @@ def minesweeper():
 
 @APP.route('/log/query', methods=['POST'])
 def getQuery():
-    print(request.form.to_dict())
-    return ""
+    # print(request.form.to_dict())
+    File.load_log_query(request.form.to_dict())
+    return "WIP"
 
 if __name__ == '__main__':
 
