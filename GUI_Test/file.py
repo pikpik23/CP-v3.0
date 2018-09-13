@@ -55,7 +55,7 @@ class MinifyFilesPre:
 
 class DbManager:
     FILE_NAME = 'resources/static/LOG_Temp.db'
-    TABLE_NAME = 'LOG_RETURNS'
+    TABLE_NAME = "'LOG_RETURNS'"
 
     @staticmethod
     def create_db(ret=False):
@@ -92,19 +92,26 @@ class DbManager:
                 lst)
 
     @staticmethod
-    def read_return(entries=None):
+    def delete_return_byID(id):
+        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+            c = conn.cursor()
+            c.execute(f"DELETE FROM {DbManager.TABLE_NAME} WHERE logID = {id}")
 
+    @staticmethod
+    def read_return(entries=None):
         try:
             with sqlite3.connect(DbManager.FILE_NAME) as conn:
                 c = conn.cursor()
                 if entries:
-                    results = c.execute(f"SELECT * FROM '{DbManager.TABLE_NAME}' ORDER BY logID DESC LIMIT {entries}")
+                    results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} ORDER BY logID DESC LIMIT {entries}")
                 else:
                     # should not be used but just here just in case
                     results = c.execute(f'SELECT * FROM {DbManager.TABLE_NAME}')
+
                 return results
         except sqlite3.OperationalError as e:
-            return DbManager.create_db(ret=True)
+            pass
+            # return DbManager.create_db(ret=True)
 
     @staticmethod
     def find_index(log_id):
@@ -332,36 +339,72 @@ class File:
         #     r = reader(open("resources/static/logs.csv", "r"))
 
         if log_id:
-            x = DbManager.find_index(log_id)
+            row = DbManager.find_index(log_id).fetchone()
+            local_log = list()
+            ret = None
+            try:
+                ret = OrdDic()
+
+                ret.update({'logID': row[0]})
+                ret.update({'name': row[1]})
+                ret.update({'sender': row[2]})
+                ret.update({'receiver': row[3]})
+                ret.update({'time': row[4]})
+                ret.update({'duty': row[5]})
+                ret.update({'net': row[6]})
+
+                for serial_data in row[7:]:
+                    try:
+                        for serial in serial_data.split('||'):
+                            ser, val = serial.split('\\')
+                            val = "" + val
+                            ret.update({ser: str(val)})
+                    except AttributeError:
+                        print('The Db structure is incorrect')
+
+            except TypeError:
+                pass # This is handled upon return (it returns None type)
+
+            return ret
+
         else:
-            x = DbManager.read_return(entries=100)
+            x = list(DbManager.read_return(entries=100))
 
-        local_log = []
-        for row in x:
-            ret = OrdDic()
-
-            # print(row)
-            ret.update({'logID': row[0]})
-            ret.update({'name': row[1]})
-            ret.update({'sender': row[2]})
-            ret.update({'receiver': row[3]})
-            ret.update({'time': row[4]})
-            ret.update({'duty': row[5]})
-            ret.update({'net': row[6]})
-
-
-            for serial_data in row[7:]:
+            local_log = list()
+            for row in x:
+                row  = list(row)
                 try:
-                    for serial in serial_data.split('||'):
-                        ser, val = serial.split('\\')
-                        val = "" + val
-                        ret.update({ser: str(val)})
-                except AttributeError:
-                    print('The Db structure is incorrect')
-            local_log.append(ret)
+                    ret = OrdDic()
+
+                    ret.update({'logID': row[0]})
+                    ret.update({'name': row[1]})
+                    ret.update({'sender': row[2]})
+                    ret.update({'receiver': row[3]})
+                    ret.update({'time': row[4]})
+                    ret.update({'duty': row[5]})
+                    ret.update({'net': row[6]})
+
+                    for serial_data in row[7:]:
+                        try:
+                            for serial in serial_data.split('||'):
+                                ser, val = serial.split('\\')
+                                val = "" + val
+                                ret.update({ser: str(val)})
+                        except AttributeError:
+                            print('The Db structure is incorrect')
+                    local_log.append(ret)
+
+                except TypeError:
+                    print("none value in db")
+
+            return local_log
 
 
-        return local_log
+    @staticmethod
+    def delete_log_byID(id):
+        DbManager.delete_return_byID(id)
+
+
 
 
 if __name__ == '__main__':

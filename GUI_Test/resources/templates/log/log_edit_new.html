@@ -7,225 +7,16 @@
 </head>
 <body>
 
-<!-- Depreceated
-<script language="JavaScript">
-    /*
-    $(window).on('load', function() {
-        $("#pleaseChangeMe").load("/log/frame", function () {
-            createModal();
-        });
-        });
-        */
-        // createModal();
-
-        /*$.get('/log', function (data) {
-           // alert(data);
-           document.getElementById("pleaseChangeMe").innerHTML = data;
-           createModal();
-
-           load()
-       })*/
-
-</script>
--->
-
-<div id="pleaseChangeMe">
-    {% extends '/includes/layout.html' %} {% block body %}
+{% extends '/includes/layout.html' %} {% block body %}
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script src="/js_files/jquery.floatThead.min.js"></script>
+
+
 <script id="JsLoadScript" type="text/javascript">
-  function load() {
-
-    {% for entry in log %}
-    $("#{{entry['logID']}}").click(function () {
-      $("#logPrint").attr("src", "log/{{entry['logID']}}");
-      {% for entry in log %}
-      $("#{{entry['logID']}}").attr("class", "rowOff");
-      {% endfor %}
-      $(this).attr("class", "rowSelected");
-
-    });
-    {% endfor %}
-    $("#0").attr("class", "rowSelected");
-    $('#logs').floatThead({
-    });
-
-    /*
-    $('#edit_log_entry').click(function () {
-        var iframe = document.getElementById('logPrint');
-        var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        if (!iframeDocument) {
-            throw "iframe couldn't be found in DOM.";
-        }
-       alert(iframeDocument.getElementById('logID_text').textContent);
-    });
-    */
-
-    $("#print").click(function(){
-      window.frames["printf"].focus();
-      window.frames["printf"].print();
-    });
-    $('.table_body tr').first().click();
-
-    document.addEventListener("keydown", function(event) {
-    if (event.keyCode === 38) {
-        event.preventDefault();
-        //UP ARROW
-        $('tr.rowSelected').prev().click()
-    }
-    if (event.keyCode === 40) {
-        event.preventDefault();
-        //DOWN ARROW
-        $('tr.rowSelected').next().click()
-    }
-    });
-    $("#search").click(function(){
-      var query = {}
-      var table = $('#query_table')
-      table.find('tr').each(function(index, val){
-        $(this).find('.query_input').each(function(index, val){
-          var value = $(this).val()
-          var type = $(this).attr('query_type')
-          query[type] = value;
-        });
-      });
-      // alert(JSON.stringify(query));
-      $.post("/log/query", query, function(data, status){
-			//alert("Data: " + data + "\nStatus: " + status);
-			});
-    });
-
-    $("#clear").click(function(){
-      var table = $('#query_table')
-      table.find('tr').each(function(index, val){
-        $(this).find('.query_input').each(function(index, val){
-          $(this).val('')
-        });
-      });
-    });
-   }
-</script>
-
-
-<section>
-
-  <div class="logLeft">
-    <div class="banner">
-        <a>Log</a>
-    </div>
-
-
-    <div class="logTable">
-      <div class="table-scroll">
-        <table class="tableLog" id="logs">
-          <thead>
-          <tr class="head2">
-            <th class="tdTime">Time</th>
-            <th class="tdTo">Net</th>
-            <th class="tdFrom">From</th>
-            <th class="tdTo">To</th>
-            <th class="tdType">Type</th>
-          </tr>
-        </thead>
-        <tbody class="table_body">
-          {% for entry in log %}
-          <div class="entryRow">
-            <tr class="rowOff" id="{{entry['logID']}}">
-              <td>{{entry['time'] }}</td>
-              <td>{{entry['net']}}</td>
-              <td>{{entry['sender']}}</td>
-              <td>{{entry['receiver']}}</td>
-              <td>{{entry['name'] }}</td>
-            </tr>
-          </div>
-          {% endfor %}
-        </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="query">
-      <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID</p>
-      <table id="query_table">
-        <tr>
-          <td>Time</td>
-          <td><input class="query_input" query_type="time" type="text"></td>
-          <td>To</td>
-          <td><input class="query_input" query_type="to" type="text"></td>
-          <td>OR</td>
-          <td>LogID:</td>
-          <td><input type="text"></td>
-        </tr>
-        <tr>
-          <td>Net</td>
-          <td><input class="query_input" query_type="net" type="text"></td>
-          <td>From</td>
-          <td><input class="query_input" query_type="from" type="text"></td>
-        </tr>
-        <tr>
-          <td>Duty Officer</td>
-          <td><input class="query_input" query_type="duty" type="text"></td>
-          <td>Type</td>
-          <td><input class="query_input" query_type="type" type="text" list="returns_list"></td>
-          <datalist id="returns_list">
-              <option value="MESSAGE">MESSAGE</option>
-              {% for return_type in serials_def %}
-              <option value="{{return_type}}">{{return_type}}</option>
-              {% endfor %}
-          </datalist>
-        </tr>
-        <tr>
-          <td><button id="search">Search</button></td>
-          <td><button id="clear">Clear</button></td>
-        </tr>
-      </table>
-
-    </div>
-
-
-  </div>
-
-  <div class="logDisplay">
-    <iframe id="logPrint" src="log/init" name="printf" scrolling="yes"></iframe>
-    <div class="foot">
-        <table class="footTable">
-            <tr class=submit>
-                <td>
-                    <button id="print">Print</button>
-                </td>
-                <td>
-                    <button id="edit_log_entry">Edit</button>
-                </td>
-                <td>
-                  <button>Delete</button>
-                </td>
-                <td class="fill"></td>
-            </tr>
-
-        </table>
-    </footer>
-  </div>
-</section>
-<script>
-    $(document).ready = load();
-</script>
-{% endblock %}
-</div>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-
-  </div>
-
-</div>
-
-<script>
-    function createModal() {
+function createModal() {
 
 // Get the modal
-var modal = document.getElementById('myModal');
+var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
 var btn = document.getElementById("edit_log_entry");
@@ -331,7 +122,189 @@ window.onclick = function(event) {
     }
 };
 }
+
+  function load() {
+
+      $("#log_delete_btn").click(function () {
+          $.post("/log/delete/by_id", {logID:$("#logPrint").contents().find("#logID_text")[0].textContent}, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			});
+          alert($("#logPrint").contents().find("#logID_text")[0].textContent)
+      });
+
+    {% for entry in log %}
+    $("#{{entry['logID']}}").click(function () {
+      $("#logPrint").attr("src", "log/{{entry['logID']}}");
+      {% for entry in log %}
+      $("#{{entry['logID']}}").attr("class", "rowOff");
+      {% endfor %}
+      $(this).attr("class", "rowSelected");
+
+    });
+    {% endfor %}
+    $("#0").attr("class", "rowSelected");
+    $('#logs').floatThead({
+    });
+
+
+    $("#print").click(function(){
+      window.frames["printf"].focus();
+      window.frames["printf"].print();
+    });
+    $('.table_body tr').first().click();
+
+    document.addEventListener("keydown", function(event) {
+    if (event.keyCode === 38) {
+        event.preventDefault();
+        //UP ARROW
+        $('tr.rowSelected').prev().click()
+    }
+    if (event.keyCode === 40) {
+        event.preventDefault();
+        //DOWN ARROW
+        $('tr.rowSelected').next().click()
+    }
+    });
+    $("#search").click(function(){
+      var query = {};
+      var table = $('#query_table');
+      table.find('tr').each(function(index, val){
+        $(this).find('.query_input').each(function(index, val){
+          var value = $(this).val();
+          var type = $(this).attr('query_type');
+          query[type] = value;
+        });
+      });
+      // alert(JSON.stringify(query));
+      $.post("/log/query", query, function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			});
+    });
+
+    $("#clear").click(function(){
+      var table = $('#query_table');
+      table.find('tr').each(function(index, val){
+        $(this).find('.query_input').each(function(index, val){
+          $(this).val('')
+        });
+      });
+    });
+
+    createModal()
+
+  }
 </script>
 
+
+<section>
+
+  <div class="logLeft">
+    <div class="banner">
+        <a>Log</a>
+    </div>
+
+
+    <div class="logTable">
+      <div class="table-scroll">
+        <table class="tableLog" id="logs">
+          <thead>
+          <tr class="head2">
+            <th class="tdTime">Time</th>
+            <th class="tdTo">Net</th>
+            <th class="tdFrom">From</th>
+            <th class="tdTo">To</th>
+            <th class="tdType">Type</th>
+          </tr>
+        </thead>
+        <tbody class="table_body">
+          {% for entry in log %}
+          <div class="entryRow">
+            <tr class="rowOff" id="{{entry['logID']}}">
+              <td>{{entry['time'] }}</td>
+              <td>{{entry['net']}}</td>
+              <td>{{entry['sender']}}</td>
+              <td>{{entry['receiver']}}</td>
+              <td>{{entry['name'] }}</td>
+            </tr>
+          </div>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="query">
+      <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID</p>
+      <table id="query_table">
+        <tr>
+          <td>Time</td>
+          <td><input class="query_input" query_type="time" type="text"></td>
+          <td>To</td>
+          <td><input class="query_input" query_type="to" type="text"></td>
+          <td>OR</td>
+          <td>LogID:</td>
+          <td><input type="text"></td>
+        </tr>
+        <tr>
+          <td>Net</td>
+          <td><input class="query_input" query_type="net" type="text"></td>
+          <td>From</td>
+          <td><input class="query_input" query_type="from" type="text"></td>
+        </tr>
+        <tr>
+          <td>Duty Officer</td>
+          <td><input class="query_input" query_type="duty" type="text"></td>
+          <td>Type</td>
+          <td><input class="query_input" query_type="type" type="text" list="returns_list"></td>
+          <datalist id="returns_list">
+              <option value="MESSAGE">MESSAGE</option>
+              {% for return_type in serials_def %}
+              <option value="{{return_type}}">{{return_type}}</option>
+              {% endfor %}
+          </datalist>
+        </tr>
+        <tr>
+          <td><button id="search">Search</button></td>
+          <td><button id="clear">Clear</button></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+                <!-- The Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content"> </div>
+</div>
+
+
+  <div class="logDisplay">
+    <iframe id="logPrint" name="printf" scrolling="yes"></iframe>
+    <div class="foot">
+        <table class="footTable">
+            <tr class=submit>
+                <td>
+                    <button id="print">Print</button>
+                </td>
+                <td>
+                    <button id="edit_log_entry">Edit</button>
+                </td>
+                <td>
+                  <button id="log_delete_btn">Delete</button>
+                </td>
+                <td class="fill"></td>
+            </tr>
+
+        </table>
+  </div>
+
+<script>
+    $(document).ready = load();
+</script>
+
+{% endblock %}
+
+</div>
+
+    </section>
 </body>
 </html>

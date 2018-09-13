@@ -169,13 +169,14 @@ def convert_newlines(line):
 
 
 @APP.route('/log')
-def testPage():
-    return render_template('log/log_edit_new.html',serials_def=SERIALS, log=list(File.load_log()))
+def render_log_page():
 
-@APP.route('/log/frame')
-def display_log():
-    """ Renders the log_frame """
-    return render_template("log/log_test.html",serials_def=SERIALS, log=list(File.load_log()))
+    log = File.load_log()
+    if not log:
+        print("WHY")
+
+
+    return render_template('log/log_edit_new.html',serials_def=SERIALS, log=log)
 
 
 @APP.route('/log/<log_id>')
@@ -183,13 +184,16 @@ def test_log(log_id):
     """ Renders the return form """
     # print(LOG[int(logID)])
     if log_id == 'init':
+        # DEPRECIATED
         log_id = File.get_first()
 
     try:
-        # index = int(logID)
-
-        return render_template("log/log_frame.html",
-                               ret=File.load_log(log_id=log_id)[0])
+        log = File.load_log(log_id=log_id)
+        if log:
+            return render_template("log/log_frame.html",
+                               ret=log)
+        else:
+            return "<h1 style='text-align:center; padding-top: 20px;'>Log Deleted</h1>"
 
     except IndexError:
         return "<h1>ERROR</h1><p>There are no logs to display</p>"
@@ -273,23 +277,29 @@ def test_log_edit(log_id):
         index = int(log_id)
 
         return render_template("Edit_Log/edit_log_body.html",
-                               return_type=File.load_log(log_id=log_id)[0]['name'],
+                               return_type=File.load_log(log_id=log_id)['name'],
                                serials_def=SERIALS,
                                locs=LOCATIONS,
                                settings=SETTINGS,
                                callsigns=CALLSIGNS,
-                               ret=File.load_log(log_id=log_id)[0])
+                               ret=File.load_log(log_id=log_id))
 
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
 
 
-@APP.route('/log/edit/<log_id>', methods=['POST'])
-def test_log_edit_submit(log_id):
+@APP.route('/log/<action>/<log_id>', methods=['POST'])
+def test_log_edit_submit(action, log_id):
+    if action == 'edit':
+        edit_log_by_id(log_id)
+        return ""
+    elif action == 'delete':
+        File.delete_log_byID(request.form.to_dict()['logID'])
+        return ""
 
+
+def edit_log_by_id(log_id):
     log = request.form.to_dict()
-    # print(request.form.to_dict())
-    # print(File.load_log(log_id=log_id)[0])
 
     ret = {}
     ret.update({'logID': log_id})
@@ -309,11 +319,6 @@ def test_log_edit_submit(log_id):
                 ret.update({serial: convert_newlines(log[serial])})
             except KeyError:
                 ret.update({serial: ''})
-
-    # LOG.insert(0, (ret))
-    # File.update_log_entry(ret)
-
-    # print('         ',ret)
 
     File.save_log(ret, update=True)
 

@@ -872,7 +872,7 @@ br {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 999; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -892,7 +892,7 @@ br {
     bottom: 0;
     background-color: #fefefe;
     width: 100%;
-    height: 90%;
+    height: 95%;
     padding: 0px;
     -webkit-animation-name: slideIn;
     -webkit-animation-duration: 0.4s;
