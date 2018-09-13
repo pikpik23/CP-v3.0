@@ -11,6 +11,16 @@ function unsaved () {
 	}
 	};
 
+function unbindAll() {
+	$( ".btn_edit").unbind( "click" );
+	$( ".btn_remove").unbind( "click" );
+	$( ".btn_cancel").unbind( "click" );
+	$( "#add").unbind( "click" );
+	$( ".btn_donet").unbind( "click" );
+	$( "#save_all").unbind( "click" );
+	$( "#cancel_all").unbind( "click" );
+}
+
 function saveAll() {
 	saved = true
 	$('.return-name').html('{{return_type}}');
@@ -28,15 +38,13 @@ function saveAll() {
 	}, 3000);
 };
 
-
-$(document).ready(function($)
-{
+function loadAll() {
 	$(document).find('.btn_done').hide();
 	$(document).find('.btn_cancel').hide(); 
- 
+	
 	//--->button > edit > start	
-	$(document).on('click', '.btn_edit', function(event) 
-	{
+	$(".btn_edit").click(function(){
+		alert('meme');
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
@@ -65,25 +73,37 @@ $(document).ready(function($)
 	});
 	//--->button > edit > end
 
-	$(document).on('click', '.btn_remove', function(event) 
-	{
-		event.preventDefault();
-		$(this).closest('tr').remove();
-		unsaved()
+
+	$('.btn_remove').click(function(){
+		var num_rows = 0 
+		$('.table_body').find('.table_content').each(function(element,val) {
+			num_rows = num_rows + 1
+		});
+		//alert(num_rows);
+		if (num_rows >= 2) {
+			event.preventDefault();
+			$(this).closest('tr').remove();
+			unsaved()
+		}
+		else {
+			alert("You cannot remove the only serial. To delete the return type, go to the table on the left.")
+		}
+		
 	});
 
 	$("#add").click(function (){
 		
-		$(".table_serials tr:last").after('<tr row_id=""><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td><div class="row_data" col_name="data_type"></div></td><td><div class="row_data" col_name="options"></div></td><td><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_done"> <a href="#" class="btn_action" row_id="" > Done</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></td><td><span class="up">&#8679;</span><span class="down"> &#8681;</span></td></tr>');
+		$(".table_serials tr:last").after('<tr row_id="" class="table_content"><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td class="typ_col"><div class="row_data" col_name="data_type"></div></td><td class="options_col"><div class="row_data" col_name="options"></div></td><td class="actions_col"><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_done"> <a href="#" class="btn_action" row_id="" > Done</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></td><td><span class="up">&#8679;</span><span class="down"> &#8681;</span></td></tr>');
+		unbindAll()
+		loadAll();
 		$(".table_serials tr:last").find($(".btn_edit")).click();
-		unsaved()
+		unsaved();
 
 	});
 
 
 	//--->button > cancel > start	
-	$(document).on('click', '.btn_cancel', function(event) 
-	{
+	$('.btn_cancel').click(function(){ 
 		event.preventDefault();
 
 		var tbl_row = $(this).closest('tr');
@@ -111,8 +131,7 @@ $(document).ready(function($)
 
 	
 	//--->done whole row entery > start	
-	$(document).on('click', '.btn_done', function(event) 
-	{	
+	$(".btn_done").click(function(){
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
@@ -135,7 +154,7 @@ $(document).ready(function($)
 			var col_name = $(this).attr('col_name');  
 			if ( col_name == 'data_type') {
 				var col_val  =  $(this).html();
-				if (col_val == "string" || col_val == "long" || col_val == "location" || col_val == "choice") {
+				if (col_val == "short" || col_val == "long" || col_val == "location" || col_val == "choice") {
 					unsaved();
 				}
 				else {
@@ -179,6 +198,7 @@ $(document).ready(function($)
 		}
 	});
 	$('#cancel_all').click(function (){
+		/*
 		$.ajax({
 			url: "/edit_return/{{return_type}}",
 			type: "get",
@@ -188,7 +208,8 @@ $(document).ready(function($)
 			error: function(xhr) {
 			//Do Something to handle error
 			}
-		});
+		}); */
+		$("#serial-list").load('/edit_return/{{return_type}}')
 		saved = true;
 	});
 
@@ -200,7 +221,7 @@ $(document).ready(function($)
 		unsaved()
 	});
 
-		$(document).on('click', '.down', function(event) 
+	$(document).on('click', '.down', function(event) 
 	{
 		var $row = $(this).parents('tr');
  	 	$row.next().after($row.get(0));
@@ -216,11 +237,15 @@ $(document).ready(function($)
     
 });
 
-}); 
+}; 
 
 
 
-
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		loadAll();
+	});
 </script>
 <div class=banner>
 		<a>Edit Return</a>
@@ -264,3 +289,5 @@ $(document).ready(function($)
 	<button class="add" id="add">Add Serial</button><button class="add" id="save_all">Save</button><button class="add" id="cancel_all">Cancel</button>
 	<div id="popup">Serials Saved</div>
 </div>
+
+
