@@ -7,8 +7,60 @@
     <title>Flask CP</title>
     <link rel="stylesheet" href="/styles/main.min.css">
     <script src="js_files/jquery-3.1.1.js"></script>
-    <script type="text/javascript"> 
+
+    <script id="Cookie Functions" type="text/javascript">
+
+        function setCookie(name,value) {
+            var expires = "";
+            var expiration_date = new Date();
+            var date = new Date();
+            date.setFullYear(expiration_date.getFullYear() + 3);
+            expires = "; expires=" + date.toUTCString();
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            document.cookie = name+'=; Max-Age=-99999999;';
+        }
+
+        /*
+        setCookie('name','value');
+
+        var x = getCookie('name');
+        if (x) {
+            [do something with x]
+        }
+         */
+
+    </script>
+
+    <script type="text/javascript">
+
         $(document).ready(function () {
+
+            function setNet(){
+                var net = getCookie('net');
+                if (net) {
+                    $('#net_name').html(net);
+                }
+                else {
+                    $('#net_name').html("{{ settings['net'] }}");
+                }
+            }
+
+            setNet();
+
             $(".toButton").click(function () {
                 $("#inputTo").val(this.innerHTML);
             });
@@ -43,25 +95,24 @@
                 }
             });
             $("#btnNet").click(function () {
-                var net = prompt("Enter your current Net", "{{settings['net']}}");
+                var net = prompt("Enter your current Net", $('#net_name').html());
                 if (net == null || net == "") {
                 }
                 else {
-                    $.post('/settings/net/', { name: net }, function(data, status){
-                });
+                    setCookie('net',net);
                 $('#net_name').html(net);
                 }
             });
             $('#record').click(function(){
-                var exit = false
+                var exit = false;
                 var arr = {};
                 var table = $(".return_table");
-                var box_checked = false
+                var box_checked = false;
                 if ($('#return_type').html() === 'MESSAGE'){
                     arr['msg'] = document.getElementById('textInput').value
                 }
                 else {
-                    var validated = false
+                    var validated = false;
                     var loop = table.find('.data').each(function test(index, element) {
                         type = $(this).attr('type');
                         if (type != 'radio') {
@@ -74,7 +125,7 @@
                                 }
                                 else {
                                     exit = true;
-                                    validated = true
+                                    validated = true;
                                     return;
                                 }
                             }
@@ -91,7 +142,7 @@
                                 }
                                 else {
                                     exit = true;
-                                    validated = true
+                                    validated = true;
                                     return;
                                     }
                                 }
@@ -221,7 +272,7 @@
                     <td class="settings bottom left" align="right">
                             <button type="button" id="btnNet">This Net</button>
                     </td>
-                    <td id="net_name" class="settings bottom right" align="right">{{settings['net']}}</td>
+                    <td id="net_name" class="settings bottom right" align="right"> </td>
                 </tr>
             </table>
     
@@ -288,7 +339,7 @@
                 <td class="settings bottom left" align="right">
                         <button type="button" id="btnNet">This Net</button>
                 </td>
-                <td id="net_name" class="settings bottom right" align="right">{{settings['net']}}</td>
+                <td id="net_name" class="settings bottom right" align="right"></td>
             </tr>
         </table>
 
