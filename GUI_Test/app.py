@@ -88,14 +88,14 @@ def update_list_settings(list_name):
 @APP.route('/settings/locs')
 def display_settings_locations():
     """ Renders the locations edit field """
-    return render_template('list_edit.html',
-                           locs=LOCATIONS)
+    return render_template('settings/list_edit.html',
+                           data=LOCATIONS)
 
 @APP.route('/settings/callsigns')
 def display_settings_callsigns():
     """ Renders the locations edit field """
-    return render_template('list_edit.html',
-                           locs=CALLSIGNS)
+    return render_template('settings/list_edit.html',
+                           data=CALLSIGNS)
 
 
 @APP.route('/settings/general')

@@ -1,19 +1,21 @@
-POE
-EXCON
-ECH B
-High Ropes
-NL Hammer
-PNR/ENG
-Bullock Track (Top)
-Calf Pen (Start)
-NL Broke
-NL Hill Top
-NL Wallaby
-NL Sleeper
-NL Oakley
-NL Pine
-NL Alpha Niner
-NL Spanner
-NL Comms
-NL Summit
+GR278769 (POE)
+GR244764 (EXCON)
+GR326714 (ECH B)
+GR332712 (High Ropes)
+GR290711 (Bullock Track)
+GR292756 (Calf Pen)
+GR252768 (PNR/ENG)
+GR246758 (NL Broke)
+GR288753 (NL Hill Top)
+GR294711 (NL Wallaby)
+GR296764 (NL Sleeper)
+GR270747 (NL Oakley)
+GR286757 (NL Pine)
+GR334734 (NL Comms)
+GR326714 (NL Summit)
+GR250765 (NL Hammer)
+
+
+
+
 
