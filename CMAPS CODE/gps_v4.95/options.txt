@@ -1,2 +1,0 @@
-Length of Trail (seconds):
-360000000.0
