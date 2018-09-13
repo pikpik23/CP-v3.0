@@ -14,9 +14,11 @@ RETURNS = ['MESSAGE']
 for i in SERIALS:
     RETURNS.append(i)
 
+
 def generate_data(rows):
     for generate in range(rows):
         generate_log()
+
 
 def generate_log():
     rtrn_type = choice(RETURNS)
@@ -39,6 +41,7 @@ def generate_log():
                 ret.update({serial: ''})
 
     File.save_log(ret)
+
 
 if __name__ == '__main__':
     rows = int(input("rows to generate: "))

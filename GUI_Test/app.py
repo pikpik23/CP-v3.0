@@ -10,7 +10,6 @@ from flask import Flask, render_template, request, redirect
 from file import File
 from flask_compress import Compress
 
-
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
 
@@ -48,6 +47,7 @@ def abstracted_return(rtrn_type):
                                locs=LOCATIONS,
                                settings=SETTINGS,
                                callsigns=CALLSIGNS)
+
 
 @APP.route('/notes')
 def display_notes():
@@ -90,12 +90,12 @@ def update_list_settings(list_name: str) -> str:
     return ""
 
 
-
 @APP.route('/settings/locs')
 def display_settings_locations():
     """ Renders the locations edit field """
     return render_template('settings/list_edit.html',
                            data=LOCATIONS)
+
 
 @APP.route('/settings/callsigns')
 def display_settings_callsigns():
@@ -171,7 +171,7 @@ def convert_newlines(line):
 @APP.route('/log')
 def render_log_page():
     log = File.load_log()
-    return render_template('log/log_edit_new.html',serials_def=SERIALS, log=log)
+    return render_template('log/log_edit_new.html', serials_def=SERIALS, log=log)
 
 
 @APP.route('/log/<log_id>')
@@ -186,7 +186,7 @@ def test_log(log_id):
         log = File.load_log(log_id=log_id)
         if log:
             return render_template("log/log_frame.html",
-                               ret=log)
+                                   ret=log)
         else:
             return "<h1 style='text-align:center; padding-top: 20px;'>Log Deleted</h1>"
 
@@ -222,7 +222,6 @@ def display_edit_return_info():
 @APP.route('/edit_return/<action>', methods=['POST'])
 @APP.route('/update', methods=['POST'])
 def test_update(action):
-
     if action == "return_update":
         x = request.form.to_dict()
         if 'add' in x:
@@ -230,7 +229,7 @@ def test_update(action):
             if x['old']:
                 SERIALS[x['add']] = SERIALS.pop(x['old'])
             else:
-                SERIALS.update({x['add']:{'A': {'desc': 'default entry', 'data_type':'short', 'options':['']}}})
+                SERIALS.update({x['add']: {'A': {'desc': 'default entry', 'data_type': 'short', 'options': ['']}}})
             File.save_dic(SERIALS)
 
         elif 'rem' in x:
@@ -254,10 +253,10 @@ def test_update(action):
                 row = row.split(', ')
 
             if name in outdic.keys():
-                outdic[name].update({id:row})
+                outdic[name].update({id: row})
             else:
-                outdic.update({name:{id:row}})
-        SERIALS.update({action:outdic})
+                outdic.update({name: {id: row}})
+        SERIALS.update({action: outdic})
         File.save_dic(SERIALS)
 
     return ""
@@ -322,12 +321,14 @@ def edit_log_by_id(log_id):
 def minesweeper():
     return render_template("games/minesweeper.html")
 
+
 @APP.route('/log/query', methods=['POST'])
 def getQuery():
     # print(request.form.to_dict())
     x = File.load_log_query(request.form.to_dict())
     # print(list(x))
     return render_template("log/log_innertable_list.html", log=list(x))
+
 
 if __name__ == '__main__':
 

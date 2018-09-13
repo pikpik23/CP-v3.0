@@ -6,7 +6,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
-        (global.Vue = factory());
+            (global.Vue = factory());
 }(this, function () {
     'use strict';
 
@@ -69,6 +69,7 @@
     }
 
     var hasOwnProperty = Object.prototype.hasOwnProperty;
+
     /**
      * Check whether the object has the property.
      *
@@ -624,6 +625,7 @@
     var curly;
     var square;
     var paren;
+
     /**
      * Push a filter to the current directive object
      */
@@ -766,6 +768,7 @@
     var cache = undefined;
     var tagRE = undefined;
     var htmlRE = undefined;
+
     /**
      * Escape a string so it can be used in a RegExp
      * constructor.
@@ -1937,6 +1940,7 @@
             var strat = strats[key] || defaultStrat;
             options[key] = strat(parent[key], child[key], vm, key);
         }
+
         return options;
     }
 
@@ -2031,9 +2035,9 @@
     var arrayProto = Array.prototype;
     var arrayMethods = Object.create(arrayProto)
 
-    /**
-     * Intercept mutating methods and emit events
-     */
+        /**
+         * Intercept mutating methods and emit events
+         */
 
     ;
     ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
@@ -2322,7 +2326,6 @@
     }
 
 
-
     var util = Object.freeze({
         defineReactive: defineReactive,
         set: set,
@@ -2448,7 +2451,7 @@
             this._isFragment = false;
             this._fragment = // @type {DocumentFragment}
                 this._fragmentStart = // @type {Text|Comment}
-                this._fragmentEnd = null; // @type {Text|Comment}
+                    this._fragmentEnd = null; // @type {Text|Comment}
 
             // lifecycle state
             this._isCompiled = this._isDestroyed = this._isReady = this._isAttached = this._isBeingDestroyed = this._vForRemoving = false;
@@ -2859,7 +2862,8 @@
     var identRE = /[^\w$\.](?:[A-Za-z_$][\w$]*)/g;
     var literalValueRE$1 = /^(?:true|false|null|undefined|Infinity|NaN)$/;
 
-    function noop() {}
+    function noop() {
+    }
 
     /**
      * Save / Rewrite / Restore
@@ -4200,9 +4204,9 @@
                 if (frag.reused && !frag.staggerCb) {
                     currentPrev = findPrevFrag(frag, start, this.id);
                     if (currentPrev !== targetPrev && (!currentPrev ||
-                            // optimization for moving a single item.
-                            // thanks to suggestions by @livoras in #1807
-                            findPrevFrag(currentPrev, start, this.id) !== targetPrev)) {
+                        // optimization for moving a single item.
+                        // thanks to suggestions by @livoras in #1807
+                        findPrevFrag(currentPrev, start, this.id) !== targetPrev)) {
                         this.move(frag, prevEl);
                     }
                 } else {
@@ -5223,7 +5227,8 @@
             // stub a noop for v-on with no value,
             // e.g. @mousedown.prevent
             if (!this.descriptor.raw) {
-                handler = function () {};
+                handler = function () {
+                };
             }
 
             if (typeof handler !== 'function') {
@@ -6292,8 +6297,8 @@
 
     function assertProp(prop, value, vm) {
         if (!prop.options.required && ( // non-required
-                prop.raw === null || // abscent
-                value == null) // null or undefined
+            prop.raw === null || // abscent
+            value == null) // null or undefined
         ) {
             return true;
         }
@@ -6963,7 +6968,8 @@
 
     function linkAndCapture(linker, vm) {
         /* istanbul ignore if */
-        if ('development' === 'production') {}
+        if ('development' === 'production') {
+        }
         var originalDirCount = vm._directives.length;
         linker();
         var dirs = vm._directives.slice(originalDirCount);
@@ -7009,6 +7015,7 @@
                 teardownDirs(context, contextDirs);
             }
         }
+
         // expose linked directives
         unlink.dirs = dirs;
         return unlink;
@@ -7275,6 +7282,7 @@
                 filters: parsed.filters
             };
         }
+
         return el;
     }
 
@@ -7456,7 +7464,9 @@
         }
     }
 
-    function skip() {}
+    function skip() {
+    }
+
     skip.terminal = true;
 
     /**
@@ -7533,51 +7543,51 @@
                 // warn against mixing mustaches with v-bind
                 if ('development' !== 'production') {
                     if (name === 'class' && Array.prototype.some.call(attrs, function (attr) {
-                            return attr.name === ':class' || attr.name === 'v-bind:class';
-                        })) {
+                        return attr.name === ':class' || attr.name === 'v-bind:class';
+                    })) {
                         warn('class="' + rawValue + '": Do not mix mustache interpolation ' + 'and v-bind for "class" on the same element. Use one or the other.', options);
                     }
                 }
             } else
 
-                // special attribute: transition
-                if (transitionRE.test(name)) {
-                    modifiers.literal = !bindRE.test(name);
-                    pushDir('transition', internalDirectives.transition);
-                } else
+            // special attribute: transition
+            if (transitionRE.test(name)) {
+                modifiers.literal = !bindRE.test(name);
+                pushDir('transition', internalDirectives.transition);
+            } else
 
-                    // event handlers
-                    if (onRE.test(name)) {
-                        arg = name.replace(onRE, '');
-                        pushDir('on', directives.on);
-                    } else
+            // event handlers
+            if (onRE.test(name)) {
+                arg = name.replace(onRE, '');
+                pushDir('on', directives.on);
+            } else
 
-                        // attribute bindings
-                        if (bindRE.test(name)) {
-                            dirName = name.replace(bindRE, '');
-                            if (dirName === 'style' || dirName === 'class') {
-                                pushDir(dirName, internalDirectives[dirName]);
-                            } else {
-                                arg = dirName;
-                                pushDir('bind', directives.bind);
-                            }
-                        } else
+            // attribute bindings
+            if (bindRE.test(name)) {
+                dirName = name.replace(bindRE, '');
+                if (dirName === 'style' || dirName === 'class') {
+                    pushDir(dirName, internalDirectives[dirName]);
+                } else {
+                    arg = dirName;
+                    pushDir('bind', directives.bind);
+                }
+            } else
 
-                            // normal directives
-                            if (matched = name.match(dirAttrRE)) {
-                                dirName = matched[1];
-                                arg = matched[2];
+            // normal directives
+            if (matched = name.match(dirAttrRE)) {
+                dirName = matched[1];
+                arg = matched[2];
 
-                                // skip v-else (when used with v-show)
-                                if (dirName === 'else') {
-                                    continue;
-                                }
+                // skip v-else (when used with v-show)
+                if (dirName === 'else') {
+                    continue;
+                }
 
-                                dirDef = resolveAsset(options, 'directives', dirName, true);
-                                if (dirDef) {
-                                    pushDir(dirName, dirDef);
-                                }
-                            }
+                dirDef = resolveAsset(options, 'directives', dirName, true);
+                if (dirDef) {
+                    pushDir(dirName, dirDef);
+                }
+            }
         }
 
         /**
@@ -7866,7 +7876,6 @@
     }
 
 
-
     var compiler = Object.freeze({
         compile: compile,
         compileAndLinkProps: compileAndLinkProps,
@@ -8050,7 +8059,9 @@
          * special getter/setters
          */
 
-        function noop() {}
+        function noop() {
+        }
+
         Vue.prototype._initComputed = function () {
             var computed = this.$options.computed;
             if (computed) {
@@ -8285,7 +8296,8 @@
         };
     }
 
-    function noop$1() {}
+    function noop$1() {
+    }
 
     /**
      * A directive links a DOM element with a piece of data,
@@ -8944,7 +8956,8 @@
                 } else {
                     try {
                         return res.get.call(this, this);
-                    } catch (e) {}
+                    } catch (e) {
+                    }
                 }
             }
         };
@@ -9309,6 +9322,7 @@
                 self.$off(event, on);
                 fn.apply(this, arguments);
             }
+
             on.fn = fn;
             this.$on(event, on);
             return this;

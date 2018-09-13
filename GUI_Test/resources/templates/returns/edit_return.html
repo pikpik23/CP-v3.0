@@ -1,102 +1,100 @@
 {% extends '/includes/layout.html' %} {% block body %}
-<script src="js_files/jquery-3.1.1.js"></script>
-<script type="text/javascript">
-	var saved = true;
-</script>
-<script type="text/javascript">  
-    $(document).ready(function ($) {
-		
-        $("#back").click(function (){
-            window.location.href = '/settings';
-        });
-        $("#instructions").click(function (){
-            $.ajax({
-            url: "/edit_return/info",
-            type: "get",
-            success: function(response) {
-                $("#serial-list").html(response);
-            },
-            error: function(xhr) {
-            //Do Something to handle error
-            }
+    <script src="js_files/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+        var saved = true;
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+
+            $("#back").click(function () {
+                window.location.href = '/settings';
             });
-        });
-        $("#instructions").click();
-        
-        {% for return_type in serials_def %}
-        $("#{{return_type}}").click(function () {
-            //$("#serials").attr("src", "edit_return/{{return_type}}");
-			if (saved == true) {
-				$.ajax({
-					url: "/edit_return/{{return_type}}",
-					type: "get",
-					success: function(response) {
-					$("#serial-list").html(response);
-					},
-					error: function(xhr) {
-					//Do Something to handle error
-					}
-            	});
-			}
-			else if (saved == false) {
-				alert('unsaved changes')
-			}
-			else {
-				alert('it didnt work')
-			}
-
-        });
-        {% endfor %}
-
-        $(document).find('.btnSave').hide();
-	    $(document).find('.btnCancel').hide(); 
-        
-        $(document).on('click', '.btnEdit', function(event) 
-	    {
-			event.preventDefault();
-			var tbl_row = $(this).closest('tr');
-			var row_return = tbl_row.attr('row_return');
-
-			tbl_row.find('.btnSave').show();
-			tbl_row.find('.btnCancel').show();
-
-			//hide edit button
-			tbl_row.find('.btnEdit').hide(); 
-
-			//make the whole row editable
-			tbl_row.find('.row_data')
-			.attr('contenteditable', 'true')
-			.attr('edit_type', 'button')
-			.addClass('edit');
-
-			//--->add the original entry > start
-			tbl_row.find('.row_data').each(function(index, val) 
-			{  
-				//this will help in case user decided to click on cancel button
-				$(this).attr('original_entry', $(this).html());
-			}); 		
-
-	});
-	//--->button > edit > end
-
-	$(document).on('click', '.btnRemove', function(event) 
-	{
-		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.');
-		if (check == true) {
-			
-			var tbl_row = $(this).closest('tr');
-            var row_return = tbl_row.find('.row_data').html();
-            var ret = {rem: row_return};
-			$(this).closest('tr').remove();
-            $.post("/edit_return/return_update", ret, function(data, status){
-                //alert("Data: " + data + "\nStatus: " + status);
+            $("#instructions").click(function () {
+                $.ajax({
+                    url: "/edit_return/info",
+                    type: "get",
+                    success: function (response) {
+                        $("#serial-list").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
                 });
-		};
-		
-	});
+            });
+            $("#instructions").click();
 
-	$("#add_return").click(function (){
-		$(".table_serials_outer tr:last").after(`
+            {% for return_type in serials_def %}
+                $("#{{return_type}}").click(function () {
+                    //$("#serials").attr("src", "edit_return/{{return_type}}");
+                    if (saved == true) {
+                        $.ajax({
+                            url: "/edit_return/{{return_type}}",
+                            type: "get",
+                            success: function (response) {
+                                $("#serial-list").html(response);
+                            },
+                            error: function (xhr) {
+                                //Do Something to handle error
+                            }
+                        });
+                    }
+                    else if (saved == false) {
+                        alert('unsaved changes')
+                    }
+                    else {
+                        alert('it didnt work')
+                    }
+
+                });
+            {% endfor %}
+
+            $(document).find('.btnSave').hide();
+            $(document).find('.btnCancel').hide();
+
+            $(document).on('click', '.btnEdit', function (event) {
+                event.preventDefault();
+                var tbl_row = $(this).closest('tr');
+                var row_return = tbl_row.attr('row_return');
+
+                tbl_row.find('.btnSave').show();
+                tbl_row.find('.btnCancel').show();
+
+                //hide edit button
+                tbl_row.find('.btnEdit').hide();
+
+                //make the whole row editable
+                tbl_row.find('.row_data')
+                    .attr('contenteditable', 'true')
+                    .attr('edit_type', 'button')
+                    .addClass('edit');
+
+                //--->add the original entry > start
+                tbl_row.find('.row_data').each(function (index, val) {
+                    //this will help in case user decided to click on cancel button
+                    $(this).attr('original_entry', $(this).html());
+                });
+
+            });
+            //--->button > edit > end
+
+            $(document).on('click', '.btnRemove', function (event) {
+                var check = confirm('Are you sure you would like to remove this Return? This can not be undone.');
+                if (check == true) {
+
+                    var tbl_row = $(this).closest('tr');
+                    var row_return = tbl_row.find('.row_data').html();
+                    var ret = {rem: row_return};
+                    $(this).closest('tr').remove();
+                    $.post("/edit_return/return_update", ret, function (data, status) {
+                        //alert("Data: " + data + "\nStatus: " + status);
+                    });
+                }
+                ;
+
+            });
+
+            $("#add_return").click(function () {
+                $(".table_serials_outer tr:last").after(`
 		<tr new_row="true">
 			<td><div class="row_data" prevcont="" col_name="return"></div></td>
 			<td>
@@ -107,148 +105,146 @@
 				<span class="btnRemove"> <a href="#" class="btn_action" row_return="" >Remove</a> </span>
 			</td>
 		</tr>`);
-		$(".table_serials_outer tr:last").find($(".btnEdit")).click();
+                $(".table_serials_outer tr:last").find($(".btnEdit")).click();
 
-	});
-
-
-	//--->button > cancel > start	
-	$(document).on('click', '.btnCancel', function(event) 
-	{
-		event.preventDefault();
-
-		var tbl_row = $(this).closest('tr');
-		var new_return = tbl_row.attr('new_row')
-		if (new_return == 'true') {
-			alert('meme')
-			$(this).closest('tr').remove();
-		}
-		else {
-			var row_return = tbl_row.attr('row_return');
-			//hide save and cacel buttons
-			tbl_row.find('.btnSave').hide();
-			tbl_row.find('.btnCancel').hide();
-
-			//show edit button
-			tbl_row.find('.btnEdit').show();
-
-			//make the whole row editable
-			tbl_row.find('.row_data')
-			.attr('edit_type', 'click')
-			.removeClass('edit');
-
-			tbl_row.find('.row_data').each(function(index, val) 
-			{   
-				$(this).html( $(this).attr('original_entry') ); 
-			});  
-		}
-		
-
-	});
-	//--->button > cancel > end
-
-	
-	//--->save whole row entry > start
-	$(document).on('click', '.btnSave', function(event) 
-	{
-		event.preventDefault();
-		var tbl_row = $(this).closest('tr');
-		var row_return = tbl_row.find('.row_data').html();
-		
-		if (row_return == "" || row_return == null) {
-			alert('You must ensure the return has a name.')
-
-		}
-		else {
-			var prevValue = $(event.target).parent().parent().parent().find(".row_data")[0].getAttribute("prevcont");
-			
-			var new_row = tbl_row.attr('new_row');
-			if (new_row == 'true') {
-				tbl_row.attr('new_row','false');
-			}
-
-			//hide save and cacel buttons
-			tbl_row.find('.btnSave').hide();
-			tbl_row.find('.btnCancel').hide();
-
-			//show edit button
-			tbl_row.find('.btnEdit').show();
-
-			tbl_row.find('.row_data')
-			.attr('contenteditable', 'false')
-			.css('padding','') 
-			.removeClass('edit');
+            });
 
 
-			tbl_row.attr("row_return",row_return);
+            //--->button > cancel > start
+            $(document).on('click', '.btnCancel', function (event) {
+                event.preventDefault();
 
-			tbl_row.find('.btnSerials')
-			.attr('id',row_return)
-			.attr('row_return',row_return);
+                var tbl_row = $(this).closest('tr');
+                var new_return = tbl_row.attr('new_row')
+                if (new_return == 'true') {
+                    alert('meme')
+                    $(this).closest('tr').remove();
+                }
+                else {
+                    var row_return = tbl_row.attr('row_return');
+                    //hide save and cacel buttons
+                    tbl_row.find('.btnSave').hide();
+                    tbl_row.find('.btnCancel').hide();
 
-			var ret_arr = [];
+                    //show edit button
+                    tbl_row.find('.btnEdit').show();
+
+                    //make the whole row editable
+                    tbl_row.find('.row_data')
+                        .attr('edit_type', 'click')
+                        .removeClass('edit');
+
+                    tbl_row.find('.row_data').each(function (index, val) {
+                        $(this).html($(this).attr('original_entry'));
+                    });
+                }
 
 
-			var ret = {add: row_return};
-			ret.old = prevValue;
-
-			$.post("/edit_return/return_update", ret, function(data, status){
-				//alert("Data: " + data + "\nStatus: " + status);
-				});
-
-				$(event.target).parent().parent().parent().find(".row_data")[0].setAttribute('prevcont', row_return)
-
-		}
+            });
+            //--->button > cancel > end
 
 
-        
+            //--->save whole row entry > start
+            $(document).on('click', '.btnSave', function (event) {
+                event.preventDefault();
+                var tbl_row = $(this).closest('tr');
+                var row_return = tbl_row.find('.row_data').html();
 
-		});
-	});
+                if (row_return == "" || row_return == null) {
+                    alert('You must ensure the return has a name.')
+
+                }
+                else {
+                    var prevValue = $(event.target).parent().parent().parent().find(".row_data")[0].getAttribute("prevcont");
+
+                    var new_row = tbl_row.attr('new_row');
+                    if (new_row == 'true') {
+                        tbl_row.attr('new_row', 'false');
+                    }
+
+                    //hide save and cacel buttons
+                    tbl_row.find('.btnSave').hide();
+                    tbl_row.find('.btnCancel').hide();
+
+                    //show edit button
+                    tbl_row.find('.btnEdit').show();
+
+                    tbl_row.find('.row_data')
+                        .attr('contenteditable', 'false')
+                        .css('padding', '')
+                        .removeClass('edit');
 
 
-</script>
-<div class="mainSetting">
-    <div class="return-list">
-        <div class="banner">
-            <a>Returns</a>
-        </div>
-        <div class="section_left"> 
-            <div>
-                <button id="back" class="edit_buttons">Back to Settings</button>
-                <button class="edit_buttons" id="instructions">Instructions</button>
+                    tbl_row.attr("row_return", row_return);
+
+                    tbl_row.find('.btnSerials')
+                        .attr('id', row_return)
+                        .attr('row_return', row_return);
+
+                    var ret_arr = [];
+
+
+                    var ret = {add: row_return};
+                    ret.old = prevValue;
+
+                    $.post("/edit_return/return_update", ret, function (data, status) {
+                        //alert("Data: " + data + "\nStatus: " + status);
+                    });
+
+                    $(event.target).parent().parent().parent().find(".row_data")[0].setAttribute('prevcont', row_return)
+
+                }
+
+
+            });
+        });
+
+
+    </script>
+    <div class="mainSetting">
+        <div class="return-list">
+            <div class="banner">
+                <a>Returns</a>
             </div>
-            <table id="table_serials" class="table_serials_outer" id="edit_return">
-                <tr>
-                    <th class="return_column">Return Name</th>
-                    <th>Options</th>
-                </tr>
-				
-				<tbody class="return_body">
-				{% for return_type in serials_def %}
-                <tr row_return="{{return_type}}" new_row="false">
-                    <td><div class="row_data" prevcont="{{ return_type }}" col_name="return">{{ return_type }}</div></td>
-                	<td>
-                    <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
-                    <span class="btnSave"> <a href="#" class="btn_action"  > Save</a> </span>
-                    <span class="btnCancel"> <a href="#" class="btn_action" > Cancel</a> </span>
-                    <span id="{{return_type}}" class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span>
-                    <span class="btnRemove"> <a href="#" class="btn_action" > Remove</a> </span>
-                    
-                </td>
-                </tr>
-				{% endfor %}
-				</tbody>
-            </table>
-            <button class="add" id="add_return">Add Return</button>
-        </div>
-    </div>
-    <div id="serial-list">
-        <!--<div class="banner">
-            <a>Returns</a>
-        </div>
-        <iframe id="serials" src="edit_return/MAINTDEM"></iframe> -->
+            <div class="section_left">
+                <div>
+                    <button id="back" class="edit_buttons">Back to Settings</button>
+                    <button class="edit_buttons" id="instructions">Instructions</button>
+                </div>
+                <table id="table_serials" class="table_serials_outer" id="edit_return">
+                    <tr>
+                        <th class="return_column">Return Name</th>
+                        <th>Options</th>
+                    </tr>
 
+                    <tbody class="return_body">
+                    {% for return_type in serials_def %}
+                        <tr row_return="{{ return_type }}" new_row="false">
+                            <td>
+                                <div class="row_data" prevcont="{{ return_type }}"
+                                     col_name="return">{{ return_type }}</div>
+                            </td>
+                            <td>
+                                <span class="btnEdit"> <a href="#" class="btn_action"> Rename</a> </span>
+                                <span class="btnSave"> <a href="#" class="btn_action"> Save</a> </span>
+                                <span class="btnCancel"> <a href="#" class="btn_action"> Cancel</a> </span>
+                                <span id="{{ return_type }}" class="btnSerials"> <a href="#" class="btn_action"> Edit Serials</a> </span>
+                                <span class="btnRemove"> <a href="#" class="btn_action"> Remove</a> </span>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <button class="add" id="add_return">Add Return</button>
+            </div>
+        </div>
+        <div id="serial-list">
+            <!--<div class="banner">
+                <a>Returns</a>
+            </div>
+            <iframe id="serials" src="edit_return/MAINTDEM"></iframe> -->
+
+        </div>
     </div>
-</div>
 {% endblock %}

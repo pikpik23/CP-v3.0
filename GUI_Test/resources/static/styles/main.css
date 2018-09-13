@@ -8,8 +8,8 @@ html {
 
 body {
     /*padding-top: 90px;*/
-    min-width:1000px;        /* Suppose you want minimum width of 1000px */
-    width: auto !important;  /* Firefox will set width as auto */
+    min-width: 1000px; /* Suppose you want minimum width of 1000px */
+    width: auto !important; /* Firefox will set width as auto */
     /* width:1000px;            As IE6 ignores !important it will set width as 1000px; */
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -164,14 +164,13 @@ a.kgs {
     margin-left: 200px;
     margin-top: 56px;
     border: 1px solid rgb(145, 145, 145);
-    
+
     /*margin-bottom:100px;  only use when ther is footer*/
 }
 
 .inner_return {
-    padding:5px;
+    padding: 5px;
 }
-
 
 /* ------------------- Abstracted Return -------------------*/
 
@@ -325,7 +324,7 @@ footer {
 .footTable {
     border-spacing: 0;
     border-collapse: collapse;
-    background-color:transparent;
+    background-color: transparent;
 
 }
 
@@ -382,7 +381,6 @@ label:hover {
     box-shadow: none;
 }
 
-
 /*---------------------------- LOG --------------------*/
 
 .logLeft {
@@ -436,8 +434,7 @@ label:hover {
 }
 
 .tableLog tr:nth-child(even) {
-    background-color: #f2f2f2;
-    ;
+    background-color: #f2f2f2;;
 }
 
 .tableLog tr:hover {
@@ -470,7 +467,7 @@ label:hover {
 
 .printTable td {
     font-weight: bold;
-    padding:4px;
+    padding: 4px;
 }
 
 .printTable tr {
@@ -478,7 +475,7 @@ label:hover {
 }
 
 .head_column {
-    width:100px;
+    width: 100px;
 }
 
 .head2 th {
@@ -524,22 +521,21 @@ label:hover {
 
 .textp {
     vertical-align: top;
-    height:20px;
+    height: 20px;
 }
 
 br {
-    line-height:10px;
+    line-height: 10px;
 }
 
 .query {
     position: absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:190px;
-    border:1px solid black;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 190px;
+    border: 1px solid black;
 }
-
 
 /* not in use...
 #prev_return.hidden {
@@ -553,17 +549,17 @@ br {
     border-collapse: collapse;
 }
 
-.edit-table td{
+.edit-table td {
     border: 1px solid black;
 }
 
 .return-list {
-    width:450px;
+    width: 450px;
     border: 1px solid #ddd;
     position: absolute;
-    top:0;
-    left:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    bottom: 0;
 
 }
 
@@ -578,20 +574,20 @@ br {
 }
 
 #table_serials {
-    width:100%;
+    width: 100%;
 }
 
-#table_serials th{
+#table_serials th {
     font-weight: bold;
     background-color: #67747c;
     color: white;
-    padding:3px;
+    padding: 3px;
     text-align: left;
 }
 
 #table_serials, #table_serials td {
     border-collapse: collapse;
-    padding:10px 6px;
+    padding: 10px 6px;
     border: 1px solid #ddd;
 }
 
@@ -599,9 +595,8 @@ br {
     background-color: #f2f2f2;
 }
 
-
 .row_data {
-    padding:3px;
+    padding: 3px;
 }
 
 .edit {
@@ -611,40 +606,40 @@ br {
 
 .btn_action {
     text-decoration: underline;
-    color:black;
+    color: black;
 }
 
 .bold {
     font-weight: bold;
 }
 
-.serial_body{
-    padding:0 16px;
+.serial_body {
+    padding: 0 16px;
 }
 
-#edit_return{
-    width:100%;
+#edit_return {
+    width: 100%;
 }
 
 #save_all, #cancel_all {
-    margin-left:10px;
+    margin-left: 10px;
 }
 
-.section_left{
-    padding:10px;
+.section_left {
+    padding: 10px;
 }
 
 .edit_buttons {
     margin-bottom: 10px;
-    font-size:10pt;
+    font-size: 10pt;
     width: 150px;
 }
 
 #instructions {
-    margin-left:10px;
+    margin-left: 10px;
 }
 
-.edit_buttons:hover{
+.edit_buttons:hover {
     cursor: pointer;
 }
 
@@ -655,24 +650,24 @@ br {
 }
 
 .return_column {
-    width:150px;
+    width: 150px;
 }
 
 .serial_column {
-    width:50px;
+    width: 50px;
     text-align: center !important;
 }
 
 .options_col {
-    width:200px;
+    width: 200px;
 }
 
 .type_col {
-    width:150;
+    width: 150;
 }
 
 .actions_col {
-    width:175px;
+    width: 175px;
 }
 
 .up:hover, .down:hover {
@@ -682,7 +677,6 @@ br {
 .unsaved {
     padding-left: 5px;
 }
-
 
 /* -------------------- Settings ---------------------------*/
 
@@ -696,59 +690,58 @@ br {
 }
 
 .settingsTable {
-    width:100%;
+    width: 100%;
 }
 
 .settingsTable td.setting_row {
     border: 1px solid black;
     border-radius: 5px;
-    width:100%;
-    padding:10px;
+    width: 100%;
+    padding: 10px;
 }
 
-
-#settings_display{
+#settings_display {
     position: absolute;
-    top:36px;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 36px;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .space {
-    height:30px;
+    height: 30px;
 }
 
 .divLeft {
     border: 2px solid rgb(187, 187, 187);
     position: absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:300px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
 }
 
 .divRight {
     border: 2px solid rgb(187, 187, 187);
     position: absolute;
-    left:206px;
-    top:56px;
-    bottom:6px;
-    right:6px;
+    left: 206px;
+    top: 56px;
+    bottom: 6px;
+    right: 6px;
 }
 
-.inner{
+.inner {
     padding: 12px;
     line-height: 24px;
 }
 
 /* ----------------------- Locations-Edit --------------------*/
 
-.list_values{
+.list_values {
     position: absolute;
-    top:0;
-    width:100%;
-    bottom:50px;
+    top: 0;
+    width: 100%;
+    bottom: 50px;
 
     resize: none;
     font-size: 12pt;
@@ -762,8 +755,8 @@ br {
 
 #save_list {
     position: absolute;
-    bottom:5px;
-    left:5px;
+    bottom: 5px;
+    left: 5px;
 }
 
 /* ----------------------------- General Setting --------------------*/
@@ -774,100 +767,110 @@ br {
 
 #portaloo {
     position: absolute;
-    top:20%;
-    left:40%;
-    width:20%;
-    border:5px solid blue;
+    top: 20%;
+    left: 40%;
+    width: 20%;
+    border: 5px solid blue;
     display: none;
 }
 
 #repeat {
     position: fixed;
-    top:15%;
-    left:35%;
-    width:30%;
+    top: 15%;
+    left: 35%;
+    width: 30%;
 
     display: none;
-    z-index:100;
+    z-index: 100;
 }
 
 /*--------------------- TETRIS ----------------------*/
-#tetris{ 
-    width:100%;
+#tetris {
+    width: 100%;
 }
-#canvas{ 
+
+#canvas {
     position: absolute;
-    top:10px;
-    left:350px;
-    background: url(/texture.jpg); 
-    box-shadow: 10px 10px 10px #999; 
+    top: 10px;
+    left: 350px;
+    background: url(/texture.jpg);
+    box-shadow: 10px 10px 10px #999;
     border: 2px solid #333;
- }
-#menu { 
-    width: 300px; 
-    height: 600px; 
-    margin-top:10px;
-} 
-#menu p   { 
-    margin: 0.5em 0; 
-    text-align: center; 
 }
-#menu p a { 
-    text-decoration: none; 
-    color: black; 
+
+#menu {
+    width: 300px;
+    height: 600px;
+    margin-top: 10px;
 }
-#upcoming { 
-    display: block; 
-    margin: 0 auto; 
-    background-color: #E0E0E0; 
+
+#menu p {
+    margin: 0.5em 0;
+    text-align: center;
 }
-#score{ color: red; 
-    font-weight: bold; 
-    vertical-align: middle; 
+
+#menu p a {
+    text-decoration: none;
+    color: black;
 }
-#rows{ 
-    color: blue; 
-    font-weight: bold; 
-    vertical-align: middle; 
-}
-#tetris { 
-    font-size: 1.75em; 
-    width: 650px; 
-} 
+
 #upcoming {
-    width: 150px; 
-    height: 150px; 
-} 
-#canvas { 
-    width: 300px; 
-    height: 600px; 
-} 
+    display: block;
+    margin: 0 auto;
+    background-color: #E0E0E0;
+}
+
+#score {
+    color: red;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#rows {
+    color: blue;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+#tetris {
+    font-size: 1.75em;
+    width: 650px;
+}
+
+#upcoming {
+    width: 150px;
+    height: 150px;
+}
+
+#canvas {
+    width: 300px;
+    height: 600px;
+}
 
 /* -----------------------------------------------------------*/
 
 .transmission_settings {
     border-collapse: collapse;
     position: absolute;
-    right:6px;
-    top:44px;
+    right: 6px;
+    top: 44px;
 
 }
+
 .transmission_settings td {
-    padding:4px;
+    padding: 4px;
 }
 
 #popup {
-    display:none;
+    display: none;
     color: white;
     position: absolute;
-    right:-200px;
-    top:10px;
-    width:400px;
-    text-align:right;
+    right: -200px;
+    top: 10px;
+    width: 400px;
+    text-align: right;
     font-size: 12pt;
 }
-
-
 
 /* -------------------------------------------- EDIT LOG ------------------------------------------*/
 /* The Modal (background) */
@@ -880,8 +883,8 @@ br {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     -webkit-animation-name: fadeIn; /* Fade in the background */
     -webkit-animation-duration: 0.4s;
     animation-name: fadeIn;
@@ -923,7 +926,9 @@ br {
     color: white;
 }
 
-.modal-body {padding: 2px 16px;}
+.modal-body {
+    padding: 2px 16px;
+}
 
 .modal-footer {
     padding: 2px 16px;
@@ -933,21 +938,41 @@ br {
 
 /* Add Animation */
 @-webkit-keyframes slideIn {
-    from {bottom: -300px; opacity: 0}
-    to {bottom: 0; opacity: 1}
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
 }
 
 @keyframes slideIn {
-    from {bottom: -300px; opacity: 0}
-    to {bottom: 0; opacity: 1}
+    from {
+        bottom: -300px;
+        opacity: 0
+    }
+    to {
+        bottom: 0;
+        opacity: 1
+    }
 }
 
 @-webkit-keyframes fadeIn {
-    from {opacity: 0}
-    to {opacity: 1}
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0}
-    to {opacity: 1}
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }

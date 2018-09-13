@@ -2,284 +2,288 @@
 <html>
 <head>
     <script src="/js_files/jquery-3.1.1.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/styles/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
 
 {% extends '/includes/layout.html' %} {% block body %}
-<script src="/js_files/jquery-3.1.1.js"></script>
-<script src="/js_files/jquery.floatThead.min.js"></script>
+    <script src="/js_files/jquery-3.1.1.js"></script>
+    <script src="/js_files/jquery.floatThead.min.js"></script>
 
 
-<script id="JsLoadScript" type="text/javascript">
-function createModal() {
+    <script id="JsLoadScript" type="text/javascript">
+        function createModal() {
 
 // Get the modal
-var modal = document.getElementById("myModal");
+            var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("edit_log_entry");
+            var btn = document.getElementById("edit_log_entry");
 
 // When the user clicks the button, open the modal
-btn.onclick = function() {
+            btn.onclick = function () {
 
-    var logSerial = $("#logPrint").contents().find("#logID_text")[0].textContent;
-    //alert(logSerial);
+                var logSerial = $("#logPrint").contents().find("#logID_text")[0].textContent;
+                //alert(logSerial);
 
-    $.get('/log/edit/'+logSerial).done(function (response) {
-        $('.modal-content').html(response);
+                $.get('/log/edit/' + logSerial).done(function (response) {
+                    $('.modal-content').html(response);
 
-        var span = document.getElementById("cancel");
-        span.onclick = function () {
-            modal.style.display = "none";
-        };
+                    var span = document.getElementById("cancel");
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    };
 
-        $('#record').click(function () {
-            var arr = {};
-            var table = $(".return_table");
-            // alert(($('#logName').html()));
-            if ($('#logName').html() === 'MESSAGE') {
-                arr['msg'] = document.getElementById('textInput').value
-            }
-            else {
-                var loop = table.find('.itext').each(function test(index, element) {
-                    type = $(this).attr('type');
-                    if (type != 'radio') {
-                        var serial = $(this).attr('name');
-                        var data = $(this).val();
-                        if (data == null || data == "") {
-                            var missing = confirm("You are missing a serial. Would you like to continue?");
-                            if (missing == true) {
-                            }
-                            else {
-                                console.log("recording");
-                                return true;
-                            }
-                        }
-                        arr[serial] = data;
-                    }
-                    else {
-                        if ($(this).is(':checked')) {
-                            var serial = $(this).attr('name');
-                            var data = $(this).val();
-                            arr[serial] = data;
+                    $('#record').click(function () {
+                        var arr = {};
+                        var table = $(".return_table");
+                        // alert(($('#logName').html()));
+                        if ($('#logName').html() === 'MESSAGE') {
+                            arr['msg'] = document.getElementById('textInput').value
                         }
                         else {
+                            var loop = table.find('.itext').each(function test(index, element) {
+                                type = $(this).attr('type');
+                                if (type != 'radio') {
+                                    var serial = $(this).attr('name');
+                                    var data = $(this).val();
+                                    if (data == null || data == "") {
+                                        var missing = confirm("You are missing a serial. Would you like to continue?");
+                                        if (missing == true) {
+                                        }
+                                        else {
+                                            console.log("recording");
+                                            return true;
+                                        }
+                                    }
+                                    arr[serial] = data;
+                                }
+                                else {
+                                    if ($(this).is(':checked')) {
+                                        var serial = $(this).attr('name');
+                                        var data = $(this).val();
+                                        arr[serial] = data;
+                                    }
+                                    else {
+                                    }
+                                }
+                            });
                         }
-                    }
+
+                        if (loop == true) {
+                            return;
+                        }
+                        // alert();
+                        var to = $('#inputTo').val();
+                        var from = $('#inputFrom').val();
+                        if (to == null || to == "") {
+                            alert("Please enter a value for the To field");
+                            return;
+                        }
+                        if (from == null || from == "") {
+                            alert("Please enter a value for the From field");
+                            return;
+                        }
+
+                        $.extend(arr, {return_type: $('#return_type').html()});
+                        $.extend(arr, {logID: document.getElementById('logID_Content').innerHTML});
+                        $.extend(arr, {time: document.getElementById('logTime').innerHTML});
+                        $.extend(arr, {name: document.getElementById('logName').innerHTML});
+                        $.extend(arr, {cs: document.getElementById('callsign').textContent});
+                        $.extend(arr, {duty: document.getElementById('duty_officer').textContent});
+                        $.extend(arr, {net: document.getElementById('net_name').textContent});
+                        $.extend(arr, {receiver: document.getElementById('inputTo').value});
+                        $.extend(arr, {sender: document.getElementById('inputFrom').value});
+
+                        var checked = document.getElementById("check").checked;
+
+                        $.post("/log/edit/" + document.getElementById('logID_Content').innerHTML, arr, function (data, status) {
+                            document.getElementById('printf').contentDocument.body.innerHTML = data;
+                            if (checked) {
+                                //document.getElementById('printf').style.visibility = 'visible';
+                                window.frames["printf"].focus();
+                                window.frames["printf"].print();
+                                //document.getElementById('printf').style.visibility = 'hidden';
+                            }
+                            modal.style.display = "none";
+                        });
+                    });
+
+                    modal.style.display = "block";
                 });
-            }
-
-            if (loop == true) {
-                return;
-            }
-            // alert();
-            var to = $('#inputTo').val();
-            var from = $('#inputFrom').val();
-            if (to == null || to == "") {
-                alert("Please enter a value for the To field");
-                return;
-            }
-            if (from == null || from == "") {
-                alert("Please enter a value for the From field");
-                return;
-            }
-
-            $.extend(arr, {return_type: $('#return_type').html()});
-            $.extend(arr, {logID: document.getElementById('logID_Content').innerHTML});
-            $.extend(arr, {time: document.getElementById('logTime').innerHTML});
-            $.extend(arr, {name: document.getElementById('logName').innerHTML});
-            $.extend(arr, {cs: document.getElementById('callsign').textContent});
-            $.extend(arr, {duty: document.getElementById('duty_officer').textContent});
-            $.extend(arr, {net: document.getElementById('net_name').textContent});
-            $.extend(arr, {receiver: document.getElementById('inputTo').value});
-            $.extend(arr, {sender: document.getElementById('inputFrom').value});
-
-            var checked = document.getElementById("check").checked;
-
-            $.post("/log/edit/" + document.getElementById('logID_Content').innerHTML, arr, function (data, status) {
-                document.getElementById('printf').contentDocument.body.innerHTML = data;
-                if (checked) {
-                    //document.getElementById('printf').style.visibility = 'visible';
-                    window.frames["printf"].focus();
-                    window.frames["printf"].print();
-                    //document.getElementById('printf').style.visibility = 'hidden';
-                }
-                modal.style.display = "none";
-            });
-        });
-
-        modal.style.display = "block";
-    });
-};
+            };
 
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-};
-}
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }
 
-  function load() {
+        function load() {
 
-      $("#log_delete_btn").click(function () {
-          $.post("/log/delete/by_id", {logID:$("#logPrint").contents().find("#logID_text")[0].textContent}, function(data, status){
-			//alert("Data: " + data + "\nStatus: " + status);
-			});
-          alert($("#logPrint").contents().find("#logID_text")[0].textContent)
-      });
+            $("#log_delete_btn").click(function () {
+                $.post("/log/delete/by_id", {logID: $("#logPrint").contents().find("#logID_text")[0].textContent}, function (data, status) {
+                    //alert("Data: " + data + "\nStatus: " + status);
+                });
+                alert($("#logPrint").contents().find("#logID_text")[0].textContent)
+            });
 
-    {% for entry in log %}
-    $("#{{entry['logID']}}").click(function () {
-      $("#logPrint").attr("src", "log/{{entry['logID']}}");
-      {% for entry in log %}
-      $("#{{entry['logID']}}").attr("class", "rowOff");
-      {% endfor %}
-      $(this).attr("class", "rowSelected");
+            {% for entry in log %}
+                $("#{{entry['logID']}}").click(function () {
+                    $("#logPrint").attr("src", "log/{{entry['logID']}}");
+                    {% for entry in log %}
+                        $("#{{entry['logID']}}").attr("class", "rowOff");
+                    {% endfor %}
+                    $(this).attr("class", "rowSelected");
 
-    });
-    {% endfor %}
-    $("#0").attr("class", "rowSelected");
-    $('#logs').floatThead({
-    });
-
-
-    $("#print").click(function(){
-      window.frames["printf"].focus();
-      window.frames["printf"].print();
-    });
-    $('.table_body tr').first().click();
-
-    document.addEventListener("keydown", function(event) {
-    if (event.keyCode === 38) {
-        event.preventDefault();
-        //UP ARROW
-        $('tr.rowSelected').prev().click()
-    }
-    if (event.keyCode === 40) {
-        event.preventDefault();
-        //DOWN ARROW
-        $('tr.rowSelected').next().click()
-    }
-    });
-    $("#search").click(function(){
-      var query = {};
-      var table = $('#query_table');
-      table.find('tr').each(function(index, val){
-        $(this).find('.query_input').each(function(index, val){
-          var value = $(this).val();
-          var type = $(this).attr('query_type');
-          query[type] = value;
-        });
-      });
-      // alert(JSON.stringify(query));
-      $.post("/log/query", query, function(data, status){
-          $(".table_body")[0].innerHTML = data
-          load()
-			//alert("Data: " + data + "\nStatus: " + status);
-      });
-    });
-
-    $("#clear").click(function(){
-      var table = $('#query_table');
-      table.find('tr').each(function(index, val){
-        $(this).find('.query_input').each(function(index, val){
-          $(this).val('')
-        });
-      });
-    });
-
-    createModal()
-
-  }
-</script>
+                });
+            {% endfor %}
+            $("#0").attr("class", "rowSelected");
+            $('#logs').floatThead({});
 
 
-<section>
+            $("#print").click(function () {
+                window.frames["printf"].focus();
+                window.frames["printf"].print();
+            });
+            $('.table_body tr').first().click();
 
-  <div class="logLeft">
-    <div class="banner">
-        <a>Log</a>
+            document.addEventListener("keydown", function (event) {
+                if (event.keyCode === 38) {
+                    event.preventDefault();
+                    //UP ARROW
+                    $('tr.rowSelected').prev().click()
+                }
+                if (event.keyCode === 40) {
+                    event.preventDefault();
+                    //DOWN ARROW
+                    $('tr.rowSelected').next().click()
+                }
+            });
+            $("#search").click(function () {
+                var query = {};
+                var table = $('#query_table');
+                table.find('tr').each(function (index, val) {
+                    $(this).find('.query_input').each(function (index, val) {
+                        var value = $(this).val();
+                        var type = $(this).attr('query_type');
+                        query[type] = value;
+                    });
+                });
+                // alert(JSON.stringify(query));
+                $.post("/log/query", query, function (data, status) {
+                    $(".table_body")[0].innerHTML = data
+                    load()
+                    //alert("Data: " + data + "\nStatus: " + status);
+                });
+            });
+
+            $("#clear").click(function () {
+                var table = $('#query_table');
+                table.find('tr').each(function (index, val) {
+                    $(this).find('.query_input').each(function (index, val) {
+                        $(this).val('')
+                    });
+                });
+            });
+
+            createModal()
+
+        }
+    </script>
+
+
+    <section>
+
+    <div class="logLeft">
+        <div class="banner">
+            <a>Log</a>
+        </div>
+
+
+        <div class="logTable">
+            <div class="table-scroll">
+                <table class="tableLog" id="logs">
+                    <thead>
+                    <tr class="head2">
+                        <th class="tdTime">Time</th>
+                        <th class="tdTo">Net</th>
+                        <th class="tdFrom">From</th>
+                        <th class="tdTo">To</th>
+                        <th class="tdType">Type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table_body">
+                    {% for entry in log %}
+                        <div class="entryRow">
+                            <tr class="rowOff" id="{{ entry['logID'] }}">
+                                <td>{{ entry['time'] }}</td>
+                                <td>{{ entry['net'] }}</td>
+                                <td>{{ entry['sender'] }}</td>
+                                <td>{{ entry['receiver'] }}</td>
+                                <td>{{ entry['name'] }}</td>
+                            </tr>
+                        </div>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="query">
+            <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR
+                Search for LOGID</p>
+            <table id="query_table">
+                <tr>
+                    <td>Time</td>
+                    <td><input class="query_input" query_type="logTime" type="text"></td>
+                    <td>To</td>
+                    <td><input class="query_input" query_type="reciever" type="text"></td>
+                    <td>OR</td>
+                    <td>LogID:</td>
+                    <td><input class="query_input" query_type="logID" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Net</td>
+                    <td><input class="query_input" query_type="net" type="text"></td>
+                    <td>From</td>
+                    <td><input class="query_input" query_type="sender" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Duty Officer</td>
+                    <td><input class="query_input" query_type="dutyOfficer" type="text"></td>
+                    <td>Type</td>
+                    <td><input class="query_input" query_type="returnType" type="text" list="returns_list"></td>
+                    <datalist id="returns_list">
+                        <option value="MESSAGE">MESSAGE</option>
+                        {% for return_type in serials_def %}
+                            <option value="{{ return_type }}">{{ return_type }}</option>
+                        {% endfor %}
+                    </datalist>
+                </tr>
+                <tr>
+                    <td>
+                        <button id="search">Search</button>
+                    </td>
+                    <td>
+                        <button id="clear">Clear</button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content"></div>
     </div>
 
 
-    <div class="logTable">
-      <div class="table-scroll">
-        <table class="tableLog" id="logs">
-          <thead>
-          <tr class="head2">
-            <th class="tdTime">Time</th>
-            <th class="tdTo">Net</th>
-            <th class="tdFrom">From</th>
-            <th class="tdTo">To</th>
-            <th class="tdType">Type</th>
-          </tr>
-        </thead>
-        <tbody class="table_body">
-          {% for entry in log %}
-          <div class="entryRow">
-            <tr class="rowOff" id="{{entry['logID']}}">
-              <td>{{entry['time'] }}</td>
-              <td>{{entry['net']}}</td>
-              <td>{{entry['sender']}}</td>
-              <td>{{entry['receiver']}}</td>
-              <td>{{entry['name'] }}</td>
-            </tr>
-          </div>
-          {% endfor %}
-        </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="query">
-      <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID</p>
-      <table id="query_table">
-        <tr>
-          <td>Time</td>
-          <td><input class="query_input" query_type="logTime" type="text"></td>
-          <td>To</td>
-          <td><input class="query_input" query_type="reciever" type="text"></td>
-          <td>OR</td>
-          <td>LogID:</td>
-          <td><input class="query_input" query_type="logID" type="text"></td>
-        </tr>
-        <tr>
-          <td>Net</td>
-          <td><input class="query_input" query_type="net" type="text"></td>
-          <td>From</td>
-          <td><input class="query_input" query_type="sender" type="text"></td>
-        </tr>
-        <tr>
-          <td>Duty Officer</td>
-          <td><input class="query_input" query_type="dutyOfficer" type="text"></td>
-          <td>Type</td>
-          <td><input class="query_input" query_type="returnType" type="text" list="returns_list"></td>
-          <datalist id="returns_list">
-              <option value="MESSAGE">MESSAGE</option>
-              {% for return_type in serials_def %}
-              <option value="{{return_type}}">{{return_type}}</option>
-              {% endfor %}
-          </datalist>
-        </tr>
-        <tr>
-          <td><button id="search">Search</button></td>
-          <td><button id="clear">Clear</button></td>
-        </tr>
-      </table>
-
-    </div>
-  </div>
-
-                <!-- The Modal -->
-<div id="myModal" class="modal">
-  <div class="modal-content"> </div>
-</div>
-
-
-  <div class="logDisplay">
+    <div class="logDisplay">
     <iframe id="logPrint" name="printf" scrolling="yes"></iframe>
     <div class="foot">
         <table class="footTable">
@@ -291,22 +295,22 @@ window.onclick = function(event) {
                     <button id="edit_log_entry">Edit</button>
                 </td>
                 <td>
-                  <button id="log_delete_btn">Delete</button>
+                    <button id="log_delete_btn">Delete</button>
                 </td>
                 <td class="fill"></td>
             </tr>
 
         </table>
-  </div>
+    </div>
 
-<script>
-    $(document).ready = load();
-</script>
+    <script>
+        $(document).ready = load();
+    </script>
 
 {% endblock %}
 
 </div>
 
-    </section>
+</section>
 </body>
 </html>

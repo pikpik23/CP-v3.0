@@ -1,101 +1,99 @@
-
 <link rel="stylesheet" href="/styles/min_main.css">
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-//var saved = true
-function unsaved () {
-	if (saved == true) {
-		saved = false;
-		$('.return-name').append('<span class="unsaved">&#9679;</span>');
-		
-	}
-	};
+    //var saved = true
+    function unsaved() {
+        if (saved == true) {
+            saved = false;
+            $('.return-name').append('<span class="unsaved">&#9679;</span>');
 
-function unbindAll() {
-	$( ".btn_edit").unbind( "click" );
-	$( ".btn_remove").unbind( "click" );
-	$( ".btn_cancel").unbind( "click" );
-	$( "#add").unbind( "click" );
-	$( ".btn_donet").unbind( "click" );
-	$( "#save_all").unbind( "click" );
-	$( "#cancel_all").unbind( "click" );
-	$( ".up").unbind( "click" );
-	$( ".down").unbind( "click" );
-	//document.removeEventListener('beforeunload');
-}
+        }
+    };
 
-function saveAll() {
-	saved = true
-	$('.return-name').html('{{return_type}}');
-	//NOTIFICATION
+    function unbindAll() {
+        $(".btn_edit").unbind("click");
+        $(".btn_remove").unbind("click");
+        $(".btn_cancel").unbind("click");
+        $("#add").unbind("click");
+        $(".btn_donet").unbind("click");
+        $("#save_all").unbind("click");
+        $("#cancel_all").unbind("click");
+        $(".up").unbind("click");
+        $(".down").unbind("click");
+        //document.removeEventListener('beforeunload');
+    }
 
-	$("#popup").show();
-	$("#popup").animate({
-		right: '30px',
-	});
-	setTimeout(function() {
-		$("#popup").fadeOut(500);
-		setTimeout(function() {
-			$("#popup").css('right','-200px')
-		},500);
-	}, 3000);
-};
+    function saveAll() {
+        saved = true
+        $('.return-name').html('{{return_type}}');
+        //NOTIFICATION
 
-function loadAll() {
-	$(document).find('.btn_done').hide();
-	$(document).find('.btn_cancel').hide(); 
-	
-	//--->button > edit > start	
-	$(".btn_edit").click(function(){
-		event.preventDefault();
-		var tbl_row = $(this).closest('tr');
+        $("#popup").show();
+        $("#popup").animate({
+            right: '30px',
+        });
+        setTimeout(function () {
+            $("#popup").fadeOut(500);
+            setTimeout(function () {
+                $("#popup").css('right', '-200px')
+            }, 500);
+        }, 3000);
+    };
 
-		var row_id = tbl_row.attr('row_id');
+    function loadAll() {
+        $(document).find('.btn_done').hide();
+        $(document).find('.btn_cancel').hide();
 
-		tbl_row.find('.btn_done').show();
-		tbl_row.find('.btn_cancel').show();
+        //--->button > edit > start
+        $(".btn_edit").click(function () {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
 
-		//hide edit button
-		tbl_row.find('.btn_edit').hide(); 
+            var row_id = tbl_row.attr('row_id');
 
-		//make the whole row editable
-		tbl_row.find('.row_data')
-		.attr('contenteditable', 'true')
-		.attr('edit_type', 'button')
-		.addClass('edit');
+            tbl_row.find('.btn_done').show();
+            tbl_row.find('.btn_cancel').show();
 
-		//--->add the original entry > start
-		tbl_row.find('.row_data').each(function(index, val) 
-		{  
-			//this will help in case user decided to click on cancel button
-			$(this).attr('original_entry', $(this).html());
-		}); 		
-		//--->add the original entry > end
+            //hide edit button
+            tbl_row.find('.btn_edit').hide();
 
-	});
-	//--->button > edit > end
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'true')
+                .attr('edit_type', 'button')
+                .addClass('edit');
+
+            //--->add the original entry > start
+            tbl_row.find('.row_data').each(function (index, val) {
+                //this will help in case user decided to click on cancel button
+                $(this).attr('original_entry', $(this).html());
+            });
+            //--->add the original entry > end
+
+        });
+        //--->button > edit > end
 
 
-	$('.btn_remove').click(function(){
-		var num_rows = 0 
-		$('.table_body').find('.table_content').each(function(element,val) {
-			num_rows = num_rows + 1
-		});
-		//alert(num_rows);
-		if (num_rows >= 2) {
-			event.preventDefault();
-			$(this).closest('tr').remove();
-			unsaved()
-		}
-		else {
-			alert("You cannot remove the only serial. To delete the return type, go to the table on the left.")
-		}
-		
-	});
+        $('.btn_remove').click(function () {
+            var num_rows = 0
+            $('.table_body').find('.table_content').each(function (element, val) {
+                num_rows = num_rows + 1
+            });
+            //alert(num_rows);
+            if (num_rows >= 2) {
+                event.preventDefault();
+                $(this).closest('tr').remove();
+                unsaved()
+            }
+            else {
+                alert("You cannot remove the only serial. To delete the return type, go to the table on the left.")
+            }
 
-	$("#add").click(function (){
-		
-		$(".table_serials tr:last").after(`
+        });
+
+        $("#add").click(function () {
+
+            $(".table_serials tr:last").after(`
 			<tr row_id="" class="table_content">
 				<td class="serial_column"><div class="row_data" col_name="serial"></div></td>
 				<td><div class="row_data" col_name="desc"></div></td>
@@ -109,113 +107,112 @@ function loadAll() {
 				</td>
 				<td><span class="up">&#8679;</span><span class="down"> &#8681;</span></td>
 			</tr>`);
-		unbindAll()
-		loadAll();
-		$(".table_serials tr:last").find($(".btn_edit")).click();
-		unsaved();
+            unbindAll()
+            loadAll();
+            $(".table_serials tr:last").find($(".btn_edit")).click();
+            unsaved();
 
-	});
+        });
 
 
-	//--->button > cancel > start	
-	$('.btn_cancel').click(function(){ 
-		event.preventDefault();
+        //--->button > cancel > start
+        $('.btn_cancel').click(function () {
+            event.preventDefault();
 
-		var tbl_row = $(this).closest('tr');
+            var tbl_row = $(this).closest('tr');
 
-		var row_id = tbl_row.attr('row_id');
+            var row_id = tbl_row.attr('row_id');
 
-		//hide done and cacel buttons
-		tbl_row.find('.btn_done').hide();
-		tbl_row.find('.btn_cancel').hide();
+            //hide done and cacel buttons
+            tbl_row.find('.btn_done').hide();
+            tbl_row.find('.btn_cancel').hide();
 
-		//show edit button
-		tbl_row.find('.btn_edit').show();
+            //show edit button
+            tbl_row.find('.btn_edit').show();
 
-		//make the whole row editable
-		tbl_row.find('.row_data')
-		.attr('contenteditable', 'false')
-		.removeClass('edit');
+            //make the whole row editable
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'false')
+                .removeClass('edit');
 
-		tbl_row.find('.row_data').each(function(index, val) 
-		{   
-			$(this).html( $(this).attr('original_entry') ); 
-		});  
-	});
-	//--->button > cancel > end
+            tbl_row.find('.row_data').each(function (index, val) {
+                $(this).html($(this).attr('original_entry'));
+            });
+        });
+        //--->button > cancel > end
 
-	
-	//--->done whole row entery > start	
-	$(".btn_done").click(function(){
-		event.preventDefault();
-		var tbl_row = $(this).closest('tr');
 
-		//var row_id = tbl_row.attr('row_id');
-		
-		//hide done and cacel buttons
-		tbl_row.find('.btn_done').hide();
-		tbl_row.find('.btn_cancel').hide();
+        //--->done whole row entery > start
+        $(".btn_done").click(function () {
+            event.preventDefault();
+            var tbl_row = $(this).closest('tr');
 
-		//show edit button
-		tbl_row.find('.btn_edit').show();
+            //var row_id = tbl_row.attr('row_id');
 
-		//turn off editing
-		tbl_row.find('.row_data')
-		.attr('contenteditable', 'false')
-		.removeClass('edit');
+            //hide done and cacel buttons
+            tbl_row.find('.btn_done').hide();
+            tbl_row.find('.btn_cancel').hide();
 
-		tbl_row.find('.row_data').each(function(index, val) 
-		{
-			var col_name = $(this).attr('col_name');  
-			if ( col_name == 'data_type') {
-				var col_val  =  $(this).html();
-				if (col_val == "short" || col_val == "long" || col_val == "location" || col_val == "choice") {
-					unsaved();
-				}
-				else {
+            //show edit button
+            tbl_row.find('.btn_edit').show();
 
-					alert('You must use one of the accepted data types (string, long, location, choice).')
-					tbl_row.find('.btn_cancel')
-					.click();
-					return;
-				}
-			}
-			if (col_name == 'serial') {
-				var row_id = $(this).html();
-				tbl_row.attr('row_id',row_id);
-			}
-		});
-	});
+            //turn off editing
+            tbl_row.find('.row_data')
+                .attr('contenteditable', 'false')
+                .removeClass('edit');
 
-	$('#save_all').click(function (){
-		if (saved == false) {
-			var table = $('.table_body');
-			var arr = {}
-			$('.table_body').find('tr').each(function(element,val) {
-				var serial_name = $(this).attr('row_id');
-				var  serial_array= {};
-				$(this).find('.row_data').each(function(index, val) {   
-					var col_name = $(this).attr('col_name');  
-					var col_val  =  $(this).html();
-					serial_array[col_name] = col_val;
-				});
+            tbl_row.find('.row_data').each(function (index, val) {
+                var col_name = $(this).attr('col_name');
+                if (col_name == 'data_type') {
+                    var col_val = $(this).html();
+                    if (col_val == "short" || col_val == "long" || col_val == "location" || col_val == "choice") {
+                        unsaved();
+                    }
+                    else {
 
-				//alert(JSON.stringify(serial_array));
-				arr[serial_name] = serial_array;
-			});
+                        alert('You must use one of the accepted data types (string, long, location, choice).')
+                        tbl_row.find('.btn_cancel')
+                            .click();
+                        return;
+                    }
+                }
+                if (col_name == 'serial') {
+                    var row_id = $(this).html();
+                    tbl_row.attr('row_id', row_id);
+                }
+            });
+        });
 
-			//alert(JSON.stringify(arr))
+        $('#save_all').click(function () {
+            if (saved == false) {
+                var table = $('.table_body');
+                var arr = {}
+                $('.table_body').find('tr').each(function (element, val) {
+                    var serial_name = $(this).attr('row_id');
+                    var serial_array = {};
+                    $(this).find('.row_data').each(function (index, val) {
+                        var col_name = $(this).attr('col_name');
+                        var col_val = $(this).html();
+                        serial_array[col_name] = col_val;
+                    });
 
-			$.post("/edit_return/{{ return_type }}", arr, function(data, status){
-			//alert("Data: " + data + "\nStatus: " + status);
-			});
-			saveAll();
-		}
-	});
-	$('#cancel_all').click(function (){
-		/*
-		$.ajax({
-			url: "/edit_return/{{return_type}}",
+                    //alert(JSON.stringify(serial_array));
+                    arr[serial_name] = serial_array;
+                });
+
+                //alert(JSON.stringify(arr))
+
+                $.post("/edit_return/{{ return_type }}", arr, function (data, status) {
+                    //alert("Data: " + data + "\nStatus: " + status);
+                });
+                saveAll();
+            }
+        });
+        $('#cancel_all').click(function () {
+            /*
+            $.ajax({
+                url: "/edit_return/
+            {{return_type}}",
 			type: "get",
 			success: function(response) {
 			$("#serial-list").html(response);
@@ -224,83 +221,92 @@ function loadAll() {
 			//Do Something to handle error
 			}
 		}); */
-		$("#serial-list").load('/edit_return/{{return_type}}')
-		saved = true;
-	});
+            $("#serial-list").load('/edit_return/{{return_type}}')
+            saved = true;
+        });
 
-	$('.up').click(function(){
-		var $row = $(this).parents('tr');
-  		if ($row.index() === 0) return; // Don't go above the header
-  		$row.prev().before($row.get(0));
-		unsaved()
-	});
+        $('.up').click(function () {
+            var $row = $(this).parents('tr');
+            if ($row.index() === 0) return; // Don't go above the header
+            $row.prev().before($row.get(0));
+            unsaved()
+        });
 
-	$('down').click(function(){
-		var $row = $(this).parents('tr');
- 	 	$row.next().after($row.get(0));
-		unsaved()
-	});
+        $('down').click(function () {
+            var $row = $(this).parents('tr');
+            $row.next().after($row.get(0));
+            unsaved()
+        });
 
-	window.addEventListener("beforeunload", function (e) {
-		if (saved == false) {
-			var confirmationMessage = 'You have unsaved changes ';
-    		(e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    		return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-		}
-    
-});
+        window.addEventListener("beforeunload", function (e) {
+            if (saved == false) {
+                var confirmationMessage = 'You have unsaved changes ';
+                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+            }
 
-}; 
+        });
 
+    };
 
 
 </script>
 <script type="text/javascript">
-	$(document).ready(function(){
-		loadAll();
-	});
+    $(document).ready(function () {
+        loadAll();
+    });
 </script>
 <div class=banner>
-		<a>Edit Return</a>
-	</div>
+    <a>Edit Return</a>
+</div>
 <div class="serial_body">
 
-	<h1 class="return-name">{{return_type}} </h1>
-	<table id="table_serials" class="table_serials">
-		<thead>
-			<tr>
-				<th class="serial_column">Serial</th>
-				<th>Description</th>
-				<th>Type</th>
-				<th>Options</th>
-				<th colspan="2">Actions</th>
-			</tr>
-		</thead>
-		<tbody class="table_body">
-				{% for serial, info in serials_def[return_type].items() %}
-					<tr row_id="{{ serial }}" class="table_content">
-						<td class="serial_column"><div class="row_data" col_name="serial">{{serial}}</div></td>
-						<td><div class="row_data" col_name="desc">{{info['desc']}}</div></td>
-						<td class="typ_col"><div class="row_data" col_name="data_type">{{info['data_type']}}</div></td>
-						<td class="options_col"><div class="row_data" col_name="options">{{", ".join(info['options'])}}</div></td>
-						<td class="actions_col">
-								<span class="btn_edit"> <a href="#" class="btn_action" row_id="{{serial}}" > Edit</a> </span>
-								<span class="btn_done"> <a href="#" class="btn_action" row_id="{{serial}}" > Done</a> </span>
-								<span class="btn_cancel"> <a href="#" class="btn_action" row_id="{{serial}}" > Cancel</a> </span>
-								<span class="btn_remove"> <a href="#" class="btn_action" row_id="{{serial}}" > Remove</a> </span>
-						</td>
-						<td>
-							<span class='up'>&#8679;</span>
-							<span class='down'> &#8681;</span>
-						</td>
-					</tr>
-				{% endfor %}
+    <h1 class="return-name">{{ return_type }} </h1>
+    <table id="table_serials" class="table_serials">
+        <thead>
+        <tr>
+            <th class="serial_column">Serial</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Options</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody class="table_body">
+        {% for serial, info in serials_def[return_type].items() %}
+            <tr row_id="{{ serial }}" class="table_content">
+                <td class="serial_column">
+                    <div class="row_data" col_name="serial">{{ serial }}</div>
+                </td>
+                <td>
+                    <div class="row_data" col_name="desc">{{ info['desc'] }}</div>
+                </td>
+                <td class="typ_col">
+                    <div class="row_data" col_name="data_type">{{ info['data_type'] }}</div>
+                </td>
+                <td class="options_col">
+                    <div class="row_data" col_name="options">{{ ", ".join(info['options']) }}</div>
+                </td>
+                <td class="actions_col">
+                    <span class="btn_edit"> <a href="#" class="btn_action" row_id="{{ serial }}"> Edit</a> </span>
+                    <span class="btn_done"> <a href="#" class="btn_action" row_id="{{ serial }}"> Done</a> </span>
+                    <span class="btn_cancel"> <a href="#" class="btn_action" row_id="{{ serial }}"> Cancel</a> </span>
+                    <span class="btn_remove"> <a href="#" class="btn_action" row_id="{{ serial }}"> Remove</a> </span>
+                </td>
+                <td>
+                    <span class='up'>&#8679;</span>
+                    <span class='down'> &#8681;</span>
+                </td>
+            </tr>
+        {% endfor %}
 
-		</tbody>
+        </tbody>
 
-	</table>
-	<button class="add" id="add">Add Serial</button><button class="add" id="save_all">Save</button><button class="add" id="cancel_all">Cancel</button>
-	<div id="popup">Serials Saved</div>
+    </table>
+    <button class="add" id="add">Add Serial</button>
+    <button class="add" id="save_all">Save</button>
+    <button class="add" id="cancel_all">Cancel</button>
+    <div id="popup">Serials Saved</div>
 </div>
 
 

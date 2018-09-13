@@ -44,8 +44,7 @@ class MinifyFilesPre:
     @staticmethod
     def min_css_file(file_name):
         css = compress(open(file_name, newline="\n").read())
-        open(file_name[:-4]+'.min.css', 'w', newline="\n").write(css)
-
+        open(file_name[:-4] + '.min.css', 'w', newline="\n").write(css)
 
     @staticmethod
     def get_js_files():
@@ -63,13 +62,13 @@ class DbManager:
             with sqlite3.connect(DbManager.FILE_NAME) as conn:
                 c = conn.cursor()
                 condition_order = ['logID',
-                             'returnType',
-                            'sender',
-                            'reciever',
-                            'logTime',
-                            'dutyOfficer',
-                            'net',
-                            'serials']
+                                   'returnType',
+                                   'sender',
+                                   'reciever',
+                                   'logTime',
+                                   'dutyOfficer',
+                                   'net',
+                                   'serials']
 
                 cond_list = []
                 cond_string_list = []
@@ -84,7 +83,6 @@ class DbManager:
                     cond_list.append(val)
                 cond_string = ' AND '.join(cond_string_list)
 
-
                 results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} WHERE "
                                     f"{cond_string}"
                                     f" ORDER BY logID DESC LIMIT {entries}", cond_list)
@@ -92,7 +90,6 @@ class DbManager:
 
         except sqlite3.OperationalError as e:
             print(e)
-
 
     @staticmethod
     def create_db(ret=False):
@@ -182,7 +179,7 @@ class DbManager:
             c = conn.cursor()
             rowData = """returnType=?, sender=?, reciever=?, logTime=?, dutyOfficer=?, net=?, serials=?"""
             c.execute(
-                'UPDATE ' + DbManager.TABLE_NAME + ' SET '+rowData+' WHERE logID='+logID,
+                'UPDATE ' + DbManager.TABLE_NAME + ' SET ' + rowData + ' WHERE logID=' + logID,
                 lst)
 
 
@@ -196,7 +193,7 @@ class File:
     def pre_merge(merge=False):
 
         if merge:
-            tmp_file =  MinifyFilesPre()
+            tmp_file = MinifyFilesPre()
             tmp_file.js_merge()
             tmp_file.save()
         else:
@@ -326,14 +323,6 @@ class File:
     def save_log(log, update=False):
         """ Saves the log to file """
 
-        # print('\n\n\nsaving')
-        '''
-        s = Timer(10.0, save)
-        s.daemon = True
-        s.start()
-        '''
-        # w = writer(open("resources/static/logs.csv", 'w'))
-
         main_keys = [
             'name',
             'sender',
@@ -432,7 +421,7 @@ class File:
                         print('The Db structure is incorrect')
 
             except TypeError:
-                pass # This is handled upon return (it returns None type)
+                pass  # This is handled upon return (it returns None type)
 
             return ret
 
@@ -441,7 +430,7 @@ class File:
 
             local_log = list()
             for row in x:
-                row  = list(row)
+                row = list(row)
                 try:
                     ret = OrdDic()
 
@@ -467,16 +456,12 @@ class File:
                     print("none value in db")
             return local_log
 
-
     @staticmethod
     def delete_log_byID(id):
         DbManager.delete_return_byID(id)
 
 
-
-
 if __name__ == '__main__':
-
     pass
 
     # File.pre_merge()
@@ -490,4 +475,3 @@ if __name__ == '__main__':
 
     # x = file()
     # x.save()
-
