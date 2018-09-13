@@ -4,9 +4,7 @@ The main file for the CP site
 
 All request handling is done from here
 """
-from collections.__init__ import OrderedDict
 from datetime import datetime
-from typing import Any
 
 from flask import Flask, render_template, request, redirect
 from file import File
@@ -78,9 +76,6 @@ def display_settings():
 def update_list_settings(list_name: str) -> str:
     """
     updates the given settings
-    :rtype: str
-    :param list_name: the name of the settings file to change
-    :return: Nothing
     """
     if list_name.upper() == 'LOCATIONS':
         global LOCATIONS
@@ -175,7 +170,7 @@ def convert_newlines(line):
 
 @APP.route('/log')
 def testPage():
-    return render_template('log/log_edit_new.html')
+    return render_template('log/log_edit_new.html',serials_def=SERIALS, log=list(File.load_log()))
 
 @APP.route('/log/frame')
 def display_log():
