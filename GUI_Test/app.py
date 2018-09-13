@@ -325,8 +325,9 @@ def minesweeper():
 @APP.route('/log/query', methods=['POST'])
 def getQuery():
     # print(request.form.to_dict())
-    File.load_log_query(request.form.to_dict())
-    return "WIP"
+    x = File.load_log_query(request.form.to_dict())
+    # print(list(x))
+    return render_template("log/log_innertable_list.html", log=list(x))
 
 if __name__ == '__main__':
 

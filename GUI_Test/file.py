@@ -58,12 +58,10 @@ class DbManager:
     TABLE_NAME = "'LOG_RETURNS'"
 
     @staticmethod
-    def query_data(conditions):
-        print(conditions)
-
+    def query_data(conditions, entries):
         try:
             with sqlite3.connect(DbManager.FILE_NAME) as conn:
-                # c = conn.cursor()
+                c = conn.cursor()
                 condition_order = ['logID',
                              'returnType',
                             'sender',
@@ -72,19 +70,24 @@ class DbManager:
                             'dutyOfficer',
                             'net',
                             'serials']
-                vals = list()
-                cond_string = ""
+
+                cond_list = []
+                cond_string_list = []
                 for cond in condition_order:
+                    val = ""
                     try:
-                        vals.append(conditions[cond])
+                        val = conditions[cond]
                     except KeyError:
-                        vals.append("")
+                        val = ""
+                    cond_string_list.append(f"{cond} LIKE ?")
+                    val = f"%{val}%"
+                    cond_list.append(val)
+                cond_string = ' AND '.join(cond_string_list)
 
 
-                results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} "
-                                    f"WHERE logID LIKE '%?%' AND"
-                                    f""
-                                    f"ORDER BY logID DESC LIMIT {entries}")
+                results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} WHERE "
+                                    f"{cond_string}"
+                                    f" ORDER BY logID DESC LIMIT {entries}", cond_list)
                 return results
 
         except sqlite3.OperationalError as e:
@@ -363,7 +366,36 @@ class File:
 
     @staticmethod
     def load_log_query(query):
-        return DbManager.query_data(query)
+
+        x = list(DbManager.query_data(query, 100))
+
+        local_log = list()
+        for row in x:
+            row = list(row)
+            try:
+                ret = OrdDic()
+
+                ret.update({'logID': row[0]})
+                ret.update({'name': row[1]})
+                ret.update({'sender': row[2]})
+                ret.update({'receiver': row[3]})
+                ret.update({'time': row[4]})
+                ret.update({'duty': row[5]})
+                ret.update({'net': row[6]})
+
+                for serial_data in row[7:]:
+                    try:
+                        for serial in serial_data.split('||'):
+                            ser, val = serial.split('\\')
+                            val = "" + val
+                            ret.update({ser: str(val)})
+                    except AttributeError:
+                        print('The Db structure is incorrect')
+                local_log.append(ret)
+
+            except TypeError:
+                print("none value in db")
+        return local_log
 
     @staticmethod
     def load_log(log_id=None):
@@ -433,7 +465,6 @@ class File:
 
                 except TypeError:
                     print("none value in db")
-
             return local_log
 
 
