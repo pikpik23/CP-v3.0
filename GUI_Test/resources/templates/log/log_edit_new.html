@@ -38,7 +38,6 @@
                     $('#record').click(function () {
                         var arr = {};
                         var table = $(".return_table");
-                        // alert(($('#logName').html()));
                         if ($('#logName').html() === 'MESSAGE') {
                             arr['msg'] = document.getElementById('textInput').value
                         }
@@ -74,7 +73,6 @@
                         if (loop == true) {
                             return;
                         }
-                        // alert();
                         var to = $('#inputTo').val();
                         var from = $('#inputFrom').val();
                         if (to == null || to == "") {
@@ -101,10 +99,8 @@
                         $.post("/log/edit/" + document.getElementById('logID_Content').innerHTML, arr, function (data, status) {
                             document.getElementById('printf').contentDocument.body.innerHTML = data;
                             if (checked) {
-                                //document.getElementById('printf').style.visibility = 'visible';
                                 window.frames["printf"].focus();
                                 window.frames["printf"].print();
-                                //document.getElementById('printf').style.visibility = 'hidden';
                             }
                             modal.style.display = "none";
                         });
@@ -129,7 +125,6 @@
                 $.post("/log/delete/by_id", {logID: $("#logPrint").contents().find("#logID_text")[0].textContent}, function (data, status) {
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
-                alert($("#logPrint").contents().find("#logID_text")[0].textContent)
             });
 
             {% for entry in log %}
@@ -176,7 +171,7 @@
                 });
                 // alert(JSON.stringify(query));
                 $.post("/log/query", query, function (data, status) {
-                    $(".table_body")[0].innerHTML = data
+                    $(".table_body")[0].innerHTML = data;
                     load()
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
