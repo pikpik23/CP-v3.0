@@ -4,8 +4,8 @@ The main file for the CP site
 
 All request handling is done from here
 """
-
 from datetime import datetime
+
 from flask import Flask, render_template, request, redirect
 from file import File
 from flask_compress import Compress
@@ -13,6 +13,7 @@ from flask_compress import Compress
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
+
 Compress(APP)
 
 SERIALS = File.read_dic()
@@ -72,7 +73,10 @@ def display_settings():
 
 
 @APP.route('/settings/updatelist/<list_name>', methods=['POST'])
-def update_list_settings(list_name):
+def update_list_settings(list_name: str) -> str:
+    """
+    updates the given settings
+    """
     if list_name.upper() == 'LOCATIONS':
         global LOCATIONS
         LOCATIONS = request.form['lst'].split('\n')
@@ -84,6 +88,8 @@ def update_list_settings(list_name):
         File.save_callsigns(CALLSIGNS)
 
     return ""
+
+
 
 @APP.route('/settings/locs')
 def display_settings_locations():
@@ -164,7 +170,7 @@ def convert_newlines(line):
 
 @APP.route('/log')
 def testPage():
-    return render_template('log/log_edit_new.html')
+    return render_template('log/log_edit_new.html',serials_def=SERIALS, log=list(File.load_log()))
 
 @APP.route('/log/frame')
 def display_log():

@@ -8,11 +8,9 @@ from csscompressor import compress
 
 class MinifyFilesPre:
     def __init__(self, merge=False):
-    
-        # print(glob("resources/static/js_files/*.js"))
+
         file_names = glob("resources/static/js_files/*.js")
         file_names.remove("resources/static/js_files/full_version.js")
-        # print(file_names)
         self.file_names = file_names
         self.merge = merge
         self.js = ""
@@ -28,16 +26,13 @@ class MinifyFilesPre:
             js = ""
             for file_name in self.file_names:
                 try:
-                    # file_name = "resources/static/js_files/" + file_name
                     js += jsmin(open(file_name, newline="\n").read())
-                    # js += '\n'
                 except FileNotFoundError:
                     print(f"The file {file_name} could not be found")
                 self.js = jsmin(js)
 
         else:
             for file_name in self.file_names:
-                # file_name = "resources/static/js_files/" + file_name
                 js = jsmin(open(file_name, newline="\n").read())
                 open(file_name, 'w', newline="\n").write(js)
 
@@ -109,7 +104,6 @@ class DbManager:
                     results = c.execute(f'SELECT * FROM {DbManager.TABLE_NAME}')
                 return results
         except sqlite3.OperationalError as e:
-            # print(f"SELECT * FROM '{DbManager.TABLE_NAME}' LIMIT {entries} ORDER BY logID ASC")
             return DbManager.create_db(ret=True)
 
     @staticmethod
@@ -140,7 +134,6 @@ class DbManager:
 
     @staticmethod
     def update_record(lst, logID):
-        # print(lst)
         with sqlite3.connect(DbManager.FILE_NAME) as conn:
             c = conn.cursor()
             rowData = """returnType=?, sender=?, reciever=?, logTime=?, dutyOfficer=?, net=?, serials=?"""
@@ -162,7 +155,6 @@ class File:
             tmp_file =  MinifyFilesPre()
             tmp_file.js_merge()
             tmp_file.save()
-            # print(" * Updated js min merged")
         else:
             MinifyFilesPre.get_js_files()
 
@@ -173,7 +165,6 @@ class File:
     @staticmethod
     def save_dic(dic):
         """ Saves the given dictionary of serials to a file """
-        # print("start saving")
         w = writer(open("resources/files/serials.csv", "w", newline="\n"))
         w.writerow(['Return Name', 'Serials'])
         for name, serials in dic.items():
