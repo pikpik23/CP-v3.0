@@ -177,8 +177,10 @@ window.onclick = function(event) {
       });
       // alert(JSON.stringify(query));
       $.post("/log/query", query, function(data, status){
+          $(".table_body")[0].innerHTML = data
+          load()
 			//alert("Data: " + data + "\nStatus: " + status);
-			});
+      });
     });
 
     $("#clear").click(function(){
