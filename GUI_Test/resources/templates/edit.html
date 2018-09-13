@@ -19,6 +19,9 @@ function unbindAll() {
 	$( ".btn_donet").unbind( "click" );
 	$( "#save_all").unbind( "click" );
 	$( "#cancel_all").unbind( "click" );
+	$( ".up").unbind( "click" );
+	$( ".down").unbind( "click" );
+	document.removeEventListener('beforeunload');
 }
 
 function saveAll() {
@@ -93,7 +96,20 @@ function loadAll() {
 
 	$("#add").click(function (){
 		
-		$(".table_serials tr:last").after('<tr row_id="" class="table_content"><td class="serial_column"><div class="row_data" col_name="serial"></div></td><td><div class="row_data" col_name="desc"></div></td><td class="typ_col"><div class="row_data" col_name="data_type"></div></td><td class="options_col"><div class="row_data" col_name="options"></div></td><td class="actions_col"><span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span><span class="btn_done"> <a href="#" class="btn_action" row_id="" > Done</a> </span><span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span><span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span></td><td><span class="up">&#8679;</span><span class="down"> &#8681;</span></td></tr>');
+		$(".table_serials tr:last").after(`
+			<tr row_id="" class="table_content">
+				<td class="serial_column"><div class="row_data" col_name="serial"></div></td>
+				<td><div class="row_data" col_name="desc"></div></td>
+				<td class="typ_col"><div class="row_data" col_name="data_type"></div></td>
+				<td class="options_col"><div class="row_data" col_name="options"></div></td>
+				<td class="actions_col">
+					<span class="btn_edit"> <a href="#" class="btn_action" row_id="" > Edit</a> </span>
+					<span class="btn_done"> <a href="#" class="btn_action" row_id="" > Done</a> </span>
+					<span class="btn_cancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span>
+					<span class="btn_remove"> <a href="#" class="btn_action" row_id="" > Remove</a> </span>
+				</td>
+				<td><span class="up">&#8679;</span><span class="down"> &#8681;</span></td>
+			</tr>`);
 		unbindAll()
 		loadAll();
 		$(".table_serials tr:last").find($(".btn_edit")).click();
@@ -213,16 +229,14 @@ function loadAll() {
 		saved = true;
 	});
 
-	$(document).on('click', '.up', function(event) 
-	{
+	$('.up').click(function(){
 		var $row = $(this).parents('tr');
   		if ($row.index() === 0) return; // Don't go above the header
   		$row.prev().before($row.get(0));
 		unsaved()
 	});
 
-	$(document).on('click', '.down', function(event) 
-	{
+	$('down').click(function(){
 		var $row = $(this).parents('tr');
  	 	$row.next().after($row.get(0));
 		unsaved()
