@@ -4,8 +4,10 @@ The main file for the CP site
 
 All request handling is done from here
 """
-
+from collections.__init__ import OrderedDict
 from datetime import datetime
+from typing import Any
+
 from flask import Flask, render_template, request, redirect
 from file import File
 from flask_compress import Compress
@@ -13,6 +15,7 @@ from flask_compress import Compress
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
+
 Compress(APP)
 
 SERIALS = File.read_dic()
@@ -72,7 +75,13 @@ def display_settings():
 
 
 @APP.route('/settings/updatelist/<list_name>', methods=['POST'])
-def update_list_settings(list_name):
+def update_list_settings(list_name: str) -> str:
+    """
+    updates the given settings
+    :rtype: str
+    :param list_name: the name of the settings file to change
+    :return: Nothing
+    """
     if list_name.upper() == 'LOCATIONS':
         global LOCATIONS
         LOCATIONS = request.form['lst'].split('\n')
@@ -84,6 +93,8 @@ def update_list_settings(list_name):
         File.save_callsigns(CALLSIGNS)
 
     return ""
+
+
 
 @APP.route('/settings/locs')
 def display_settings_locations():
