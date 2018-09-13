@@ -21,7 +21,7 @@ function unbindAll() {
 	$( "#cancel_all").unbind( "click" );
 	$( ".up").unbind( "click" );
 	$( ".down").unbind( "click" );
-	document.removeEventListener('beforeunload');
+	//document.removeEventListener('beforeunload');
 }
 
 function saveAll() {
@@ -47,7 +47,6 @@ function loadAll() {
 	
 	//--->button > edit > start	
 	$(".btn_edit").click(function(){
-		alert('meme');
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
 
@@ -135,7 +134,7 @@ function loadAll() {
 
 		//make the whole row editable
 		tbl_row.find('.row_data')
-		.attr('edit_type', 'click')
+		.attr('contenteditable', 'false')
 		.removeClass('edit');
 
 		tbl_row.find('.row_data').each(function(index, val) 

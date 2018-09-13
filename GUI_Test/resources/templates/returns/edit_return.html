@@ -55,7 +55,7 @@
 	    {
 			event.preventDefault();
 			var tbl_row = $(this).closest('tr');
-			var row_id = tbl_row.attr('row_id');
+			var row_return = tbl_row.attr('row_return');
 
 			tbl_row.find('.btnSave').show();
 			tbl_row.find('.btnCancel').show();
@@ -83,11 +83,11 @@
 	{
 		var check = confirm('Are you sure you would like to remove this Return? This can not be undone.');
 		if (check == true) {
+			
+			var tbl_row = $(this).closest('tr');
+            var row_return = tbl_row.find('.row_data').html();
+            var ret = {rem: row_return};
 			$(this).closest('tr').remove();
-
-            var meme2 = $(event.target).parent().parent().parent().find(".row_data").html();
-            var ret = {rem: meme2};
-
             $.post("/edit_return/return_update", ret, function(data, status){
                 //alert("Data: " + data + "\nStatus: " + status);
                 });
@@ -96,7 +96,17 @@
 	});
 
 	$("#add_return").click(function (){
-		$(".table_serials_outer tr:last").after('<tr> <td><div class="row_data" prevcont="" col_name="return"></div></td><td><span class="btnEdit"> <a href="#" class="btn_action" row_id="" > Rename</a> </span><span class="btnSave"> <a href="#" class="btn_action" row_id="" > Save</a> </span><span class="btnCancel"> <a href="#" class="btn_action" row_id="" > Cancel</a> </span> <span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span><span class="btnRemove"> <a href="#" class="btn_action" row_id="" >Remove</a> </span></td></tr>');
+		$(".table_serials_outer tr:last").after(`
+		<tr new_row="true">
+			<td><div class="row_data" prevcont="" col_name="return"></div></td>
+			<td>
+				<span class="btnEdit"> <a href="#" class="btn_action" row_return="" > Rename</a> </span>
+				<span class="btnSave"> <a href="#" class="btn_action" row_return="" > Save</a> </span>
+				<span class="btnCancel"> <a href="#" class="btn_action" row_return="" > Cancel</a> </span>
+				<span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span>
+				<span class="btnRemove"> <a href="#" class="btn_action" row_return="" >Remove</a> </span>
+			</td>
+		</tr>`);
 		$(".table_serials_outer tr:last").find($(".btnEdit")).click();
 
 	});
@@ -108,25 +118,32 @@
 		event.preventDefault();
 
 		var tbl_row = $(this).closest('tr');
+		var new_return = tbl_row.attr('new_row')
+		if (new_return == 'true') {
+			alert('meme')
+			$(this).closest('tr').remove();
+		}
+		else {
+			var row_return = tbl_row.attr('row_return');
+			//hide save and cacel buttons
+			tbl_row.find('.btnSave').hide();
+			tbl_row.find('.btnCancel').hide();
 
-		var row_id = tbl_row.attr('row_id');
+			//show edit button
+			tbl_row.find('.btnEdit').show();
 
-		//hide save and cacel buttons
-		tbl_row.find('.btnSave').hide();
-		tbl_row.find('.btnCancel').hide();
+			//make the whole row editable
+			tbl_row.find('.row_data')
+			.attr('edit_type', 'click')
+			.removeClass('edit');
 
-		//show edit button
-		tbl_row.find('.btnEdit').show();
+			tbl_row.find('.row_data').each(function(index, val) 
+			{   
+				$(this).html( $(this).attr('original_entry') ); 
+			});  
+		}
+		
 
-		//make the whole row editable
-		tbl_row.find('.row_data')
-		.attr('edit_type', 'click')
-		.removeClass('edit');
-
-		tbl_row.find('.row_data').each(function(index, val) 
-		{   
-			$(this).html( $(this).attr('original_entry') ); 
-		});  
 	});
 	//--->button > cancel > end
 
@@ -136,54 +153,55 @@
 	{
 		event.preventDefault();
 		var tbl_row = $(this).closest('tr');
-
-        var prevmeme = $(event.target).parent().parent().parent().find(".row_data")[0].getAttribute("prevcont");
-        // alert(prevmeme);
-
-		// var row_id = tbl_row.attr('row_id');
+		var row_return = tbl_row.find('.row_data').html();
 		
-		//hide save and cacel buttons
-		tbl_row.find('.btnSave').hide();
-		tbl_row.find('.btnCancel').hide();
+		if (row_return == "" || row_return == null) {
+			alert('You must ensure the return has a name.')
 
-		//show edit button
-		tbl_row.find('.btnEdit').show();
-		
-		tbl_row.find('.row_data')
-		.attr('contenteditable', 'false')
-		.css('padding','') 
-        .removeClass('edit');
-	
-		var row_id = tbl_row.find('.row_data').html();
-		tbl_row.attr("row_id",row_id);
-
-		tbl_row.find('.btnSerials')
-		.attr('id',row_id)
-		.attr('row_id',row_id);
-		
-		var ret_arr = [];
-
-		// var meme = $(event.target).closest('.row_data').text();
-        // alert(meme);
-
-        var meme2 = $(event.target).parent().parent().parent().find(".row_data").html();
-        var ret = {add: meme2};
-        ret.old = prevmeme;
-		/*
-		$('.return_body').find('tr').each(function(element,val) {
-			var ret_type = $(this).attr('row_id');
-			// alert(ret_type);
-			ret_arr.push(ret_type);
-			alert(ret_type);
+		}
+		else {
+			var prevValue = $(event.target).parent().parent().parent().find(".row_data")[0].getAttribute("prevcont");
 			
-		}); */
+			var new_row = tbl_row.attr('new_row');
+			if (new_row == 'true') {
+				tbl_row.attr('new_row','false');
+			}
+
+			//hide save and cacel buttons
+			tbl_row.find('.btnSave').hide();
+			tbl_row.find('.btnCancel').hide();
+
+			//show edit button
+			tbl_row.find('.btnEdit').show();
+
+			tbl_row.find('.row_data')
+			.attr('contenteditable', 'false')
+			.css('padding','') 
+			.removeClass('edit');
 
 
-		$.post("/edit_return/return_update", ret, function(data, status){
-			//alert("Data: " + data + "\nStatus: " + status);
-			});
+			tbl_row.attr("row_return",row_return);
+
+			tbl_row.find('.btnSerials')
+			.attr('id',row_return)
+			.attr('row_return',row_return);
+
+			var ret_arr = [];
+
+
+			var ret = {add: row_return};
+			ret.old = prevValue;
+
+			$.post("/edit_return/return_update", ret, function(data, status){
+				//alert("Data: " + data + "\nStatus: " + status);
+				});
+
+				$(event.target).parent().parent().parent().find(".row_data")[0].setAttribute('prevcont', row_return)
+
+		}
+
+
         
-            $(event.target).parent().parent().parent().find(".row_data")[0].setAttribute('prevcont', meme2)
 
 		});
 	});
@@ -208,7 +226,7 @@
 				
 				<tbody class="return_body">
 				{% for return_type in serials_def %}
-                <tr row_id="{{return_type}}">
+                <tr row_return="{{return_type}}" new_row="false">
                     <td><div class="row_data" prevcont="{{ return_type }}" col_name="return">{{ return_type }}</div></td>
                 	<td>
                     <span class="btnEdit"> <a href="#" class="btn_action"  > Rename</a> </span>
