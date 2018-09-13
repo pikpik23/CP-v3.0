@@ -272,10 +272,8 @@ def test_update(action):
 def test_log_edit(log_id):
     """ Renders the return form """
     log_id = int(log_id)
-    # print(File.load_log(log_id=log_id)[0])
     try:
         index = int(log_id)
-
         return render_template("Edit_Log/edit_log_body.html",
                                return_type=File.load_log(log_id=log_id)['name'],
                                serials_def=SERIALS,
@@ -337,9 +335,9 @@ def getQuery():
 if __name__ == '__main__':
 
     APP.jinja_env.cache = {}
-    # below is wip
-    # File.pre_merge()
+
     try:
-        APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
+        APP.run(host='0.0.0.0', debug=True, port=80, threaded=True)
     except PermissionError:
-        APP.run(host='0.0.0.0')
+        print("Could not use port 80 (use sudo to use port 80)")
+        APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
