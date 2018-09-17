@@ -422,7 +422,9 @@ label:hover {
     overflow-x: scroll;
     overflow-y: scroll;
 }
-/*
+
+
+
 .tableLog {
     border-collapse: collapse;
     width: 100%;
@@ -440,10 +442,12 @@ label:hover {
 .tableLog tr:nth-child(odd) {
     background-color: white;
 }
-*/
+
 .tableLog tr:hover {
     background-color: #ddd;
 }
+
+
 
 .rowSelected {
     background-color: #288ad6 !important;
