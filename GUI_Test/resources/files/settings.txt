@@ -1,5 +1,5 @@
 callsign\0A
-Duty\Lambinon
+Duty\Muskens
 net\UNIT NET
 DB_FILE_NAME\resources/static/LOG_1.db
 DB_TABLE_NAME\'LOG_RETURNS'

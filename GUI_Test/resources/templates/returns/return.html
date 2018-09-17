@@ -68,7 +68,8 @@
                 $("#inputFrom").val(this.innerHTML);
             });
             $("#btnDuty").click(function () {
-                var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
+                var currentDuty = $('#duty_officer').html()
+                var duty = prompt("Enter the name of the new duty officer", currentDuty);
                 if (duty == null || duty == "") {
                 }
                 else {
@@ -78,21 +79,17 @@
                 }
             });
             $("#btnCallsign").click(function () {
-                var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
+                var currentCS = $("#callsign").html()
+                var cs = prompt("Enter your Callsign", currentCS);
                 if (cs == null || cs == "") {
                 }
                 else {
                     $.post('/settings/callsign/', {name: cs}, function (data, status) {
                     });
                     $('#callsign').html(cs);
-
-                    for (i in document.getElementById("senderButton")) {
-                        alert(i)
-                    }
-
-                    alert(document.getElementById("sender").textContent);
-                    document.getElementById("sender").textContent = cs;
-                    document.getElementById("reciever").textContent = cs;
+                    
+                    $("#fromThis").html(cs);
+                    $("#toThis").html(cs);
                 }
             });
             $("#btnNet").click(function () {
@@ -199,7 +196,8 @@
 
                 });
                 //NOTIFICATION
-                $("#popup").html('{{return_type}} Submitted');
+                var return_type = $('#return_type').html()
+                $("#popup").html(return_type + ' Submitted');
                 $("#popup").show();
                 $("#popup").animate({
                     right: '30px',
@@ -235,7 +233,7 @@
                 </datalist>
             </td>
             <td class="toFromStandard">
-                <button type="button" id='senderButton' class="toButton">{{ settings['callsign'] }}</button>
+                <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
             </td>
             <td class="toFromStandard">
                 <button type="button" class="toButton">KGS</button>
@@ -250,7 +248,7 @@
                 <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
             </td>
             <td class="toFromStandard" colspan="2">
-                <button type="button" id="senderButton" class="fromButton">{{ settings['callsign'] }}</button>
+                <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
             </td>
             <td></td>
 
@@ -291,38 +289,38 @@
         <form method="POST" id="main_form" action="/transmission/MESSAGE">
     {% endif %}
     <table class="toFrom">
-        <tr>
-            <td class="serial">To:</td>
-            <td class="toFromStandard">
-                <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
-                <datalist id="callsigns">
-                    {% for callsigns in callsigns %}
-                        <option value="{{ callsigns }}">{{ callsigns }}</option>
-                    {% endfor %}
-                </datalist>
-            </td>
-            <td class="toFromStandard">
-                <button type="button" class="toButton">{{ settings['callsign'] }}</button>
-            </td>
-            <td class="toFromStandard">
-                <button type="button" class="toButton">KGS</button>
-            </td>
-            <td></td>
-
-
-        </tr>
-        <tr>
-            <td class="serial">From:</td>
-            <td class="toFromStandard">
-                <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
-            </td>
-            <td class="toFromStandard" colspan="2">
-                <button type="button" class="fromButton">{{ settings['callsign'] }}</button>
-            </td>
-            <td></td>
-
-        </tr>
-    </table>
+            <tr>
+                <td class="serial">To:</td>
+                <td class="toFromStandard">
+                    <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    <datalist id="callsigns">
+                        {% for callsign in callsigns %}
+                            <option value="{{ callsign }}">{{ callsign }}</option>
+                        {% endfor %}
+                    </datalist>
+                </td>
+                <td class="toFromStandard">
+                    <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
+                </td>
+                <td class="toFromStandard">
+                    <button type="button" class="toButton">KGS</button>
+                </td>
+                <td></td>
+    
+    
+            </tr>
+            <tr>
+                <td class="serial">From:</td>
+                <td class="toFromStandard">
+                    <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                </td>
+                <td class="toFromStandard" colspan="2">
+                    <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
+                </td>
+                <td></td>
+    
+            </tr>
+        </table>
 
     <table class="transmission_settings">
         <tr>
