@@ -185,6 +185,22 @@
                     });
                 });
             });
+            
+            $(".tableLog tr:odd").css({
+                "background-color":"#f2f2f2",
+            });
+            
+            $(".tableLog").css({
+                "border-collapse": "collapse",
+                "width": "100%",
+                "border": "1px solid #ddd",
+            });
+
+            $(".tableLog td").css({
+                "border": "1px solid #ddd",
+            });
+
+
 
             createModal()
 
@@ -258,14 +274,14 @@
                 <td>Type</td>
                 <td><input class="query_input" query_type="type" type="text" list="returns_list"></td>
                 <datalist id="returns_list">
-                    <option value="MESSAGE">MESSAGE</option>
+                    <option>MESSAGE</option>
                     {% for return_type in serials_def %}
                     <option>{{return_type}}</option>
                     {% endfor %}
                 </datalist>
             </tr>
             <tr>
-                <td>
+                <td colspan="2">
                     <button id="search">Search</button>
                     <button id="clear">Clear</button>
                 </td>

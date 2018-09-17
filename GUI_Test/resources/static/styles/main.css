@@ -422,7 +422,7 @@ label:hover {
     overflow-x: scroll;
     overflow-y: scroll;
 }
-
+/*
 .tableLog {
     border-collapse: collapse;
     width: 100%;
@@ -434,9 +434,13 @@ label:hover {
 }
 
 .tableLog tr:nth-child(even) {
-    background-color: #f2f2f2;;
+    background-color: #f2f2f2;
 }
 
+.tableLog tr:nth-child(odd) {
+    background-color: white;
+}
+*/
 .tableLog tr:hover {
     background-color: #ddd;
 }
@@ -604,8 +608,13 @@ br {
     background-color: #f2f2f2;
 }
 
+#table_serials tr:nth-child(odd) {
+    background-color: white;
+}
+
 .row_data {
     padding: 3px;
+    background-color: transparent;
 }
 
 .edit {
