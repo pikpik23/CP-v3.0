@@ -240,9 +240,9 @@
             </tr>
             <tr>
                 <td>Time</td>
-                <td><input class="query_input" query_type="time" type="text"></td>
+                <td><input class="query_input" query_type="logTime" type="text"></td>
                 <td>To</td>
-                <td><input class="query_input" query_type="to" type="text"></td>
+                <td><input class="query_input" query_type="reciever" type="text"></td>
                 <td>LogID:</td>
                 <td><input type="text"></td>
             </tr>
@@ -250,13 +250,13 @@
                 <td>Net</td>
                 <td><input class="query_input" query_type="net" type="text"></td>
                 <td>From</td>
-                <td><input class="query_input" query_type="from" type="text"></td>
+                <td><input class="query_input" query_type="sender" type="text"></td>
             </tr>
             <tr>
                 <td>Duty Officer</td>
-                <td><input class="query_input" query_type="duty" type="text"></td>
+                <td><input class="query_input" query_type="dutyOfficer" type="text"></td>
                 <td>Type</td>
-                <td><input class="query_input" query_type="type" type="text" list="returns_list"></td>
+                <td><input class="query_input" query_type="returnType" type="text" list="returns_list"></td>
                 <datalist id="returns_list">
                     <option value="MESSAGE">MESSAGE</option>
                     {% for return_type in serials_def %}
