@@ -53,13 +53,21 @@ class MinifyFilesPre:
 
 
 class DbManager:
-    FILE_NAME = 'resources/static/LOG_Temp.db'
-    TABLE_NAME = "'LOG_RETURNS'"
 
-    @staticmethod
-    def query_data(conditions, entries):
+    def __init__(self, fname=None, tname=None):
+        if fname:
+            self.FILE_NAME = fname
+        else:
+            self.FILE_NAME = 'resources/static/LOG_Temp.db'
+
+        if tname:
+            self.TABLE_NAME = tname
+        else:
+            self.TABLE_NAME = "'LOG_RETURNS'"
+
+    def query_data(self, conditions, entries):
         try:
-            with sqlite3.connect(DbManager.FILE_NAME) as conn:
+            with sqlite3.connect(self.FILE_NAME) as conn:
                 c = conn.cursor()
                 condition_order = ['logID',
                                    'returnType',
@@ -83,7 +91,7 @@ class DbManager:
                     cond_list.append(val)
                 cond_string = ' AND '.join(cond_string_list)
 
-                results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} WHERE "
+                results = c.execute(f"SELECT * FROM {self.TABLE_NAME} WHERE "
                                     f"{cond_string}"
                                     f" ORDER BY logID DESC LIMIT {entries}", cond_list)
                 return results
@@ -91,13 +99,12 @@ class DbManager:
         except sqlite3.OperationalError as e:
             print(e)
 
-    @staticmethod
-    def create_db(ret=False):
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+    def create_db(self, ret=False):
+        with sqlite3.connect(self.FILE_NAME) as conn:
             c = conn.cursor()
             # Create table
             try:
-                c.execute('''CREATE TABLE `LOG_RETURNS` (
+                c.execute(f'''CREATE TABLE {self.TABLE_NAME} (
                                 `logID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
                                 `returnType`	text,
                                 `sender`	text,
@@ -114,57 +121,63 @@ class DbManager:
                 print("The Db already exists")
 
             if ret:
-                return DbManager.read_return()
+                return self.read_return()
 
-    @staticmethod
-    def new_return(lst):
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
-            c = conn.cursor()
-            c.execute(
-                'INSERT INTO ' + DbManager.TABLE_NAME + ' VALUES (NULL,' +
-                '?, ' * (len(lst) - 1) + '?)',
-                lst)
 
-    @staticmethod
-    def delete_return_byID(id):
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
-            c = conn.cursor()
-            c.execute(f"DELETE FROM {DbManager.TABLE_NAME} WHERE logID = {id}")
-
-    @staticmethod
-    def read_return(entries=None):
+    def new_return(self, lst):
         try:
-            with sqlite3.connect(DbManager.FILE_NAME) as conn:
+            with sqlite3.connect(self.FILE_NAME) as conn:
+                c = conn.cursor()
+                c.execute(
+                    'INSERT INTO ' + self.TABLE_NAME + ' VALUES (NULL,' +
+                    '?, ' * (len(lst) - 1) + '?)',
+                    lst)
+        except sqlite3.OperationalError as e:
+            if 'no such table' in str(e):
+                self.create_db()
+                self.new_return(lst)
+
+
+    def delete_return_byID(self, id):
+        with sqlite3.connect(self.FILE_NAME) as conn:
+            c = conn.cursor()
+            c.execute(f"DELETE FROM {self.TABLE_NAME} WHERE logID = {id}")
+
+
+    def read_return(self, entries=None):
+        try:
+            with sqlite3.connect(self.FILE_NAME) as conn:
                 c = conn.cursor()
                 if entries:
-                    results = c.execute(f"SELECT * FROM {DbManager.TABLE_NAME} ORDER BY logID DESC LIMIT {entries}")
+                    results = c.execute(f"SELECT * FROM {self.TABLE_NAME} ORDER BY logID DESC LIMIT {entries}")
                 else:
                     # should not be used but just here just in case
-                    results = c.execute(f'SELECT * FROM {DbManager.TABLE_NAME}')
+                    results = c.execute(f'SELECT * FROM {self.TABLE_NAME}')
 
                 return results
         except sqlite3.OperationalError as e:
-            pass
-            # return DbManager.create_db(ret=True)
+            if 'no such table' in e:
+                DbManager.create_db()
 
-    @staticmethod
-    def find_index(log_id):
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+    def find_index(self, log_id):
+        with sqlite3.connect(self.FILE_NAME) as conn:
             c = conn.cursor()
             sql_str = ("""SELECT * FROM """ +
-                       DbManager.TABLE_NAME +
+                       self.TABLE_NAME +
                        """ WHERE logID=?""")
             x = c.execute(sql_str, [str(log_id)])
             return x
 
-    @staticmethod
-    def get_first_index():
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+
+    def get_first_index(self):
+
+        with sqlite3.connect(self.FILE_NAME) as conn:
+            i=""
             c = conn.cursor()
             sqlStr = ("""SELECT logID FROM """ +
-                      DbManager.TABLE_NAME +
+                      self.TABLE_NAME +
                       """ WHERE logID = (SELECT MAX(logID)  FROM """ +
-                      DbManager.TABLE_NAME + ")")
+                      self.TABLE_NAME + ")")
             x = c.execute(sqlStr)
             for i in x:
                 i = int(list(i)[0])
@@ -173,17 +186,32 @@ class DbManager:
             except UnboundLocalError:
                 return ""
 
-    @staticmethod
-    def update_record(lst, logID):
-        with sqlite3.connect(DbManager.FILE_NAME) as conn:
+    def update_record(self, lst, logID):
+        with sqlite3.connect(self.FILE_NAME) as conn:
             c = conn.cursor()
             rowData = """returnType=?, sender=?, reciever=?, logTime=?, dutyOfficer=?, net=?, serials=?"""
             c.execute(
-                'UPDATE ' + DbManager.TABLE_NAME + ' SET ' + rowData + ' WHERE logID=' + logID,
+                'UPDATE ' + self.TABLE_NAME + ' SET ' + rowData + ' WHERE logID=' + logID,
                 lst)
 
 
 class File:
+
+    @staticmethod
+    def db_connect(sets):
+        try:
+            fname = sets['DB_FILE_NAME']
+        except KeyError:
+            fname = None
+
+        try:
+            tname = sets['DB_TABLE_NAME']
+        except KeyError:
+            tname = None
+
+        conn = DbManager(fname=fname, tname=tname)
+        return conn
+
 
     @staticmethod
     def generate_css_min():
@@ -200,8 +228,8 @@ class File:
             MinifyFilesPre.get_js_files()
 
     @staticmethod
-    def get_first():
-        return DbManager.get_first_index()
+    def get_first(self):
+        return self.get_first_index()
 
     @staticmethod
     def save_dic(dic):
@@ -320,7 +348,7 @@ class File:
             w.write(sett + '\\' + val + '\n')
 
     @staticmethod
-    def save_log(log, update=False):
+    def save_log(self, log, update=False):
         """ Saves the log to file """
 
         main_keys = [
@@ -348,15 +376,15 @@ class File:
         # print(lst)
 
         if update:
-            DbManager.update_record(lst, log['logID'])
+            self.update_record(lst, log['logID'])
 
         else:
-            DbManager.new_return(lst)
+            self.new_return(lst)
 
     @staticmethod
-    def load_log_query(query):
+    def load_log_query(Db, query):
 
-        x = list(DbManager.query_data(query, 100))
+        x = list(Db.query_data(query, 100))
 
         local_log = list()
         for row in x:
@@ -387,7 +415,7 @@ class File:
         return local_log
 
     @staticmethod
-    def load_log(log_id=None):
+    def load_log(Db, log_id=None):
         """ loads the log file """
         # try:
         #     r = reader(open("resources/static/logs.csv", "r"))
@@ -397,7 +425,7 @@ class File:
         #     r = reader(open("resources/static/logs.csv", "r"))
 
         if log_id:
-            row = DbManager.find_index(log_id).fetchone()
+            row = Db.find_index(log_id).fetchone()
             local_log = list()
             ret = None
             try:
@@ -426,7 +454,10 @@ class File:
             return ret
 
         else:
-            x = list(DbManager.read_return(entries=100))
+            try:
+                x = list(Db.read_return(entries=100))
+            except TypeError:
+                x = ""
 
             local_log = list()
             for row in x:
@@ -457,8 +488,8 @@ class File:
             return local_log
 
     @staticmethod
-    def delete_log_byID(id):
-        DbManager.delete_return_byID(id)
+    def delete_log_byID(Db, id):
+        Db.delete_return_byID(id)
 
 
 if __name__ == '__main__':

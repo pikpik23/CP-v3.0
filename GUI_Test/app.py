@@ -19,6 +19,7 @@ SERIALS = File.read_dic()
 LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
+DB_CONN = File.db_connect(SETTINGS)
 
 File.generate_css_min()
 
@@ -151,7 +152,7 @@ def abstracted_return_return(rtrn_type):
                 ret.update({serial: ''})
 
     # LOG.insert(0, (ret))
-    File.save_log(ret)
+    File.save_log(DB_CONN, ret)
     # return ""
     return test_log('init')
 
@@ -170,7 +171,7 @@ def convert_newlines(line):
 
 @APP.route('/log')
 def render_log_page():
-    log = File.load_log()
+    log = File.load_log(DB_CONN)
     return render_template('log/log_edit_new.html', serials_def=SERIALS, log=log)
 
 
@@ -180,10 +181,10 @@ def test_log(log_id):
     # print(LOG[int(logID)])
     if log_id == 'init':
         # DEPRECIATED
-        log_id = File.get_first()
+        log_id = File.get_first(DB_CONN)
 
     try:
-        log = File.load_log(log_id=log_id)
+        log = File.load_log(DB_CONN, log_id=log_id)
         if log:
             return render_template("log/log_frame.html",
                                    ret=log)
@@ -269,12 +270,12 @@ def test_log_edit(log_id):
     try:
         index = int(log_id)
         return render_template("Edit_Log/edit_log_body.html",
-                               return_type=File.load_log(log_id=log_id)['name'],
+                               return_type=File.load_log(DB_CONN, log_id=log_id)['name'],
                                serials_def=SERIALS,
                                locs=LOCATIONS,
                                settings=SETTINGS,
                                callsigns=CALLSIGNS,
-                               ret=File.load_log(log_id=log_id))
+                               ret=File.load_log(DB_CONN, log_id=log_id))
 
     except IndexError:
         return "<h1>ERROR</h1><p>That is not a valid log ID</p>"
@@ -286,7 +287,7 @@ def test_log_edit_submit(action, log_id):
         edit_log_by_id(log_id)
         return ""
     elif action == 'delete':
-        File.delete_log_byID(request.form.to_dict()['logID'])
+        File.delete_log_byID(DB_CONN, request.form.to_dict()['logID'])
         return ""
 
 
@@ -312,7 +313,7 @@ def edit_log_by_id(log_id):
             except KeyError:
                 ret.update({serial: ''})
 
-    File.save_log(ret, update=True)
+    File.save_log(DB_CONN, ret, update=True)
 
     return ""
 
@@ -325,9 +326,28 @@ def minesweeper():
 @APP.route('/log/query', methods=['POST'])
 def getQuery():
     # print(request.form.to_dict())
-    x = File.load_log_query(request.form.to_dict())
+    x = File.load_log_query(DB_CONN, request.form.to_dict())
     # print(list(x))
     return render_template("log/log_innertable_list.html", log=list(x))
+
+def get_new_log_name(lname=None):
+    if not lname:
+        lname = SETTINGS['DB_FILE_NAME']
+
+    path = 'resources/static/LOG_'
+    extension = '.db'
+    lname = lname.strip(path) # strip the path
+    lname = lname.strip(extension) # strip db extension
+
+    try:
+        lname = float(lname)
+        lname += 1
+    except ValueError:
+        pass
+
+    new_lname = path+str(lname)+extension
+
+    return lname
 
 
 if __name__ == '__main__':
