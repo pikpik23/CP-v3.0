@@ -119,6 +119,16 @@
             };
         }
 
+        function unbindAll() {
+            $("#log_delete_btn").unbind("click");
+            $(".dataRow").unbind("click");
+            $("#print").unbind("click");
+            $("#log_delete_btn").unbind("click");
+            $(document).off("keydown");
+            $("#clear").unbind("click");
+            $("#search").unbind("click");
+        }
+
         function load() {
 
             $("#log_delete_btn").click(function () {
@@ -147,7 +157,7 @@
             });
             $('.table_body tr').first().click();
 
-            document.addEventListener("keydown", function (event) {
+            $(document).on("keydown", function(){
                 if (event.keyCode === 38) {
                     event.preventDefault();
                     //UP ARROW
@@ -172,6 +182,7 @@
                 // alert(JSON.stringify(query));
                 $.post("/log/query", query, function (data, status) {
                     $(".table_body")[0].innerHTML = data;
+                    unbindAll()
                     load();
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
