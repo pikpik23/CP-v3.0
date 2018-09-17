@@ -335,6 +335,20 @@ footer {
     width: 75px;
 }
 
+.btnSmall {
+    font-size: 10pt;
+    border-radius: 5px;
+    text-align: center;
+    width: 75px;
+}
+
+.btnMed {
+    font-size: 10pt;
+    border-radius: 5px;
+    text-align: center;
+    width: 100px;
+}
+
 .submit td {
     border-top: 1px solid rgb(187, 187, 187);
     padding: 8px 4px;
@@ -784,7 +798,12 @@ br {
 /* ----------------------------- General Setting --------------------*/
 
 .general {
-    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+
+.general td {
+    padding: 8px 4px;
 }
 
 #portaloo {
