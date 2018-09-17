@@ -127,17 +127,17 @@
                 });
             });
 
-            {% for entry in log %}
-                $("#{{entry['logID']}}").click(function () {
-                    $("#logPrint").attr("src", "log/{{entry['logID']}}");
-                    {% for entry in log %}
-                        $("#{{entry['logID']}}").attr("class", "rowOff");
-                    {% endfor %}
-                    $(this).attr("class", "rowSelected");
-
+            $(".dataRow").click(function () {
+                var row_id = $(this).attr('id');
+                $("#logPrint").attr("src", "log/" + row_id);
+                var table_body =  $(".table_body")
+                table_body.find('tr').each(function (index, val) {
+                    $(this).attr("class", "rowOff dataRow");
                 });
-            {% endfor %}
-            $("#0").attr("class", "rowSelected");
+                $(this).attr("class", "rowSelected dataRow");
+
+            });
+            $("#0").attr("class", "rowSelected dataRow");
             $('#logs').floatThead({});
 
 
@@ -231,15 +231,15 @@
                     </thead>
                     <tbody class="table_body">
                     {% for entry in log %}
-                        <div class="entryRow">
-                            <tr class="rowOff" id="{{ entry['logID'] }}">
+                    
+                            <tr class="rowOff dataRow" id="{{ entry['logID'] }}">
                                 <td>{{ entry['time'] }}</td>
                                 <td>{{ entry['net'] }}</td>
                                 <td>{{ entry['sender'] }}</td>
                                 <td>{{ entry['receiver'] }}</td>
                                 <td>{{ entry['name'] }}</td>
                             </tr>
-                        </div>
+
                     {% endfor %}
                     </tbody>
                 </table>
