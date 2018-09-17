@@ -1,11 +1,9 @@
 {% for entry in log %}
-    <div class="entryRow">
-        <tr class="rowOff" id="{{ entry['logID'] }}">
+        <tr class="rowOff dataRow" id="{{ entry['logID'] }}">
             <td>{{ entry['time'] }}</td>
             <td>{{ entry['net'] }}</td>
             <td>{{ entry['sender'] }}</td>
             <td>{{ entry['receiver'] }}</td>
             <td>{{ entry['name'] }}</td>
         </tr>
-    </div>
 {% endfor %}
