@@ -111,15 +111,21 @@
                 </div>
             </div>
             <div class="query">
-                <p>Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR
-                    Search for LOGID</p>
+                
                 <table id="query_table">
+                    <tr>
+                        <td><b>Query</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID
+                        </td>
+                    </tr>
                     <tr>
                         <td>Time</td>
                         <td><input class="query_input" query_type="time" type="text"></td>
                         <td>To</td>
                         <td><input class="query_input" query_type="to" type="text"></td>
-                        <td>OR</td>
                         <td>LogID:</td>
                         <td><input type="text"></td>
                     </tr>
@@ -144,8 +150,6 @@
                     <tr>
                         <td>
                             <button id="search">Search</button>
-                        </td>
-                        <td>
                             <button id="clear">Clear</button>
                         </td>
                     </tr>
