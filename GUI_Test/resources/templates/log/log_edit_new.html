@@ -172,7 +172,7 @@
                 // alert(JSON.stringify(query));
                 $.post("/log/query", query, function (data, status) {
                     $(".table_body")[0].innerHTML = data;
-                    load()
+                    load();
                     //alert("Data: " + data + "\nStatus: " + status);
                 });
             });
@@ -204,6 +204,7 @@
 
             createModal()
 
+        console.log("I have loaded")
         }
     </script>
 
