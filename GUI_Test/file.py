@@ -78,8 +78,8 @@ class DbManager:
                         val = conditions[cond]
                     except KeyError:
                         val = ""
-                    cond_string_list.append(f"{cond} LIKE ?")
-                    val = f"%{val}%"
+                    cond_string_list.append(f"lower({cond}) LIKE ?")
+                    val = f"%{val.lower()}%"
                     cond_list.append(val)
                 cond_string = ' AND '.join(cond_string_list)
 
