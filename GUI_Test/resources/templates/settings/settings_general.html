@@ -2,7 +2,7 @@
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-
+/*
         $("#btnDuty").click(function () {
             var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
             if (duty == null || duty == "") {
@@ -36,30 +36,60 @@
                 $('#net_name').html(net);
             }
         });
+        */
+        $('#settings_save').click(function() {
+            var table = $('.general')
+            var arr = {}
+            table.find(".current_details").each(function(index,val){
+                var type = $(this).attr('input');
+                var data = $(this).val()
+                arr[type] = data
+            });
+            $.post('/settings/settings/', arr, function (data, status) {
+            });
+
+
+        });
     });
 </script>
 <div class="inner">
     <table class='general'>
         <tr>
+            <td colspan="2"><h3>Current Details</h3></td>
+        </tr>
+
+        <tr>
+            <td id="callsign"><b>Callsign</b></td>
             <td align="right">
-                <button type="button" class="btnMed" id="btnCallsign">This Callsign</button>
+                <input id="csIpnut" input="cs" class="current_details" type="text" value="{{ settings['callsign'] }}"/>
             </td>
-            <td id="callsign" align="right">{{ settings['callsign'] }}</td>
         </tr>
         <tr>
+            <td id="callsign"><b>Duty Officer</b></td>
             <td align="right">
-                <button type="button" class="btnMed" id="btnDuty">Duty Officer</button>
+                <input id="csIpnut" input="duty" class="current_details" type="text" value="{{ settings['Duty'] }}"/>
             </td>
-            <td id="duty_officer" align="right">{{ settings['Duty'] }}</td>
+            </tr>
+        <tr>
+            <td id="callsign"><b>Net</b></td>
+            <td align="right">
+                <input id="csIpnut" input="net" class="current_details" type="text" value="{{ settings['net'] }}"/>
+            </td>
         </tr>
         <tr>
-            <td align="right">
-                <button type="button" class="btnMed" id="btnNet">This Net</button>
-            </td>
-            <td id="net_name" align="right">{{ settings['net'] }}</td>
+            <td><button class="btnSmall" id="settings_save">Save</button></td>
         </tr>
         <tr>
-            <td colspan="2"><button class="btnMed" >Download Log</button></td>
+            <td colspan="2"><h3>Log Settings</h3></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnLge" >Download Log</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnLge" >Delete Log</button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button class="btnLge" >Upload Log</button></td>
         </tr>
     </table>
 </div>

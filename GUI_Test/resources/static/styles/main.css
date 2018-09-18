@@ -349,6 +349,13 @@ footer {
     width: 100px;
 }
 
+.btnLge{
+    font-size: 10pt;
+    border-radius: 5px;
+    text-align: center;
+    width: 150px;
+}
+
 .submit td {
     border-top: 1px solid rgb(187, 187, 187);
     padding: 8px 4px;
@@ -803,7 +810,15 @@ br {
 }
 
 .general td {
-    padding: 8px 4px;
+    padding: 4px 4px;
+}
+
+#callsign {
+    width:100px;
+}
+
+.current_details {
+    width: 100%;
 }
 
 #portaloo {
