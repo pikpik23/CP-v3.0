@@ -437,14 +437,24 @@ label:hover {
 }
 
 #logPrint {
-    height: 100%;
-    width: 100%;
+    position: relative;
+    top:0;
+    left:0;
+    right:0;
+    bottom:50px;
+
+
     margin-bottom: 100px;
+    overflow: scroll;
     overflow-x: scroll;
     overflow-y: scroll;
 }
 
 
+.printBody {
+    padding: 20px 30px;
+    overflow: scroll;
+}
 
 .tableLog {
     border-collapse: collapse;
@@ -494,6 +504,10 @@ label:hover {
     width:150px
 }*/
 
+.printTable{
+    overflow: scroll;
+}
+
 .printTable td {
     font-weight: bold;
     padding: 4px;
@@ -539,9 +553,6 @@ label:hover {
     overflow-y: auto;
 }
 
-.printBody {
-    padding: 20px 30px;
-}
 
 @page {
     margin: 0mm;
@@ -562,13 +573,15 @@ br {
     bottom: 10px;
     left: 10px;
     right: 10px;
-    height: 170px;
-    border: 1px solid #ddd;
+    height: 185px;
+    /*border: 1px solid #ddd;*/
 }
 
 #query_table {
+    width:100%;
     position: absolute;
     bottom: 0;
+    border: 1px solid #ddd;
 }
 
 #query_table td {
