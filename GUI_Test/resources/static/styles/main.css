@@ -443,6 +443,8 @@ label:hover {
     right:0;
     bottom:50px;
 
+    HEIGHT: 100%;
+    WIDTH: 100%;
 
     margin-bottom: 100px;
     overflow: scroll;
