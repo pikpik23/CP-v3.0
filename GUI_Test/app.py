@@ -59,8 +59,11 @@ def display_notes():
 @APP.route('/settings/<setting>/', methods=['POST'])
 def abstracted_updating_settings(setting):
     """ handles setting changes (POST) then reloads page """
-    SETTINGS[setting] = request.form['name']
-    update_setting()
+    if setting == "setting":
+        print(request.form.to_dict())
+    else:
+        SETTINGS[setting] = request.form['name']
+        update_setting()
     return ""
 
 
