@@ -23,30 +23,29 @@
             });
             $("#instructions").click();
 
-            {% for return_type in serials_def %}
-                $("#{{return_type}}").click(function () {
-                    //$("#serials").attr("src", "edit_return/{{return_type}}");
-                    if (saved == true) {
-                        $.ajax({
-                            url: "/edit_return/{{return_type}}",
-                            type: "get",
-                            success: function (response) {
-                                $("#serial-list").html(response);
-                            },
-                            error: function (xhr) {
-                                //Do Something to handle error
-                            }
-                        });
-                    }
-                    else if (saved == false) {
-                        alert('unsaved changes')
-                    }
-                    else {
-                        alert('it didnt work')
-                    }
+            $(".btnSerials").click(function () {
+                var type = $(this).attr('id')
+                //$("#serials").attr("src", "edit_return/{{return_type}}");
+                if (saved == true) {
+                    $.ajax({
+                        url: "/edit_return/"+type,
+                        type: "get",
+                        success: function (response) {
+                            $("#serial-list").html(response);
+                        },
+                        error: function (xhr) {
+                            //Do Something to handle error
+                        }
+                    });
+                }
+                else if (saved == false) {
+                    alert('unsaved changes')
+                }
+                else {
+                    alert('it didnt work')
+                }
 
-                });
-            {% endfor %}
+            });
 
             $(document).find('.btnSave').hide();
             $(document).find('.btnCancel').hide();
@@ -101,7 +100,7 @@
 				<span class="btnEdit"> <a href="#" class="btn_action" row_return="" > Rename</a> </span>
 				<span class="btnSave"> <a href="#" class="btn_action" row_return="" > Save</a> </span>
 				<span class="btnCancel"> <a href="#" class="btn_action" row_return="" > Cancel</a> </span>
-				<span class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span>
+				<span id="" class="btnSerials"> <a href="#" class="btn_action" > Edit Serials</a> </span>
 				<span class="btnRemove"> <a href="#" class="btn_action" row_return="" >Remove</a> </span>
 			</td>
 		</tr>`);
@@ -117,7 +116,6 @@
                 var tbl_row = $(this).closest('tr');
                 var new_return = tbl_row.attr('new_row')
                 if (new_return == 'true') {
-                    alert('meme')
                     $(this).closest('tr').remove();
                 }
                 else {
@@ -176,10 +174,12 @@
 
 
                     tbl_row.attr("row_return", row_return);
-
+                    
+                    alert(row_return);
                     tbl_row.find('.btnSerials')
                         .attr('id', row_return)
                         .attr('row_return', row_return);
+
 
                     var ret_arr = [];
 

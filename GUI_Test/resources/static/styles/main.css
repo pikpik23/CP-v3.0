@@ -27,7 +27,7 @@ header {
 }
 
 /* Create two columns/boxes that floats next to each other 
-div.scrollmenu {
+.scrollmenu {
     position: fixed;
     z-index: 1;
     top: 145px;
@@ -50,6 +50,7 @@ nav {
     border-color: rgb(145, 145, 145);
     border-style: solid;
     border-width: 1px;
+    overflow-y:scroll;
 }
 
 /* Style the list inside the menu */
