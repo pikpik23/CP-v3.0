@@ -81,6 +81,8 @@ nav button {
     margin: 12px 0;
     font-weight: bold;
     font-size: 14px;
+    max-width:100%;
+    word-wrap:break-word;
 }
 
 nav button:hover {
@@ -709,6 +711,8 @@ br {
 
 .return_column {
     width: 150px;
+    max-width:150px;
+    word-wrap:break-word;
 }
 
 .serial_column {

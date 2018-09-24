@@ -96,7 +96,7 @@
             $("#add_return").click(function () {
                 $(".table_serials_outer tr:last").after(`
 		<tr new_row="true">
-			<td><div class="row_data" prevcont="" col_name="return"></div></td>
+			<td class="return_column"><div class="row_data" prevcont="" col_name="return"></div></td>
 			<td>
 				<span class="btnEdit"> <a href="#" class="btn_action" row_return="" > Rename</a> </span>
 				<span class="btnSave"> <a href="#" class="btn_action" row_return="" > Save</a> </span>
@@ -220,7 +220,7 @@
                     <tbody class="return_body">
                     {% for return_type in serials_def %}
                         <tr row_return="{{ return_type }}" new_row="false">
-                            <td>
+                            <td class="return_column">
                                 <div class="row_data" prevcont="{{ return_type }}"
                                      col_name="return">{{ return_type }}</div>
                             </td>
