@@ -343,9 +343,9 @@ class File:
     @staticmethod
     def save_settings(dic):
         """ saves the given settings (dictionary) to file """
-        w = open("resources/files/settings.txt", "w", newline="\n")
-        for sett, val in dic.items():
-            w.write(sett + '\\' + val + '\n')
+        with open("resources/files/settings.txt", "w", newline="\n") as w:
+            for sett, val in dic.items():
+                w.write(sett + '\\' + val + '\n')
 
     @staticmethod
     def save_log(self, log, update=False):

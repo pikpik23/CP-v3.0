@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/styles/main.css">
+<link rel="stylesheet" href="/styles/main.css" xmlns="http://www.w3.org/1999/html">
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -50,6 +50,11 @@
 
 
         });
+
+        // A post is used to prevent someone randomly visiting the url
+        $("#delete_log").click(function(){$.post('/settings/action/', {action:"delete_log"}, function () {})});
+
+
     });
 </script>
 <div class="inner">
@@ -83,13 +88,18 @@
             <td colspan="2"><h3>Log Settings</h3></td>
         </tr>
         <tr>
-            <td colspan="2"><button class="btnLge" >Download Log</button></td>
+            <td colspan="2"><a href="/settings/download_log"><button class="btnLge" >Download Log</button></a></td>
         </tr>
         <tr>
-            <td colspan="2"><button class="btnLge" >Delete Log</button></td>
+            <td colspan="2"><button id="delete_log" class="btnLge">Delete Log</button></td>
         </tr>
         <tr>
-            <td colspan="2"><button class="btnLge" >Upload Log</button></td>
+            <td colspan="2">
+                <form id="log_upload_form" method="post" action="/settings/log_upload" enctype = "multipart/form-data">
+                 <input type = "file" name = "file" />
+                    <button id="log_upload" type="submit">Upload Log</button>
+              </form>
+                <!--<button class="btnLge" >Upload Log</button></td>-->
         </tr>
     </table>
 </div>

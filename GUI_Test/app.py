@@ -6,7 +6,8 @@ All request handling is done from here
 """
 from datetime import datetime
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.utils import secure_filename
 from file import File
 from flask_compress import Compress
 
@@ -57,15 +58,14 @@ def display_notes():
 
 
 @APP.route('/settings/update/', methods=['POST'])
-def abstracted_updating_settings(setting):
+def abstracted_updating_settings():
     """ handles setting changes (POST) then reloads page """
-
     try:
         for key, val in request.form.to_dict().items():
             SETTINGS[key] = val
         update_setting()
-    finally:
-        print("Unexpected settings changes")
+    except Exception as e: # If an error is thrown please create an issue with the error!
+        print("An error has occured, please create an issue on the github with the following:\n",e)
     return ""
 
 
@@ -121,6 +121,29 @@ def display_settings_general():
 def display_info():
     """ Renders the Product info Page """
     return render_template('product_info.html')
+
+@APP.route('/settings/download_log')
+def download_log():
+    """ Renders the LOG """
+    return redirect("/"+SETTINGS['DB_FILE_NAME'].replace("resources/static/",""))
+
+@APP.route('/settings/action/', methods=['POST'])
+def settings_actions():
+    """ Renders the LOG """
+    try:
+        action = request.form.to_dict()['action']
+    except KeyError:
+        action = None
+        return "Error Could not detect action"
+
+    if action == "delete_log":
+        SETTINGS['DB_FILE_NAME'] = get_new_log_name(SETTINGS['DB_FILE_NAME'])
+        update_setting()
+        global DB_CONN
+        DB_CONN = File.db_connect(SETTINGS)
+
+    return ""
+
 
 
 @APP.route('/games/tetris')
@@ -339,20 +362,36 @@ def get_new_log_name(lname=None):
     if not lname:
         lname = SETTINGS['DB_FILE_NAME']
 
-    path = 'resources/static/LOG_'
+    path = 'resources/static/log/LOG_'
     extension = '.db'
     lname = lname.strip(path) # strip the path
     lname = lname.strip(extension) # strip db extension
 
     try:
-        lname = float(lname)
+        lname = int(lname)
         lname += 1
     except ValueError:
-        pass
+        print("can't turn the name into an int")
 
     new_lname = path+str(lname)+extension
 
-    return lname
+    return new_lname
+
+
+# UPLOADING DB
+@APP.route('/settings/log_upload', methods = ['POST'])
+def upload_file():
+
+    if 'file' in request.files:
+        f = request.files['file']
+
+        if f.filename[-3:]=='.db':
+            SETTINGS['DB_FILE_NAME'] = get_new_log_name()
+            update_setting()
+            f.save("resources/static/log/"+secure_filename(SETTINGS['DB_FILE_NAME'].replace("resources/static/log/LOG_", "")))
+            global DB_CONN
+            DB_CONN = File.db_connect(SETTINGS)
+    return redirect("/settings")
 
 
 if __name__ == '__main__':
