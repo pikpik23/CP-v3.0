@@ -38,14 +38,14 @@
         });
         */
         $('#settings_save').click(function() {
-            var table = $('.general')
-            var arr = {}
+            var table = $('.general');
+            var arr = {};
             table.find(".current_details").each(function(index,val){
                 var type = $(this).attr('input');
-                var data = $(this).val()
+                var data = $(this).val();
                 arr[type] = data
             });
-            $.post('/settings/settings/', arr, function (data, status) {
+            $.post('/settings/update/', arr, function (data, status) {
             });
 
 
@@ -61,13 +61,13 @@
         <tr>
             <td id="callsign"><b>Callsign</b></td>
             <td align="right">
-                <input id="csIpnut" input="cs" class="current_details" type="text" value="{{ settings['callsign'] }}"/>
+                <input id="csIpnut" input="callsign" class="current_details" type="text" value="{{ settings['callsign'] }}"/>
             </td>
         </tr>
         <tr>
             <td id="callsign"><b>Duty Officer</b></td>
             <td align="right">
-                <input id="csIpnut" input="duty" class="current_details" type="text" value="{{ settings['Duty'] }}"/>
+                <input id="csIpnut" input="Duty" class="current_details" type="text" value="{{ settings['Duty'] }}"/>
             </td>
             </tr>
         <tr>

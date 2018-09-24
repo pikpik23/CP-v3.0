@@ -56,14 +56,16 @@ def display_notes():
     return render_template('notes.html')
 
 
-@APP.route('/settings/<setting>/', methods=['POST'])
+@APP.route('/settings/update/', methods=['POST'])
 def abstracted_updating_settings(setting):
     """ handles setting changes (POST) then reloads page """
-    if setting == "setting":
-        print(request.form.to_dict())
-    else:
-        SETTINGS[setting] = request.form['name']
+
+    try:
+        for key, val in request.form.to_dict().items():
+            SETTINGS[key] = val
         update_setting()
+    finally:
+        print("Unexpected settings changes")
     return ""
 
 
