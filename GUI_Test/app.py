@@ -79,21 +79,22 @@ def display_settings():
 
 
 @APP.route('/settings/updatelist/<list_name>', methods=['POST'])
-def update_list_settings(list_name: str) -> str:
+def update_list_settings(list_name):
     """
     updates the given settings
     """
-    if list_name.upper() == 'LOCATIONS':
+    if list_name.upper() == "LOCATIONS":
         global LOCATIONS
         LOCATIONS = request.form['lst'].split('\n')
         File.save_Locations(LOCATIONS)
 
-    elif list_name.upper() == 'CALLSIGNS':
+    elif list_name.upper() == "CALLSIGN":
         global CALLSIGNS
         CALLSIGNS = request.form['lst'].split('\n')
         File.save_callsigns(CALLSIGNS)
 
     return ""
+
 
 
 @APP.route('/settings/locs')

@@ -1,4 +1,4 @@
-callsign\0B
+callsign\0A
 Duty\Lambinon
 net\UNIT NET
 DB_FILE_NAME\resources/static/log/LOG_1.db

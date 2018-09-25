@@ -73,18 +73,18 @@
                 if (duty == null || duty == "") {
                 }
                 else {
-                    $.post('/settings/Duty/', {name: duty}, function (data, status) {
+                    $.post('/settings/update/', {Duty: duty}, function (data, status) {
                         $('#duty_officer').html(duty);
                     });
                 }
             });
             $("#btnCallsign").click(function () {
-                var currentCS = $("#callsign").html()
+                var currentCS = $("#callsign").html();
                 var cs = prompt("Enter your Callsign", currentCS);
                 if (cs == null || cs == "") {
                 }
                 else {
-                    $.post('/settings/callsign/', {name: cs}, function (data, status) {
+                    $.post('/settings/update/', {callsign: cs}, function (data, status) {
                     });
                     $('#callsign').html(cs);
                     
