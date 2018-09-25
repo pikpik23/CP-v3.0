@@ -382,7 +382,7 @@ def get_new_log_name(lname=None):
 # UPLOADING DB
 @APP.route('/settings/log_upload', methods = ['POST'])
 def upload_file():
-
+    """Handles the file upload"""
     if 'file' in request.files:
         f = request.files['file']
 
