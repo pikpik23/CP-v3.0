@@ -614,6 +614,15 @@ br {
 }
 */
 /*-------------------------------- EDIT SERIALS ---------------------------*/
+.btnSave, .btnCancel {
+    display:none;
+}
+
+.btn_done, .btn_cancel {
+    display: none;
+}
+
+
 .edit-table {
     border: 1px solid black;
     border-collapse: collapse;
