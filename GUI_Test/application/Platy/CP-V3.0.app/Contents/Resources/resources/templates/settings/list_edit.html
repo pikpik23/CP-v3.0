@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/styles/min_main.css">
+<script src="/js_files/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#save_list').click(function () {
+            let info = $('.list_values').val();
+            $.ajax({
+                type: "POST",
+                url: '/settings/updatelist/' + $('#current').html(),
+                data: ({lst: info}),
+            });
+
+            $("#popup").html('List Saved');
+            $("#popup").show();
+            $("#popup").animate({
+                right: '30px',
+            });
+            setTimeout(function () {
+                $("#popup").fadeOut(500)
+                setTimeout(function () {
+                    $("#popup").css('right', '-200px')
+                }, 500);
+            }, 3000);
+        });
+    });
+</script>
+
+<textarea class='list_values'>{% for data_item in data %}
+{{ data_item }}{% endfor %}
+</textarea>
+<button class="btnSmall" id="save_list">Save</button>
