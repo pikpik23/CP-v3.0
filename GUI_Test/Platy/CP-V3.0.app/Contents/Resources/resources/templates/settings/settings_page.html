@@ -1,0 +1,149 @@
+{% extends '/includes/layout.html' %} {% block body %}
+    <script type="text/javascript" src="/js_files/egg.js"></script>
+    <script src="/js_files/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#general').click(function () {
+                $.ajax({
+                    url: "/settings/general",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("General");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+            });
+            $('#general').click();
+            $('#edit_locs').click(function () {
+                $.ajax({
+                    url: "/settings/locs",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Locations");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+            });
+            $('#edit_callsigns').click(function () {
+                $.ajax({
+                    url: "/settings/callsigns",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Callsigns");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+            });
+            $('#edit_return').click(function () {
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                window.location = "/edit_return"
+            });
+            $('#product').click(function () {
+                $.ajax({
+                    url: "/settings/info",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Product Info");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+
+            });
+            var tetris = new Egg("t,e,t,r,i,s", function () {
+                $.ajax({
+                    url: "/games/tetris",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+            }).listen();
+
+            var minesweeper = new Egg("m,i,n,e,s,w,e,e,p,e,r", function () {
+                $.ajax({
+                    url: "/games/minesweeper",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+            }).listen();
+
+        });
+    </script>
+
+    <div class="scrollmenu">
+        <nav>
+            <ul>
+                <li>
+                    <a>Settings</a>
+                </li>
+                <li>
+                    <button class="setting_button" id="general">General</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="edit_return">Edit Return</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="edit_locs">Edit Locations</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="edit_callsigns">Edit Callsigns</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="product">Product Info</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="divRight">
+        <div class="banner">
+            <a id="current">Product Details</a>
+            <div id="popup">Notification</div>
+        </div>
+        <div id="settings_display">
+
+        </div>
+    </div>
+
+    </div>
+
+
+{% endblock %}

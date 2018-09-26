@@ -400,7 +400,9 @@ if __name__ == '__main__':
     APP.jinja_env.cache = {}
 
     try:
-        APP.run(host='0.0.0.0', debug=True, port=80, threaded=True)
+        print("Running")
+        APP.run(host='0.0.0.0', debug=False, port=80, threaded=True)
+        print("Terminating")
     except PermissionError:
         print("Could not use port 80 (use sudo to use port 80)")
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)

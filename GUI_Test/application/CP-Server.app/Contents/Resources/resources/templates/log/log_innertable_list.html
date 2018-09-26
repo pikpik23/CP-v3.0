@@ -1,0 +1,9 @@
+{% for entry in log %}
+        <tr class="rowOff dataRow" id="{{ entry['logID'] }}">
+            <td>{{ entry['time'] }}</td>
+            <td>{{ entry['net'] }}</td>
+            <td>{{ entry['sender'] }}</td>
+            <td>{{ entry['receiver'] }}</td>
+            <td>{{ entry['name'] }}</td>
+        </tr>
+{% endfor %}
