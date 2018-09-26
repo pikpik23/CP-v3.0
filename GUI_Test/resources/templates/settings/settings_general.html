@@ -2,41 +2,6 @@
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-/*
-        $("#btnDuty").click(function () {
-            var duty = prompt("Enter the name of the new duty officer", "{{settings['Duty']}}");
-            if (duty == null || duty == "") {
-            }
-            else {
-                $.post('/settings/Duty/', {name: duty}, function (data, status) {
-                    $('#duty_officer').html(duty);
-                });
-            }
-        });
-
-
-        $("#btnCallsign").click(function () {
-            var cs = prompt("Enter your Callsign", "{{settings['callsign']}}");
-            if (cs == null || cs == "") {
-            }
-            else {
-                $.post('/settings/callsign/', {name: cs}, function (data, status) {
-                });
-                $('#callsign').html(cs);
-            }
-        });
-
-        $("#btnNet").click(function () {
-            var net = prompt("Enter your current Net", "{{settings['net']}}");
-            if (net == null || net == "") {
-            }
-            else {
-                $.post('/settings/net/', {name: net}, function (data, status) {
-                });
-                $('#net_name').html(net);
-            }
-        });
-        */
         $('#settings_save').click(function() {
             var table = $('.general');
             var arr = {};
@@ -53,7 +18,17 @@
 
         // A post is used to prevent someone randomly visiting the url
         $("#delete_log").click(function(){$.post('/settings/action/', {action:"delete_log"}, function () {})});
+        
 
+        $('#chooseFile').bind('change', function () {
+            var filename = $("#chooseFile").val();
+            if (/^\s*$/.test(filename)) {
+                $('#chooseFile::-webkit-file-upload-button').removeClass('btnActive')
+            }
+            else {
+                $('#chooseFile::-webkit-file-upload-button').addClass('btnActive')
+            }
+        });
 
     });
 </script>
@@ -96,10 +71,10 @@
         <tr>
             <td colspan="2">
                 <form id="log_upload_form" method="post" action="/settings/log_upload" enctype = "multipart/form-data">
-                 <input type = "file" name = "file" />
-                    <button id="log_upload" type="submit">Upload Log</button>
-              </form>
-                <!--<button class="btnLge" >Upload Log</button></td>-->
+                    <input type="file" id="chooseFile" name="file"/>
+                    <button id="log_upload" class="btnMed" type="submit">Upload Log</button>
+                </form>
+            </td>
         </tr>
     </table>
 </div>

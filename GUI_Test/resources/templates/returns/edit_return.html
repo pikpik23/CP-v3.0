@@ -46,9 +46,9 @@
                 }
 
             });
-
-            $(document).find('.btnSave').hide();
-            $(document).find('.btnCancel').hide();
+            
+            //$(document).find('.btnSave').hide();
+            //$(document).find('.btnCancel').hide();
 
             $(document).on('click', '.btnEdit', function (event) {
                 event.preventDefault();
@@ -175,7 +175,6 @@
 
                     tbl_row.attr("row_return", row_return);
                     
-                    alert(row_return);
                     tbl_row.find('.btnSerials')
                         .attr('id', row_return)
                         .attr('row_return', row_return);
