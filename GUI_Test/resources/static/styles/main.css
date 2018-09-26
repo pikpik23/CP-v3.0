@@ -237,6 +237,10 @@ input {
     border-width: 1px;
 }
 
+.btnActive {
+    background-color: blue;
+}
+
 .toFrom {
     width: 100%;
     border-spacing: 0;
@@ -357,6 +361,16 @@ footer {
     border-radius: 5px;
     text-align: center;
     width: 150px;
+}
+
+.btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .submit td {
@@ -798,6 +812,13 @@ br {
     line-height: 24px;
 }
 
+input[type=file] {
+    outline: none !important;
+}
+
+#chooseFile::-webkit-file-upload-button {
+    font-size: 12pt;
+  }
 /* ----------------------- Locations-Edit --------------------*/
 
 .list_values {
