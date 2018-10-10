@@ -394,6 +394,14 @@ def upload_file():
             DB_CONN = File.db_connect(SETTINGS)
     return redirect("/settings")
 
+@APP.route('/settings/sitemap', methods = ['GET'])
+def sitemap_generate():
+    content = ""
+    print(APP.url_map)
+    for rule in APP.url_map.iter_rules():
+        print(rule)
+    return content
+
 
 if __name__ == '__main__':
 
