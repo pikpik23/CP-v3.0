@@ -410,11 +410,13 @@ def sitemap_generate():
         site = site.split(") -> ")
         func = site.pop(1)
         url, setts = site[0].replace("'","").split(" (")
+        setts = setts.replace("OPTIONS, ","").replace(", OPTIONS", "").replace(", HEAD","")
+        print(setts)
 
 
         breakdown = url.split("/")
         key = breakdown[1]
-        val = "/".join(breakdown[2:])
+        val = "/"+"/".join(breakdown[2:])
 
         combo = [val,setts,func]
 
