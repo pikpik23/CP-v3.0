@@ -3,20 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Sitemap</title>
+    <style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        width: 33%;
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
 </head>
 <body>
-<p>
-    <h3>URL'S</h3>
-    <ul>
-        {% for site in sites %}
-            <li>{{ site }}</li>
+<div class="inner">
+
+    {% for group in sites %}
+        <h3>/{{ group }}</h3>
+            <table>
+                <th>URL</th>
+                <th>OPTIONS</th>
+                <th>FUNCTION</th>
+                {% for site in sites[group] %}
+                    <tr>
+                        {% for col in site %}
+                            <td>{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+    {% endfor %}
+
+
+<h3>RAW</h3>
+    <table>
+        {% for page in raw %}
+        <tr>
+        <td>
+            {{ page }}
+        </td>
+        </tr>
         {% endfor %}
-    </ul>
-
-    <h3>RAW</h3>
-    <p>{{ raw }}<p>
-</p>
-
-
+    </table>
+</div>
 </body>
 </html>

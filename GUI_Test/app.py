@@ -396,24 +396,53 @@ def upload_file():
 
 @APP.route('/settings/sitemap', methods = ['GET'])
 def sitemap_generate():
-    sites = list()
-    for rule in APP.url_map.iter_rules():
-        sites.append(str(rule))
-            #print(rule)
-            #rint(rule.arguments)
+    raw = list()
+    map = str(APP.url_map)
+    map = map.replace("Map([","").replace(">])", "")
+    for x in map.split(">,"):
+        raw.append(x.split("<Rule ")[1])
+    raw = sorted(raw)
 
-    response = "<H1>SITEMAP</H1>"+"<p><H3>"+\
-               "GET</H3>"+"<br>".join(get_sites)+"</p><p><H3>"+ \
-               "POST</H3>" + "<br>".join(post_sites) + "</p><p><H3>" + \
-               "RAW</H3>"+str(APP.url_map)+"</p>"
+    groupedSites = dict()
 
-    sites = sorted(sites)
+    for site in raw:
+
+        site = site.split(") -> ")
+        func = site.pop(1)
+        url, setts = site[0].replace("'","").split(" (")
+
+
+        breakdown = url.split("/")
+        key = breakdown[1]
+        val = "/".join(breakdown[2:])
+
+        combo = [val,setts,func]
+
+        if not (key == "" or key == "<path:filename>"):
+            if key in groupedSites:
+                groupedSites[key].append(combo)
+            else:
+                groupedSites.update({key:[combo]})
 
 
 
-    response = render_template("settings/sitemap.html",sites=sorted(sites),raw=str(APP.url_map))
+    response = render_template("settings/sitemap.html",sites=groupedSites,raw=raw)
 
     return response
+
+@APP.errorhandler(404)
+def handle_404_error(e):
+    return "the page doesn't exist"
+
+@APP.errorhandler(500)
+def handle_500_error(e):
+    err = str(e).replace(" ","%20")
+    print(err)
+    return "Oops...<br>Please send "+\
+           '<a href="mailto:rlambinon19@knox.nsw.edu.au?subject=CP%20BUG&body=ERROR:%20'+\
+           err+'">'+\
+           "rlambinon19@knox.nsw.edu.au</a> "+\
+           "an email with: <br>"+str(e)
 
 
 if __name__ == '__main__':
