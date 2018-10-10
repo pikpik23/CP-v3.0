@@ -397,13 +397,8 @@ def upload_file():
 @APP.route('/settings/sitemap', methods = ['GET'])
 def sitemap_generate():
     sites = list()
-    get_sites = list()
-    post_sites = list()
     for rule in APP.url_map.iter_rules():
-        if "GET" in rule.methods and len(rule.arguments) == 0:
-            get_sites.append(str(rule))
-        else:
-            post_sites.append(str(rule))
+        sites.append(str(rule))
             #print(rule)
             #rint(rule.arguments)
 
@@ -412,7 +407,11 @@ def sitemap_generate():
                "POST</H3>" + "<br>".join(post_sites) + "</p><p><H3>" + \
                "RAW</H3>"+str(APP.url_map)+"</p>"
 
-    response = render_template("settings/sitemap.html",get_sites=get_sites,post_sites=post_sites,raw=str(APP.url_map))
+    sites = sorted(sites)
+
+
+
+    response = render_template("settings/sitemap.html",sites=sorted(sites),raw=str(APP.url_map))
 
     return response
 

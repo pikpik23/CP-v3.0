@@ -4,23 +4,16 @@
     <meta charset="UTF-8">
     <title>Sitemap</title>
 </head>
-<body style="padding: 10px; overflow: scroll;">
+<body>
 <p>
-    <h3>GET</h3>
+    <h3>URL'S</h3>
     <ul>
-        {% for site in get_sites %}
+        {% for site in sites %}
             <li>{{ site }}</li>
         {% endfor %}
     </ul>
 
-    <h3>POST</h3>
-    <ul>
-        {% for site in post_sites %}
-            <li>{{ site }}</li>
-        {% endfor %}
-    </ul>
-
-    <h3>GET</h3>
+    <h3>RAW</h3>
     <p>{{ raw }}<p>
 </p>
 
