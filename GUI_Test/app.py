@@ -27,14 +27,16 @@ File.generate_css_min()
 
 @APP.route('/')
 @APP.route('/transmission')
-def display_return_frame():
-    """ Renders the return frame """
+def transmission_shell():
+    """ Renders the return shell """
     return render_template('transmission.html', serials_def=SERIALS)
 
 
 @APP.route('/transmission/<rtrn_type>')
-def abstracted_return(rtrn_type):
-    """ Renders the internal return form """
+def transmission_return(rtrn_type):
+    """ Renders the internal return submission form
+    (Message has a special page)
+    """
 
     if rtrn_type == 'MESSAGE':
         return render_template('returns/MESSAGE.html',
@@ -52,14 +54,14 @@ def abstracted_return(rtrn_type):
 
 
 @APP.route('/notes')
-def display_notes():
+def notes():
     """ Renders the notes page """
     return render_template('notes.html')
 
 
 @APP.route('/settings/update/', methods=['POST'])
-def abstracted_updating_settings():
-    """ handles setting changes (POST) then reloads page """
+def settings_general_update_post():
+    """ handles the general setting changes (POST) """
     try:
         for key, val in request.form.to_dict().items():
             SETTINGS[key] = val
@@ -70,8 +72,8 @@ def abstracted_updating_settings():
 
 
 @APP.route('/settings')
-def display_settings():
-    """ Renders the settings page """
+def settings_shell():
+    """ Renders the settings shell """
     return render_template('settings/settings_page.html',
                            serials_def=SERIALS,
                            locs=LOCATIONS,
@@ -79,9 +81,9 @@ def display_settings():
 
 
 @APP.route('/settings/updatelist/<list_name>', methods=['POST'])
-def update_list_settings(list_name):
+def settings_updatelist_post(list_name):
     """
-    updates the given settings
+    updates the lists in the settings page (Locations and Callsigns)
     """
     if list_name.upper() == "LOCATIONS":
         global LOCATIONS
@@ -98,39 +100,40 @@ def update_list_settings(list_name):
 
 
 @APP.route('/settings/locs')
-def display_settings_locations():
-    """ Renders the locations edit field """
+def settings_locations():
+    """ Renders the locations edit page """
     return render_template('settings/list_edit.html',
                            data=LOCATIONS)
 
 
 @APP.route('/settings/callsigns')
-def display_settings_callsigns():
-    """ Renders the locations edit field """
+def settings_callsigns():
+    """ Renders the callsings edit page """
     return render_template('settings/list_edit.html',
                            data=CALLSIGNS)
 
 
 @APP.route('/settings/general')
-def display_settings_general():
-    """ Renders the general settings field """
+def settings_general():
+    """ Renders the general settings form """
     return render_template('settings/settings_general.html',
                            settings=SETTINGS)
 
 
 @APP.route('/settings/info')
-def display_info():
+def settings_info():
     """ Renders the Product info Page """
     return render_template('product_info.html')
 
 @APP.route('/settings/download_log')
-def download_log():
-    """ Renders the LOG """
+def settings_download_log():
+    """ downloads the LOG db file """
     return redirect("/"+SETTINGS['DB_FILE_NAME'].replace("resources/static/",""))
 
 @APP.route('/settings/action/', methods=['POST'])
-def settings_actions():
-    """ Renders the LOG """
+def settings_action_post():
+    """ handles delete log action
+     (request is in a form to prevent the page being accidentally pre-rendered by google and deleting log )"""
     try:
         action = request.form.to_dict()['action']
     except KeyError:
@@ -146,10 +149,9 @@ def settings_actions():
     return ""
 
 
-
 @APP.route('/games/tetris')
-def display_tetris():
-    """ Renders the tetris Page """
+def game_tetris():
+    """ returns the tetris game """
     return render_template('games/tetris.html')
 
 
@@ -159,9 +161,8 @@ def update_setting():
 
 
 @APP.route('/transmission/<rtrn_type>', methods=['POST'])
-def abstracted_return_return(rtrn_type):
-    """ handles the return submission (POST) returns same page """
-    # print(request.form)
+def transmission_return_post(rtrn_type):
+    """ handles the return submission (POST) returns same page as log (for printing) """
     ret = {}
     ret.update({'net': request.form['net']})
     ret.update({'name': rtrn_type})
@@ -187,7 +188,7 @@ def abstracted_return_return(rtrn_type):
 
 
 def convert_newlines(line):
-    """ replaces new lines with <br> to be displayed in html """
+    """ replaces new lines (\n) with <br> to be displayed in html """
     new_content = []
     for i in line.split('\n'):
         if '\r' in i:
@@ -199,14 +200,15 @@ def convert_newlines(line):
 
 
 @APP.route('/log')
-def render_log_page():
+def log_shell():
+    """loads the log shell"""
     log = File.load_log(DB_CONN)
     return render_template('log/log_edit_new.html', serials_def=SERIALS, log=log)
 
 
 @APP.route('/log/<log_id>')
-def test_log(log_id):
-    """ Renders the return form """
+def log_detail(log_id):
+    """ Renders the log detail page for display inside the log shell """
     # print(LOG[int(logID)])
     if log_id == 'init':
         # DEPRECIATED
@@ -225,14 +227,14 @@ def test_log(log_id):
 
 
 @APP.route('/edit_return')
-def display_edit_return():
+def edit_return():
     """ Renders the edit return page """
     return render_template('returns/edit_return.html', serials_def=SERIALS)
 
 
 @APP.route('/edit_return/<rtrn_type>')
-def display_abstracted_serials(rtrn_type):
-    """ Renders the edit return page """
+def edit_return_serials(rtrn_type):
+    """ Renders the edit return form """
     return render_template('edit.html',
                            return_type=rtrn_type,
                            serials_def=SERIALS,
@@ -242,8 +244,8 @@ def display_abstracted_serials(rtrn_type):
 
 
 @APP.route('/edit_return/info')
-def display_edit_return_info():
-    """ Renders the edit return info page """
+def edit_return_info():
+    """ Renders the edit return info form """
     return render_template('returns/edit_return_info.html',
                            serials_def=SERIALS,
                            locs=LOCATIONS)
@@ -251,7 +253,8 @@ def display_edit_return_info():
 
 @APP.route('/edit_return/<action>', methods=['POST'])
 @APP.route('/update', methods=['POST'])
-def test_update(action):
+def edit_return_post(action):
+    """handles the POST from settings page to edit the serials structure"""
     if action == "return_update":
         x = request.form.to_dict()
         if 'add' in x:
@@ -293,8 +296,8 @@ def test_update(action):
 
 
 @APP.route('/log/edit/<log_id>')
-def test_log_edit(log_id):
-    """ Renders the return form """
+def log_edit_detail(log_id):
+    """ Renders the log edit form """
     log_id = int(log_id)
     try:
         index = int(log_id)
@@ -311,7 +314,8 @@ def test_log_edit(log_id):
 
 
 @APP.route('/log/<action>/<log_id>', methods=['POST'])
-def test_log_edit_submit(action, log_id):
+def log_actions_post(action, log_id):
+    """Handles the POST from the log edit form"""
     if action == 'edit':
         edit_log_by_id(log_id)
         return ""
@@ -321,6 +325,7 @@ def test_log_edit_submit(action, log_id):
 
 
 def edit_log_by_id(log_id):
+    """Sub function to help edit the log based on it's id"""
     log = request.form.to_dict()
 
     ret = {}
@@ -348,18 +353,23 @@ def edit_log_by_id(log_id):
 
 
 @APP.route('/games/minesweeper')
-def minesweeper():
+def game_minesweeper():
+    """returns the minesweeper game"""
     return render_template("games/minesweeper.html")
 
 
 @APP.route('/log/query', methods=['POST'])
-def getQuery():
+def log_query_post():
+    """Handles the post from the query / search function on the log page"""
     # print(request.form.to_dict())
     x = File.load_log_query(DB_CONN, request.form.to_dict())
     # print(list(x))
     return render_template("log/log_innertable_list.html", log=list(x))
 
 def get_new_log_name(lname=None):
+    """Gets old db name and creates a new one with a number higher
+    eg: log1.db -> log2.db
+    """
     if not lname:
         lname = SETTINGS['DB_FILE_NAME']
 
@@ -381,7 +391,7 @@ def get_new_log_name(lname=None):
 
 # UPLOADING DB
 @APP.route('/settings/log_upload', methods = ['POST'])
-def upload_file():
+def setting_upload_log():
     """Handles the file upload"""
     if 'file' in request.files:
         f = request.files['file']
@@ -395,7 +405,8 @@ def upload_file():
     return redirect("/settings")
 
 @APP.route('/settings/sitemap', methods = ['GET'])
-def sitemap_generate():
+def setting_sitemap_generate():
+    """Generates a site map of all the existing pages"""
     raw = list()
     map = str(APP.url_map)
     map = map.replace("Map([","").replace(">])", "")
@@ -410,8 +421,7 @@ def sitemap_generate():
         site = site.split(") -> ")
         func = site.pop(1)
         url, setts = site[0].replace("'","").split(" (")
-        setts = setts.replace("OPTIONS, ","").replace(", OPTIONS", "").replace(", HEAD","")
-        print(setts)
+        setts = setts.replace("OPTIONS, ","").replace(", OPTIONS", "").replace(", HEAD","").replace("HEAD, ","")
 
 
         breakdown = url.split("/")
@@ -432,12 +442,10 @@ def sitemap_generate():
 
     return response
 
-@APP.errorhandler(404)
-def handle_404_error(e):
-    return "the page doesn't exist"
 
 @APP.errorhandler(500)
 def handle_500_error(e):
+    """Custom error page for server / Internal error"""
     err = str(e).replace(" ","%20")
     print(err)
     return "Oops...<br>Please send "+\
@@ -449,9 +457,9 @@ def handle_500_error(e):
 
 if __name__ == '__main__':
 
-    APP.jinja_env.cache = {}
+    APP.jinja_env.cache = {} # creates unlimited cache size (so each page can be cached)
 
-    DEBUG = True
+    DEBUG = True # Changes launch settings
 
     try:
         if not DEBUG:
@@ -459,7 +467,10 @@ if __name__ == '__main__':
             APP.run(host='0.0.0.0', debug=False, port=80, threaded=True)
             print("Terminating")
         else:
-            raise PermissionError
+            raise Exception
     except PermissionError:
         print("Could not use port 80 (use sudo to use port 80)")
+        APP.run(host='0.0.0.0', debug=False, port=8080, threaded=True)
+
+    except Exception:
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
