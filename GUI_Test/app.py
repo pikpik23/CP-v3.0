@@ -396,21 +396,40 @@ def upload_file():
 
 @APP.route('/settings/sitemap', methods = ['GET'])
 def sitemap_generate():
-    content = ""
-    print(APP.url_map)
+    sites = list()
+    get_sites = list()
+    post_sites = list()
     for rule in APP.url_map.iter_rules():
-        print(rule)
-    return content
+        if "GET" in rule.methods and len(rule.arguments) == 0:
+            get_sites.append(str(rule))
+        else:
+            post_sites.append(str(rule))
+            #print(rule)
+            #rint(rule.arguments)
+
+    response = "<H1>SITEMAP</H1>"+"<p><H3>"+\
+               "GET</H3>"+"<br>".join(get_sites)+"</p><p><H3>"+ \
+               "POST</H3>" + "<br>".join(post_sites) + "</p><p><H3>" + \
+               "RAW</H3>"+str(APP.url_map)+"</p>"
+
+    response = render_template("settings/sitemap.html",get_sites=get_sites,post_sites=post_sites,raw=str(APP.url_map))
+
+    return response
 
 
 if __name__ == '__main__':
 
     APP.jinja_env.cache = {}
 
+    DEBUG = True
+
     try:
-        print("Running")
-        APP.run(host='0.0.0.0', debug=False, port=80, threaded=True)
-        print("Terminating")
+        if not DEBUG:
+            print("Running")
+            APP.run(host='0.0.0.0', debug=False, port=80, threaded=True)
+            print("Terminating")
+        else:
+            raise PermissionError
     except PermissionError:
         print("Could not use port 80 (use sudo to use port 80)")
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)

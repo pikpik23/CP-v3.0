@@ -787,6 +787,7 @@ br {
 }
 
 #settings_display {
+    overflow: scroll;
     position: absolute;
     top: 36px;
     left: 0;

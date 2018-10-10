@@ -79,6 +79,26 @@
                 $(this).attr("class", "selected");
 
             });
+            $('#site_map').click(function () {
+                $.ajax({
+                    url: "/settings/sitemap",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Site Map");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+
+            });
+
+
             var tetris = new Egg("t,e,t,r,i,s", function () {
                 $.ajax({
                     url: "/games/tetris",
@@ -128,6 +148,9 @@
                 </li>
                 <li>
                     <button class="setting_button" id="product">Product Info</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="site_map">Site Map</button>
                 </li>
             </ul>
         </nav>
