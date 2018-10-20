@@ -1,0 +1,19 @@
+RO Automation using docx-mailmerge...
+
+Will look into it and use a google sheets file to keep track of things
+
+Steps:
+1. Create a template doc
+2. Build baisic insert script
+3. Build baisic read from TP sheet 
+4. Add date/time + naming scheme
+5. Setup Sheet for keeping track of RO (order number, recognising amendments etc)
+6. Add tab with the dress orders...
+7. possibly add some part for the instructions part
+8. Merge all and hope for the best
+9. Auto convert to pdf
+
+
+sheets codes
+KGSACU TP: "1p3sBzEcor9QXPsX5LyDFluFHh4EjkZNGijVbAJZgkGg"
+DATA FILE: "1B0_wRMWrI40_i_jH_RlPbk-Lz8OeknMnqX2RQbFSkrg"
