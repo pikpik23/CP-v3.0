@@ -2,38 +2,6 @@ from mailmerge import MailMerge
 import datetime
 from sheetsBackend import Sheet #Custom Google Api class
 
-# SHEET ID CODES
-dataFileID = "1B0_wRMWrI40_i_jH_RlPbk-Lz8OeknMnqX2RQbFSkrg"
-tpFileID = "1p3sBzEcor9QXPsX5LyDFluFHh4EjkZNGijVbAJZgkGg"
-
-tpSheetName="'T4 W2'"
-
-dataFile = Sheet(dataFileID, "data")
-tpData = Sheet(tpFileID, tpSheetName+"!A:E").readSheet()
-
-curOrderNum = 3
-
-
-SENIOR_PLATOONS = {"ADMIN": "ADMIN",
-                   "QUARTERMASTERS": "QM",
-                   "OPERATIONS": "OPS",
-                   "MEDICS": "MED",
-                   "SIGNALLERS": "SIG",
-                   "ENGINEERS": "ENG",
-                   "PIONEERS": "PNR"}
-
-SENIOR_COY_FINDER = {"ADMIN":"HQ",
-                   "QM":"HQ",
-                   "OPS": "HQ",
-                   "MED":"SPT",
-                   "SIG":"SPT",
-                   "ENG":"SPT",
-                   "PNR":"SPT"}
-
-template = "RO_TEMPLATE.docx"
-document = MailMerge(template)
-
-
 def testWrite():
     # next firday date
     d = datetime.date.today()
@@ -57,12 +25,12 @@ def testWrite():
             if sub == "date":
                 val = d.strftime("%d")
             elif sub == "super":
-                num = d.strftime("%d")
-                if num == 1:
+                num = str(d.strftime("%d"))
+                if num[-1] == 1:
                     val = 'st'
-                elif num == 2:
+                elif num[-1] == 2:
                     val = 'nd'
-                elif num == 3:
+                elif num[-1] == 3:
                     val = 'rd'
                 else:
                     val = 'th'
@@ -123,10 +91,16 @@ def getTPdata():
                     tpDic.update({keyTRG: convertTRG_REC(i[1])})
                     tpDic.update({keyLOC: i[2]})
 
-                    keyTRG = str(f"{coy}.2.TRG")
-                    keyLOC = str(f"{coy}.2.LOC")
-                    tpDic.update({keyTRG: convertTRG_REC(i[3])})
-                    tpDic.update({keyLOC: i[4]})
+                    try:
+                        keyTRG = str(f"{coy}.2.TRG")
+                        keyLOC = str(f"{coy}.2.LOC")
+                        tpDic.update({keyTRG: convertTRG_REC(i[3])})
+                        tpDic.update({keyLOC: i[4]})
+                    except IndexError:
+                        global WARNED
+                        if not WARNED:
+                            print("This RO is incomplete... \nSome data is missing\n")
+                        WARNED = True
 
                 elif "A COY" in i[0]: # A COY
                     tier = int(i[0].split(" TIER ")[1])
@@ -136,10 +110,15 @@ def getTPdata():
                     tpDic.update({keyTRG: i[1]})
                     tpDic.update({keyLOC: i[2]})
 
-                    keyTRG = str(f"{coy}.2.{tier}.TRG")
-                    keyLOC = str(f"{coy}.2.{tier}.LOC")
-                    tpDic.update({keyTRG: i[3]})
-                    tpDic.update({keyLOC: i[4]})
+                    try:
+                        keyTRG = str(f"{coy}.2.{tier}.TRG")
+                        keyLOC = str(f"{coy}.2.{tier}.LOC")
+                        tpDic.update({keyTRG: i[3]})
+                        tpDic.update({keyLOC: i[4]})
+                    except IndexError:
+                        if not WARNED:
+                            print("This RO is incomplete... \nSome data is missing\n")
+                        WARNED = True
 
                 elif i[0].split(" ")[0] in SENIOR_PLATOONS: # THE REST
 
@@ -151,15 +130,25 @@ def getTPdata():
                     except IndexError:
                         tier = 1
 
-                    keyTRG = str(f"{coy}.{pl}.1.{tier}.TRG")
-                    keyLOC = str(f"{coy}.{pl}.1.{tier}.LOC")
-                    tpDic.update({keyTRG: i[1]})
-                    tpDic.update({keyLOC: i[2]})
+                    try:
+                        keyTRG = str(f"{coy}.{pl}.1.{tier}.TRG")
+                        keyLOC = str(f"{coy}.{pl}.1.{tier}.LOC")
+                        tpDic.update({keyTRG: i[1]})
+                        tpDic.update({keyLOC: i[2]})
+                    except IndexError:
+                        if not WARNED:
+                            print("This RO is incomplete... \nSome data is missing\n")
+                        WARNED = True
 
-                    keyTRG = str(f"{coy}.{pl}.2.{tier}.TRG")
-                    keyLOC = str(f"{coy}.{pl}.2.{tier}.LOC")
-                    tpDic.update({keyTRG: i[3]})
-                    tpDic.update({keyLOC: i[4]})
+                    try:
+                        keyTRG = str(f"{coy}.{pl}.2.{tier}.TRG")
+                        keyLOC = str(f"{coy}.{pl}.2.{tier}.LOC")
+                        tpDic.update({keyTRG: i[3]})
+                        tpDic.update({keyLOC: i[4]})
+                    except IndexError:
+                        if not WARNED:
+                            print("This RO is incomplete... \nSome data is missing\n")
+                        WARNED = True
 
     return tpDic
 
@@ -190,6 +179,10 @@ def convertTRG_REC(codes):
     for code in codes.split(" / "):
         if code in TRG_CODES:
             desc.append(TRG_CODES[code])
+        else:
+            for sub in code.split(" / "):
+                if sub in TRG_CODES:
+                    desc.append(TRG_CODES[sub])
 
     if desc:
         codes = str(f"{codes} - {' / '.join(desc)}")
@@ -197,13 +190,53 @@ def convertTRG_REC(codes):
 
     return codes
 
+
+SENIOR_PLATOONS = {"ADMIN": "ADMIN",
+                   "QUARTERMASTERS": "QM",
+                   "OPERATIONS": "OPS",
+                   "MEDICS": "MED",
+                   "SIGNALLERS": "SIG",
+                   "ENGINEERS": "ENG",
+                   "PIONEERS": "PNR"}
+
+SENIOR_COY_FINDER = {"ADMIN":"HQ",
+                   "QM":"HQ",
+                   "OPS": "HQ",
+                   "MED":"SPT",
+                   "SIG":"SPT",
+                   "ENG":"SPT",
+                   "PNR":"SPT"}
+
+template = "RO_TEMPLATE.docx"
+document = MailMerge(template)
+WARNED = False
+
+# SHEET ID CODES
+dataFileID = "1B0_wRMWrI40_i_jH_RlPbk-Lz8OeknMnqX2RQbFSkrg"
+
+# Data file Class
+dataFile = Sheet(dataFileID, "data")
+
+# Actual dictionary of data
+DATA = getDic("dataSheet!A:B")
+
+# Pull data from dictionary aquired earlier
+tpSheetName=str(f"'{DATA['TP Sheet']}'")
+curOrderNum = int(DATA["Order Num"])
+tpFileID = str(DATA["tpFileID"])
+
+# Pull the remaining data from the data file sheet
 TRG_CODES = getDic("lessonCodes!A:B")
-TP_MERGE = getTPdata()
 DRESS_ORDERS = readDressOrders()
 dressOrderCodes = getDefs("currentDress!A:B")
 
-if __name__ == "__main__":
+# Create connection to master TP input (Careful you may have write access)
+tpData = Sheet(tpFileID, tpSheetName+"!A:E").readSheet()
 
+# Pull data from Master TP Sheet
+TP_MERGE = getTPdata()
+
+if __name__ == "__main__":
     #print(TRG_CODES)
     #print(TP_MERGE)
     #print(tp_merge)
