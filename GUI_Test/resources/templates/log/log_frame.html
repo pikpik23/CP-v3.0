@@ -9,7 +9,6 @@
     <script src="/js_files/jquery-3.1.1.js"></script>
 
 </head>
-
 <body>
 <div class="printBody">
     {% if ret %}
@@ -86,6 +85,13 @@
     {% else %}
         <p>ERROR</p>
     {% endif %}
+    </table>
+    <table id="copytable">
+        <tr>
+            {% for name, val in ret.items() %}
+            <td>{{ val }}</td>
+            {% endfor %}
+        </tr>
     </table>
 </div>
 

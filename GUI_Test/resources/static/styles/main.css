@@ -1083,3 +1083,12 @@ input[type=file] {
         opacity: 1
     }
 }
+
+#copytable {
+    border-collapse: collapse;
+}
+
+#copytable td {
+    border:1px solid black;
+}
+

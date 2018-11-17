@@ -70,6 +70,13 @@
                     });
                 });
             });
+
+            $("copyButton").click(function () {
+                var copytext = $('#copytable')
+                copytext.select();
+                document.execCommand("copy");
+                alert("Copied the text: " + copyText.value);
+            });
         }
     </script>
 
@@ -171,6 +178,9 @@
                         </td>
                         <td>
                             <button>Delete</button>
+                        </td>
+                        <td>
+                            <button id="copyButton">Copy</button>
                         </td>
                         <td class="fill"></td>
                     </tr>

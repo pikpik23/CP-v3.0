@@ -127,6 +127,7 @@
             $(document).off("keydown");
             $("#clear").unbind("click");
             $("#search").unbind("click");
+            $("#copyButton").unbind("click");
         }
 
         function load() {
@@ -197,10 +198,32 @@
                 });
                 $("#search").click()
             });
+
+
+            $("#copyButton").click(function () {
+                alert('meme');
+                var tabledata = [];
+                var iframe = document.getElementById('logPrint');
+                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+                var copytext = innerDoc.getElementById('copytable')
+                copytext.find('td').each(function (index, val) {
+                    data = this.val();
+                    tabledata[data];
+                });
+                alert(JSON.stringify(tabledata));
+                
+                //copytext.select();
+                //document.execCommand("copy");
+                //alert("Copied the text: " + copyText.value);
+            });
+
+
             createModal()
 
         console.log("I have loaded")
         
+
         }
     </script>
 
@@ -308,6 +331,9 @@
                 </td>
                 <td>
                     <button id="log_delete_btn">Delete</button>
+                </td>
+                <td>
+                    <button id="copyButton">Copy</button>
                 </td>
                 <td class="fill"></td>
             </tr>
