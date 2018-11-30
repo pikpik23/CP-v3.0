@@ -12,20 +12,22 @@
 </head>
 <script type="text/javascript">
     $(document).ready(function () {
-    $("#cop").click(function () {
+        
+
+        $(".copy").click(function () {
+            var clipboard = new ClipboardJS('.copy');
         /*
                 alert('meme');
                 var tabledata = [];
                 var iframe = document.getElementById('logPrint');
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-                */
+                
+
                 var textRange = document.createTextRange(); 
                 textRange.moveToElementText(document.getElementById(copytable)); 
                 textRange.execCommand("Copy");
-                alert("Copied the text: " + copyText.value);
+                alert("Copied the text: " + copyText.value);*/
                 
-                
-
             });
     });
 </script>
@@ -106,14 +108,18 @@
         <p>ERROR</p>
     {% endif %}
     </table>
-    <table id="copytable">
-        <tr>
-            {% for name, val in ret.items() %}
-            <td>{{ val }}</td>
-            {% endfor %}
-        </tr>
-    </table>
-    <button id="cop">Copy</button>
+    <div id="copydiv">
+        <table id="copytable">
+            <tr>
+                {% for name, val in ret.items() %}
+                <td>{{ val }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    <button class="copy" data-clipboard-target="#copytable">
+        Copy
+    </button>
 </div>
 
 </body>

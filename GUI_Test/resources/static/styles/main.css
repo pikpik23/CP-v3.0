@@ -1084,8 +1084,18 @@ input[type=file] {
     }
 }
 
+#copydiv {
+    height:1px;
+    width:1px;
+    position: absolute;
+    top:0;
+    left:-1000px;
+}
+
 #copytable {
     border-collapse: collapse;
+    height:1px;
+    width:1px;
 }
 
 #copytable td {

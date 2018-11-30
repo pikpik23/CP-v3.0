@@ -10,6 +10,7 @@
 {% extends 'includes/layout.html' %} {% block body %}
     <script src="/js_files/jquery-3.1.1.js"></script>
     <script src="/js_files/jquery.floatThead.min.js"></script>
+    <script src="/js_files/clipboard.min.js"></script>
 
 
     <script id="JsLoadScript" type="text/javascript">
@@ -201,19 +202,7 @@
 
 
             $("#copyButton").click(function () {
-                /*alert('meme');
-                var tabledata = [];
-                var iframe = document.getElementById('logPrint');
-                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-                
-                var textRange = innerDoc.createTextRange(); 
-                textRange.moveToElementText(document.getElementById(copytable)); 
-                textRange.execCommand("Copy");
-                alert("Copied the text: " + copyText.value);*/
-                
-                $(this).focus();
-                $(this).select();
-                document.execCommand('copy');
+                var clipboard = new ClipboardJS('.copy');
 
             });
 
