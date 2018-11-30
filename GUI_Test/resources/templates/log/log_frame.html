@@ -9,6 +9,25 @@
     <script src="/js_files/jquery-3.1.1.js"></script>
 
 </head>
+<script type="text/javascript">
+    $(document).ready(function () {
+    $("#cop").click(function () {
+        /*
+                alert('meme');
+                var tabledata = [];
+                var iframe = document.getElementById('logPrint');
+                var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+                */
+                var textRange = document.createTextRange(); 
+                textRange.moveToElementText(document.getElementById(copytable)); 
+                textRange.execCommand("Copy");
+                alert("Copied the text: " + copyText.value);
+                
+                
+
+            });
+    });
+</script>
 <body>
 <div class="printBody">
     {% if ret %}
@@ -93,6 +112,7 @@
             {% endfor %}
         </tr>
     </table>
+    <button id="cop">Copy</button>
 </div>
 
 </body>

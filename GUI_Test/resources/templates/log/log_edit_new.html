@@ -201,21 +201,20 @@
 
 
             $("#copyButton").click(function () {
-                alert('meme');
+                /*alert('meme');
                 var tabledata = [];
                 var iframe = document.getElementById('logPrint');
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-                var copytext = innerDoc.getElementById('copytable')
-                copytext.find('td').each(function (index, val) {
-                    data = this.val();
-                    tabledata[data];
-                });
-                alert(JSON.stringify(tabledata));
                 
-                //copytext.select();
-                //document.execCommand("copy");
-                //alert("Copied the text: " + copyText.value);
+                var textRange = innerDoc.createTextRange(); 
+                textRange.moveToElementText(document.getElementById(copytable)); 
+                textRange.execCommand("Copy");
+                alert("Copied the text: " + copyText.value);*/
+                
+                $(this).focus();
+                $(this).select();
+                document.execCommand('copy');
+
             });
 
 
