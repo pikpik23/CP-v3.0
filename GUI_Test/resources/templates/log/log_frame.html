@@ -39,37 +39,37 @@
                 <h2>{{ val }}</h2>
             {% endif %}
         {% endfor %}
-        <table class="printTable">
+        <table class="printTable" id="logTable">
             {% for name, val in ret.items() %}
                 {% if name == 'net' %}
                     <tr>
                         <td class="head_column">Net:</td>
-                        <td>{{ val }}</td>
+                        <td class="return_data">{{ val }}</td>
                     </tr>
                 {% elif name == 'sender' %}
                     <tr>
                         <td class="head_column">From:</td>
-                        <td>{{ val }}</td>
+                        <td class="return_data">{{ val }}</td>
                     </tr>
                 {% elif name == 'time' %}
                     <tr>
                         <td class="head_column">Time Sent:</td>
-                        <td>{{ val }}</td>
+                        <td class="return_data">{{ val }}</td>
                     </tr>
                 {% elif name == 'receiver' %}
                     <tr>
                         <td class="head_column">To:</td>
-                        <td>{{ val }}</td>
+                        <td class="return_data">{{ val }}</td>
                     </tr>
                 {% elif name == 'duty' %}
                     <tr>
                         <td class="head_column">Duty Officer:</td>
-                        <td>{{ val }}</td>
+                        <td class="return_data">{{ val }}</td>
                     </tr>
                 {% elif name == 'logID' %}
                     <tr>
                         <td class="head_column">LOGID:</td>
-                        <td><span id="logID_text">{{ val }}</span></td>
+                        <td class="return_data"><span id="logID_text">{{ val }}</span></td>
                     </tr>
                 {% endif %}
             {% endfor %}
@@ -79,7 +79,7 @@
             <tr>
                 {% if name == 'msg' %}
                     <td class="textp">Message:</td>
-                    <td class="textp">
+                    <td class="textp return_data">
                         {% for val in rtrn.split('<br>') %}
                             {{ val }}<br>
                         {% endfor %}
@@ -92,7 +92,7 @@
             <tr>
                 {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' and name!= 'logID' and name != 'net' %}
                     <td class="textp">{{ name }}:</td>
-                    <td class="textp">
+                    <td class="textp return_data">
                         {% set rtrn = rtrn|string %}
                         {% for val in rtrn.split('<br>') %}
                             {{ val }}<br>
@@ -108,18 +108,6 @@
         <p>ERROR</p>
     {% endif %}
     </table>
-    <div id="copydiv">
-        <table id="copytable">
-            <tr>
-                {% for name, val in ret.items() %}
-                <td>{{ val }}</td>
-                {% endfor %}
-            </tr>
-        </table>
-    </div>
-    <button class="copy" data-clipboard-target="#copytable">
-        Copy
-    </button>
 </div>
 
 </body>

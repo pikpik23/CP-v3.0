@@ -202,8 +202,42 @@
 
 
             $("#copyButton").click(function () {
-                var clipboard = new ClipboardJS('.copy');
+                var copyTable = $("#logPrint").contents().find("#logTable");//[0].textContent;
+                data = []
+                copyTable.find('tr').each(function (index, val) {
+                    $(this).find('.return_data').each(function (index, val) {
+                        var thisData = $(this)[0].textContent;
+                        data.push(thisData);
+                    });
+                });
+                alert(JSON.stringify(data));
 
+                var table = document.createElement('table');
+                table.setAttribute('id','tablecop');
+                var tableBody = document.createElement('tbody');
+                var row = document.createElement('tr');
+                data.forEach(function(cellData) {
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(cellData));
+                    row.appendChild(cell);
+                });
+                tableBody.appendChild(row);
+                table.appendChild(tableBody);
+                document.body.appendChild(table);
+
+                //var clipboard = new ClipboardJS('.copy');
+                var button = document.createElement('button');
+                button.setAttribute('id','buttoncop');
+                button.setAttribute('data-clipboard-target','#tablecop');
+                document.body.appendChild(button);
+
+                $('#buttoncop').click(function(){
+                    var clipboard = new ClipboardJS('#buttoncop');
+                });
+                
+
+                $('#buttoncop').click();
+                $("#buttoncop").removeAttr('data-clipboard-target');
             });
 
 
@@ -321,11 +355,14 @@
                     <button id="log_delete_btn">Delete</button>
                 </td>
                 <td>
-                    <button id="copyButton">Copy</button>
+                    <button id="copyButton" data-clipboard-target="#tablecop">Copys</button>
                 </td>
                 <td class="fill"></td>
             </tr>
 
+        </table>
+        <table>
+            
         </table>
     </div>
 
