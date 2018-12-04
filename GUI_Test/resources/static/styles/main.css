@@ -900,7 +900,7 @@ input[type=file] {
     position: absolute;
     top: 10px;
     left: 350px;
-    background: url(/texture.jpg);
+    background: url(/static/images/texture.jpg);
     box-shadow: 10px 10px 10px #999;
     border: 2px solid #333;
 }
@@ -952,6 +952,26 @@ input[type=file] {
 #canvas {
     width: 300px;
     height: 600px;
+}
+
+#leaderboard{
+    position: absolute;
+    top:10px;
+    left:350px;
+}
+
+.lbtable, .lbtable td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size: 10pt;
+}
+
+#hsform {
+    border: 1px, solid, black
+
+}
+#hsform td{
+    font-size: 10pt;
 }
 
 /* -----------------------------------------------------------*/
