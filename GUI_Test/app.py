@@ -21,6 +21,7 @@ LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
 DB_CONN = File.db_connect(SETTINGS)
+GAME_CONN = File.db_connect({'DB_FILE_NAME':'resources/static/game.db', 'DB_TABLE_NAME':"'tetris'"})
 
 File.generate_css_min()
 
@@ -454,9 +455,12 @@ def handle_500_error(e):
            "rlambinon19@knox.nsw.edu.au</a> "+\
            "an email with: <br>"+str(e)
 
+
 @APP.route('/games/tetris/', methods = ['POST'])
 def tetris_score_update():
-    print(request.form.to_dict())
+    x = request.form.to_dict()
+    game_data = [x['name'], x['rank'], x['pl'], x['score'], int(datetime.today().strftime('%d%H%M'))]
+    GAME_CONN.new_return(game_data)
     return ""
 
 
