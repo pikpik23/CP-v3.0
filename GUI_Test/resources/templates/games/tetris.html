@@ -29,15 +29,15 @@
             </tr>
             <tr>
                 <td>Name:</td>
-                <td><input class="hsdata" type="text"></td>
+                <td><input class="hsdata" data="name" type="text"></td>
             </tr>
             <tr>
                 <td>Rank:</td>
-                <td><input class="hsdata" type="text"></td>
+                <td><input class="hsdata" data="rank" type="text"></td>
             </tr>
             <tr>
                 <td>Platoon:</td>
-                <td><input class="hsdata" type="text"></td>
+                <td><input class="hsdata" data="pl" type="text"></td>
             </tr>
             <tr>
                 <td><button class="btnMed" id="hssubmit">Submit</button></td>
@@ -283,14 +283,16 @@
 
     }
     $('#hssubmit').click(function(){
-        var hsdetails = []
+        var hsdetails = {}
         $('#hsform').find('tr').each(function (index, val) {
             $(this).find('.hsdata').each(function (index, val) {
                 var data = $(this).val()
-                hsdetails.push(data)
+                var type = $(this).attr('data')
+                hsdetails[type] = data;
             });
         });
-        hsdetails.push(score)
+        hsdetails['score'] = score
+
         $.post("/games/tetris/", hsdetails, function (data, status) {
             //alert("Data: " + data + "\nStatus: " + status);
         });

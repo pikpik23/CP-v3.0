@@ -454,6 +454,12 @@ def handle_500_error(e):
            "rlambinon19@knox.nsw.edu.au</a> "+\
            "an email with: <br>"+str(e)
 
+@APP.route('/games/tetris/', methods = ['POST'])
+def tetris_score_update():
+    print(request.form.to_dict())
+    return ""
+
+
 
 if __name__ == '__main__':
 
