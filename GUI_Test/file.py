@@ -123,6 +123,28 @@ class DbManager:
             if ret:
                 return self.read_return()
 
+    def create_game_table(self, ret=False):
+        with sqlite3.connect(self.FILE_NAME) as conn:
+            c = conn.cursor()
+            # Create table
+            try:
+                c.execute(f'''CREATE TABLE `{self.TABLE_NAME}` (
+                    `GameID`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                    `Name`	TEXT DEFAULT '?',
+                    `Rank`	TEXT DEFAULT '?',
+                    `Pl`	TEXT DEFAULT '?',
+                    `Score`	INTEGER DEFAULT 0,
+                    `Time`	INTEGER
+                );''')
+
+                conn.commit()
+
+            except sqlite3.OperationalError:
+                print("The Db already exists")
+
+            if ret:
+                return self.read_return()
+
 
     def new_return(self, lst):
         try:
@@ -133,9 +155,16 @@ class DbManager:
                     '?, ' * (len(lst) - 1) + '?)',
                     lst)
         except sqlite3.OperationalError as e:
+            print(e)
+            """
             if 'no such table' in str(e):
-                self.create_db()
+                if "game" in str(self.FILE_NAME):
+                    print("MEME")
+                    self.create_game_table()
+                else:
+                    self.create_db()
                 self.new_return(lst)
+            """
 
 
     def delete_return_byID(self, id):
