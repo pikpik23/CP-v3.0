@@ -74,12 +74,12 @@
                 {% endif %}
             {% endfor %}
         </table>
-        <table>
+        <table id="logTable2">
         {% for name, rtrn in ret.items() %}
             <tr>
                 {% if name == 'msg' %}
                     <td class="textp">Message:</td>
-                    <td class="textp return_data">
+                    <td class="return_data">
                         {% for val in rtrn.split('<br>') %}
                             {{ val }}<br>
                         {% endfor %}
@@ -92,7 +92,7 @@
             <tr>
                 {% if name != 'name' and name != 'sender' and name != 'receiver' and name != 'duty' and name != 'time' and name != 'msg' and name!= 'logID' and name != 'net' %}
                     <td class="textp">{{ name }}:</td>
-                    <td class="textp return_data">
+                    <td class="return_data textp">
                         {% set rtrn = rtrn|string %}
                         {% for val in rtrn.split('<br>') %}
                             {{ val }}<br>

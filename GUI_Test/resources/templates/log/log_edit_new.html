@@ -210,7 +210,13 @@
                         data.push(thisData);
                     });
                 });
-                alert(JSON.stringify(data));
+                var copyTable2 = $("#logPrint").contents().find("#logTable2");
+                copyTable2.find('tr').each(function (index, val) {
+                    $(this).find('.return_data').each(function (index, val) {
+                        var thisData = $(this)[0].textContent;
+                        data.push(thisData);
+                    });
+                });
 
                 var table = document.createElement('table');
                 table.setAttribute('id','tablecop');
@@ -357,7 +363,7 @@
                     <button id="log_delete_btn">Delete</button>
                 </td>
                 <td>
-                    <button id="copyButton" data-clipboard-target="#tablecop">Copys</button>
+                    <button id="copyButton" data-clipboard-target="#tablecop">Copy</button>
                 </td>
                 <td class="fill"></td>
             </tr>
