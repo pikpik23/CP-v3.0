@@ -185,7 +185,7 @@ def transmission_return_post(rtrn_type):
     # LOG.insert(0, (ret))
     File.save_log(DB_CONN, ret)
     # return ""
-    return test_log('init')
+    return log_detail('init')
 
 
 def convert_newlines(line):
