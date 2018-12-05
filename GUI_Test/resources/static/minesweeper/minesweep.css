@@ -1,0 +1,86 @@
+body {
+    font-family: Helvetica, sans-serif;
+    background: #333;
+}
+
+footer {
+    text-align: center;
+    margin-top: 8em;
+}
+
+footer a {
+    color: #aaa;
+    font-size: 32px;
+}
+
+.container {
+    padding-top: 10em;
+}
+
+.controls {
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+table.minesweeper {
+    margin: auto;
+    border: 1px solid #999;
+    border-collapse: collapse;
+    background-color: #ddd;
+}
+
+table.minesweeper td {
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+}
+
+td.unopened {
+    background: url('/minesweeper/unopened.svg');
+    cursor: pointer;
+}
+
+td.opened {
+    background: url('/minesweeper/opened.svg');
+}
+
+td.flagged {
+    background: url('/minesweeper/flag.svg');
+    cursor: pointer;
+}
+
+td.mine {
+    background: url('/minesweeper/mine.png');
+}
+
+td.mine-neighbour-1 {
+    background: url('/minesweeper/1.svg');
+}
+
+td.mine-neighbour-2 {
+    background: url('/minesweeper/2.svg');
+}
+
+td.mine-neighbour-3 {
+    background: url('/minesweeper/3.svg');
+}
+
+td.mine-neighbour-4 {
+    background: url('/minesweeper/4.svg');
+}
+
+td.mine-neighbour-5 {
+    background: url('/minesweeper/5.svg');
+}
+
+td.mine-neighbour-6 {
+    background: url('/minesweeper/6.svg');
+}
+
+td.mine-neighbour-7 {
+    background: url('/minesweeper/7.svg');
+}
+
+td.mine-neighbour-8 {
+    background: url('/minesweeper/8.svg');
+}
