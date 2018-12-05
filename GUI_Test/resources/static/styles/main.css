@@ -964,14 +964,14 @@ input[type=file] {
     padding: 10px;
 }
 
-.lbtable, .lbtable td {
+#lbtable, #lbtable td {
     border-collapse: collapse;
     border: 1px solid black;
     font-size: 10pt;
 
 }
 
-.lbtable th {
+#lbtable th {
     font-size: 12pt;
     text-align: center;
     
