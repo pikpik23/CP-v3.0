@@ -957,24 +957,35 @@ input[type=file] {
 #leaderboard{
     position: absolute;
     top:10px;
-    left:350px;
+    left:300px;
     border: 2px solid black;
-    width: 300px;
+    width: 400px;
     height:600px;
     padding: 10px;
 }
 
-#lbtable, #lbtable td {
+#lbtable {
     border-collapse: collapse;
     border: 1px solid black;
     font-size: 10pt;
-
+    width:100%;
+}
+#lbtable td{
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-size: 10pt;
 }
 
 #lbtable th {
-    font-size: 12pt;
+    font-size: 10pt;
     text-align: center;
+    border: 1px, black, solid
     
+}
+
+#titletd {
+    text-align: center;
+    font-weight: bold;
 }
 
 .lbscore {
@@ -993,6 +1004,9 @@ input[type=file] {
     font-size: 10pt;
 }
 
+.hsdata {
+    width:100%
+}
 /* -----------------------------------------------------------*/
 
 .transmission_settings {

@@ -19,7 +19,7 @@
     <canvas id="canvas" style="background: url(/images/texture.jpg);">
         Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
     </canvas>
-    <div id="leaderboard">
+    <div id="leaderboard" hidden="hidden">
         <table hidden="hidden" id="hsform">
             <tr>
                 <th colspan="2"><b>High Score!</b></th>
@@ -269,6 +269,7 @@
 
             var tableData = []
             $('#canvas').hide()
+            $('#leaderboard').show();
             // read highscores into array
             
             $.get( "/games/tetris/scores", function( data ) {
@@ -286,9 +287,20 @@
                 var table = document.createElement('table');
                 table.setAttribute('id','lbtable')
                 var tableBody = document.createElement('tbody');
+                
+                //title row
+                var title = document.createElement('tr');
+                var titletd = document.createElement('td');
+                titletd.setAttribute('id','titletd')
+                titletd.setAttribute('colspan','6')
+                
+                titletd.appendChild(document.createTextNode('Leaderboard'));
+                title.appendChild(titletd);
+                tableBody.appendChild(title);
 
+                //header row
                 var tablehead = document.createElement('tr');
-                headArray = ["","Name","PL","Rank","Score","Year"]
+                headArray = ["#","Name","PL","Rank","Score","Year"]
 
                 headArray.forEach(function(cellData) {
                     var cell = document.createElement('th');
@@ -298,6 +310,7 @@
 
                 tableBody.appendChild(tablehead);
 
+                //data rows
                 lbdata.forEach(function(rowData) {
                     var row = document.createElement('tr');
 
@@ -338,6 +351,7 @@
 
     function highScore(){
         $('#canvas').hide();
+        $('#leaderboard').show();
         $('#hsform').show();
         $("#hsspan").html(sc);
         
@@ -347,6 +361,7 @@
     function play() {
         hide('start');
         $('#hsform').hide()
+        $('#leaderboard').hide();
         $('#lbtable').remove();
         $('#canvas').show()
         lb = false
@@ -358,12 +373,14 @@
         show('start');
         setVisualScore();
         $.get( "/games/tetris/lowest", function( data ) {
-            alert(JSON.stringify(data))
-        });
-        if (sc > 0 && attempt == true) {
+            var low = data.Score
+
+            if (sc > low && attempt == true) {
             highScore()
-        }
-        playing = false;
+            }
+            playing = false;
+        });
+        
     }
 
     function setVisualScore(n) {
