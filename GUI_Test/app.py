@@ -6,7 +6,7 @@ All request handling is done from here
 """
 from datetime import datetime
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
 from file import File
 from flask_compress import Compress
@@ -21,7 +21,7 @@ LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
 DB_CONN = File.db_connect(SETTINGS)
-GAME_CONN = File.db_connect({'DB_FILE_NAME':'resources/static/game.db', 'DB_TABLE_NAME':"'tetris'"})
+GAME_CONN = File.db_connect({'DB_FILE_NAME':'resources/static/log/game.db', 'DB_TABLE_NAME':"'tetris'"})
 
 File.generate_css_min()
 
@@ -463,6 +463,23 @@ def tetris_score_update():
     GAME_CONN.new_return(game_data)
     return ""
 
+@APP.route('/games/tetris/scores', methods = ['GET'])
+def tetris_get_score():
+    x = GAME_CONN.read_game_score(entries=10)
+    lst = list()
+    for count, i in enumerate(x):
+        lst.append(
+            {
+                "ID":count,
+                "Name":i[1],
+                "Rank":i[2],
+                "Pl":i[3],
+                "Score":i[4],
+                "Time":i[5]
+            }
+        )
+    #return ""
+    return jsonify(lst)
 
 
 if __name__ == '__main__':

@@ -185,8 +185,24 @@ class DbManager:
 
                 return results
         except sqlite3.OperationalError as e:
-            if 'no such table' in e:
-                DbManager.create_db()
+            if 'no such table' in str(e):
+                DbManager.create_game_table(self)
+
+    def read_game_score(self, entries=None):
+        try:
+            with sqlite3.connect(self.FILE_NAME) as conn:
+                c = conn.cursor()
+                if entries:
+                    results = c.execute(f"SELECT * FROM {self.TABLE_NAME} ORDER BY Score DESC LIMIT {entries}")
+                else:
+                    # should not be used but just here just in case
+                    results = c.execute(f'SELECT * FROM {self.TABLE_NAME} ORDER BY Score DESC')
+
+                return results
+        except sqlite3.OperationalError as e:
+            if 'no such table' in str(e):
+                DbManager.create_db(self)
+
 
     def find_index(self, log_id):
         with sqlite3.connect(self.FILE_NAME) as conn:
