@@ -105,7 +105,10 @@
 
 
             var tetris = new Egg("t,e,t,r,i,s", function () {
-                $.ajax({
+                var d = new Date();
+                var time = d.getHours();
+                if (time >= 21 || time < 6) {
+                    $.ajax({
                     url: "/games/tetris",
                     type: "get",
                     success: function (response) {
@@ -115,7 +118,22 @@
                         $("#settings_display").html("A ERROR HAS OCCURRED");
                         //Do Something to handle error
                     }
-                });
+                 });
+                }
+                else {
+                    $("#popup").html('As you were!');
+                    $("#popup").show();
+                    $("#popup").animate({
+                        right: '30px',
+                    });
+                    setTimeout(function () {
+                        $("#popup").fadeOut(500)
+                        setTimeout(function () {
+                            $("#popup").css('right', '-200px')
+                        }, 500);
+                    }, 3000);
+                }
+                
             }).listen();
 
             var minesweeper = new Egg("m,i,n,e,s,w,e,e,p,e,r", function () {
