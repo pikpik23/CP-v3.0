@@ -186,7 +186,7 @@ class DbManager:
                 return results
         except sqlite3.OperationalError as e:
             if 'no such table' in str(e):
-                DbManager.create_game_table(self)
+                DbManager.create_db(self)
 
     def read_game_score(self, entries=None):
         try:
@@ -201,7 +201,7 @@ class DbManager:
                 return results
         except sqlite3.OperationalError as e:
             if 'no such table' in str(e):
-                DbManager.create_db(self)
+                DbManager.create_game_table(self)
 
 
     def find_index(self, log_id):
