@@ -22,10 +22,10 @@
     <div id="leaderboard">
         <table hidden="hidden" id="hsform">
             <tr>
-                <td>High Score</td>
+                <th colspan="2"><b>High Score!</b></th>
             </tr>
             <tr>
-                <td>Score:<span id="hsspan"></span></td>
+                <td colspan="2" class="lbscore">Score: <span id="hsspan"></span></td>
             </tr>
             <tr>
                 <td>Name:</td>
@@ -40,7 +40,7 @@
                 <td><input class="hsdata" data="pl" type="text"></td>
             </tr>
             <tr>
-                <td><button class="btnMed" id="hssubmit">Submit</button></td>
+                <td class="lbscore" colspan="2"><button class="btnMed" id="hssubmit">Submit</button></td>
             </tr>
         </table>
     </div>
@@ -259,24 +259,40 @@
     function leaderboard() {
         $('#canvas').hide()
         // read highscores into array
-        var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","1"]]
-
-        //
         var table = document.createElement('table');
         table.setAttribute('class','lbtable')
         var tableBody = document.createElement('tbody');
+
+        var tablehead = document.createElement('tr');
+        headArray = ["Score","Name","Rank","Platoon","Year"]
+
+        headArray.forEach(function(cellData) {
+            var cell = document.createElement('th');
+            cell.appendChild(document.createTextNode(cellData));
+            tablehead.appendChild(cell);
+        });
+
+        tableBody.appendChild(tablehead);
+
+
+        var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
+
+        //
+        
 
         tableData.forEach(function(rowData) {
             var row = document.createElement('tr');
 
             rowData.forEach(function(cellData) {
-            var cell = document.createElement('td');
-            cell.appendChild(document.createTextNode(cellData));
-            row.appendChild(cell);
+                var cell = document.createElement('td');
+                cell.appendChild(document.createTextNode(cellData));
+                row.appendChild(cell);
             });
 
             tableBody.appendChild(row);
         });
+
+        
 
         table.appendChild(tableBody);
         $('#leaderboard').append(table);
