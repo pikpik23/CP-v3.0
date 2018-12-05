@@ -957,20 +957,36 @@ input[type=file] {
 #leaderboard{
     position: absolute;
     top:10px;
-    left:351px;
+    left:350px;
     border: 2px solid black;
-    widows: 300px;
+    width: 300px;
     height:600px;
+    padding: 10px;
 }
 
 .lbtable, .lbtable td {
     border-collapse: collapse;
     border: 1px solid black;
     font-size: 10pt;
+
+}
+
+.lbtable th {
+    font-size: 12pt;
+    text-align: center;
+    
+}
+
+.lbscore {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    padding-top:10px;
 }
 
 #hsform {
-    border: 1px, solid, black
+    border: 1px, solid, black;
+    width:100%
 
 }
 #hsform td{

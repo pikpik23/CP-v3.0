@@ -459,7 +459,7 @@ def handle_500_error(e):
 @APP.route('/games/tetris/', methods = ['POST'])
 def tetris_score_update():
     x = request.form.to_dict()
-    game_data = [x['name'], x['rank'], x['pl'], x['score'], int(datetime.today().strftime('%d%H%M'))]
+    game_data = [x['name'], x['rank'], x['pl'], x['score'], int(datetime.today().strftime('%Y'))]
     GAME_CONN.new_return(game_data)
     return ""
 
@@ -470,7 +470,7 @@ def tetris_get_score():
     for count, i in enumerate(x):
         lst.append(
             {
-                "ID":count,
+                "ID":count+1,
                 "Name":i[1],
                 "Rank":i[2],
                 "Pl":i[3],

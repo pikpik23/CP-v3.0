@@ -22,10 +22,10 @@
     <div id="leaderboard">
         <table hidden="hidden" id="hsform">
             <tr>
-                <td>High Score</td>
+                <th colspan="2"><b>High Score!</b></th>
             </tr>
             <tr>
-                <td>Score:<span id="hsspan"></span></td>
+                <td colspan="2" class="lbscore">Score: <span id="hsspan"></span></td>
             </tr>
             <tr>
                 <td>Name:</td>
@@ -40,7 +40,7 @@
                 <td><input class="hsdata" data="pl" type="text"></td>
             </tr>
             <tr>
-                <td><button class="btnMed" id="hssubmit">Submit</button></td>
+                <td class="lbscore" colspan="2"><button class="btnMed" id="hssubmit">Submit</button></td>
             </tr>
         </table>
     </div>
@@ -257,29 +257,67 @@
     // GAME LOGIC
     //-------------------------------------------------------------------------
     function leaderboard() {
+        var tableData = []
         $('#canvas').hide()
         // read highscores into array
-        var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","1"]]
-
-        //
-        var table = document.createElement('table');
-        table.setAttribute('class','lbtable')
-        var tableBody = document.createElement('tbody');
-
-        tableData.forEach(function(rowData) {
-            var row = document.createElement('tr');
-
-            rowData.forEach(function(cellData) {
-            var cell = document.createElement('td');
-            cell.appendChild(document.createTextNode(cellData));
-            row.appendChild(cell);
+        
+        $.get( "/games/tetris/scores", function( data ) {
+            
+            tableData = data
+            alert(JSON.stringify(tableData));
+            
+            //alert('meme')
+            var lbdata = []
+            tableData.forEach(function(arrayItem) {
+                /*Object.keys(arrayItem).forEach(function(key) {
+                    if (key = "ID") {
+                        console.log(key);
+                    }
+                });*/
+                var dataItem = Object.values(arrayItem)
+                lbdata.push(dataItem);
             });
 
-            tableBody.appendChild(row);
-        });
+            alert(JSON.stringify(lbdata));
+            
+            var table = document.createElement('table');
+            table.setAttribute('class','lbtable')
+            var tableBody = document.createElement('tbody');
 
-        table.appendChild(tableBody);
-        $('#leaderboard').append(table);
+            var tablehead = document.createElement('tr');
+            headArray = ["","Name","PL","Rank","Score","Year"]
+
+            headArray.forEach(function(cellData) {
+                var cell = document.createElement('th');
+                cell.appendChild(document.createTextNode(cellData));
+                tablehead.appendChild(cell);
+            });
+
+            tableBody.appendChild(tablehead);
+
+
+            //var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
+
+            //
+            
+
+            lbdata.forEach(function(rowData) {
+                var row = document.createElement('tr');
+
+                rowData.forEach(function(cellData) {
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(cellData));
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            
+
+            table.appendChild(tableBody);
+            $('#leaderboard').append(table);
+    });
 
     }
     $('#hssubmit').click(function(){
@@ -295,9 +333,11 @@
 
         $.post("/games/tetris/", hsdetails, function (data, status) {
             //alert("Data: " + data + "\nStatus: " + status);
+            $('#hsform').hide();
+            leaderboard();
         });
-        $('#hsform').hide();
-        leaderboard();
+        
+        
     });
 
     function highScore(hs){
