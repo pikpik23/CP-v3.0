@@ -352,13 +352,6 @@ def edit_log_by_id(log_id):
 
     return ""
 
-
-@APP.route('/games/minesweeper')
-def game_minesweeper():
-    """returns the minesweeper game"""
-    return render_template("games/minesweeper.html")
-
-
 @APP.route('/log/query', methods=['POST'])
 def log_query_post():
     """Handles the post from the query / search function on the log page"""
