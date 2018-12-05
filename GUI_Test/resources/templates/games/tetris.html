@@ -264,12 +264,16 @@
         $.get( "/games/tetris/scores", function( data ) {
             
             tableData = data
-            //alert(tableData);
+            alert(JSON.stringify(tableData));
             
             //alert('meme')
             var lbdata = []
             tableData.forEach(function(arrayItem) {
-                console.log(Object.values(arrayItem));
+                /*Object.keys(arrayItem).forEach(function(key) {
+                    if (key = "ID") {
+                        console.log(key);
+                    }
+                });*/
                 var dataItem = Object.values(arrayItem)
                 lbdata.push(dataItem);
             });
@@ -281,7 +285,7 @@
             var tableBody = document.createElement('tbody');
 
             var tablehead = document.createElement('tr');
-            headArray = ["Score","Name","Rank","Platoon","Year"]
+            headArray = ["","Name","PL","Rank","Score","Year"]
 
             headArray.forEach(function(cellData) {
                 var cell = document.createElement('th');
