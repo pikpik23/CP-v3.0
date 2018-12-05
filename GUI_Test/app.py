@@ -482,7 +482,7 @@ def tetris_get_score():
     return jsonify(lst)
 
 @APP.route('/games/tetris/lowest', methods = ['GET'])
-def tetris_get_score():
+def tetris_get_low_score():
     x = GAME_CONN.read_game_score(entries=30)
     lst = list()
     for count, i in enumerate(x):

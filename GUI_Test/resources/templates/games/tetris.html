@@ -272,18 +272,11 @@
             // read highscores into array
             
             $.get( "/games/tetris/scores", function( data ) {
-                
                 tableData = data
                 //alert(JSON.stringify(tableData));
                 
-            
                 var lbdata = []
                 tableData.forEach(function(arrayItem) {
-                    /*Object.keys(arrayItem).forEach(function(key) {
-                        if (key = "ID") {
-                            console.log(key);
-                        }
-                    });*/
                     var dataItem = Object.values(arrayItem)
                     lbdata.push(dataItem);
                 });
@@ -304,12 +297,6 @@
                 });
 
                 tableBody.appendChild(tablehead);
-
-
-                //var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
-
-                //
-                
 
                 lbdata.forEach(function(rowData) {
                     var row = document.createElement('tr');
@@ -370,6 +357,9 @@
     function lose(attempt) {
         show('start');
         setVisualScore();
+        $.get( "/games/tetris/lowest", function( data ) {
+            alert(JSON.stringify(data))
+        });
         if (sc > 0 && attempt == true) {
             highScore()
         }
