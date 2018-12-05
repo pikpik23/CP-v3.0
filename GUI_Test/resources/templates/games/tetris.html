@@ -257,45 +257,63 @@
     // GAME LOGIC
     //-------------------------------------------------------------------------
     function leaderboard() {
+        var tableData = []
         $('#canvas').hide()
         // read highscores into array
-        var table = document.createElement('table');
-        table.setAttribute('class','lbtable')
-        var tableBody = document.createElement('tbody');
-
-        var tablehead = document.createElement('tr');
-        headArray = ["Score","Name","Rank","Platoon","Year"]
-
-        headArray.forEach(function(cellData) {
-            var cell = document.createElement('th');
-            cell.appendChild(document.createTextNode(cellData));
-            tablehead.appendChild(cell);
-        });
-
-        tableBody.appendChild(tablehead);
-
-
-        var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
-
-        //
         
-
-        tableData.forEach(function(rowData) {
-            var row = document.createElement('tr');
-
-            rowData.forEach(function(cellData) {
-                var cell = document.createElement('td');
-                cell.appendChild(document.createTextNode(cellData));
-                row.appendChild(cell);
+        $.get( "/games/tetris/scores", function( data ) {
+            
+            tableData = data
+            //alert(tableData);
+            
+            //alert('meme')
+            var lbdata = []
+            tableData.forEach(function(arrayItem) {
+                console.log(Object.values(arrayItem));
+                var dataItem = Object.values(arrayItem)
+                lbdata.push(dataItem);
             });
 
-            tableBody.appendChild(row);
-        });
+            alert(JSON.stringify(lbdata));
+            
+            var table = document.createElement('table');
+            table.setAttribute('class','lbtable')
+            var tableBody = document.createElement('tbody');
 
-        
+            var tablehead = document.createElement('tr');
+            headArray = ["Score","Name","Rank","Platoon","Year"]
 
-        table.appendChild(tableBody);
-        $('#leaderboard').append(table);
+            headArray.forEach(function(cellData) {
+                var cell = document.createElement('th');
+                cell.appendChild(document.createTextNode(cellData));
+                tablehead.appendChild(cell);
+            });
+
+            tableBody.appendChild(tablehead);
+
+
+            //var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
+
+            //
+            
+
+            lbdata.forEach(function(rowData) {
+                var row = document.createElement('tr');
+
+                rowData.forEach(function(cellData) {
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(cellData));
+                    row.appendChild(cell);
+                });
+
+                tableBody.appendChild(row);
+            });
+
+            
+
+            table.appendChild(tableBody);
+            $('#leaderboard').append(table);
+    });
 
     }
     $('#hssubmit').click(function(){
@@ -311,9 +329,11 @@
 
         $.post("/games/tetris/", hsdetails, function (data, status) {
             //alert("Data: " + data + "\nStatus: " + status);
+            $('#hsform').hide();
+            leaderboard();
         });
-        $('#hsform').hide();
-        leaderboard();
+        
+        
     });
 
     function highScore(hs){
