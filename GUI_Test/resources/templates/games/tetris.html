@@ -330,21 +330,30 @@
     }
 
     $('#hssubmit').click(function(){
+        var valid = true
         var hsdetails = {}
         $('#hsform').find('tr').each(function (index, val) {
             $(this).find('.hsdata').each(function (index, val) {
                 var data = $(this).val()
                 var type = $(this).attr('data')
                 hsdetails[type] = data;
+                if (data == null || data == ""){
+                    valid = false;
+                }
             });
         });
         hsdetails['score'] = sc
-
-        $.post("/games/tetris/", hsdetails, function (data, status) {
-            //alert("Data: " + data + "\nStatus: " + status);
-            $('#hsform').hide();
-            leaderboard();
-        });
+        
+        if (valid == true) {
+            $.post("/games/tetris/", hsdetails, function (data, status) {
+                //alert("Data: " + data + "\nStatus: " + status);
+                $('#hsform').hide();
+                leaderboard();
+            });
+        }
+        else {
+            alert('Please fill in all your relavant details for your score to be recorded.')
+        }
         
         
     });

@@ -962,6 +962,8 @@ input[type=file] {
     width: 400px;
     height:600px;
     padding: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 #lbtable {
