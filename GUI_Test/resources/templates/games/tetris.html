@@ -8,7 +8,7 @@
 <body>
 <div id="tetris">
     <div id="menu">
-        <p id="leaderboardtxt"><a href="javascript:leaderboard();">Leaderboard</a></p>
+        <p id="leaderboardtxt"><a href="javascript:leaderboardclick();">Leaderboard</a></p>
         <p id="start"><a href="javascript:play();">Start</a></p>
         <p>
             <canvas id="upcoming"></canvas>
@@ -111,10 +111,12 @@
         dt,            // time since starting this game
         current,       // the current piece
         next,          // the next piece
-        score,         // the current score
+        sc,         // the current score
         vscore,        // the currently displayed score (it catches up to score in small chunks - like a spinning slot machine)
         rows,          // number of completed rows in the current game
         step;          // how long before current piece drops by 1 row
+
+    var lb = false;      // is leaderboard on
     //-------------------------------------------------------------------------
     // tetris pieces
     //
@@ -240,7 +242,7 @@
                     handled = true;
                     break;
                 case KEY.ESC:
-                    lose();
+                    lose(false);
                     handled = true;
                     break;
             }
@@ -256,70 +258,77 @@
     //-------------------------------------------------------------------------
     // GAME LOGIC
     //-------------------------------------------------------------------------
+    function leaderboardclick() {
+        lose(false);
+        leaderboard()
+    }
+    
     function leaderboard() {
-        var tableData = []
-        $('#canvas').hide()
-        // read highscores into array
         
-        $.get( "/games/tetris/scores", function( data ) {
+        if (lb == false) {
+
+            var tableData = []
+            $('#canvas').hide()
+            // read highscores into array
             
-            tableData = data
-            alert(JSON.stringify(tableData));
+            $.get( "/games/tetris/scores", function( data ) {
+                
+                tableData = data
+                //alert(JSON.stringify(tableData));
+                
             
-            //alert('meme')
-            var lbdata = []
-            tableData.forEach(function(arrayItem) {
-                /*Object.keys(arrayItem).forEach(function(key) {
-                    if (key = "ID") {
-                        console.log(key);
-                    }
-                });*/
-                var dataItem = Object.values(arrayItem)
-                lbdata.push(dataItem);
-            });
-
-            alert(JSON.stringify(lbdata));
-            
-            var table = document.createElement('table');
-            table.setAttribute('class','lbtable')
-            var tableBody = document.createElement('tbody');
-
-            var tablehead = document.createElement('tr');
-            headArray = ["","Name","PL","Rank","Score","Year"]
-
-            headArray.forEach(function(cellData) {
-                var cell = document.createElement('th');
-                cell.appendChild(document.createTextNode(cellData));
-                tablehead.appendChild(cell);
-            });
-
-            tableBody.appendChild(tablehead);
-
-
-            //var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
-
-            //
-            
-
-            lbdata.forEach(function(rowData) {
-                var row = document.createElement('tr');
-
-                rowData.forEach(function(cellData) {
-                    var cell = document.createElement('td');
-                    cell.appendChild(document.createTextNode(cellData));
-                    row.appendChild(cell);
+                var lbdata = []
+                tableData.forEach(function(arrayItem) {
+                    /*Object.keys(arrayItem).forEach(function(key) {
+                        if (key = "ID") {
+                            console.log(key);
+                        }
+                    });*/
+                    var dataItem = Object.values(arrayItem)
+                    lbdata.push(dataItem);
                 });
 
-                tableBody.appendChild(row);
+                //alert(JSON.stringify(lbdata));
+                
+                var table = document.createElement('table');
+                table.setAttribute('id','lbtable')
+                var tableBody = document.createElement('tbody');
+
+                var tablehead = document.createElement('tr');
+                headArray = ["","Name","PL","Rank","Score","Year"]
+
+                headArray.forEach(function(cellData) {
+                    var cell = document.createElement('th');
+                    cell.appendChild(document.createTextNode(cellData));
+                    tablehead.appendChild(cell);
+                });
+
+                tableBody.appendChild(tablehead);
+
+
+                //var tableData = [["trent","CUO","QM","2018","5000000"],["lamington","CUO","orderly room","2018","1"]]
+
+                //
+                
+
+                lbdata.forEach(function(rowData) {
+                    var row = document.createElement('tr');
+
+                    rowData.forEach(function(cellData) {
+                        var cell = document.createElement('td');
+                        cell.appendChild(document.createTextNode(cellData));
+                        row.appendChild(cell);
+                    });
+
+                    tableBody.appendChild(row);
+                });
+                table.appendChild(tableBody);
+                $('#leaderboard').append(table);
+                lb = true
             });
-
-            
-
-            table.appendChild(tableBody);
-            $('#leaderboard').append(table);
-    });
-
+        }
     }
+
     $('#hssubmit').click(function(){
         var hsdetails = {}
         $('#hsform').find('tr').each(function (index, val) {
@@ -329,7 +338,7 @@
                 hsdetails[type] = data;
             });
         });
-        hsdetails['score'] = score
+        hsdetails['score'] = sc
 
         $.post("/games/tetris/", hsdetails, function (data, status) {
             //alert("Data: " + data + "\nStatus: " + status);
@@ -340,43 +349,45 @@
         
     });
 
-    function highScore(hs){
+    function highScore(){
         $('#canvas').hide();
         $('#hsform').show();
-        $("#hsspan").html(hs);
+        $("#hsspan").html(sc);
         
     }
-
-
     
     
     function play() {
         hide('start');
+        $('#hsform').hide()
+        $('#lbtable').remove();
+        $('#canvas').show()
+        lb = false
         reset();
         playing = true;
     }
 
-    function lose() {
+    function lose(attempt) {
         show('start');
         setVisualScore();
-        if (score > 0) {
-            highScore(score)
+        if (sc > 0 && attempt == true) {
+            highScore()
         }
         playing = false;
     }
 
     function setVisualScore(n) {
-        vscore = n || score;
+        vscore = n || sc;
         invalidateScore();
     }
 
     function setScore(n) {
-        score = n;
+        sc = n;
         setVisualScore(n);
     }
 
     function addScore(n) {
-        score = score + n;
+        sc = sc + n;
     }
 
     function clearScore() {
@@ -438,7 +449,7 @@
 
     function update(idt) {
         if (playing) {
-            if (vscore < score)
+            if (vscore < sc)
                 setVisualScore(vscore + 1);
             handle(actions.shift());
             dt = dt + idt;
@@ -507,7 +518,7 @@
             setNextPiece(randomPiece());
             clearActions();
             if (occupied(current.type, current.x, current.y, current.dir)) {
-                lose();
+                lose(true);
             }
         }
     }
@@ -560,7 +571,7 @@
     }
 
     function invalidateScore() {
-        invalid.score = true;
+        invalid.sc = true;
     }
 
     function invalidateRows() {
@@ -610,9 +621,9 @@
     }
 
     function drawScore() {
-        if (invalid.score) {
+        if (invalid.sc) {
             html('score', ("00000" + Math.floor(vscore)).slice(-5));
-            invalid.score = false;
+            invalid.sc = false;
         }
     }
 
