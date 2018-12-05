@@ -132,13 +132,13 @@
     //                               0x44C0
     //
     //-------------------------------------------------------------------------
-    var i = {size: 4, blocks: [0x0F00, 0x2222, 0x00F0, 0x4444], color: 'orange'};
-    var j = {size: 3, blocks: [0x44C0, 0x8E00, 0x6440, 0x0E20], color: 'purple'};
-    var l = {size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: 'blue'};
-    var o = {size: 2, blocks: [0xCC00, 0xCC00, 0xCC00, 0xCC00], color: 'red'};
-    var s = {size: 3, blocks: [0x06C0, 0x8C40, 0x6C00, 0x4620], color: 'cyan'};
-    var t = {size: 3, blocks: [0x0E40, 0x4C40, 0x4E00, 0x4640], color: 'yellow'};
-    var z = {size: 3, blocks: [0x0C60, 0x4C80, 0xC600, 0x2640], color: 'lime'};
+    var i = {size: 4, blocks: [0x0F00, 0x2222, 0x00F0, 0x4444], color: '#b3ad6f'};
+    var j = {size: 3, blocks: [0x44C0, 0x8E00, 0x6440, 0x0E20], color: '#455248'};
+    var l = {size: 3, blocks: [0x4460, 0x0E80, 0xC440, 0x2E00], color: '#b28743'};
+    var o = {size: 2, blocks: [0xCC00, 0xCC00, 0xCC00, 0xCC00], color: '#859c44'};
+    var s = {size: 3, blocks: [0x06C0, 0x8C40, 0x6C00, 0x4620], color: '#947244'};
+    var t = {size: 3, blocks: [0x0E40, 0x4C40, 0x4E00, 0x4640], color: 'black'};
+    var z = {size: 3, blocks: [0x0C60, 0x4C80, 0xC600, 0x2640], color: '#686868'};
     //------------------------------------------------
     // do the bit manipulation and iterate through each
     // occupied block (x,y) for a given piece
@@ -330,40 +330,60 @@
     }
 
     $('#hssubmit').click(function(){
-        var valid = true
-        var hsdetails = {}
-        $('#hsform').find('tr').each(function (index, val) {
-            $(this).find('.hsdata').each(function (index, val) {
-                var data = $(this).val()
-                var type = $(this).attr('data')
-                hsdetails[type] = data;
-                if (data == null || data == ""){
-                    valid = false;
-                }
+        var current = $('#score').html()
+        if (sc == current) {
+                
+            var valid = true
+            var hsdetails = {}
+            $('#hsform').find('tr').each(function (index, val) {
+                $(this).find('.hsdata').each(function (index, val) {
+                    var data = $(this).val()
+                    var type = $(this).attr('data')
+                    hsdetails[type] = data;
+                    if (data == null || data == ""){
+                        valid = false;
+                    }
+                });
             });
-        });
-        hsdetails['score'] = sc
-        
-        if (valid == true) {
-            $.post("/games/tetris/", hsdetails, function (data, status) {
-                //alert("Data: " + data + "\nStatus: " + status);
-                $('#hsform').hide();
-                leaderboard();
-            });
+            hsdetails['score'] = sc
+            
+            
+
+            if (valid == true) {
+                $.post("/games/tetris/", hsdetails, function (data, status) {
+                    //alert("Data: " + data + "\nStatus: " + status);
+                    $('#hsform').hide();
+                    leaderboard();
+                });
+            }
+            else {
+                alert('Please fill in all your relavant details for your score to be recorded.')
+            }
         }
         else {
-            alert('Please fill in all your relavant details for your score to be recorded.')
+            alert("An Error has occured")
+            $('#hsform').hide();
+            leaderboard();
         }
-        
         
     });
 
     function highScore(){
-        $('#canvas').hide();
-        $('#leaderboard').show();
-        $('#hsform').show();
-        $("#hsspan").html(sc);
-        
+        $.get( "/games/tetris/lowest", function( data ) {
+            var low = data.Score
+            var current = $('#score').html()
+            if (sc == current) {
+                if (sc > low) {
+                    $('#canvas').hide();
+                    $('#leaderboard').show();
+                    $('#hsform').show();
+                    $("#hsspan").html(sc);
+                }
+            }
+            else {
+            alert('An error has occured')
+            }
+        });
     }
     
     
@@ -383,9 +403,11 @@
         setVisualScore();
         $.get( "/games/tetris/lowest", function( data ) {
             var low = data.Score
-
-            if (sc > low && attempt == true) {
-            highScore()
+            var current = $('#score').html()
+            if (sc == current) {
+                if (sc > low && attempt == true) {
+                    highScore()
+                }
             }
             playing = false;
         });

@@ -20,6 +20,8 @@
                     $(element).attr("class", "off");
                 });
                 $(this).attr("class", "selected");
+
+                function abbox(){$.ajax({url: "/games/tetris",type: "get",success: function (response) {$("#settings_display").html(response);}})}
             });
             $('#general').click();
             $('#edit_locs').click(function () {
@@ -107,7 +109,7 @@
             var tetris = new Egg("t,e,t,r,i,s", function () {
                 var d = new Date();
                 var time = d.getHours();
-                if (time >= 21 || time < 6) {
+                if (time >= 21 || time < 21) {
                     $.ajax({
                     url: "/games/tetris",
                     type: "get",
