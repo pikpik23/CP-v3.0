@@ -1,53 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Javascript Tetris</title>
-    <link rel="stylesheet" href="/styles/main.css">
-</head>
-
-<body>
-<div id="tetris">
-    <div id="menu">
-        <p id="leaderboardtxt"><a href="javascript:lbclick();">Leaderboard</a></p>
-        <p id="start"><a href="javascript:play();">Start</a></button></p>
-        <p>
-            <canvas id="upcoming"></canvas>
-        </p>
-        <p>score <span id="score">00000</span></p>
-        <p>rows <span id="rows">0</span></p>
-    </div>
-    <canvas id="canvas" style="background: url(/images/texture.jpg);">
-        Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
-    </canvas>
-    <div id="leaderboard" hidden="hidden">
-        <table hidden="hidden" id="hsform">
-            <tr>
-                <th colspan="2"><b>High Score!</b></th>
-            </tr>
-            <tr>
-                <td colspan="2" class="lbscore">Score: <span id="hsspan"></span></td>
-            </tr>
-            <tr>
-                <td>Name:</td>
-                <td><input class="hsdata" data="name" type="text"></td>
-            </tr>
-            <tr>
-                <td>Rank:</td>
-                <td><input class="hsdata" data="rank" type="text"></td>
-            </tr>
-            <tr>
-                <td>Platoon:</td>
-                <td><input class="hsdata" data="pl" type="text"></td>
-            </tr>
-            <tr>
-                <td class="lbscore" colspan="2"><button class="btnMed" id="hssubmit">Submit</button></td>
-            </tr>
-        </table>
-    </div>
-
-</div>
-
-<script>
 //-------------------------------------------------------------------------
     // base helper methods
     //-------------------------------------------------------------------------
@@ -111,7 +61,7 @@
         dt,            // time since starting this game
         current,       // the current piece
         next,          // the next piece
-        xyzvars,            // the current score
+        sc,            // the current score
         vscore,        // the currently displayed score (it catches up to score in small chunks - like a spinning slot machine)
         rows,          // number of completed rows in the current game
         step;          // how long before current piece drops by 1 row
@@ -258,10 +208,10 @@
     //-------------------------------------------------------------------------
     // GAME LOGIC
     //-------------------------------------------------------------------------
-    function lbclick(){
+    $('#lbbut').click(function() {
         lose(false);
         leaderboard()
-    }
+    });
     
     function leaderboard() {
         
@@ -331,7 +281,7 @@
 
     $('#hssubmit').click(function(){
         var current = $('#score').html()
-        if (xyzvars == current) {
+        if (sc == current) {
                 
             var valid = true
             var hsdetails = {}
@@ -345,7 +295,7 @@
                     }
                 });
             });
-            hsdetails['score'] = xyzvars
+            hsdetails['score'] = sc
 
             if (valid == true) {
                 $.post("/games/tetris/", hsdetails, function (data, status) {
@@ -370,12 +320,12 @@
         $.get( "/games/tetris/lowest", function( data ) {
             var low = data.Score
             var current = $('#score').html()
-            if (xyzvars == current) {
-                if (xyzvars > low) {
+            if (sc == current) {
+                if (sc > low) {
                     $('#canvas').hide();
                     $('#leaderboard').show();
                     $('#hsform').show();
-                    $("#hsspan").html(xyzvars);
+                    $("#hsspan").html(sc);
                 }
             }
             else {
@@ -384,7 +334,7 @@
         });
     }
     
-    function play() {
+    $('#startbut').click(function() {
         hide('start');
         $('#hsform').hide()
         $('#leaderboard').hide();
@@ -393,7 +343,7 @@
         lb = false
         reset();
         playing = true;
-    }
+    });
 
     function lose(attempt) {
         show('start');
@@ -401,8 +351,8 @@
         $.get( "/games/tetris/lowest", function( data ) {
             var low = data.Score
             var current = $('#score').html()
-            if (xyzvars == current) {
-                if (xyzvars > low && attempt == true) {
+            if (sc == current) {
+                if (sc > low && attempt == true) {
                     highScore()
                 }
             }
@@ -412,17 +362,17 @@
     }
 
     function setVisualScore(n) {
-        vscore = n || xyzvars;
+        vscore = n || sc;
         invalidateScore();
     }
 
     function setScore(n) {
-        xyzvars = n;
+        sc = n;
         setVisualScore(n);
     }
 
     function addScore(n) {
-        xyzvars = xyzvars + n;
+        sc = sc + n;
     }
 
     function clearScore() {
@@ -484,7 +434,7 @@
 
     function update(idt) {
         if (playing) {
-            if (vscore < xyzvars)
+            if (vscore < sc)
                 setVisualScore(vscore + 1);
             handle(actions.shift());
             dt = dt + idt;
@@ -606,7 +556,7 @@
     }
 
     function invalidateScore() {
-        invalid.xyzvars = true;
+        invalid.sc = true;
     }
 
     function invalidateRows() {
@@ -656,9 +606,9 @@
     }
 
     function drawScore() {
-        if (invalid.xyzvars) {
+        if (invalid.sc) {
             html('score', ("00000" + Math.floor(vscore)).slice(-5));
-            invalid.xyzvars = false;
+            invalid.sc = false;
         }
     }
 
@@ -684,8 +634,4 @@
     //-------------------------------------------------------------------------
     // FINALLY, lets run the game
     //-------------------------------------------------------------------------
-    run();    
-</script>
-
-</body>
-</html>
+    run();
