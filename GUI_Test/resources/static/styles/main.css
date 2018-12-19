@@ -38,7 +38,7 @@ header {
 */
 
 nav {
-    width: 200px;
+    width: 225px;
     background: #ccc;
     padding: 10px 20px;
     height: 100%;
@@ -47,7 +47,7 @@ nav {
     top: 56px;
     left: 0;
     overflow-x: hidden;
-    border-color: rgb(145, 145, 145);
+    border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
     overflow-y:scroll;
@@ -110,7 +110,7 @@ nav a {
     font-weight: bold;
     font-size: 14px;
     background-color: #288ad6;
-    border-color: rgb(186, 186, 186);
+    border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
     text-align: center;
@@ -164,9 +164,9 @@ a.kgs {
     bottom: 6px;
     left: 6px;
     right: 6px;
-    margin-left: 200px;
+    margin-left: 225px;
     margin-top: 56px;
-    border: 1px solid rgb(145, 145, 145);
+    border: 1px solid rgb(187, 187, 187);
 
     /*margin-bottom:100px;  only use when ther is footer*/
 }
@@ -364,7 +364,7 @@ footer {
 }
 
 .btn {
-    border: 2px solid gray;
+    border: 1px solid rgb(187, 187, 187);
     color: gray;
     background-color: white;
     padding: 8px 20px;
@@ -392,7 +392,7 @@ label:hover {
     left: 6px;
     right: 6px;
     margin-top: 56px;
-    border: 2px solid rgb(187, 187, 187);
+    border: 1px solid rgb(187, 187, 187);
 }
 
 .notes {
@@ -430,7 +430,7 @@ label:hover {
     bottom: 6px;
     margin-right: 612px;
     overflow-x: hidden;
-    border-color: rgb(145, 145, 145);
+    border-color: rgb(187, 187, 187);
     border-style: solid;
     border-width: 1px;
 }
@@ -478,11 +478,11 @@ label:hover {
 .tableLog {
     border-collapse: collapse;
     width: 100%;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(187, 187, 187);
 }
 
 .tableLog td {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(187, 187, 187);
 }
 
 .tableLog tr:nth-child(even) {
@@ -494,7 +494,7 @@ label:hover {
 }
 
 .tableLog tr:hover {
-    background-color: #ddd;
+    background-color: rgb(187, 187, 187);
 }
 
 
@@ -600,7 +600,7 @@ br {
     width:100%;
     position: absolute;
     bottom: 0;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(187, 187, 187);
 }
 
 #query_table td {
@@ -634,7 +634,7 @@ br {
 
 .return-list {
     width: 450px;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(187, 187, 187);
     position: absolute;
     top: 0;
     left: 0;
@@ -649,7 +649,7 @@ br {
     left: 456px;
     right: 6px;
     /*padding:5px;*/
-    border: 1px solid rgb(145, 145, 145);
+    border: 1px solid rgb(187, 187, 187);
 }
 
 #table_serials {
@@ -667,7 +667,7 @@ br {
 #table_serials, #table_serials td {
     border-collapse: collapse;
     padding: 10px 6px;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(187, 187, 187);
 }
 
 #table_serials tr:nth-child(even) {
@@ -800,7 +800,7 @@ br {
 }
 
 .divLeft {
-    border: 2px solid rgb(187, 187, 187);
+    border: 1px solid rgb(187, 187, 187);
     position: absolute;
     left: 0;
     top: 0;
@@ -809,9 +809,9 @@ br {
 }
 
 .divRight {
-    border: 2px solid rgb(187, 187, 187);
+    border: 1px solid rgb(187, 187, 187);
     position: absolute;
-    left: 206px;
+    left: 231px;
     top: 56px;
     bottom: 6px;
     right: 6px;
