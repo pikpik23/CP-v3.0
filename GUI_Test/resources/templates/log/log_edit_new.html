@@ -132,7 +132,6 @@
         }
 
         function load() {
-
             $("#log_delete_btn").click(function () {
                 $.post("/log/delete/by_id", {logID: $("#logPrint").contents().find("#logID_text")[0].textContent}, function (data, status) {
                     //alert("Data: " + data + "\nStatus: " + status);
@@ -170,6 +169,12 @@
                     //DOWN ARROW
                     $('tr.rowSelected').next().click()
                 }
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    //ENTER
+                    $("#search").click();
+                }
+
             });
             $("#search").click(function () {
                 var query = {};
@@ -246,6 +251,7 @@
                 
                 $('#buttoncop').remove();
                 $('#tablecop').remove();
+            
             });
 
 
