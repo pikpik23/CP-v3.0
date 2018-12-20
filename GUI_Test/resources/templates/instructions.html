@@ -1,0 +1,66 @@
+{% extends '/includes/layout.html' %} {% block body %}
+    <script src="js_files/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+    <div class="main">
+        <div class="banner">
+            <a>Instructions</a>
+        </div>
+        <div class="inner">
+        <p>Welcome to the Command Post Software! If it is your first time using this software, it is important that you read these instructions.</p>
+        <p>Please be aware that this software is not just designed for use within the Command Post, specialist CUOs may connect to the software in order to view the CP Log at their own convenience instead of disrupting the order of the Command Post. </p>
+        
+        <br>
+        <h2>Record Transmission</h2>
+        <p>This is the part of the software used most commonly in the Command Post. When a transmission is being recieved over any Net, it must be recorded using this page.</p>
+        <ol>
+            <li>To record a transmission, click the button on the left panel that corresponds to the type of return, or simply click message at the top of the panel.</li>
+            <li>Next, the serials for that return type will appear in the main section of the page.</li>
+            <li>Fill out all the information that is being transmitted in the relevant fields.</li>
+            <li>If the Duty Officer would like this to be printed, click the Print checkbox. </li>
+            <li>Click Record!</li>
+        </ol>
+        <p><b>Transmission Settings</b></p>
+        <p>Settings are a very important part of the Command Post Software. They must always remain updated to ensure accuracy within the Command Post. There are 3 main Settings to be aware of: This Callsign, Duty Officer and This Net. These can be found in the top right corner of the Record Transmission page and in General Settings.</p>
+        <p>Changing these settings is simply done by clicking the button, and typing in the new setting.</p>
+        <p>Be aware that the Duty Officer and This Callsign are stored on the server which means they only need to be updated on one laptop whereas This Net is unique to the laptop you are using.</p>
+
+        <br>
+        <h2>Log</h2>
+        <p>The Log is the page where you can find all the transmissions that have been recorded. There are a few important features to be aware of.</p>
+        <p><b>Query</b></p>
+        <p>Use the query box at the bottom of the Log page to filter through returns. Use the text boxes to filter any fields that you want. Using the "Content" field, you can seach for anything in any return which is useful for information such as Demand Number.</p>
+        <p><b>Edit</b></p>
+        <p>Use the Edit button on the bottom right to make any changes to a Return that has been submitted. This is useful incase a mistake has been made. It is not recommended that this used for ammendments as it will not keep a copy of the original.</p>
+        <p><b>Copy</b></p>
+        <p>This feature is designed for the QM, LOGSO and RMO in order to easily copy a return into their spreadsheet. Click the copy button and it will copy a formatted row of all the data within that return that can easily be pasted into a spreadsheet. Make sure you tell the relevant personnel that they can do this.</p>
+        <p><b>Log ID</b></p>
+        <p>Log ID is a unique number assigned to every transmission that is recorded on the software. This can be helpful using a query if you want to find a transmission in the software that you have printed out.</p>
+
+        <br>
+        <h2>Notes</h2>
+        <p>The Notes page allows you to write notes that will be stored locally on the computer you are using. This is helpful to record key events that have happened during your shift and allow the next person to know what has happpened.</p>
+
+        <br>
+        <h2>Settings</h2>
+        <p><b>Log Settings</b></p>
+        <p>Use the Log Settings at the start and end of camp to reset the log. It can also be used to recover lost data incase there is a data failure.</p>
+        <p>Simply click download log at the end of camp to save a copy of the Command Post Log. Then click delete log to clear the software ready for a new AFX.</p>
+        <p><b>Edit Return Serials</b></p>
+        <p>This element of the Command Post Software is used to ensure the software is always up to date with the most recent SOI. Instructions are provided upon clicking the Edit Return Serials button. Be aware that this saves across the network, and hence must only be done on one laptop.</p>
+        <p>Ensure this is done whenever there is an SOI ammendment.</p>
+        <p><b>Edit Callsign and Locations</b></p>
+        <p>These pages allow you to change the drop down menus for Locations and Callsigns. These drop down menus make recording transmissions more efficient and more accurate. This is especially true for callsigns which must be consistent when typed in so that they can be searched for in the Log page.</p>
+
+
+
+
+        <br>
+        <br>
+        </div>
+    </div>
+
+
+{% endblock %}

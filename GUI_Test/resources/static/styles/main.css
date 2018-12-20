@@ -393,6 +393,7 @@ label:hover {
     right: 6px;
     margin-top: 56px;
     border: 1px solid rgb(187, 187, 187);
+    overflow:hidden;
 }
 
 .notes {
@@ -818,9 +819,17 @@ br {
 }
 
 .inner {
-    padding: 12px;
-    line-height: 24px;
+    padding: 6px 18px;
+    font-size: 12t;
+    line-height: 20px;
+    overflow-y: scroll;
+    height:100%;
+    margin-bottom: 6px;
 }
+
+.inner p {
+    margin: 8px 0;
+ }
 
 input[type=file] {
     outline: none !important;
