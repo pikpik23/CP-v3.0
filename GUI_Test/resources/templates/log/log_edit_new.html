@@ -301,7 +301,7 @@
             </tr>
             <tr>
                 <td colspan="6">
-                    Type parameters seperated by commas to filter log. Leaving the field blank will allow any option. OR Search for LOGID
+                    Type parameters seperated by commas to filter log. Leaving the field blank will allow any option.
                 </td>
             </tr>
             <tr>
@@ -310,7 +310,7 @@
                 <td>To</td>
                 <td><input class="query_input" query_type="reciever" type="text"></td>
                 <td>LogID:</td>
-                <td><input type="text"></td>
+                <td><input class="query_input" query_type="logID" type="text"></td>
             </tr>
             <tr>
                 <td>Net</td>
@@ -323,6 +323,7 @@
                 <td><input class="query_input" query_type="dutyOfficer" type="text"></td>
                 <td>Type</td>
                 <td><input class="query_input" query_type="returnType" type="text" list="returns_list"></td>
+
                 <datalist id="returns_list">
                     <option>MESSAGE</option>
                     {% for return_type in serials_def %}

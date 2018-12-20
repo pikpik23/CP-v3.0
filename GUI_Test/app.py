@@ -362,7 +362,7 @@ def game_minesweeper():
 @APP.route('/log/query', methods=['POST'])
 def log_query_post():
     """Handles the post from the query / search function on the log page"""
-    # print(request.form.to_dict())
+    print(request.form.to_dict())
     x = File.load_log_query(DB_CONN, request.form.to_dict())
     # print(list(x))
     return render_template("log/log_innertable_list.html", log=list(x))
