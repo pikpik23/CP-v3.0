@@ -6,14 +6,23 @@
             alert('memes')
         }).listen();
 
-        var memes = new Egg("c,q", function () {
-            $('#portaloo').attr('src', '/images/portaloo.png');
+        function meme(img) {
+            $('#portaloo').attr('src', '/images/' + img);
             jQuery('#portaloo').fadeIn(500, function () {
                 window.setTimeout(function () {
                     jQuery('#portaloo').hide();
                 }, 1000);
             });
+        }
+
+        var memes = new Egg("c,q", function () {
+            meme('portaloo.png')
         }).listen();
+
+        var memes = new Egg("c,a,t,e,r,i,n,g", function () {
+            meme('catering.png')
+        }).listen();
+        
     });
 </script>
 <link rel="stylesheet" href="/styles/main.css">
@@ -23,6 +32,13 @@
         <p>It's first use was AFX 2019</p>
         <p>The previous version of the Command Post software (CP 2.0) was developed by Oliver Bolton and Alexander Bradner
             and was used from 2005 to 2018</p>
+        <p>The reason this software was developed was to ensure the Command Post runs at peak efficiency at all times. New features iin CP 3.0 include:</p>
+        <ul>
+            <li>The Software being a web application run over a Local Area Network or Peer to Peer network.</li>
+            <li>The log is synchronized across all computers on the network, and is not just stored locally on each computer.</li>
+            <li>EXCON CUOs can connect to the server in order to view the log. This makes it easy for people like the QM to view all the MAINTDEMs that have been submitted without disrupting the workers in the Command Post.</li>
+            <li>Advanced query system to sort through the log with ease</li>
+        </ul>
     <h2>Quick Tip</h2>
     <p>If you are getting bored during the graveyard shift, simply type "tetris" on your keyboard while on the settings page to enjoy some entertainment. Please be advised that this feature only works during the graveyard shift.</p>
 </div>

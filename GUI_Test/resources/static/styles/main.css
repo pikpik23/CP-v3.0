@@ -2,6 +2,11 @@ html {
     overflow: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 * {
     box-sizing: border-box;
 }
@@ -470,6 +475,9 @@ label:hover {
     overflow-y: scroll;
 }
 
+.log_time {
+    width: 65px !important;
+}
 
 .printBody {
     padding: 20px 30px;
@@ -1017,6 +1025,16 @@ input[type=file] {
 
 .hsdata {
     width:100%
+}
+
+select.hsdata{
+    padding: 2px 6px;
+    width: 150px;
+    font-size: 10pt;
+    border-color: rgb(187, 187, 187);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0px;
 }
 /* -----------------------------------------------------------*/
 
