@@ -33,11 +33,33 @@
             </tr>
             <tr>
                 <td>Rank:</td>
-                <td><input class="hsdata" data="rank" type="text"></td>
+                <td>
+                    <select class="hsdata" data="rank">
+                        <option value="REC">REC</option>
+                        <option value="CDT">CDT</option>
+                        <option value="CPL">CPL</option>
+                        <option value="SGT">SGT</option>
+                        <option value="WO2">WO2</option>
+                        <option value="WO1">WO1</option>
+                        <option value="CUO">CUO</option>
+                    </select>
+                    
+                    <!--<input class="hsdata" data="rank" type="text"></td>-->
             </tr>
             <tr>
                 <td>Platoon:</td>
-                <td><input class="hsdata" data="pl" type="text"></td>
+                <td>
+                    <datalist id="plist">
+                        <option value="RHQ">RHQ</option>
+                        <option value="QM">QM</option>
+                        <option value="OPS">OPS</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="SIGS">SIGS</option>
+                        <option value="MED">MED</option>
+                        <option value="HQ COY HQ">HQ COY HQ</option>
+                        <option value="SPT COY HQ">SPT COY HQ</option>
+                    </datalist>
+                    <input class="hsdata" list="plist" data="pl" type="text"></td>
             </tr>
             <tr>
                 <td class="lbscore" colspan="2"><button class="btnMed" id="hssubmit">Submit</button></td>
@@ -269,6 +291,8 @@
 
             var tableData = []
             $('#canvas').hide()
+            $('#hsform').hide()
+
             $('#leaderboard').show();
             // read highscores into array
             

@@ -132,7 +132,6 @@
         }
 
         function load() {
-
             $("#log_delete_btn").click(function () {
                 $.post("/log/delete/by_id", {logID: $("#logPrint").contents().find("#logID_text")[0].textContent}, function (data, status) {
                     //alert("Data: " + data + "\nStatus: " + status);
@@ -170,6 +169,17 @@
                     //DOWN ARROW
                     $('tr.rowSelected').next().click()
                 }
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    //ENTER
+                    $("#search").click();
+                }
+                if (event.keyCode === 27) {
+                    event.preventDefault();
+                    //ESCAPE
+                    $("#clear").click();
+                }
+
             });
             $("#search").click(function () {
                 var query = {};
@@ -246,6 +256,7 @@
                 
                 $('#buttoncop').remove();
                 $('#tablecop').remove();
+            
             });
 
 
@@ -305,11 +316,11 @@
                 </td>
             </tr>
             <tr>
-                <td>Time</td>
-                <td><input class="query_input" query_type="logTime" type="text"></td>
+                <td>Time (DTG)</td>
+                <td><input class="query_input log_time" query_type="logTimeFrom" type="text"> to <input class="query_input log_time" query_type="logTimeTo" type="text"></td>
                 <td>To</td>
                 <td><input class="query_input" query_type="reciever" type="text"></td>
-                <td>LogID:</td>
+                <td>LogID</td>
                 <td><input class="query_input" query_type="logID" type="text"></td>
             </tr>
             <tr>
@@ -317,6 +328,8 @@
                 <td><input class="query_input" query_type="net" type="text"></td>
                 <td>From</td>
                 <td><input class="query_input" query_type="sender" type="text"></td>
+                <td>Content</td>
+                <td><input class="query_input" query_type="other" type="text"></td>
             </tr>
             <tr>
                 <td>Duty Officer</td>

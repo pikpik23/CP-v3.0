@@ -124,7 +124,7 @@ def settings_general():
 @APP.route('/settings/info')
 def settings_info():
     """ Renders the Product info Page """
-    return render_template('product_info.html')
+    return render_template('settings/product_info.html')
 
 @APP.route('/settings/download_log')
 def settings_download_log():
@@ -500,6 +500,10 @@ def tetris_get_lowest():
     #return ""
     return jsonify(lst[-1])
 
+@APP.route('/instructions')
+def instructions():
+    """ Renders the instructions page """
+    return render_template('instructions.html')
 
 if __name__ == '__main__':
 
