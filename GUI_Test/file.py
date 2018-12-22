@@ -65,6 +65,7 @@ class DbManager:
         else:
             self.TABLE_NAME = "'LOG_RETURNS'"
 
+
     def query_data(self, conditions, entries):
         try:
             with sqlite3.connect(self.FILE_NAME) as conn:
@@ -86,9 +87,16 @@ class DbManager:
                         val = conditions[cond]
                     except KeyError:
                         val = ""
-                    cond_string_list.append(f"lower({cond}) LIKE ?")
-                    val = f"%{val.lower()}%"
-                    cond_list.append(val)
+                    for sub_val in val.split(", "):
+                        cond_string_list.append(f"lower({cond}) LIKE ?")
+                        sub_val = f"%{sub_val.lower()}%"
+                        cond_list.append(sub_val)
+
+                if conditions['other']:
+                    for sub_val in conditions['other'].split(", "):
+                        cond_string_list.append(f"lower(serials) LIKE ?")
+                        sub_val = f"%{sub_val.lower()}%"
+                        cond_list.append(sub_val)
 
                 if conditions['logTimeFrom']:
                     if conditions['logTimeTo']:
