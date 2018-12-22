@@ -1,5 +1,5 @@
 callsign\0A
 Duty\NOT MUSKENS
 net\UNIT NET
-DB_FILE_NAME\resources/static/db/LOG_2.db
+DB_FILE_NAME\resources/static/db/LOG_3.db
 DB_TABLE_NAME\'LOG_RETURNS'

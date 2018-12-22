@@ -151,6 +151,27 @@ def settings_action_post():
 
     return ""
 
+def get_new_log_name(lname=None):
+    """Gets old db name and creates a new one with a number higher
+    eg: log1.db -> log2.db
+    """
+    if not lname:
+        lname = SETTINGS['DB_FILE_NAME']
+
+    path = 'resources/static/db/LOG_'
+    extension = '.db'
+    lname = lname.strip(path) # strip the path
+    lname = lname.strip(extension) # strip db extension
+
+    try:
+        lname = int(lname)
+        lname += 1
+    except ValueError:
+        print("can't turn the name into an int")
+
+    new_lname = path+str(lname)+extension
+
+    return new_lname
 
 @APP.route('/games/tetris')
 def game_tetris():
@@ -370,27 +391,7 @@ def log_query_post():
     # print(list(x))
     return render_template("log/log_innertable_list.html", log=list(x))
 
-def get_new_log_name(lname=None):
-    """Gets old db name and creates a new one with a number higher
-    eg: log1.db -> log2.db
-    """
-    if not lname:
-        lname = SETTINGS['DB_FILE_NAME']
 
-    path = 'resources/static/log/LOG_'
-    extension = '.db'
-    lname = lname.strip(path) # strip the path
-    lname = lname.strip(extension) # strip db extension
-
-    try:
-        lname = int(lname)
-        lname += 1
-    except ValueError:
-        print("can't turn the name into an int")
-
-    new_lname = path+str(lname)+extension
-
-    return new_lname
 
 
 # UPLOADING DB
