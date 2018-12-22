@@ -21,7 +21,7 @@ LOCATIONS = File.read_locations()
 CALLSIGNS = File.read_callsigns()
 SETTINGS = File.read_settings()
 DB_CONN = File.db_connect(SETTINGS)
-GAME_CONN = File.db_connect({'DB_FILE_NAME':'resources/static/log/game.db', 'DB_TABLE_NAME':"'tetris'"})
+GAME_CONN = File.db_connect({'DB_FILE_NAME':'resources/static/db/game.db', 'DB_TABLE_NAME':"'tetris'"})
 
 File.generate_css_min()
 
@@ -129,7 +129,9 @@ def settings_info():
 @APP.route('/settings/download_log')
 def settings_download_log():
     """ downloads the LOG db file """
+
     return redirect("/"+SETTINGS['DB_FILE_NAME'].replace("resources/static/",""))
+
 
 @APP.route('/settings/action/', methods=['POST'])
 def settings_action_post():
@@ -222,7 +224,7 @@ def log_detail(log_id):
             return render_template("log/log_frame.html",
                                    ret=log)
         else:
-            return "<h1 style='text-align:center; padding-top: 20px;'>Log Deleted</h1>"
+            return "<h1 style='text-align:center; padding-top: 20px;'>Log file incorrect</h1>"
 
     except IndexError:
         return "<h1>ERROR</h1><p>There are no logs to display</p>"
