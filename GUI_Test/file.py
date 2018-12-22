@@ -89,6 +89,19 @@ class DbManager:
                     cond_string_list.append(f"lower({cond}) LIKE ?")
                     val = f"%{val.lower()}%"
                     cond_list.append(val)
+
+                if conditions['logTimeFrom']:
+                    if conditions['logTimeTo']:
+                        cond_string_list.append("logTime>= ? AND logTime<= ?")
+                        cond_list.append(conditions['logTimeFrom'])
+                        cond_list.append(conditions['logTimeTo'])
+                    else:
+                        cond_string_list.append("logTime>= ?")
+                        cond_list.append(conditions['logTimeFrom'])
+                elif conditions['logTimeTo']:
+                    cond_string_list.append("logTime <= ?")
+                    cond_list.append(conditions['logTimeTo'])
+
                 cond_string = ' AND '.join(cond_string_list)
 
                 results = c.execute(f"SELECT * FROM {self.TABLE_NAME} WHERE "
@@ -109,7 +122,7 @@ class DbManager:
                                 `returnType`	text,
                                 `sender`	text,
                                 `reciever`	text,
-                                `logTime`	text,
+                                `logTime`	integer,
                                 `dutyOfficer`	text,
                                 `net`	TEXT,
                                 `serials`	text
@@ -429,6 +442,7 @@ class File:
     @staticmethod
     def load_log_query(Db, query):
 
+        print(query)
         x = list(Db.query_data(query, 100))
 
         local_log = list()
@@ -480,7 +494,7 @@ class File:
                 ret.update({'name': row[1]})
                 ret.update({'sender': row[2]})
                 ret.update({'receiver': row[3]})
-                ret.update({'time': row[4]})
+                ret.update({'time': fix_time(row[4])})
                 ret.update({'duty': row[5]})
                 ret.update({'net': row[6]})
 
@@ -507,6 +521,7 @@ class File:
             local_log = list()
             for row in x:
                 row = list(row)
+
                 try:
                     ret = OrdDic()
 
@@ -514,7 +529,7 @@ class File:
                     ret.update({'name': row[1]})
                     ret.update({'sender': row[2]})
                     ret.update({'receiver': row[3]})
-                    ret.update({'time': row[4]})
+                    ret.update({'time': fix_time(row[4])})
                     ret.update({'duty': row[5]})
                     ret.update({'net': row[6]})
 
@@ -530,12 +545,18 @@ class File:
 
                 except TypeError:
                     print("none value in db")
+
             return local_log
 
     @staticmethod
     def delete_log_byID(Db, id):
         Db.delete_return_byID(id)
 
+def fix_time(dtg):
+    if len(str(dtg)) == 6:
+        return str(dtg)
+    else:
+        return str(f'0{dtg}')
 
 if __name__ == '__main__':
     pass
