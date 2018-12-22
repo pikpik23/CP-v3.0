@@ -87,16 +87,40 @@ class DbManager:
                         val = conditions[cond]
                     except KeyError:
                         val = ""
-                    for sub_val in val.split(", "):
-                        cond_string_list.append(f"lower({cond}) LIKE ?")
-                        sub_val = f"%{sub_val.lower()}%"
-                        cond_list.append(sub_val)
+
+
+                    if "|" in val:
+                        i = 0
+                        dep = list()
+                        for sub_val in val.split("|"):
+                            i+=1
+                            cond_list.append(f"%{sub_val}%")
+
+                        cond_string_list.append("("+f"lower({cond}) LIKE ?"+ f" OR lower({cond}) LIKE ?"*(i-1)+")")
+
+                    else:
+                        for sub_val in val.split(", "):
+                            cond_string_list.append(f"lower({cond}) LIKE ?")
+                            sub_val = f"%{sub_val.lower()}%"
+                            cond_list.append(sub_val)
+
 
                 if conditions['other']:
-                    for sub_val in conditions['other'].split(", "):
-                        cond_string_list.append(f"lower(serials) LIKE ?")
-                        sub_val = f"%{sub_val.lower()}%"
-                        cond_list.append(sub_val)
+                    cond = "serials"
+                    val = conditions['other']
+                    if "|" in val:
+                        i = 0
+                        for sub_val in val.split("|"):
+                            i+=1
+                            cond_list.append(f"%{sub_val}%")
+
+                        cond_string_list.append("("+f"lower({cond}) LIKE ?"+ f" OR lower({cond}) LIKE ?"*(i-1)+")")
+
+                    else:
+                        for sub_val in val.split(", "):
+                            cond_string_list.append(f"lower({cond}) LIKE ?")
+                            sub_val = f"%{sub_val.lower()}%"
+                            cond_list.append(sub_val)
 
                 if conditions['logTimeFrom']:
                     if conditions['logTimeTo']:
@@ -111,6 +135,9 @@ class DbManager:
                     cond_list.append(conditions['logTimeTo'])
 
                 cond_string = ' AND '.join(cond_string_list)
+
+                print(cond_string)
+                print(cond_list)
 
                 results = c.execute(f"SELECT * FROM {self.TABLE_NAME} WHERE "
                                     f"{cond_string}"
@@ -450,7 +477,6 @@ class File:
     @staticmethod
     def load_log_query(Db, query):
 
-        print(query)
         x = list(Db.query_data(query, 100))
 
         local_log = list()
