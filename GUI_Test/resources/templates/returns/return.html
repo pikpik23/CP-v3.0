@@ -225,7 +225,7 @@
         <tr>
             <td class="serial">To:</td>
             <td class="toFromStandard">
-                <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="1"/>
                 <datalist id="callsigns">
                     {% for callsign in callsigns %}
                         <option value="{{ callsign }}">{{ callsign }}</option>
@@ -233,10 +233,10 @@
                 </datalist>
             </td>
             <td class="toFromStandard">
-                <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
+                <button type="button" id="toThis" class='senderButton toButton'tabindex="-1">{{ settings['callsign'] }}</button>
             </td>
             <td class="toFromStandard">
-                <button type="button" class="toButton">KGS</button>
+                <button type="button" class="toButton" tabindex="-1">KGS</button>
             </td>
             <td></td>
 
@@ -245,10 +245,10 @@
         <tr>
             <td class="serial">From:</td>
             <td class="toFromStandard">
-                <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="2"/>
             </td>
             <td class="toFromStandard" colspan="2">
-                <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
+                <button type="button" id="fromThis" class="senderButton fromButton" tabindex="-1">{{ settings['callsign'] }}</button>
             </td>
             <td></td>
 
@@ -292,7 +292,7 @@
             <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
-                    <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="1"/>
                     <datalist id="callsigns">
                         {% for callsign in callsigns %}
                             <option value="{{ callsign }}">{{ callsign }}</option>
@@ -300,10 +300,10 @@
                     </datalist>
                 </td>
                 <td class="toFromStandard">
-                    <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
+                    <button type="button" id="toThis" class='senderButton toButton' tabindex="-1">{{ settings['callsign'] }}</button>
                 </td>
                 <td class="toFromStandard">
-                    <button type="button" class="toButton">KGS</button>
+                    <button type="button" class="toButton" tabindex="-1">KGS</button>
                 </td>
                 <td></td>
     
@@ -312,10 +312,10 @@
             <tr>
                 <td class="serial">From:</td>
                 <td class="toFromStandard">
-                    <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="2"/>
                 </td>
                 <td class="toFromStandard" colspan="2">
-                    <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
+                    <button type="button" id="fromThis" class="senderButton fromButton" tabindex="-1">{{ settings['callsign'] }}</button>
                 </td>
                 <td></td>
     
