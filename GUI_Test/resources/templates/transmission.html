@@ -56,11 +56,11 @@
                         <a>Transmissions</a>
                     </li>
                     <li>
-                        <button class="selected" href="#" id="MESSAGE">MESSAGE</button>
+                        <button class="selected" href="#" id="MESSAGE" tabindex="-1">MESSAGE</button>
                     </li>
                     {% for return_type in serials_def %}
                         <li>
-                            <button href="#" id={{ return_type }}>{{ return_type }}</button>
+                            <button href="#" id={{ return_type }} tabindex="-1">{{ return_type }}</button>
                         </li>
                     {% endfor %}
                 </ul>

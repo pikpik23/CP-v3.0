@@ -11,6 +11,18 @@
                 arr[type] = data
             });
             $.post('/settings/update/', arr, function (data, status) {
+            $("#popup").html('Settings Saved');
+            $("#popup").show();
+            $("#popup").animate({
+                right: '30px',
+            });
+            setTimeout(function () {
+                $("#popup").fadeOut(500)
+                setTimeout(function () {
+                    $("#popup").css('right', '-200px')
+                }, 500);
+            }, 3000);
+            
             });
 
 

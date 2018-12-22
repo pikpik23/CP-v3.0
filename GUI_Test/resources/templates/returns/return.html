@@ -106,6 +106,18 @@
                 var arr = {};
                 var table = $(".return_table");
                 var box_checked = false;
+
+                var to = $('#inputTo').val();
+                var from = $('#inputFrom').val();
+                if (to == null || to == "") {
+                    alert("Please enter a value for the To field");
+                    return;
+                }
+                if (from == null || from == "") {
+                    alert("Please enter a value for the From field");
+                    return;
+                }
+
                 if ($('#return_type').html() === 'MESSAGE') {
                     arr['msg'] = document.getElementById('textInput').value
                 }
@@ -166,16 +178,7 @@
                     exit = false;
                 }
                 // alert();
-                var to = $('#inputTo').val();
-                var from = $('#inputFrom').val();
-                if (to == null || to == "") {
-                    alert("Please enter a value for the To field");
-                    return;
-                }
-                if (from == null || from == "") {
-                    alert("Please enter a value for the From field");
-                    return;
-                }
+                
 
                 $.extend(arr, {return_type: $('#return_type').html()});
                 $.extend(arr, {cs: document.getElementById('callsign').textContent});
@@ -225,7 +228,7 @@
         <tr>
             <td class="serial">To:</td>
             <td class="toFromStandard">
-                <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="1"/>
                 <datalist id="callsigns">
                     {% for callsign in callsigns %}
                         <option value="{{ callsign }}">{{ callsign }}</option>
@@ -233,10 +236,10 @@
                 </datalist>
             </td>
             <td class="toFromStandard">
-                <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
+                <button type="button" id="toThis" class='senderButton toButton'tabindex="-1">{{ settings['callsign'] }}</button>
             </td>
             <td class="toFromStandard">
-                <button type="button" class="toButton">KGS</button>
+                <button type="button" class="toButton" tabindex="-1">KGS</button>
             </td>
             <td></td>
 
@@ -245,10 +248,10 @@
         <tr>
             <td class="serial">From:</td>
             <td class="toFromStandard">
-                <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="2"/>
             </td>
             <td class="toFromStandard" colspan="2">
-                <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
+                <button type="button" id="fromThis" class="senderButton fromButton" tabindex="-1">{{ settings['callsign'] }}</button>
             </td>
             <td></td>
 
@@ -258,19 +261,19 @@
     <table class="transmission_settings">
         <tr>
             <td class="settings top left" align="right">
-                <button type="button" id="btnCallsign">This Callsign</button>
+                <button type="button" id="btnCallsign" tabindex="-1">This Callsign</button>
             </td>
             <td id="callsign" class="settings top right" align="right">{{ settings['callsign'] }}</td>
         </tr>
         <tr>
             <td class="settings  left" align="right">
-                <button type="button" id="btnDuty">Duty Officer</button>
+                <button type="button" id="btnDuty" tabindex="-1">Duty Officer</button>
             </td>
             <td id="duty_officer" class="settings  right" align="right">{{ settings['Duty'] }}</td>
         </tr>
         <tr>
             <td class="settings bottom left" align="right">
-                <button type="button" id="btnNet">This Net</button>
+                <button type="button" id="btnNet" tabindex="-1">This Net</button>
             </td>
             <td id="net_name" class="settings bottom right" align="right"></td>
         </tr>
@@ -292,7 +295,7 @@
             <tr>
                 <td class="serial">To:</td>
                 <td class="toFromStandard">
-                    <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    <input id="inputTo" name="receiver" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="1"/>
                     <datalist id="callsigns">
                         {% for callsign in callsigns %}
                             <option value="{{ callsign }}">{{ callsign }}</option>
@@ -300,10 +303,10 @@
                     </datalist>
                 </td>
                 <td class="toFromStandard">
-                    <button type="button" id="toThis" class='senderButton toButton'>{{ settings['callsign'] }}</button>
+                    <button type="button" id="toThis" class='senderButton toButton' tabindex="-1">{{ settings['callsign'] }}</button>
                 </td>
                 <td class="toFromStandard">
-                    <button type="button" class="toButton">KGS</button>
+                    <button type="button" class="toButton" tabindex="-1">KGS</button>
                 </td>
                 <td></td>
     
@@ -312,10 +315,10 @@
             <tr>
                 <td class="serial">From:</td>
                 <td class="toFromStandard">
-                    <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off"/>
+                    <input name="sender" id="inputFrom" class="itext" type="text" list="callsigns" autocomplete="off" tabindex="2"/>
                 </td>
                 <td class="toFromStandard" colspan="2">
-                    <button type="button" id="fromThis" class="senderButton fromButton">{{ settings['callsign'] }}</button>
+                    <button type="button" id="fromThis" class="senderButton fromButton" tabindex="-1">{{ settings['callsign'] }}</button>
                 </td>
                 <td></td>
     
@@ -325,19 +328,19 @@
     <table class="transmission_settings">
         <tr>
             <td class="settings top left" align="right">
-                <button type="button" id="btnCallsign">This Callsign</button>
+                <button type="button" id="btnCallsign" tabindex="-1">This Callsign</button>
             </td>
             <td id="callsign" class="settings top right" align="right">{{ settings['callsign'] }}</td>
         </tr>
         <tr>
             <td class="settings  left" align="right">
-                <button type="button" id="btnDuty">Duty Officer</button>
+                <button type="button" id="btnDuty" tabindex="-1">Duty Officer</button>
             </td>
             <td id="duty_officer" class="settings  right" align="right">{{ settings['Duty'] }}</td>
         </tr>
         <tr>
             <td class="settings bottom left" align="right">
-                <button type="button" id="btnNet">This Net</button>
+                <button type="button" id="btnNet" tabindex="-1">This Net</button>
             </td>
             <td id="net_name" class="settings bottom right" align="right"></td>
         </tr>
