@@ -319,7 +319,7 @@
                 <td>Time (DTG)</td>
                 <td><input class="query_input log_time" query_type="logTimeFrom" type="text"> to <input class="query_input log_time" query_type="logTimeTo" type="text"></td>
                 <td>To</td>
-                <td><input class="query_input" query_type="reciever" type="text"></td>
+                <td><input class="query_input" list="callsigns" query_type="reciever" type="text"></td>
                 <td>LogID</td>
                 <td><input class="query_input" query_type="logID" type="text"></td>
             </tr>
@@ -327,7 +327,7 @@
                 <td>Net</td>
                 <td><input class="query_input" query_type="net" type="text"></td>
                 <td>From</td>
-                <td><input class="query_input" query_type="sender" type="text"></td>
+                <td><input class="query_input" list="callsigns" query_type="sender" type="text"></td>
                 <td>Content</td>
                 <td><input class="query_input" query_type="other" type="text"></td>
             </tr>
@@ -341,6 +341,11 @@
                     <option>MESSAGE</option>
                     {% for return_type in serials_def %}
                     <option>{{return_type}}</option>
+                    {% endfor %}
+                </datalist>
+                <datalist id="callsigns">
+                    {% for callsign in callsigns %}
+                        <option value="{{ callsign }}">{{ callsign }}</option>
                     {% endfor %}
                 </datalist>
             </tr>
