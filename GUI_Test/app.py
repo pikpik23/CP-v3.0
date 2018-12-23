@@ -91,7 +91,7 @@ def settings_updatelist_post(list_name):
         LOCATIONS = request.form['lst'].split('\n')
         File.save_Locations(LOCATIONS)
 
-    elif list_name.upper() == "CALLSIGN":
+    elif list_name.upper() == "CALLSIGNS":
         global CALLSIGNS
         CALLSIGNS = request.form['lst'].split('\n')
         File.save_callsigns(CALLSIGNS)
