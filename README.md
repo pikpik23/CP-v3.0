@@ -1,4 +1,15 @@
-# Google API Experiments
+# Command Post v3.0
+
+* This repository includes a series of random Cadet related programs, mainly the new Command Post Software.
+
+## Viewing CP 3.0
+
+
+
+
+
+
+
 
 
 ## Depreciated
