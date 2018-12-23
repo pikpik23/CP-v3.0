@@ -228,7 +228,7 @@ def convert_newlines(line):
 def log_shell():
     """loads the log shell"""
     log = File.load_log(DB_CONN)
-    return render_template('log/log_edit_new.html', serials_def=SERIALS, log=log)
+    return render_template('log/log_edit_new.html', serials_def=SERIALS, log=log, callsigns=CALLSIGNS)
 
 
 @APP.route('/log/<log_id>')
