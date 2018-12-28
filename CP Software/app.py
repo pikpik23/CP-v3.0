@@ -404,9 +404,16 @@ def setting_upload_log():
         if f.filename[-3:]=='.db':
             SETTINGS['DB_FILE_NAME'] = get_new_log_name()
             update_setting()
-            f.save("resources/static/log/"+secure_filename(SETTINGS['DB_FILE_NAME'].replace("resources/static/log/LOG_", "")))
+            f.save("resources/static/db/"+secure_filename(SETTINGS['DB_FILE_NAME'].replace("resources/static/db/", "")))
             global DB_CONN
             DB_CONN = File.db_connect(SETTINGS)
+
+        else:
+            print("Didn't upload DB correctly")
+            return "<h1>Incorrect File Type</h1>"
+    else:
+        return "<h1>Didn't upload a file</h1>"
+
     return redirect("/settings")
 
 @APP.route('/settings/sitemap', methods = ['GET'])
@@ -510,12 +517,12 @@ def instructions():
 
 def start():
     print("Starting Backup Daemon")
-    save = SaveTimer(1, backup)
+    save = SaveTimer(1800, backup)
 
     print("Starting Server")
     APP.jinja_env.cache = {}  # creates unlimited cache size (so each page can be cached)
 
-    DEBUG = True  # Changes launch settings
+    DEBUG = False  # Changes launch settings
 
     try:
         if not DEBUG:
@@ -531,10 +538,11 @@ def start():
     except Exception:
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
 
+    print("Stopping Server")
     save.stop()
 
 if __name__ == '__main__':
-    
+
     start()
 
 
