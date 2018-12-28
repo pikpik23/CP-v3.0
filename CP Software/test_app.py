@@ -15,7 +15,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
         else:
             shutil.copy2(s, d)
 
-def test_function():
+def save():
     files = glob("/Volumes/*")
 
     rem = ["/Volumes/student", "/Volumes/com.apple.TimeMachine.localsnapshots", "/Volumes/Macintosh HD", "Blah"]
@@ -49,4 +49,4 @@ def save(dest, src):
         copytree(src, dest)
 
 if __name__ == '__main__':
-    test_function()
+    save()

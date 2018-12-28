@@ -4,7 +4,10 @@ import sqlite3
 from jsmin import jsmin
 from glob import glob
 from csscompressor import compress
-
+from threading import Timer
+from glob import glob
+import os
+import shutil
 
 class MinifyFilesPre:
     def __init__(self, merge=False):
@@ -591,6 +594,74 @@ def fix_time(dtg):
         return str(dtg)
     else:
         return str(f'0{dtg}')
+
+
+class SaveTimer(object):
+    def __init__(self, interval, function, *args, **kwargs):
+        self._timer     = None
+        self.interval   = interval
+        self.function   = function
+        self.args       = args
+        self.kwargs     = kwargs
+        self.is_running = False
+        self.start()
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.function(*self.args, **self.kwargs)
+
+    def start(self):
+        if not self.is_running:
+            self._timer = Timer(self.interval, self._run)
+            self._timer.start()
+            self.is_running = True
+
+    def stop(self):
+        self._timer.cancel()
+        self.is_running = False
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
+
+def backup():
+    files = glob("/Volumes/*")
+
+    rem = ["/Volumes/student", "/Volumes/com.apple.TimeMachine.localsnapshots", "/Volumes/Macintosh HD", "Blah"]
+
+    for path in rem:
+        try:
+            files.remove(path)
+        except ValueError:
+            pass
+
+
+    usb = None
+    for path in files:
+        if "CP" in path:
+            usb = os.path.join(path, "Backup")
+            break
+        else:
+            usb = None
+            print("No Backup USB found")
+
+    if usb:
+        # save to usb
+        print("Saving...", end=" ")
+        save(os.path.join(usb, "files"), "resources/files")
+        save(os.path.join(usb, "db"), "resources/static/db")
+        print("Saved")
+
+def save(dest, src):
+    if not os.path.exists(dest):
+        os.makedirs(dest)
+        copytree(src, dest)
 
 if __name__ == '__main__':
     pass

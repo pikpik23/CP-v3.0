@@ -8,7 +8,7 @@ from datetime import datetime
 
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
-from file import File
+from file import File, SaveTimer, backup
 from flask_compress import Compress
 
 APP = Flask(__name__, template_folder='resources/templates',
@@ -508,11 +508,14 @@ def instructions():
     """ Renders the instructions page """
     return render_template('instructions.html')
 
-if __name__ == '__main__':
+def start():
+    print("Starting Backup Daemon")
+    save = SaveTimer(1, backup)
 
-    APP.jinja_env.cache = {} # creates unlimited cache size (so each page can be cached)
+    print("Starting Server")
+    APP.jinja_env.cache = {}  # creates unlimited cache size (so each page can be cached)
 
-    DEBUG = True # Changes launch settings
+    DEBUG = True  # Changes launch settings
 
     try:
         if not DEBUG:
@@ -527,3 +530,11 @@ if __name__ == '__main__':
 
     except Exception:
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
+
+    save.stop()
+
+if __name__ == '__main__':
+    
+    start()
+
+
