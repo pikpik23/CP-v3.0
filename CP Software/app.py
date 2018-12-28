@@ -515,6 +515,16 @@ def instructions():
     """ Renders the instructions page """
     return render_template('instructions.html')
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@APP.route('/settings/shutdown/', methods=['POST'])
+def shutdown():
+    shutdown_server()
+
 def start():
     print("Starting Backup Daemon")
     save = SaveTimer(1800, backup)
@@ -538,8 +548,9 @@ def start():
     except Exception:
         APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
 
-    print("Stopping Server")
-    save.stop()
+    finally:
+        print("Stopping Server")
+        save.stop()
 
 if __name__ == '__main__':
 
