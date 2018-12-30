@@ -5,12 +5,14 @@ The main file for the CP site
 All request handling is done from here
 """
 import logging
-
+import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
 from file import File, SaveTimer, backup
 from flask_compress import Compress
+from threading import Thread
+from time import sleep
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
@@ -526,6 +528,11 @@ def shutdown_server():
 def shutdown():
     shutdown_server()
 
+def open_chrome():
+    sleep(1)
+    os.system("/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --kiosk http://0.0.0.0:80/")
+    os.system("""osascript -e 'tell application "Google Chrome" to activate'""")
+
 def start():
     logging.info("Starting Backup Daemon")
     save = SaveTimer(1800, backup)
@@ -534,7 +541,7 @@ def start():
     APP.jinja_env.cache = {}  # creates unlimited cache size (so each page can be cached)
 
     DEBUG = False  # Changes launch settings
-
+    Thread(target=open_chrome).start()
     try:
         if not DEBUG:
             print("Running")
