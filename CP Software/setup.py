@@ -38,7 +38,8 @@ OPTIONS = {
             'CFBundleIdentifier': "com.RenierLambinon.CommandPostV3.0",
             'CFBundleVersion': "3.0-Alpha",
             'CFBundleShortVersionString': "3.0-Alpha",
-            'NSHumanReadableCopyright': u"Copyright © 2019, Renier Lambinon and Trent Muskens"
+            'NSHumanReadableCopyright': u"Copyright © 2019, Renier Lambinon and Trent Muskens",
+            'NSSystemAdministrationUsageDescription': "Needs this to lock port 80"
         }
 }
 

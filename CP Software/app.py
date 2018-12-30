@@ -4,8 +4,9 @@ The main file for the CP site
 
 All request handling is done from here
 """
-from datetime import datetime
+import logging
 
+from datetime import datetime
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from werkzeug.utils import secure_filename
 from file import File, SaveTimer, backup
@@ -526,10 +527,10 @@ def shutdown():
     shutdown_server()
 
 def start():
-    print("Starting Backup Daemon")
+    logging.info("Starting Backup Daemon")
     save = SaveTimer(1800, backup)
 
-    print("Starting Server")
+    logging.info("Starting Server")
     APP.jinja_env.cache = {}  # creates unlimited cache size (so each page can be cached)
 
     DEBUG = False  # Changes launch settings
@@ -545,15 +546,22 @@ def start():
         print("Could not use port 80 (use sudo to use port 80)")
         APP.run(host='0.0.0.0', debug=False, port=8080, threaded=True)
 
-    except Exception:
-        APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
+    except Exception as e:
+        if e == "":
+            APP.run(host='0.0.0.0', debug=True, port=8080, threaded=True)
+        else:
+            logging.exception("The server encountered a problem")
 
     finally:
-        print("Stopping Server")
+        logging.info("Stopping Server")
         save.stop()
 
 if __name__ == '__main__':
-
-    start()
+    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.DEBUG)
+    logging.info(f"Initial startup of server at {datetime.now()}")
+    try:
+        start()
+    except Exception as e:
+        logging.exception("This is why it crashed: ")
 
 
