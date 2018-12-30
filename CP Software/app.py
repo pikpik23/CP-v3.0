@@ -4,6 +4,12 @@ The main file for the CP site
 
 All request handling is done from here
 """
+
+# GUI Imports
+from tkinter import *
+from PIL import ImageTk, Image
+
+# The Rest
 import logging
 import os
 from datetime import datetime
@@ -13,6 +19,8 @@ from file import File, SaveTimer, backup
 from flask_compress import Compress
 from threading import Thread
 from time import sleep
+import requests
+from requests import post
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
@@ -528,10 +536,20 @@ def shutdown_server():
 def shutdown():
     shutdown_server()
 
+@APP.route('/api/v1.0/<action>', methods=['POST'])
+def api_handler(action):
+    resp = 0
+    if action == "status":
+        resp = "1"
+    elif action == "shutdown":
+        shutdown_server()
+        resp = "2"
+    return resp
+
 def open_chrome():
     sleep(1)
     os.system("/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --kiosk http://0.0.0.0:80/")
-    os.system("""osascript -e 'tell application "Google Chrome" to activate'""")
+    #os.system("""osascript -e 'tell application "Google Chrome" to activate'""")
 
 def start():
     logging.info("Starting Backup Daemon")
@@ -563,12 +581,85 @@ def start():
         logging.info("Stopping Server")
         save.stop()
 
-if __name__ == '__main__':
-    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.DEBUG)
-    logging.info(f"Initial startup of server at {datetime.now()}")
-    try:
-        start()
-    except Exception as e:
-        logging.exception("This is why it crashed: ")
+class gui():
 
+    def __init__(self):
+        self.root = Tk()
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+        self.root.title("Command Post V3.0")
+        self.root.geometry("249x324+300+150")
+        self.root.resizable(width=False, height=False)
+
+        #Generate Frame
+        self.gen_frame()
+
+
+    def button_press(self):
+        attempts = 0
+
+        try:
+            while post("http://0.0.0.0/api/v1.0/status").text == "1" and attempts <=3:
+                attempts += 1
+                print("closing")
+                post("http://0.0.0.0/api/v1.0/shutdown")
+                sleep(1)
+        except requests.exceptions.ConnectionError:
+            attempts = 0
+
+
+        if attempts > 3:
+            self.status_text['text'] = "Failed to shutdown"
+        else:
+            self.root.destroy()
+
+    def ready(self):
+        # rezie to fix button glitch
+        self.root.geometry("250x325+300+150")
+
+    def gen_frame(self):
+        #IMAGE FRAME
+        img = Image.open("CPL.gif")
+        img = img.resize((200, 200), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(img)
+        panel = Label(self.root, image=img)
+        panel.image = img
+        panel.pack(pady=20)
+
+        #Status label
+        self.status_text = Label(self.root)
+        self.status_text['text'] = "Server Running"
+
+        #Exit Button
+        button = Button(self.root, text=" STOP SERVER ", command=self.button_press)
+
+        self.status_text.pack(pady=10)
+        button.pack(pady=0)
+
+        self.root.wait_visibility()
+
+        self.root.after_idle(self.ready)
+
+        # start the event loop
+        self.root.mainloop()
+
+
+    def on_closing(self):
+        self.button_press()
+
+# This wil handle the threads
+def thread_handler():
+    # starting the server
+    thr = Thread(target=start)
+    # thr.setDaemon(True)
+    thr.start()
+
+    print("starting GUI")
+
+    gui()
+
+if __name__ == '__main__':
+    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.WARN)
+    logging.WARN("\n\n"+'-'*45+"\nInitial startup of server at "+datetime.now()+"\n"+'-'*45+"\n")
+
+    thread_handler()
 

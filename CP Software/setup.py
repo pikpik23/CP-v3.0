@@ -10,11 +10,12 @@ from setuptools import setup
 
 APP = ['app.py']
 APP_NAME = "Command Post V3.0"
-DATA_FILES = ['CP.icns','resources', 'file.py']
+DATA_FILES = ['CP.icns','resources', 'file.py',"CPL.gif"]
 OPTIONS = {
     'argv_emulation': True,
     'iconfile': 'CP.icns',
-    'packages': ["flask",
+    'packages': ["PIL",
+                 "flask",
                  "jinja2",
                  "markupsafe",
                  "werkzeug",
