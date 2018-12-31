@@ -658,8 +658,8 @@ def thread_handler():
     gui()
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.WARN)
-    logging.WARN("\n\n"+'-'*45+"\nInitial startup of server at "+datetime.now()+"\n"+'-'*45+"\n")
+    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.WARN, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
+    logging.warning("test")
 
     thread_handler()
 
