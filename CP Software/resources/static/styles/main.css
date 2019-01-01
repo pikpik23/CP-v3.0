@@ -889,15 +889,6 @@ input[type=file] {
     width: 100%;
 }
 
-#portaloo {
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    width: 20%;
-    border: 5px solid blue;
-    display: none;
-}
-
 #repeat {
     position: fixed;
     top: 15%;

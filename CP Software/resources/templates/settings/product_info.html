@@ -6,23 +6,6 @@
             alert('memes')
         }).listen();
 
-        function meme(img) {
-            $('#portaloo').attr('src', '/images/' + img);
-            jQuery('#portaloo').fadeIn(500, function () {
-                window.setTimeout(function () {
-                    jQuery('#portaloo').hide();
-                }, 1000);
-            });
-        }
-
-        var memes = new Egg("c,q", function () {
-            meme('portaloo.png')
-        }).listen();
-
-        var memes = new Egg("c,a,t,e,r,i,n,g", function () {
-            meme('catering.png')
-        }).listen();
-        
     });
 </script>
 <link rel="stylesheet" href="/styles/main.css">
@@ -47,14 +30,7 @@
 
             <li>Includes graveyard shift entertainment (see the quick tip below)</li>
         </ul>
-    <h2>Quick Tips</h2>
+    <h2>Quick Tip</h2>
     <p>If you are getting bored during the graveyard shift, simply type "tetris" on your keyboard while on the settings page to enjoy some entertainment. Please be advised that this feature only works during the graveyard shift.</p>
-    <p>There are a few other easter eggs that you may want to try and find. Most of which can only be accessed on this "Software Info" page. Below are some ideas:</p>
-    <ul>
-        <li>Try typing the name of a platoon.</li>
-        <li>Say hello to the software - it might reply.</li>
-        <li>Who was the 'pm' when this software was created???</li>
-    </ul>
     
 </div>
-<img id="portaloo">
