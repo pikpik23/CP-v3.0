@@ -174,6 +174,13 @@ class DbManager:
             if ret:
                 return self.read_return()
 
+    def count_records(self):
+        with sqlite3.connect(self.FILE_NAME) as conn:
+            c = conn.cursor()
+            results = c.execute(f"SELECT COUNT('LogID') FROM {self.TABLE_NAME}")
+        return results
+
+
     def create_game_table(self, ret=False):
         with sqlite3.connect(self.FILE_NAME) as conn:
             c = conn.cursor()
