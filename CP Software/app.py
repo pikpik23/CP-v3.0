@@ -24,6 +24,7 @@ import requests
 from requests import post
 import requests
 import socket
+import mgrs
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
