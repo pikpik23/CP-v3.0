@@ -609,7 +609,7 @@ class gui:
             self.root.destroy()
 
     def ready(self):
-        # rezie to fix button glitch
+        # resize to fix button glitch
         self.root.geometry("250x325+300+150")
 
     def gen_frame(self):
@@ -629,11 +629,11 @@ class gui:
         stop = Button(self.root, text=" STOP SERVER ", command=self.button_press)
 
         #Help Button
-        help = Button(self.root, text="?", command=self.help)
+        help = Button(self.root, text=" HELP ", command=self.help)
 
-        self.status_text.pack(pady=10)
+        self.status_text.pack(pady=0)
         stop.pack(pady=0)
-        help.place(x=200,y=5)
+        help.pack(pady=0)
 
         self.root.wait_visibility()
 
