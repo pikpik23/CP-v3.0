@@ -24,6 +24,7 @@ import requests
 from requests import post
 import requests
 import socket
+import mgrs
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
@@ -589,7 +590,6 @@ def start():
 
 class gui:
 
-
     def __init__(self):
         self.root = Tk()
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
@@ -620,7 +620,7 @@ class gui:
             self.root.destroy()
 
     def ready(self):
-        # rezie to fix button glitch
+        # resize to fix button glitch
         self.root.geometry("250x325+300+150")
 
     def gen_frame(self):
@@ -640,11 +640,11 @@ class gui:
         stop = Button(self.root, text=" STOP SERVER ", command=self.button_press)
 
         #Help Button
-        help = Button(self.root, text="?", command=self.help)
+        help = Button(self.root, text=" HELP ", command=self.help)
 
-        self.status_text.pack(pady=10)
+        self.status_text.pack(pady=0)
         stop.pack(pady=0)
-        help.place(x=200,y=5)
+        help.pack(pady=0)
 
         self.root.wait_visibility()
 
@@ -701,18 +701,18 @@ class helpgui:
         self.root.geometry("249x324+600+150")
         self.root.resizable(width=False, height=False)
 
+        # Fonts
+        self.h1 = font.Font(family='Helvetica', size=24, weight='bold')
+        self.name = font.Font(family='Helvetica', size=16, weight='bold')
+        self.value = font.Font(family='Helvetica', size=16)
+
         # Generate Frame
         self.gen_frame()
 
     def gen_frame(self):
 
-        # Fonts
-        h1 = font.Font(family='Helvetica', size=24, weight='bold')
-        name = font.Font(family='Helvetica', size=16, weight='bold')
-        value = font.Font(family='Helvetica', size=16)
-
         #Status label
-        self.status_text = Label(self.root, font=h1, anchor='center')
+        self.status_text = Label(self.root, font=self.h1, anchor='center')
         self.status_text['text'] = " Help "
 
         self.status_text.grid(column=0,row=0, pady=10, columnspan=2)
@@ -733,11 +733,11 @@ class helpgui:
         x = 1
         for key, val in dic.items():
 
-            label_key = Label(self.root, font=name)
+            label_key = Label(self.root, font=self.name)
             label_key['text'] = str(key)+": "
             label_key.grid(column=0, row=x, sticky='e')
 
-            label_val = Label(self.root, font=value)
+            label_val = Label(self.root, font=self.value)
             label_val['text'] = str(val)
             label_val.grid(column=1, row=x, sticky='w')
 
@@ -746,7 +746,7 @@ class helpgui:
 
             x+=1
 
-        help_label = Label(self.root, font=value, wraplength=230)
+        help_label = Label(self.root, font=self.value, wraplength=230)
         help_label['text'] = \
         "\n" \
         "Type the IP Address into Chrome to connect to the CP server\n\n" \
@@ -762,6 +762,7 @@ class helpgui:
     def ready(self):
         # resize to fix button glitch
         self.root.geometry("250x325+300+150")
+
 # This wil handle the threads
 def thread_handler():
     # starting the server
@@ -773,9 +774,8 @@ def thread_handler():
     gui()
 
 
-
 if __name__ == '__main__':
-    logging.basicConfig(filename='eventLog.log', filemode='a', level=logging.WARN, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
+    logging.basicConfig(filename='crashLog.log', filemode='a', level=logging.WARN, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
 
     thread_handler()
 
