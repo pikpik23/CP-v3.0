@@ -1,0 +1,65 @@
+{% extends '/includes/layout.html' %} {% block body %}
+    <script type="text/javascript" src="/js_files/egg.js"></script>
+    <script src="/js_files/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#convert').click(function () {
+                $.ajax({
+                    url: "/tools/convert",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                     error: function (xhr) {
+                        $("#settings_display").html("A ERROR HAS OCCURRED");
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Coordinate/Grid Conversion");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+
+            });
+            $('#convert').click();
+            
+            $('#edit_return').click(function () {
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                window.location = "/edit_return"
+            });
+        });
+    </script>
+
+    <div class="scrollmenu">
+        <nav>
+            <ul>
+                <li>
+                    <a>Tools</a>
+                </li>
+                <li>
+                    <button class="setting_button" id="convert">Coordinate/Grid Conversion</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="edit_return">Edit Return Serials</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="divRight">
+        <div class="banner">
+            <a id="current">Coordinate/Grid Conversion</a>
+            <div id="popup">Notification</div>
+        </div>
+        <div id="settings_display">
+
+        </div>
+    </div>
+
+    </div>
+
+
+{% endblock %}

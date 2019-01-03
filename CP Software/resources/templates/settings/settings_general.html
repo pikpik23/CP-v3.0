@@ -2,36 +2,36 @@
 <script src="/js_files/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#settings_save').click(function() {
+        $('#settings_save').click(function () {
             var table = $('.general');
             var arr = {};
-            table.find(".current_details").each(function(index,val){
+            table.find(".current_details").each(function (index, val) {
                 var type = $(this).attr('input');
                 var data = $(this).val();
                 arr[type] = data
             });
             $.post('/settings/update/', arr, function (data, status) {
-            $("#popup").html('Settings Saved');
-            $("#popup").show();
-            $("#popup").animate({
-                right: '30px',
-            });
-            setTimeout(function () {
-                $("#popup").fadeOut(500)
+                $("#popup").html('Settings Saved');
+                $("#popup").show();
+                $("#popup").animate({
+                    right: '30px',
+                });
                 setTimeout(function () {
-                    $("#popup").css('right', '-200px')
-                }, 500);
-            }, 3000);
-            
+                    $("#popup").fadeOut(500)
+                    setTimeout(function () {
+                        $("#popup").css('right', '-200px')
+                    }, 500);
+                }, 3000);
+
             });
 
 
         });
 
         // A post is used to prevent someone randomly visiting the url
-        $("#delete_log").click(function(){$.post('/settings/action/', {action:"delete_log"}, function () {})});
+        $("#delete_log").click(function () { $.post('/settings/action/', { action: "delete_log" }, function () { }) });
 
-        $("#shutdown").click(function(){$.post('/settings/shutdown/', function () {})});
+        $("#shutdown").click(function () { $.post('/settings/shutdown/', function () { }) });
 
         $('#chooseFile').bind('change', function () {
             var filename = $("#chooseFile").val();
@@ -49,37 +49,43 @@
     <p>Please be advised that these settings affect the whole server.</p>
     <table class='general'>
         <tr>
-            <td colspan="2"><h3>Current Details</h3></td>
+            <td colspan="2">
+                <h3>Current Details</h3>
+            </td>
         </tr>
 
         <tr>
             <td id="callsign"><b>Callsign</b></td>
             <td align="right">
-                <input id="csIpnut" input="callsign" class="current_details" type="text" value="{{ settings['callsign'] }}"/>
+                <input id="csIpnut" input="callsign" class="current_details" type="text" value="{{ settings['callsign'] }}" />
             </td>
         </tr>
         <tr>
             <td id="callsign"><b>Duty Officer</b></td>
             <td align="right">
-                <input id="csIpnut" input="Duty" class="current_details" type="text" value="{{ settings['Duty'] }}"/>
+                <input id="csIpnut" input="Duty" class="current_details" type="text" value="{{ settings['Duty'] }}" />
             </td>
-            </tr>
+        </tr>
         <tr>
             <td><button class="btnSmall" id="settings_save">Save</button></td>
         </tr>
         <tr>
-            <td colspan="2"><h3>Log Settings</h3></td>
+            <td colspan="2">
+                <h3>Log Settings</h3>
+            </td>
         </tr>
         <tr>
-            <td colspan="2"><a href="/settings/download_log"><button class="btnLge" >Download Log</button></a><i>   Do this at the end of camp!</i></td>
+            <td colspan="2"><a href="/settings/download_log"><button class="btnLge">Download Log</button></a><i> Do
+                    this at the end of camp!</i></td>
         </tr>
         <tr>
-            <td colspan="2"><button id="delete_log" class="btnLge">Delete Log</button><i>   Do this at the start of camp to clear the log!</i></td>
+            <td colspan="2"><button id="delete_log" class="btnLge">Delete Log</button><i> Do this at the start of camp
+                    to clear the log!</i></td>
         </tr>
         <tr>
             <td colspan="2">
-                <form id="log_upload_form" method="post" action="/settings/log_upload" enctype = "multipart/form-data">
-                    <input type="file" id="chooseFile" name="file"/>
+                <form id="log_upload_form" method="post" action="/settings/log_upload" enctype="multipart/form-data">
+                    <input type="file" id="chooseFile" name="file" />
                     <button id="log_upload" class="btnMed" type="submit">Upload Log</button>
                 </form>
             </td>
