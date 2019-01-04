@@ -85,6 +85,25 @@
                 $(this).attr("class", "selected");
 
             });
+            $('#convert').click(function () {
+                $.ajax({
+                    url: "/settings/convert",
+                    type: "get",
+                    success: function (response) {
+                        $("#settings_display").html(response);
+                    },
+                     error: function (xhr) {
+                        $("#settings_display").html("A ERROR HAS OCCURRED");
+                        //Do Something to handle error
+                    }
+                });
+                $('#current').html("Grid/Coordinate Conversion");
+                $('button').each(function (index, element) {
+                    $(element).attr("class", "off");
+                });
+                $(this).attr("class", "selected");
+
+            });
             $('#site_map').click(function () {
                 $.ajax({
                     url: "/settings/sitemap",
@@ -149,6 +168,9 @@
                 </li>
                 <li>
                     <button class="setting_button" id="general">General</button>
+                </li>
+                <li>
+                    <button class="setting_button" id="convert">Grid/Coordinate Conversion</button>
                 </li>
                 <li>
                     <button class="setting_button" id="edit_return">Edit Return Serials</button>

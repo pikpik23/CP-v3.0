@@ -523,15 +523,10 @@ def instructions():
     """ Renders the instructions page """
     return render_template('instructions.html')
 
-@APP.route('/tools')
-def tools():
-    """ Renders the tools page """
-    return render_template('/tools/tools.html')
-
-@APP.route('/tools/convert')
+@APP.route('/settings/convert')
 def coordinate_conversion():
     """ Renders the grid to coordinate conversion page """
-    return render_template('/tools/grid_coordinate.html')
+    return render_template('/settings/grid_coordinate.html')
 
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')

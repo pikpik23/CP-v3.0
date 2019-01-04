@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/styles/main.css" xmlns="http://www.w3.org/1999/html">
+<script src="/js_files/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#grconvert').click(function(){
+            var coordinates = {}
+            coordinates["lat"] = $("#latinput").val();
+            coordinates["long"] = $("#longinput").val();
+            $.post("/tools/convert/coordinates", coordinates, function (data, status) {
+            });
+            $("#position").html("Coordinates")
+            $("#input").html(coordinates["lat"] + "," + coordinates["long"])
+            $("#output_type").html("Grid Reference:")
+            $("#output").html("return")
+        })
+        $('#llconvert').click(function(){
+            var mgrs = {}
+            mgrs["prefix"] = $("#prefixinput").val();
+            mgrs["gr"] = $("#grinput").val();
+            $.post("/tools/convert/mgrs", mgrs, function (data, status) {
+            });
+            $("#position").html("Grid Reference")
+            $("#input").html(mgrs["prefix"] + " " + mgrs["gr"])
+            $("#output_type").html("Coordinates:")
+            $("#output").html("return")
+        })
+    });
+</script>
+<div class="inner">
+    <p>Use this tool to convert between the Military Grid Reference System used by the KGSACU and Coordinates as measured by CMAPS.</p>
+    <h3>Input</h3>
+    <table class='general'>
+        <tr>
+            <td>Lattitude</td>
+            <td class="convert">
+                <input id="latinput" type="text" />
+            </td>
+            <td>Longitude</td>
+            <td class="convert">
+                <input id=longinput type="text"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center"><button class="btnXLge" id="grconvert">Convert to GR</button></td>
+        </tr>
+        <tr style="height:20px;"></tr>
+        <tr>
+            <td class="convert">Prefix</td>
+            <td>
+                <input type="text" id="prefixinput" value="56HLJ"/>
+            </td>
+            <td class="convert">GR</td>
+            <td>
+                <input id="grinput" type="text"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" align="center"><button id="llconvert" class="btnXLge">Convert to Coordinates</button></td>
+        </tr>   
+    </table>
+    <br>
+    <h3>Output</h3>
+    <table>
+        <tr>
+            <td><b id="position"></b></td>
+            <td id="input"></td>
+        </tr>
+        <tr>
+            <td><b id="output_type"></b></td>
+            <td id="output"></td>
+        </tr>
+    </table>
+</div>

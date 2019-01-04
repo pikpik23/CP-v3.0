@@ -367,6 +367,12 @@ footer {
     text-align: center;
     width: 150px;
 }
+.btnXLge{
+    font-size: 10pt;
+    border-radius: 5px;
+    text-align: center;
+    width: 200px;
+}
 
 .btn {
     border: 1px solid rgb(187, 187, 187);
@@ -1052,6 +1058,10 @@ select.hsdata{
     font-size: 12pt;
 }
 
+.convert {
+    text-align: right;
+    height: 20pt;
+}
 /* -------------------------------------------- EDIT LOG ------------------------------------------*/
 /* The Modal (background) */
 .modal {
