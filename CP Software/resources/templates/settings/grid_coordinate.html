@@ -3,26 +3,28 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#grconvert').click(function(){
-            var coordinates = {}
+            var coordinates = {};
             coordinates["lat"] = $("#latinput").val();
             coordinates["long"] = $("#longinput").val();
             $.post("/tools/convert/coordinates", coordinates, function (data, status) {
+                $("#output").html(data)
             });
-            $("#position").html("Coordinates Input:")
-            $("#input").html(coordinates["lat"] + "&#176;, " + coordinates["long"] + "&#176;")
-            $("#output_type").html("Grid Reference:")
-            $("#output").html("return")
-        })
+            $("#position").html("Coordinates Input:");
+            $("#input").html(coordinates["lat"] + "&#176;, " + coordinates["long"] + "&#176;");
+            $("#output_type").html("Grid Reference:");
+
+        });
         $('#llconvert').click(function(){
-            var mgrs = {}
+            var mgrs = {};
             mgrs["prefix"] = $("#prefixinput").val();
             mgrs["gr"] = $("#grinput").val();
             $.post("/tools/convert/mgrs", mgrs, function (data, status) {
+                $("#output").html(data)
             });
-            $("#position").html("Grid Reference Input:")
-            $("#input").html(mgrs["prefix"] + " " + mgrs["gr"])
-            $("#output_type").html("Coordinates:")
-            $("#output").html("return")
+            $("#position").html("Grid Reference Input:");
+            $("#input").html(mgrs["prefix"] + " " + mgrs["gr"]);
+            $("#output_type").html("Coordinates:");
+
         })
     });
 </script>

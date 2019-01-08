@@ -523,11 +523,6 @@ def instructions():
     """ Renders the instructions page """
     return render_template('instructions.html')
 
-@APP.route('/settings/convert')
-def coordinate_conversion():
-    """ Renders the grid to coordinate conversion page """
-    return render_template('/settings/grid_coordinate.html')
-
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')
     if func is None:
@@ -768,9 +763,42 @@ def thread_handler():
     print("starting GUI")
     gui()
 
+@APP.route('/settings/convert')
+def coordinate_conversion():
+    """ Renders the grid to coordinate conversion page """
+    return render_template('settings/grid_coordinate.html')
+
+@APP.route('/tools/convert/<method>', methods = ['POST'])
+def conversion(method):
+    data = request.form.to_dict()
+    logging.info(data)
+    if method == "coordinates":
+        return Convert().Cord(data['lat'], data['long'])
+    elif method == "mgrs":
+        return str(Convert().MGRS(str(data['prefix']+data['gr'])))
+    return "error"
+
+class Convert:
+
+    def __init__(self):
+        self.m = mgrs.MGRS()
+
+    def Cord(self, lat,long):
+        logging.info(str("Co Ords: "+lat+", "+long))
+        return self.m.toMGRS(lat, long)
+
+    def MGRS(self, code):
+        logging.info("Code "+code)
+        return self.m.toLatLon(code.encode())
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='crashLog.log', filemode='a', level=logging.WARN, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
+
+    DEBUG = True
+
+    if DEBUG:
+        logging.basicConfig(filename='crashLog.log', filemode='a', level=logging.INFO, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
+    else:
+        logging.basicConfig(filename='crashLog.log', filemode='a', level=logging.WARN, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
 
     thread_handler()
 
