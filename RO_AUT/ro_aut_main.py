@@ -103,7 +103,12 @@ def getTPdata():
                         WARNED = True
 
                 elif "A COY" in i[0]: # A COY
-                    tier = int(i[0].split(" TIER ")[1])
+                    try:
+                        tier = int(i[0].split(" TIER ")[1])
+                    except IndexError:
+                        print("Alpha tier Error")
+                        tier = i[0]
+
                     coy = 'A'
                     keyTRG = str(f"{coy}.1.{tier}.TRG")
                     keyLOC = str(f"{coy}.1.{tier}.LOC")
