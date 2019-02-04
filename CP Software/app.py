@@ -5,6 +5,8 @@ The main file for the CP site
 All request handling is done from here
 """
 
+EnableMGRS = True
+
 # GUI Imports
 from tkinter import Tk, Label, Button
 from tkinter import font
@@ -24,7 +26,11 @@ import requests
 from requests import post
 import requests
 import socket
-import mgrs
+if EnableMGRS:
+    try:
+        import mgrs
+    except:
+        EnableMGRS = False
 
 APP = Flask(__name__, template_folder='resources/templates',
             static_folder='resources/static', static_url_path='')
@@ -781,15 +787,22 @@ def conversion(method):
 class Convert:
 
     def __init__(self):
-        self.m = mgrs.MGRS()
+        if EnableMGRS:
+            self.m = mgrs.MGRS()
+        else:
+            logging.log(logging.WARN, "This module (MGRS) isn't portable (see github issue #88)")
 
     def Cord(self, lat,long):
         logging.info(str("Co Ords: "+lat+", "+long))
-        return self.m.toMGRS(lat, long)
+        if EnableMGRS:
+            return self.m.toMGRS(lat, long)
+        return "This feature is currently not installed on this server"
 
     def MGRS(self, code):
         logging.info("Code "+code)
-        return self.m.toLatLon(code.encode())
+        if EnableMGRS:
+            return self.m.toLatLon(code.encode())
+        return "This feature is currently not installed on this server"
 
 if __name__ == '__main__':
 
