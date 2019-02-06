@@ -20,6 +20,7 @@ OPTIONS = {
                  "markupsafe",
                  "werkzeug",
                  "mgrs",
+                 "tkinter",
                  #"libmgrs",
                  #"ctypes",
                  #"atexit",

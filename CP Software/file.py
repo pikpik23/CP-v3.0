@@ -8,6 +8,7 @@ from threading import Timer
 from glob import glob
 import os
 import shutil
+import logging
 
 class MinifyFilesPre:
     def __init__(self, merge=False):
@@ -368,6 +369,7 @@ class File:
         """ reads the dictionary of serials """
         # should return the original format
         dic = OrdDic()
+        logging.log(logging.INFO, "File path: "+os.path.realpath(__file__))
         r = reader(open("resources/files/serials.csv", "r", newline="\n"))
         i = 0
         for row in r:
