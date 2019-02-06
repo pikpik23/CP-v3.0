@@ -787,13 +787,14 @@ def conversion(method):
 class Convert:
 
     def __init__(self):
+        global EnableMGRS
         if EnableMGRS:
-        	try:
-            	self.m = mgrs.MGRS()
+            try:
+                self.m = mgrs.MGRS()
             except:
-            	EnableMGRS = False
+                EnableMGRS = False
         else:
-            logging.log(logging.WARN, "This module (MGRS) isn't portable (see github issue #88)")
+            logging.log(logging.WARN, "This module (MGRS) might cause problems")
 
     def Cord(self, lat,long):
         logging.info(str("Co Ords: "+lat+", "+long))
@@ -803,11 +804,14 @@ class Convert:
 
     def MGRS(self, code):
         logging.info("Code "+code)
+        global EnableMGRS
         if EnableMGRS:
-        	try:
-            	return self.m.toLatLon(code.encode())
+            try:
+                return self.m.toLatLon(code.encode())
+            except ValueError:
+                return "Value Error"
             except:
-            	EnableMGRS = False
+                EnableMGRS = False
         return "This feature is currently not installed on this server"
 
 if __name__ == '__main__':
