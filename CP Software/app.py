@@ -788,7 +788,10 @@ class Convert:
 
     def __init__(self):
         if EnableMGRS:
-            self.m = mgrs.MGRS()
+        	try:
+            	self.m = mgrs.MGRS()
+            except:
+            	EnableMGRS = False
         else:
             logging.log(logging.WARN, "This module (MGRS) isn't portable (see github issue #88)")
 
@@ -801,7 +804,10 @@ class Convert:
     def MGRS(self, code):
         logging.info("Code "+code)
         if EnableMGRS:
-            return self.m.toLatLon(code.encode())
+        	try:
+            	return self.m.toLatLon(code.encode())
+            except:
+            	EnableMGRS = False
         return "This feature is currently not installed on this server"
 
 if __name__ == '__main__':
