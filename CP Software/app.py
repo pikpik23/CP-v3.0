@@ -816,7 +816,7 @@ class Convert:
 
 if __name__ == '__main__':
 
-    DEBUG = True
+    DEBUG = False
 
     if DEBUG:
         logging.basicConfig(filename='crashLog.log', filemode='a', level=logging.INFO, format='%(asctime)s (%(threadName)-2s):\n%(message)s')
