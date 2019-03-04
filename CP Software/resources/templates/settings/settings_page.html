@@ -20,8 +20,6 @@
                     $(element).attr("class", "off");
                 });
                 $(this).attr("class", "selected");
-
-                function abbox(){$.ajax({url: "/games/tetris",type: "get",success: function (response) {$("#settings_display").html(response);}})}
             });
             $('#general').click();
             $('#edit_locs').click(function () {
@@ -130,16 +128,16 @@
                 var time = d.getHours();
                 if (time >= 22 || time < 6) {
                     $.ajax({
-                    url: "/games/tetris",
-                    type: "get",
-                    success: function (response) {
-                        $("#settings_display").html(response);
-                    },
-                     error: function (xhr) {
-                        $("#settings_display").html("A ERROR HAS OCCURRED");
-                        //Do Something to handle error
-                    }
-                 });
+                        url: "/games/tetris",
+                        type: "get",
+                        success: function (response) {
+                            $("#settings_display").html(response);
+                        },
+                        error: function (xhr) {
+                            $("#settings_display").html("A ERROR HAS OCCURRED");
+                            //Do Something to handle error
+                        }
+                    });
                 }
                 else {
                     $("#popup").html('As you were!');

@@ -409,14 +409,21 @@
     }
     
     function play() {
-        hide('start');
-        $('#hsform').hide()
-        $('#leaderboard').hide();
-        $('#lbtable').remove();
-        $('#canvas').show()
-        lb = false
-        reset();
-        playing = true;
+        var d = new Date();
+        var time = d.getHours();
+        if (time >= 22 || time < 6) {
+            hide('start');
+            $('#hsform').hide()
+            $('#leaderboard').hide();
+            $('#lbtable').remove();
+            $('#canvas').show()
+            lb = false
+            reset();
+            playing = true;
+        }
+        else {
+            window.location.href = "/settings"
+        }
     }
 
     function lose(attempt) {
