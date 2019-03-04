@@ -522,7 +522,10 @@ def tetris_get_lowest():
             }
         )
     #return ""
-    return jsonify(lst[-1])
+    try:
+        return jsonify(lst[-1])
+    finally:
+        return jsonify({"Score":0})
 
 @APP.route('/instructions')
 def instructions():

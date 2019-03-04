@@ -354,22 +354,22 @@
     }
 
     $('#hssubmit').click(function(){
-        var current = $('#score').html()
+        var current = $('#score').html();
         if (xyzvars == current) {
                 
-            var valid = true
-            var hsdetails = {}
+            var valid = true;
+            var hsdetails = {};
             $('#hsform').find('tr').each(function (index, val) {
                 $(this).find('.hsdata').each(function (index, val) {
-                    var data = $(this).val()
-                    var type = $(this).attr('data')
+                    var data = $(this).val();
+                    var type = $(this).attr('data');
                     hsdetails[type] = data;
                     if (data == null || data == ""){
                         valid = false;
                     }
                 });
             });
-            hsdetails['score'] = xyzvars
+            hsdetails['score'] = xyzvars;
 
             if (valid == true) {
                 $.post("/games/tetris/", hsdetails, function (data, status) {
@@ -383,7 +383,7 @@
             }
         }
         else {
-            alert("An Error has occured")
+            alert("An Error has occured");
             $('#hsform').hide();
             leaderboard();
         }
