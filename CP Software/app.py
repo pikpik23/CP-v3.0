@@ -782,7 +782,23 @@ def conversion(method):
     data = request.form.to_dict()
     logging.info(data)
     if method == "coordinates":
-        return Convert().Cord(data['lat'], data['long'])
+        x = str(Convert().Cord(data['lat'], data['long']))
+        x = x[7:-1]
+
+        y = int(x[5:9])
+        x = int(x[:4])
+
+        if int(str(y)[-1]) > 5:
+            y = int(str(y)[:3]) + 1
+        else:
+            y = int(str(y)[:3])
+
+        if int(str(x)[-1]) > 5:
+            x = int(str(x)[:3]) + 1
+        else:
+            x = int(str(x)[:3])
+
+        return str(x)+", "+str(y)
     elif method == "mgrs":
         return str(Convert().MGRS(str(data['prefix']+data['gr'])))
     return "error"
