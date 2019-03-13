@@ -106,3 +106,7 @@ pylama.ini
 
 #PyCharm Memes
 **/.idea/*
+
+# RO_Temp_File
+test-output.docx
+RO_AUT/test-output.docx
