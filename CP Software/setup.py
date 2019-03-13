@@ -9,7 +9,7 @@ Requires active developer signature to complete properly
 from setuptools import setup
 
 APP = ['app.py']
-APP_NAME = "Command Post V3.0"
+APP_NAME = "Command Post V3.2"
 DATA_FILES = ['CP.icns','resources', 'file.py',"CPL.gif"]
 OPTIONS = {
     'argv_emulation': True,
@@ -46,10 +46,10 @@ OPTIONS = {
         'plist': {
                 'CFBundleName': APP_NAME,
                 'CFBundleDisplayName': APP_NAME,
-                'CFBundleGetInfoString': "Portaloo Duty FTW",
+                'CFBundleGetInfoString': "Portaloo Duty INC.",
                 'CFBundleIdentifier': "com.RenierLambinon.CommandPostV3.0",
-                'CFBundleVersion': "3.0-Alpha",
-                'CFBundleShortVersionString': "3.0-Alpha",
+                'CFBundleVersion': "3.2",
+                'CFBundleShortVersionString': "3.2",
                 'NSHumanReadableCopyright': u"Copyright © 2019, Renier Lambinon and Trent Muskens",
                 'NSSystemAdministrationUsageDescription': "Needs this to lock port 80"
             }
