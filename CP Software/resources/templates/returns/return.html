@@ -213,7 +213,14 @@
                 }, 3000);
                 document.getElementById("main_form").reset()
             });
+        
+            $('#previous').click(function () {
+                window.frames["printf"].focus();
+                window.frames["printf"].print();
+            });
+        
         });
+
     </script>
 
 </head>
@@ -360,10 +367,14 @@
                     <input type="checkbox" id="check" name="check"> Print</label>
             </td>
             <td>
-                <button type="button" id="record" class="button">Record</button>
+                <button type="button" id="record" class="btnMed">Record</button>
             </td>
             <td>
-                <button type="reset" id="cancel">Cancel</button>
+                <button type="reset" id="cancel" class="btnMed">Cancel</button>
+            </td>
+            <td style="width: 25px"></td>
+            <td>
+                <button type="button" class="btnLge" id="previous">Print Previous</button>
             </td>
         </tr>
 
