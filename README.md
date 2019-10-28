@@ -1,11 +1,12 @@
 # Command Post v3.0
+* This repository includes a series of random Cadet related programs, mainly the new Command Post Software.
+
 
 ## Normal Software
 * # Go to the [releases tab](https://github.com/pikpik23/CP-v3.0/releases/latest) for the compiled version
 
 
 
-* This repository includes a series of random Cadet related programs, mainly the new Command Post Software.
 
 ## Development of CP 3.0
 **Prerequisites**
