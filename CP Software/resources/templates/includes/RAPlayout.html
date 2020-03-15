@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KGSACU CP</title>
+    <link rel="stylesheet" href="/styles/mainRAP.css">
+</head>
+<script type="text/javascript" src="js_files/egg.js"></script>
+<script type="text/javascript" src="js_files/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var memes = new Egg("r,e,p,e,a,t", function () {
+            jQuery('#repeat').fadeIn(500, function () {
+                window.setTimeout(function () {
+                    jQuery('#repeat').hide();
+                }, 3000);
+            });
+        }).listen();
+    });
+</script>
+<body>
+{% include '/includes/_RAPnavbar.html' %}
+
+<div class="container">
+    {% block body %}
+    {% endblock %}
+</div>
+<img src="/images/repeat.gif" id="repeat">
+</body>
+
+
+</html>

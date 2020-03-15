@@ -320,6 +320,7 @@ class File:
     @staticmethod
     def generate_css_min():
         MinifyFilesPre.min_css_file('resources/static/styles/main.css')
+        MinifyFilesPre.min_css_file('resources/static/styles/mainRAP.css')
 
     @staticmethod
     def pre_merge(merge=False):

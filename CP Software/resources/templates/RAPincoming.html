@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/js_files/jquery-3.1.1.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+
+{% extends '/includes/RAPlayout.html' %} {% block body %}
+
+    <script src="/js_files/jquery-3.1.1.js"></script>
+    <script src="/js_files/jquery.floatThead.min.js"></script>
+    <script src="/js_files/clipboard.min.js"></script>
+
+
+    <script id="JsLoadScript" type="text/javascript">
+        function createModal() {
+
+// Get the modal
+            var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+            var btn = document.getElementById("edit_log_entry");
+
+// When the user clicks the button, open the modal
+            btn.onclick = function () {
+
+                var logSerial = $("#logPrint").contents().find("#logID_text")[0].textContent;
+                //alert(logSerial);
+
+                $.get('/log/edit/' + logSerial).done(function (response) {
+                    $('.modal-content').html(response);
+
+                    var span = document.getElementById("cancel");
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    };
+
+                    $('#record').click(function () {
+                        var arr = {};
+                        var table = $(".return_table");
+                        if ($('#logName').html() === 'MESSAGE') {
+                            arr['msg'] = document.getElementById('textInput').value
+                        }
+                        else {
+                            var loop = table.find('.itext').each(function test(index, element) {
+                                type = $(this).attr('type');
+                                if (type != 'radio') {
+                                    var serial = $(this).attr('name');
+                                    var data = $(this).val();
+                                    if (data == null || data == "") {
+                                        var missing = confirm("You are missing a serial. Would you like to continue?");
+                                        if (missing == true) {
+                                        }
+                                        else {
+                                            console.log("recording");
+                                            return true;
+                                        }
+                                    }
+                                    arr[serial] = data;
+                                }
+                                else {
+                                    if ($(this).is(':checked')) {
+                                        var serial = $(this).attr('name');
+                                        var data = $(this).val();
+                                        arr[serial] = data;
+                                    }
+                                    else {
+                                    }
+                                }
+                            });
+                        }
+
+                        if (loop == true) {
+                            return;
+                        }
+                        var to = $('#inputTo').val();
+                        var from = $('#inputFrom').val();
+                        if (to == null || to == "") {
+                            alert("Please enter a value for the To field");
+                            return;
+                        }
+                        if (from == null || from == "") {
+                            alert("Please enter a value for the From field");
+                            return;
+                        }
+
+                        $.extend(arr, {return_type: $('#return_type').html()});
+                        $.extend(arr, {logID: document.getElementById('logID_Content').innerHTML});
+                        $.extend(arr, {time: document.getElementById('logTime').innerHTML});
+                        $.extend(arr, {name: document.getElementById('logName').innerHTML});
+                        $.extend(arr, {cs: document.getElementById('callsign').textContent});
+                        $.extend(arr, {duty: document.getElementById('duty_officer').textContent});
+                        $.extend(arr, {net: document.getElementById('net_name').textContent});
+                        $.extend(arr, {receiver: document.getElementById('inputTo').value});
+                        $.extend(arr, {sender: document.getElementById('inputFrom').value});
+
+                        var checked = document.getElementById("check").checked;
+
+                        $.post("/log/edit/" + document.getElementById('logID_Content').innerHTML, arr, function (data, status) {
+                            document.getElementById('printf').contentDocument.body.innerHTML = data;
+                            if (checked) {
+                                window.frames["printf"].focus();
+                                window.frames["printf"].print();
+                            }
+                            modal.style.display = "none";
+                        });
+                    });
+
+                    modal.style.display = "block";
+                });
+            };
+
+
+// When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }
+
+        function unbindAll() {
+            $("#log_delete_btn").unbind("click");
+            $(".dataRow").unbind("click");
+            $("#print").unbind("click");
+            $("#log_delete_btn").unbind("click");
+            $(document).off("keydown");
+            $("#clear").unbind("click");
+            $("#search").unbind("click");
+            $("#copyButton").unbind("click");
+        }
+
+        function load() {
+            $("#log_delete_btn").click(function () {
+                $.post("/log/delete/by_id", {logID: $("#logPrint").contents().find("#logID_text")[0].textContent}, function (data, status) {
+                    //alert("Data: " + data + "\nStatus: " + status);
+                });
+            });
+
+            $(".dataRow").click(function () {
+                var row_id = $(this).attr('id');
+                $("#logPrint").attr("src", "log/" + row_id);
+                var table_body =  $(".table_body")
+                table_body.find('tr').each(function (index, val) {
+                    $(this).attr("class", "rowOff dataRow");
+                });
+                $(this).attr("class", "rowSelected dataRow");
+
+            });
+            $("#0").attr("class", "rowSelected dataRow");
+            $('#logs').floatThead({});
+
+
+            $("#print").click(function () {
+                window.frames["printf"].focus();
+                window.frames["printf"].print();
+            });
+            $('.table_body tr').first().click();
+
+            $(document).on("keydown", function(){
+                if (event.keyCode === 38) {
+                    event.preventDefault();
+                    //UP ARROW
+                    $('tr.rowSelected').prev().click()
+                }
+                if (event.keyCode === 40) {
+                    event.preventDefault();
+                    //DOWN ARROW
+                    $('tr.rowSelected').next().click()
+                }
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    //ENTER
+                    $("#search").click();
+                }
+                if (event.keyCode === 27) {
+                    event.preventDefault();
+                    //ESCAPE
+                    $("#clear").click();
+                }
+
+            });
+            $("#search").click(function () {
+                var query = {};
+                var table = $('#query_table');
+                table.find('tr').each(function (index, val) {
+                    $(this).find('.query_input').each(function (index, val) {
+                        var value = $(this).val();
+                        var type = $(this).attr('query_type');
+                        query[type] = value;
+                    });
+                });
+                // alert(JSON.stringify(query));
+                $.post("/log/query", query, function (data, status) {
+                    $(".table_body")[0].innerHTML = data;
+                    unbindAll()
+                    load();
+                    //alert("Data: " + data + "\nStatus: " + status);
+                });
+            });
+
+            $("#clear").click(function () {
+                var table = $('#query_table');
+                table.find('tr').each(function (index, val) {
+                    $(this).find('.query_input').each(function (index, val) {
+                        $(this).val('')
+                    });
+                });
+                $("#search").click()
+            });
+
+
+            $("#copyButton").click(function () {
+                var copyTable = $("#logPrint").contents().find("#logTable");//[0].textContent;
+                data = []
+                copyTable.find('tr').each(function (index, val) {
+                    $(this).find('.return_data').each(function (index, val) {
+                        var thisData = $(this)[0].textContent;
+                        data.push(thisData);
+                    });
+                });
+                var copyTable2 = $("#logPrint").contents().find("#logTable2");
+                copyTable2.find('tr').each(function (index, val) {
+                    $(this).find('.return_data').each(function (index, val) {
+                        var thisData = $(this)[0].textContent;
+                        data.push(thisData);
+                    });
+                });
+
+                var table = document.createElement('table');
+                table.setAttribute('id','tablecop');
+                var tableBody = document.createElement('tbody');
+                var row = document.createElement('tr');
+                data.forEach(function(cellData) {
+                    var cell = document.createElement('td');
+                    cell.appendChild(document.createTextNode(cellData));
+                    row.appendChild(cell);
+                });
+                tableBody.appendChild(row);
+                table.appendChild(tableBody);
+                document.body.appendChild(table);
+
+                //var clipboard = new ClipboardJS('.copy');
+                var button = document.createElement('button');
+                button.setAttribute('id','buttoncop');
+                button.setAttribute('data-clipboard-target','#tablecop');
+                document.body.appendChild(button);
+
+                $('#buttoncop').click(function(){
+                    var clipboard = new ClipboardJS('#buttoncop');
+                });
+
+
+                $('#buttoncop').click();
+
+                $('#buttoncop').remove();
+                $('#tablecop').remove();
+
+            });
+
+
+            createModal()
+
+        console.log("I have loaded")
+
+
+        }
+    </script>
+
+
+    <section>
+
+     <p>Incoming admin returns related to the RAP. CASEVACs, STARLIGHTREQs, NOTICASes,
+         and related messages that are recorded by the CP will appear here, awaiting to be resolved.</p>
+
+    <div class="RAPIncomingColumn">
+        <div class="banner">
+            <a>Incoming Notifications</a>
+        </div>
+
+
+        <div class="logTable">
+            <div class="table-scroll">
+                <table class="tableLog" id="RAPIncomingTable">
+                    <thead>
+                    <tr class="head2">
+                        <th class="tdTime">Time</th>
+                        <th class="tdType">Type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table_body">
+                    {% for incomingEntry in log if not (incomingEntry['RAP'] == 'active<br>' or
+                    incomingEntry['RAP'] == 'archived<br>') and (incomingEntry['name'] == "NOTICAS" or
+                    incomingEntry['name'] == "CASEVAC" or incomingEntry['name'] == "STARLIGHTREQ" ) %}
+
+                            <tr class="rowOff dataRow" id="{{ incomingEntry['logID'] }}">
+                                <td>{{ incomingEntry['time'] }}</td>
+                                <td>{{ incomingEntry['name'] }}</td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="RAPActiveColumn">
+        <div class="banner">
+            <a>Active Notifications</a>
+        </div>
+
+
+        <div class="logTable">
+            <div class="table-scroll">
+                <table class="tableLog" id="RAPActiveTable">
+                    <thead>
+                    <tr class="head2">
+                        <th class="tdTime">Time</th>
+                        <th class="tdType">Type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table_body">
+                    {% for activeEntry in log if activeEntry['RAP'] == "active<br>" and (activeEntry['name'] == "NOTICAS"
+                    or activeEntry['name'] == "CASEVAC" or activeEntry['name'] == "STARLIGHTREQ" ) %}
+
+                            <tr class="rowOff dataRow" id="{{ activeEntry['logID'] }}">
+                                <td>{{ activeEntry['time'] }}</td>
+                                <td>{{ activeEntry['name'] }}</td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="RAPArchivedColumn">
+        <div class="banner">
+            <a>Archived Notifications</a>
+        </div>
+
+
+        <div class="logTable">
+            <div class="table-scroll">
+                <table class="tableLog" id="RAPArchivedTable">
+                    <thead>
+                    <tr class="head2">
+                        <th class="tdTime">Time</th>
+                        <th class="tdType">Type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table_body">
+                    {% for archivedEntry in log if archivedEntry['RAP'] == 'archived<br>' and
+                    (archivedEntry['name'] == "NOTICAS" or archivedEntry['name'] == "CASEVAC"
+                    or archivedEntry['name'] == "STARLIGHTREQ" ) %}
+
+                            <tr class="rowOff dataRow" id="{{ archivedEntry['logID'] }}">
+                                <td>{{ archivedEntry['time'] }}</td>
+                                <td>{{ archivedEntry['name'] }}</td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="query">
+        <table id="query_table">
+            <tr>
+                <td><b>Query</b></td>
+            </tr>
+            <tr>
+                <td colspan="6">
+                    Type parameters seperated by commas to filter log. Leaving the field blank will allow any option.
+                </td>
+            </tr>
+            <tr>
+                <td>Time (DTG)</td>
+                <td><input class="query_input log_time" query_type="logTimeFrom" type="text"> to <input class="query_input log_time" query_type="logTimeTo" type="text"></td>
+                <td>To</td>
+                <td><input class="query_input" list="callsigns" query_type="reciever" type="text"></td>
+                <td>LogID</td>
+                <td><input class="query_input" query_type="logID" type="text"></td>
+            </tr>
+            <tr>
+                <td>Net</td>
+                <td><input class="query_input" query_type="net" type="text"></td>
+                <td>From</td>
+                <td><input class="query_input" list="callsigns" query_type="sender" type="text"></td>
+                <td>Content</td>
+                <td><input class="query_input" query_type="other" type="text"></td>
+            </tr>
+            <tr>
+                <td>Duty Officer</td>
+                <td><input class="query_input" query_type="dutyOfficer" type="text"></td>
+                <td>Type</td>
+                <td><input class="query_input" query_type="returnType" type="text" list="returns_list"></td>
+
+                <datalist id="returns_list">
+                    <option>MESSAGE</option>
+                    {% for return_type in serials_def %}
+                    <option>{{return_type}}</option>
+                    {% endfor %}
+                </datalist>
+                <datalist id="callsigns">
+                    {% for callsign in callsigns %}
+                        <option value="{{ callsign }}">{{ callsign }}</option>
+                    {% endfor %}
+                </datalist>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button class="btnSmall" id="search">Search</button>
+                    <button class="btnSmall" id="clear">Clear</button>
+                </td>
+            </tr>
+        </table>
+
+
+        </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content"></div>
+    </div>
+
+
+    <div class="logDisplay">
+    <iframe id="logPrint" name="printf"></iframe>
+    <div class="foot">
+        <table class="footTable">
+            <tr class=submit>
+                <td>
+                    <button id="print">Print</button>
+                </td>
+                <td>
+                    <button id="edit_log_entry">Edit</button>
+                </td>
+                <td>
+                    <button id="log_delete_btn">Delete</button>
+                </td>
+                <td>
+                    <button id="incoming_move_button">Set as Incoming</button>
+                </td>
+                <td>
+                    <button id="active_move_button">Set as Active</button>
+                </td>
+                <td>
+                    <button id="archived_move_button">Archive</button>
+                </td>
+
+                <td class="fill"></td>
+            </tr>
+
+        </table>
+        <table>
+
+        </table>
+    </div>
+
+    <script>
+        $(document).ready = load();
+    </script>
+
+{% endblock %}
+
+</div>
+
+</section>
+</body>
+</html>

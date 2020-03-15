@@ -126,7 +126,7 @@ nav a {
 
 .topnav {
     overflow: hidden;
-    background-color: #67747c;
+    background-color: #fc3d03;
     width: 100%;
     position: fixed;
     top: 0;
@@ -263,7 +263,7 @@ input {
 
 .banner {
     overflow: hidden;
-    background-color: #288ad6;
+    background-color: #fc3d03;
     width: 100%;
 }
 
@@ -426,14 +426,47 @@ label:hover {
 
 /*---------------------------- LOG --------------------*/
 
-.logLeft {
+.RAPIncomingColumn {
     position: fixed;
     z-index: 1;
     top: 56px;
     left: 6px;
     right: 0;
     bottom: 6px;
-    margin-right: 612px;
+    margin-right: 1150px;
+    margin-bottom: 186px;
+    overflow-x: hidden;
+    border-color: rgb(187, 187, 187);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.RAPActiveColumn {
+    position: fixed;
+    z-index: 1;
+    top: 56px;
+    left: 6px;
+    right: 0;
+    bottom: 6px;
+    margin-left: 292px;
+    margin-right: 858px;
+    margin-bottom: 186px;
+    overflow-x: hidden;
+    border-color: rgb(187, 187, 187);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.RAPArchivedColumn {
+    position: fixed;
+    z-index: 1;
+    top: 56px;
+    left: 6px;
+    right: 0;
+    bottom: 6px;
+    margin-left: 584px;
+    margin-right: 566px;
+    margin-bottom: 186px;
     overflow-x: hidden;
     border-color: rgb(187, 187, 187);
     border-style: solid;
@@ -450,7 +483,7 @@ label:hover {
 }
 
 .logDisplay {
-    width: 600px;
+    width: 550px;
     position: fixed;
     top: 0;
     bottom: 6px;
@@ -601,6 +634,7 @@ br {
     left: 10px;
     right: 10px;
     height: 185px;
+    margin-right: 556px;
     /*border: 1px solid #ddd;*/
 }
 

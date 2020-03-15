@@ -22,7 +22,6 @@ from file import File, SaveTimer, backup
 from flask_compress import Compress
 from threading import Thread
 from time import sleep
-import requests
 from requests import post
 import requests
 import socket
@@ -80,6 +79,17 @@ def notes():
     """ Renders the notes page """
     return render_template('notes.html')
 
+@APP.route('/RAPincoming')
+def RAPincoming():
+    """ Renders the RAP Interface's 'incoming' page """
+    log = File.load_log(DB_CONN)
+    return render_template('RAPincoming.html', serials_def=SERIALS, log=log, callsigns=CALLSIGNS)
+
+
+@APP.route('/RAPactive')
+def RAPactive():
+    """ Renders the RAP Interface's 'active' page """
+    return render_template('`RAP`active.html')
 
 @APP.route('/settings/update/', methods=['POST'])
 def settings_general_update_post():
@@ -475,9 +485,9 @@ def handle_500_error(e):
     err = str(e).replace(" ","%20")
     print(err)
     return "Oops...<br>Please send "+\
-           '<a href="mailto:rlambinon19@knox.nsw.edu.au?subject=CP%20BUG&body=ERROR:%20'+\
+           '<a href="mailto:jwainwright20@knox.nsw.edu.au?subject=CP%20BUG&body=ERROR:%20'+\
            err+'">'+\
-           "rlambinon19@knox.nsw.edu.au</a> "+\
+           "jwainwright20@knox.nsw.edu.au</a> "+\
            "an email with: <br>"+str(e)
 
 
@@ -551,6 +561,8 @@ def api_handler(action):
         shutdown_server()
         resp = "2"
     return resp
+
+
 
 def open_chrome():
     sleep(1)
@@ -749,7 +761,7 @@ class helpgui:
         help_label['text'] = \
         "\n" \
         "Type the IP Address into Chrome to connect to the CP server\n\n" \
-        "If you need help Contact CUO Lambinon or CUO Muskens"
+        "If you need help Contact CUO Wainwright"
 
         help_label.grid(column=0, row=x, columnspan=2)
 

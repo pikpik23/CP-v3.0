@@ -1,5 +1,5 @@
 callsign\0A
-Duty\MUSKENS
+Duty\Pancino/Weeding
 net\HQ NET
-DB_FILE_NAME\resources/static/db/LOG_1.db
+DB_FILE_NAME\resources/static/db/LOG_7.db
 DB_TABLE_NAME\'LOG_RETURNS'
