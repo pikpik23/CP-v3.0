@@ -1,0 +1,22 @@
+version: 2
+updates:
+- package-ecosystem: pip
+  directory: "/CP Software"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  allow:
+  - dependency-type: direct
+  - dependency-type: indirect
+  ignore:
+  - dependency-name: py2app
+    versions:
+    - "0.23"
+- package-ecosystem: pip
+  directory: "/RO_AUT"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  allow:
+  - dependency-type: direct
+  - dependency-type: indirect
