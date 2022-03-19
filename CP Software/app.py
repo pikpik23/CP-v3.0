@@ -475,9 +475,9 @@ def handle_500_error(e):
     err = str(e).replace(" ","%20")
     print(err)
     return "Oops...<br>Please send "+\
-           '<a href="mailto:rlambinon19@knox.nsw.edu.au?subject=CP%20BUG&body=ERROR:%20'+\
+           '<a href="mailto:lambinonr@knox.nsw.edu.au?subject=CP%20BUG&body=ERROR:%20'+\
            err+'">'+\
-           "rlambinon19@knox.nsw.edu.au</a> "+\
+           "lambinonr@knox.nsw.edu.au</a> "+\
            "an email with: <br>"+str(e)
 
 

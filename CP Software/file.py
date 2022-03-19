@@ -9,6 +9,7 @@ from glob import glob
 import os
 import shutil
 import logging
+import json
 
 class MinifyFilesPre:
     def __init__(self, merge=False):
@@ -338,60 +339,67 @@ class File:
     @staticmethod
     def save_dic(dic):
         """ Saves the given dictionary of serials to a file """
-        w = writer(open("resources/files/serials.csv", "w", newline="\n"))
-        w.writerow(['Return Name', 'Serials'])
-        for name, serials in dic.items():
-            lst = []
-            if name == "Return Name":
-                lst.append(name)
-                lst.append(serials)
-            else:
-                for serial in serials:
-                    if serial == "Return Name":
-                        lst.append(serials)
-                    else:
-                        inner_lst = []
-                        for cont in serials[serial]:
-                            if cont == "options":
-                                inner_lst.append(cont + ";;@@;;" +
-                                                 ";;##;;".join(
-                                                     serials
-                                                     [serial]
-                                                     ["options"]))
-                            else:
-                                inner_lst.append(
-                                    cont + ";;@@;;" + serials[serial][cont])
-                        lst.append(serial + ';;:::;;' + ";;!!!;;".join(inner_lst))
-            w.writerow([(name), (';;,,,;;'.join(lst))])
+        json.dump(dic, open("resources/files/serials.csv", "w"))
+
+
+        # w = writer(open("resources/files/serials.csv", "w", newline="\n"))
+        # w.writerow(['Return Name', 'Serials'])
+        # for name, serials in dic.items():
+        #     lst = []
+        #     if name == "Return Name":
+        #         lst.append(name)
+        #         lst.append(serials)
+        #     else:
+        #         for serial in serials:
+        #             if serial == "Return Name":
+        #                 lst.append(serials)
+        #             else:
+        #                 inner_lst = []
+        #                 for cont in serials[serial]:
+        #                     if cont == "options":
+        #                         inner_lst.append(cont + ";;@@;;" +
+        #                                          ";;##;;".join(
+        #                                              serials
+        #                                              [serial]
+        #                                              ["options"]))
+        #                     else:
+        #                         inner_lst.append(
+        #                             cont + ";;@@;;" + serials[serial][cont])
+        #                 lst.append(serial + ';;:::;;' + ";;!!!;;".join(inner_lst))
+        #     w.writerow([(name), (';;,,,;;'.join(lst))])
 
     @staticmethod
     def read_dic():
         """ reads the dictionary of serials """
         # should return the original format
         dic = OrdDic()
-        logging.log(logging.INFO, "File path: "+os.path.realpath(__file__))
-        r = reader(open("resources/files/serials.csv", "r", newline="\n"))
-        i = 0
-        for row in r:
-            if i:
-                inner_dic = OrdDic()
-                for serial in row[1].split(';;,,,;;'):
-                    serial = serial.split(';;:::;;')
-                    sub_dic = OrdDic()
-                    for sub_serial in serial[1].split(';;!!!;;'):
-                        sub_serial = sub_serial.split(";;@@;;")
-                        if sub_serial[0] == 'options':
-                            options = sub_serial[1].split(";;##;;")
-                            sub_dic.update({sub_serial[0]: options})
-                        else:
-                            sub_dic.update(
-                                {sub_serial[0]: sub_serial[1]})
-                    inner_dic.update({serial[0]: sub_dic})
-                # lst = row[1].split('\\')
-                dic.update({row[0]: inner_dic})
-            else:
-                i += 1
-            # print(" * Read Dictionary")
+        dic.update(json.load(open("resources/files/serials.csv", "r")))
+
+
+        # OLD CODE
+        # logging.log(logging.INFO, "File path: "+os.path.realpath(__file__))
+        # r = reader(open("resources/files/serials.csv", "r", newline="\n"))
+        # i = 0
+        # for row in r:
+        #     if i:
+        #         inner_dic = OrdDic()
+        #         for serial in row[1].split(';;,,,;;'):
+        #             serial = serial.split(';;:::;;')
+        #             sub_dic = OrdDic()
+        #             for sub_serial in serial[1].split(';;!!!;;'):
+        #                 sub_serial = sub_serial.split(";;@@;;")
+        #                 if sub_serial[0] == 'options':
+        #                     options = sub_serial[1].split(";;##;;")
+        #                     sub_dic.update({sub_serial[0]: options})
+        #                 else:
+        #                     sub_dic.update(
+        #                         {sub_serial[0]: sub_serial[1]})
+        #             inner_dic.update({serial[0]: sub_dic})
+        #         # lst = row[1].split('\\')
+        #         dic.update({row[0]: inner_dic})
+        #     else:
+        #         i += 1
+        #     # print(" * Read Dictionary")
         return dic
 
     @staticmethod
@@ -435,22 +443,31 @@ class File:
     @staticmethod
     def read_settings():
         """ reads the settings from file """
-        r = open("resources/files/settings.txt", "r", newline="\n")
+        
         settings = OrdDic()
-        for option in r.read().split('\n'):
-            try:
-                option = option.split('\\')
-                settings.update({option[0]: option[1]})
-            except IndexError:
-                pass
+        settings.update(json.load(open("resources/files/settings.txt", "r")))
+
+        ## OLD WAY BELOW
+
+        #r = open("resources/files/settings.txt", "r", newline="\n")
+        # for option in r.read().split('\n'):
+        #     try:
+        #         #option = option.split('\\')
+        #         #settings.update({option[0]: option[1]})
+        #         # settings.update(json.loads(option))
+        #     except IndexError:
+        #         pass
         return settings
 
     @staticmethod
     def save_settings(dic):
         """ saves the given settings (dictionary) to file """
-        with open("resources/files/settings.txt", "w", newline="\n") as w:
-            for sett, val in dic.items():
-                w.write(sett + '\\' + val + '\n')
+        json.dump(dic, open("resources/files/settings.txt", "w"))
+
+        # LEGACY
+        # with open("resources/files/settings.txt", "w", newline="\n") as w:
+        #     for sett, val in dic.items():
+        #         w.write(sett + '\\' + val + '\n')
 
     @staticmethod
     def save_log(self, log, update=False):
@@ -471,12 +488,17 @@ class File:
         for key in main_keys:
             # print(key)
             lst.append(log[key])
-        inn_lst = []
-        for serial, val in log.items():
-            if not (serial in main_keys):
-                inn_lst.append(serial + '\\' + val)
+            log.pop(key)
+        
+        # LEGACY
+        # inn_lst = []
+        # for serial, val in log.items():
+        #     if not (serial in main_keys):
+        #         inn_lst.append(serial + '\\' + val)
 
-        lst.append('||'.join(inn_lst))
+        # lst.append('||'.join(inn_lst))
+
+        lst.append(json.dumps(log))
 
         # print(lst)
 
@@ -505,14 +527,17 @@ class File:
                 ret.update({'duty': row[5]})
                 ret.update({'net': row[6]})
 
-                for serial_data in row[7:]:
-                    try:
-                        for serial in serial_data.split('||'):
-                            ser, val = serial.split('\\')
-                            val = "" + val
-                            ret.update({ser: str(val)})
-                    except AttributeError:
-                        print('The Db structure is incorrect')
+                ret.update(json.loads(row[7]))
+
+                # LEGACY
+                # for serial_data in row[7:]:
+                #     try:
+                #         for serial in serial_data.split('||'):
+                #             ser, val = serial.split('\\')
+                #             val = "" + val
+                #             ret.update({ser: str(val)})
+                #     except AttributeError:
+                #         print('The Db structure is incorrect')
                 local_log.append(ret)
 
             except TypeError:
@@ -544,14 +569,17 @@ class File:
                 ret.update({'duty': row[5]})
                 ret.update({'net': row[6]})
 
-                for serial_data in row[7:]:
-                    try:
-                        for serial in serial_data.split('||'):
-                            ser, val = serial.split('\\')
-                            val = "" + val
-                            ret.update({ser: str(val)})
-                    except AttributeError:
-                        print('The Db structure is incorrect')
+                ret.update(json.loads(row[7]))
+
+                # LEGACY
+                # for serial_data in row[7:]:
+                #     try:
+                #         for serial in serial_data.split('||'):
+                #             ser, val = serial.split('\\')
+                #             val = "" + val
+                #             ret.update({ser: str(val)})
+                #     except AttributeError:
+                #         print('The Db structure is incorrect')
 
             except TypeError:
                 pass  # This is handled upon return (it returns None type)
@@ -579,14 +607,17 @@ class File:
                     ret.update({'duty': row[5]})
                     ret.update({'net': row[6]})
 
-                    for serial_data in row[7:]:
-                        try:
-                            for serial in serial_data.split('||'):
-                                ser, val = serial.split('\\')
-                                val = "" + val
-                                ret.update({ser: str(val)})
-                        except AttributeError:
-                            print('The Db structure is incorrect')
+                    ret.update(json.loads(row[7]))
+
+                    # LEGACY
+                    # for serial_data in row[7:]:
+                    #     try:
+                    #         for serial in serial_data.split('||'):
+                    #             ser, val = serial.split('\\')
+                    #             val = "" + val
+                    #             ret.update({ser: str(val)})
+                    #     except AttributeError:
+                    #         print('The Db structure is incorrect')
                     local_log.append(ret)
 
                 except TypeError:

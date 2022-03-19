@@ -1,5 +1,1 @@
-callsign\0A
-Duty\MUSKENS
-net\HQ NET
-DB_FILE_NAME\resources/static/db/LOG_1.db
-DB_TABLE_NAME\'LOG_RETURNS'
+{"callsign": "0A", "Duty": "Lambinon", "net": "HQ NET", "DB_FILE_NAME": "resources/static/db/LOG_4.db", "DB_TABLE_NAME": "LOG_RETURNS"}
